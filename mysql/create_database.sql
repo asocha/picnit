@@ -48,3 +48,17 @@ CREATE TABLE favorites (
 	FOREIGN KEY (image_id) REFERENCES images (image_id) ON DELETE CASCADE,
 	PRIMARY KEY (member_id, image_id)
 );
+
+CREATE TABLE categories (
+	category_id	INT UNSIGNED	NOT NULL,
+	category	TEXT		NOT NULL,
+	PRIMARY KEY (category_id)
+);
+
+CREATE TABLE category_tags (
+	category_id	INT UNSIGNED	NOT NULL,
+	image_id	INT UNSIGNED	NOT NULL,
+	FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE,
+	FOREIGN KEY (image_id) REFERENCES images (image_id) ON DELETE CASCADE,
+	PRIMARY KEY (category_id, image_id)
+);
