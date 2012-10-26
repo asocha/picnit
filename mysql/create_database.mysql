@@ -6,19 +6,28 @@ CREATE TABLE members (
 	member_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
 	is_admin	BOOL		NOT NULL,
 	is_suspended	BOOL		NOT NULL,
-	username	VARCHAR(16)	NOT NULL,
+	username	VARCHAR(15)	NOT NULL,
 	password	BINARY(32)	NOT NULL,
-	email		VARCHAR(64)	NOT NULL,
+	email		TEXT		NOT NULL,
 	PRIMARY KEY (member_id)
 );
 
 CREATE TABLE images (
 	image_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
-	owner_id	INT UNSIGNED	NOT NULL,
+	album_id	INT UNSIGNED	NOT NULL,
 	is_public	BOOL		NOT NULL,
-	link		CHAR(48)	NOT NULL,
+	link		CHAR(32)	NOT NULL,
 	date_added	DATE		NOT NULL,
 	PRIMARY KEY (image_id),
+	FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
+);
+
+CREATE TABLE albums (
+	album_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
+	owner_id	INT UNSIGNED	NOT NULL,
+	date_created	DATE		NOT NULL,
+	name		VARCHAR(63)	NOT NULL,
+	PRIMARY KEY (album_id),
 	FOREIGN KEY (owner_id) REFERENCES members (member_id) ON DELETE CASCADE
 );
 
@@ -51,7 +60,8 @@ CREATE TABLE favorites (
 
 CREATE TABLE categories (
 	category_id	INT UNSIGNED	NOT NULL,
-	category	TEXT		NOT NULL,
+	category	VARCHAR(63)	NOT NULL,
+	UNIQUE KEY (category),
 	PRIMARY KEY (category_id)
 );
 
@@ -61,4 +71,12 @@ CREATE TABLE category_tags (
 	FOREIGN KEY (category_id) REFERENCES categories (category_id) ON DELETE CASCADE,
 	FOREIGN KEY (image_id) REFERENCES images (image_id) ON DELETE CASCADE,
 	PRIMARY KEY (category_id, image_id)
+);
+
+CREATE TABLE follows (
+	follower_id	INT UNSIGNED	NOT NULL,
+	followee_id	INT UNSIGNED	NOT NULL,
+	FOREIGN KEY (follower_id) REFERENCES members (member_id) ON DELETE CASCADE,
+	FOREIGN KEY (followee_id) REFERENCES members (member_id) ON DELETE CASCADE,
+	PRIMARY KEY (follower_id, followee_id)
 );
