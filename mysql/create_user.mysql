@@ -1,2 +1,2 @@
-CREATE USER 'webuser'@'localhost' IDENTIFIED BY 'AwesomeSecurePassword';
-GRANT ALL PRIVILEGES ON picnit TO 'webuser'@'localhost';
+CREATE USER 'picnit'@'localhost' IDENTIFIED BY 'PhotoDolo247';
+GRANT ALL PRIVILEGES ON picnit.* TO 'picnit'@'localhost';

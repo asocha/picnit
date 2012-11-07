@@ -13,16 +13,6 @@ CREATE TABLE members (
 	PRIMARY KEY (member_id)
 );
 
-CREATE TABLE images (
-	image_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
-	album_id	INT UNSIGNED	NOT NULL,
-	is_public	BOOL		NOT NULL,
-	link		CHAR(32)	NOT NULL,
-	date_added	DATE		NOT NULL,
-	PRIMARY KEY (image_id),
-	FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
-);
-
 CREATE TABLE albums (
 	album_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
 	owner_id	INT UNSIGNED	NOT NULL,
@@ -30,6 +20,16 @@ CREATE TABLE albums (
 	name		VARCHAR(63)	NOT NULL,
 	PRIMARY KEY (album_id),
 	FOREIGN KEY (owner_id) REFERENCES members (member_id) ON DELETE CASCADE
+);
+
+CREATE TABLE images (
+        image_id        INT UNSIGNED    NOT NULL AUTO_INCREMENT,
+        album_id        INT UNSIGNED    NOT NULL,
+        is_public       BOOL            NOT NULL,
+        link            CHAR(32)        NOT NULL,
+        date_added      DATE            NOT NULL,
+        PRIMARY KEY (image_id),
+        FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
 );
 
 CREATE TABLE comments (
