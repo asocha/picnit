@@ -26,8 +26,11 @@
 		public function login() {
 			//Get the vars
 			$username = mysql_real_escape_string($_POST['username']);
-			if(isset($_POST['password']))
-				$password = md5($_POST['password']);
+			if (isset($_POST['password'])) {
+				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1", $this->link);
+				if (mysql_num_rows($saltqresult) != 0)
+					$password = sha1($_POST['password'].mysql_result($saltqresult, 0));
+			}
 
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
@@ -39,7 +42,6 @@
 				if(mysql_num_rows($sql) > 0) {
 					//Get the row
 					$result = mysql_fetch_array($sql, MYSQL_ASSOC);
-
 					//Send the confirmation!
 					$this->response(json_encode($result));
 				}
