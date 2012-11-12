@@ -20,8 +20,28 @@ div#menubar {
 	margin-top:5px;
 }
 
-form#signin {
+form#signupbut {
 	float:right;
+	margin-left:5px;
+}
+
+form#signinform {
+	float:right;
+}
+
+form#homebut {
+	float:right;
+	margin-right:5px;
+}
+
+input#home {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
 }
 
 input#Username {
@@ -42,7 +62,19 @@ input#Password {
 	color:#FFFFFF;
 }
 
-input#login {
+input#signin {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
+}
+
+
+
+input#sign {
 	background-color: #0C5DA5;
 	border-style:solid;
 	border-width:3px;
@@ -74,7 +106,8 @@ div#searchbar {
 }
 
 form#search {
-	float:right;
+	margin:auto;
+	width:700px;
 }
 
 span#searchlabel {
@@ -88,7 +121,7 @@ input#Searchterm {
 	border-color:#043A6B;
 	-webkit-border-radius:6px;
 	color:#FFFFFF;
-	min-width:595px;
+	min-width:475px;
 }
 
 input#search {
@@ -110,4 +143,19 @@ div#gallery {
 	top: -135px;
 	height: 500px;
 	-webkit-border-radius:12px;
+}
+
+div#info {
+	height:50px;
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	position:relative;
+	top: -130px;
+	-webkit-border-radius:12px;
+}
+div#infotext {
+	margin:auto;
+	width:300px;
 }
