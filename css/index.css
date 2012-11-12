@@ -1,7 +1,5 @@
 body {
 	background-color: #0C5DA5;
-	/*font-family: 'Average Sans','sans-serif';*/
-	/*font-family: 'Kite One', sans-serif;*/
 	font-family: 'Concert One', cursive;
 	min-width:820px;
 }
@@ -158,4 +156,93 @@ div#info {
 div#infotext {
 	margin:auto;
 	width:300px;
+}
+
+div#overlay {
+	/*visibility:hidden;*/
+	position:fixed;
+	top:0px;
+	left:0px;
+	height:100%;
+	width:100%;
+	background-color:#000000;
+	opacity:0.5;
+}
+
+div#signupbar {
+	/*visibility:hidden;*/
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin-left:-250px;
+	margin-top:-150px;
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	width:500px;
+	height:300px;
+	-webkit-border-radius:12px;
+}
+
+form#signupform {
+	margin:auto;
+	width:500px;
+	height:300px;
+}
+
+input#Newusername {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+}
+
+input#Newpassword {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+}
+
+input#Confirmpassword {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+}
+
+input#signup {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
+}
+
+form#signupform label {
+	color: #043A6B;
+}
+
+form#signupform div {
+	margin:auto;
+	width:125px;
+}
+
+input#cancel {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
 }

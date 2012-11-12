@@ -7,38 +7,66 @@
 	<title>Welcome to Picnit!</title>
 	<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
 	<script type="text/javascript" src="js/index.js"></script>
+	<script>
+	window.onload = function() {
+		document.getElementById('overlay').style.visibility="hidden";
+		document.getElementById('signupbar').style.visibility="hidden";	
+		document.getElementById('signupbut').addEventListener('click',showsignup,false);
+		document.getElementById('cancel').addEventListener('click',hidesignup,false);
+	}
+
+	function showsignup() {
+		document.getElementById('overlay').style.visibility="visible";
+		document.getElementById('signupbar').style.visibility="visible";
+	}
+
+	function hidesignup() {
+		document.getElementById('overlay').style.visibility="hidden";
+		document.getElementById('signupbar').style.visibility="hidden";
+	}
+	</script>
 </head>
 <body>
 	<div id="menubar">
-	<form id="signupbut" action="index.html" method="post">
-		<span><input type="submit" id="sign" value="Sign Up"/></span>
-	</form>
-	<form id="signinform" onsubmit="login()">
-		<span><label for="Username">Username:</label><input type="text" id="Username"/></span>
-		<span><label for="Password">Password:</label><input type="password" id="Password"/></span>
-		<span><input type="submit" id="signin" value="Sign In"/></span>
-	</form>
-	<form id="homebut" action="index.html">
-		<span><input type="submit" id="home" value="Home"/></span>
-	</form>
+		<form id="signupbut">
+			<span><input type="button" id="sign" value="Sign Up"/></span>
+		</form>
+	
+		<form id="signinform" onsubmit="login()">
+			<span><label for="Username">Username:</label><input type="text" id="Username"/></span>
+			<span><label for="Password">Password:</label><input type="password" id="Password"/></span>
+			<span><input type="submit" id="signin" value="Sign In"/></span>
+		</form>
+		<form id="homebut" action="index.html">
+			<span><input type="submit" id="home" value="Home"/></span>
+		</form>
 	</div>
 
 	<h1>picnit</h1>
 
 	<div id="searchbar">
-	<form id="search" action="index.html" method="post">
-		<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>
-		<span><input type="submit" name="search" id="search" value="Submit"/></span>
-	</form>
+		<form id="search" action="index.html" method="post">
+			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
+			<span><input type="submit" name="search" id="search" value="Submit"/></span>
+		</form>
 	</div>
 	<div id="gallery" name="gallery" class="gallery">
 	</div>
 	<div id="info" name="info">
-	<div id="infotext">
-	BLAH BLAH BLAH COPYRIGHT BLAH BLAH BLAH
+		<div id="infotext">
+			BLAH BLAH BLAH COPYRIGHT BLAH BLAH BLAH
+		</div>
 	</div>
+	<div id="overlay">
 	</div>
-
-
+	<div id="signupbar">
+		<form id="signupform" action="index.html">
+			<p><div><label for="Newusername">Username: </label><input type="text" id="Newusername"/></div></p>
+			<p><div><label for="Newpassword">Password: </label><input type="text" id="Newpassword"/></div>
+			<div><label for="Confirmpassword">Confirm Password: </label><input type="text" id="Confirmpassword"/></div></p>
+			<p><div><input type="submit" id="signup" value="Sign Up"/></div></p>
+			<p><div><input type="button" id="cancel" value="Cancel"/></div><p>
+		</form>
+	</div>
 </body>
 </html>
