@@ -10,7 +10,8 @@ CREATE TABLE members (
 	password	CHAR(40)	NOT NULL,
 	salt		INT UNSIGNED	NOT NULL,
 	email		TEXT		NOT NULL,
-	PRIMARY KEY (member_id)
+	PRIMARY KEY (member_id),
+	UNIQUE KEY (username)
 );
 
 CREATE TABLE albums (
