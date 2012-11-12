@@ -1,0 +1,113 @@
+body {
+	background-color: #0C5DA5;
+	/*font-family: 'Average Sans','sans-serif';*/
+	/*font-family: 'Kite One', sans-serif;*/
+	font-family: 'Concert One', cursive;
+	min-width:820px;
+}
+
+div#menubar {
+	background-color: #408DD2;
+	border-style:solid;
+	border-width:5px;
+	border-color:#043A6B;
+	color:#043A6B;
+	position:relative;
+	padding:5px;
+	height:25px;
+	top: 0;
+	-webkit-border-radius:12px;
+	margin-top:5px;
+}
+
+form#signin {
+	float:right;
+}
+
+input#Username {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+}
+
+input#Password {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+}
+
+input#login {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
+}
+
+h1 {
+	color: #679FD2;
+	font-size:100px;
+	position: relative;
+	top: -80px;
+}
+
+div#searchbar {
+	background-color: #408DD2;
+	border-style:solid;
+	border-width:5px;
+	border-color:#043A6B;
+	color:#043A6B;
+	-webkit-border-radius:12px;
+	position:relative;
+	top:-135px;
+	padding:5px;
+	margin-bottom:5px;
+	height:25px;
+}
+
+form#search {
+	float:right;
+}
+
+span#searchlabel {
+	margin:5px;
+}
+
+input#Searchterm {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color:#FFFFFF;
+	min-width:595px;
+}
+
+input#search {
+	background-color: #0C5DA5;
+	border-style:solid;
+	border-width:3px;
+	border-color:#043A6B;
+	-webkit-border-radius:6px;
+	color: #679FD2;
+	width:125px;
+}
+
+div#gallery {
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	position:relative;
+	top: -135px;
+	height: 500px;
+	-webkit-border-radius:12px;
+}
