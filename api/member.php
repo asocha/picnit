@@ -116,26 +116,31 @@
 		public function deleteAccount() {
 			//Get the vars
                         $username = mysql_real_escape_string($_POST['username']);
-                        if(isset($_POST['password']))
-                                $password = md5($_POST['password']);
+                        if(isset($_POST['password'])) {
+				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
+				if(!$res)
+					goto no_such_user;
+				$hashedpass = sha1($password.mysql_result($res, 0, salt);
+			}
 
                         //Ensure all variables needed are present
                         if(!empty($username) && !empty($password)) {
 				//Query the db
-                                $query = "REMOVE FROM members where username='$username' and password='$password'";
+                                $query = "REMOVE FROM members where username='$username' and password='$hashedpass'";
                                 mysql_query($query, $this->link);
 
 				//Send the confirmation
                                 $this->response(200);                                                                                                                              
                         }
-
+no_such_user:
                         //Missing input, send response
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
                         $this->response($error, 400);
             	}
 
                 public function suspendUser() {
-                        //Get the vars
+                        // FIXME: Check that 'is_admin' is set for the user making this call
+			//Get the vars
                         $toSuspend = mysql_real_escape_string($_POST['toSuspend']);
 
                         //Ensure all variables needed are present
