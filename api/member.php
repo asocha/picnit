@@ -27,9 +27,9 @@
 			//Get the vars
 			$username = mysql_real_escape_string($_POST['username']);
 			if (isset($_POST['password'])) {
-				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1", $this->link);
-				if (mysql_num_rows($saltqresult) != 0)
-					$password = sha1($_POST['password'].mysql_result($saltqresult, 0));
+				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
+				if(mysql_num_rows($saltqresult) != 0)
+					$password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
 			}
 
 			//Ensure all variables needed are present
@@ -47,36 +47,53 @@
 				}
 
 				//Not found, return missing content
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Invalid email or password'));
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Invalid username or password'));
 				$this->response($error, 204);
 			}
 
 			//Missing input, send response
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing email or password'));
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
 			$this->response($error, 400);
 		}
 
 		public function register() {
+			//Get data
 			$username = mysql_real_escape_string($_POST['username']);
 			$password = mysql_real_escape_string($_POST['password']);
 			$email = mysql_real_escape_string($_POST['email']);
 			$salt = mt_rand();
 
-			$hashedpass = sha1($password.$salt);
-			$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpassword','$salt','$email')");
-			if(!$result) {
-				$err = mysql_errno();
-				if($err == 1062) {
-					// Username is already in use
-					$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
-					$this->response($error, 204);
-					return;
+			//Make sure data arrives
+			if(!empty($username) && !empty($password) && !empty($email)) {
+				//Hash the password
+				$hashedpass = sha1($password.$salt);
+				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')");
+				
+				//Make sure query works
+				if(!$result) {
+					//Get error
+					$err = mysql_errno();
+					
+					//Check if username already taken
+					if($err == 1062) {
+						// Username is already in use
+						$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						$this->response($error, 204);
+						return;
+					}
+
+					//Something else went wrong
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+					$this->response($error, 500);
 				}
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
-				$this->response($error, 500);
+				//Successful creation
+				$msg = json_encode(array('status' => "Success"));
+				$this->response($msg, 200);
 			}
-			$msg = json_encode(array('status' => "Success"));
-			$this->response($msg, 200);
+
+			//Missing data from request
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
+                        $this->response($error, 400);
 		}
 	}
 
