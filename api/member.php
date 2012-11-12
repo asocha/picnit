@@ -95,6 +95,44 @@
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
                         $this->response($error, 400);
 		}
+
+		public function logout() {
+			//Get the vars
+                        $username = mysql_real_escape_string($_POST['username']);
+                        if(isset($_POST['password']))
+                                $password = md5($_POST['password']);
+
+                        //Ensure all variables needed are present
+                        if(!empty($username) && !empty($password)) {
+                                //Send the confirmation!
+                        	$this->response(200);
+                        }
+
+                        //Missing input, send response
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
+                        $this->response($error, 400);
+		}
+
+		public function deleteAccount() {
+			//Get the vars
+                        $username = mysql_real_escape_string($_POST['username']);
+                        if(isset($_POST['password']))
+                                $password = md5($_POST['password']);
+
+                        //Ensure all variables needed are present
+                        if(!empty($username) && !empty($password)) {
+				//Query the db
+                                $query = "REMOVE FROM members where username='$username' and password='$password'";
+                                mysql_query($query, $this->link);
+
+				//Send the confirmation
+                                $this->response(200);                                                                                                                              
+                        }
+
+                        //Missing input, send response
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
+                        $this->response($error, 400);
+            	}
 	}
 
 	$api = new Member;
