@@ -3,17 +3,23 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
-	<link href='http://fonts.googleapis.com/css?family=Average+Sans' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Kite+One' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>Welcome to Picnit!</title>
+	<script src="http://code.jquery.com/jquery-1.4.2.min.js"></script>
+	<script type="text/javascript" src="js/index.js"></script>
 </head>
 <body>
 	<div id="menubar">
-	<form id="signin" action="index.html" method="post">
-		<span><label for="Username">Username:</label><input type="text" name="Username" id="Username"/></span>
-		<span><label for="Password">Password:</label><input type="text" name="Password" id="Password"/></span>
-		<span><input type="submit" name="login" id="login" value="Sign In"/></span>
+	<form id="signupbut" action="index.html" method="post">
+		<span><input type="submit" id="sign" value="Sign Up"/></span>
+	</form>
+	<form id="signinform" onsubmit="login()">
+		<span><label for="Username">Username:</label><input type="text" id="Username"/></span>
+		<span><label for="Password">Password:</label><input type="password" id="Password"/></span>
+		<span><input type="submit" id="signin" value="Sign In"/></span>
+	</form>
+	<form id="homebut" action="index.html">
+		<span><input type="submit" id="home" value="Home"/></span>
 	</form>
 	</div>
 
@@ -26,7 +32,11 @@
 	</form>
 	</div>
 	<div id="gallery" name="gallery" class="gallery">
-	GALLERY OF IMAGES TO BE IMPLEMENTED
+	</div>
+	<div id="info" name="info">
+	<div id="infotext">
+	BLAH BLAH BLAH COPYRIGHT BLAH BLAH BLAH
+	</div>
 	</div>
 
 
