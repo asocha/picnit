@@ -27,7 +27,7 @@ CREATE TABLE images (
         image_id        INT UNSIGNED    NOT NULL AUTO_INCREMENT,
         album_id        INT UNSIGNED    NOT NULL,
         publicness	TINYINT		NOT NULL,
-        link            CHAR(32)        NOT NULL,
+        filepath        CHAR(32)        NOT NULL,
         date_added      DATE            NOT NULL,
         PRIMARY KEY (image_id),
         FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
