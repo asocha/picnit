@@ -31,8 +31,10 @@
 			$link = mysql_connect(self::DB_HOST, self::DB_USER, self::DB_PASS);
 
 			//Make sure link works
-			if(!$link)
-				die('Couldn\'t connect: ' . mysql_error());
+			if(!$link) {
+				header("HTTP/1.1 503 Service Unavailable");
+				exit;
+			}
 
 			//Connect to the picnit db
 			mysql_select_db(self::DB_NAME, $link);

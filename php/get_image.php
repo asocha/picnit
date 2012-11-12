@@ -1,18 +1,24 @@
 <?php
 	// $memberid = ACTUALLY_GET_FROM_SESSION();
 	$photoid = $_GET['id'];
-	if(empty($photoid))
-		die('You have to request an image');
+	if(empty($photoid)) {
+		header("HTTP/1.1 400 Bad Request");
+		exit;
+	}
 
 	$con = mysql_connect('localhost', 'picnit', 'PhotoDolo247');
-	if(!$con)
-		die('Couldn\'t connect: '.mysql_error());
+	if(!$con) {
+		header("HTTP/1.1 503 Service Unavailable");
+		exit;
+	}
 
 	mysql_select_db('picnit', $con);
 
 	$result = mysql_query("SELECT album_id,publicness FROM images WHERE image_id='$photoid' LIMIT 1", $con);
-	if(!$result)
-		die('Image does not exist');
+	if(!$result) {
+		header("HTTP/1.1 404 Not Found");
+		exit;
+	}
 	
 	$publicness = mysql_result($result, 0, publicness);
 	$albumid = mysql_result($result, 0, album_id);
@@ -24,7 +30,7 @@
 	
 	// Okay, the user is logged in with a valid session, and we have their ID
 
-	if(mysql_result(mysql_query("SELECT is_admin FROM members WHERE member_id='$memberid' LIMIT 1, $con"), 0, is_admin) == 1)
+	if(mysql_result(mysql_query("SELECT is_admin FROM members WHERE member_id='$memberid' LIMIT 1", $con), 0, is_admin) == 1)
 		goto grant_access; // The user logged in is an admin - allow it
 	
 	// We need the member_id of the owner of the image for the rest of the checks - go ahead and get it
@@ -42,8 +48,13 @@
 	goto deny_access;
 
 grant_access:
-	// Return the image, somehow
-
+	// Path is stored in the form "/xxxx/xxxx/xxxx/xxxxxxxxxxxx.ext"
+	$imagepath = mysql_result(mysql_query("SELECT filepath FROM images WHERE image_id='$photoid' LIMIT 1"), 0, filepath);
+	$filetype = mime_content_type("/var/www/images".$imagepath);
+	header("Content-type: $filetype");
+	echo file_get_contents("/var/www/images".$imagepath);
+	exit;
 deny_access:
-	die('Forbidden');
+	header("HTTP/1.1 403 Forbidden");
+	exit;
 ?>

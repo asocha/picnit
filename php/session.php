@@ -27,7 +27,11 @@
 		function createSession() {
                         $username = mysql_real_escape_string($_POST['username']);
                         if(isset($_POST['password']))
-                                $password = md5($_POST['password']);
+				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
+				if(!$res)
+					goto no_such_user;
+				$hashedpass = sha1($password.mysql_result($res, 0, salt);
+			}
 
                         //Ensure all variables needed are present
                         if(!empty($username) && !empty($password)) {
@@ -39,7 +43,7 @@
 
                                 $this->response(200);
                         }
-
+no_such_user:
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Not logged in'));
                         $this->response($error, 400);
                 }
