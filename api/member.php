@@ -36,12 +36,12 @@
 			if(!empty($username) && !empty($password)) {
 				//Query the db
 				$query = "SELECT member_id, username, is_suspended FROM members where username='$username' and password='$password' LIMIT 1";
-				$sql = mysql_query($query, $this->link);
+				$res = mysql_query($query, $this->link);
 
 				//Check the results
-				if(mysql_num_rows($sql) > 0) {
+				if(mysql_num_rows($res) > 0) {
 					//Get the row
-					$result = mysql_fetch_array($sql, MYSQL_ASSOC);
+					$result = mysql_fetch_array($res, MYSQL_ASSOC);
 					//Send the confirmation!
 					$this->response(json_encode($result));
 				}
@@ -99,8 +99,11 @@
 		public function logout() {
 			//Get the vars
                         $username = mysql_real_escape_string($_POST['username']);
-                        if(isset($_POST['password']))
-                                $password = md5($_POST['password']);
+                        if(isset($_POST['password'])){
+                                $saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
+                                if(mysql_num_rows($saltqresult) != 0)
+                                        $password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
+			}
 
                         //Ensure all variables needed are present
                         if(!empty($username) && !empty($password)) {
@@ -120,7 +123,7 @@
 				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
 				if(!$res)
 					goto no_such_user;
-				$hashedpass = sha1($password.mysql_result($res, 0, salt);
+				$hashedpass = sha1($password.mysql_result($res, 0, salt));
 			}
 
                         //Ensure all variables needed are present
@@ -139,17 +142,26 @@ no_such_user:
             	}
 
                 public function suspendUser() {
-                        // FIXME: Check that 'is_admin' is set for the user making this call
 			//Get the vars
+			$username = mysql_real_escape_string($_POST['username']);
                         $toSuspend = mysql_real_escape_string($_POST['toSuspend']);
 
                         //Ensure all variables needed are present
-                        if(!empty($toSuspend)) {
+                        if(!empty($toSuspend) && !empty($username)) {
+				//check if user is an admin
+				$query = "SELECT is_Admin FROM members where username='$username'";
+                                $res = mysql_query($query, $this->link);
+				if($res == 0){
+					//user is not admin, cannot suspend
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not admin'));
+                                        $this->response($error, 401);
+				}
+
                                 //check if member to suspend exists and isn't suspended                                                                       
                                 $query = "SELECT is_Suspended FROM members where username='$toSuspend'";          
-                                $sql = mysql_query($query, $this->link);
+                                $res = mysql_query($query, $this->link);
                                                                                                                     
-                                if((mysql_num_rows($sql) < 1) || ($sql == 1)){                                                       
+                                if((mysql_num_rows($res) < 1) || ($res == 1)){                                                       
                                         //member doesn't exist or is already suspended                                                                    
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already suspended'));
                                         $this->response($error, 204);
@@ -172,14 +184,24 @@ no_such_user:
                 public function unsuspendUser() {
                         //Get the vars
                         $toUnsuspend = mysql_real_escape_string($_POST['toUnsuspend']);
+			$username = mysql_real_escape_string($_POST['username']);
 
                         //Ensure all variables needed are present
-                        if(!empty($toUnsuspend)) {
+                        if(!empty($toUnsuspend) && !empty($username)) {
+                                //check if user is an admin                                                                                                                                     
+                                $query = "SELECT is_Admin FROM members where username='$username'";                                                                                             
+                                $res = mysql_query($query, $this->link);
+                                if($res == 0){
+                                        //user is not admin, cannot unsuspend
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User is not admin'));                                                                        
+                                        $this->response($error, 401);
+                                }
+
                                 //check if member to suspend exists and is suspended                                                                                        
                                 $query = "SELECT is_suspended FROM members where username='$toUnsuspend'";
-                                $sql = mysql_query($query, $this->link);
+                                $res = mysql_query($query, $this->link);
 
-                                if(mysql_num_rows($sql) < 1) || ($sql == 0)){
+                                if((mysql_num_rows($res) < 1) || ($res == 0)){
                                         //member doesn't exist or is already unsuspended                                                                                 
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already unsuspended'));
                                         $this->response($error, 204);                                                                                                                           
