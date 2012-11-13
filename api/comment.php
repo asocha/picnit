@@ -36,7 +36,7 @@
                                 $sql = mysql_query($query, $this->link);
 
                                 //Send confirmation
-                                $this->response(200);
+                                $this->response('',200);
                         }
 
                         //Missing input, send response
@@ -55,7 +55,7 @@
                                 $sql = mysql_query($query, $this->link);
 
                                 //Send confirmation
-                                $this->response(200);
+                                $this->response('',200);
                         }
 
                         //Missing input, send response

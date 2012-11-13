@@ -23,7 +23,7 @@
                                 $this->response('',404); //Else send 404 (not found)
                 }
 
-		function createSession() {
+		public function createSession() {
                         $username = mysql_real_escape_string($_POST['username']);
                         if(isset($_POST['password'])){
 				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
@@ -40,7 +40,7 @@
 
                                 $_SESSION['member_id'] = mysql_fetch_array($res, MYSQL_ASSOC);
 
-                                $this->response(200);
+                                $this->response('',200);
                         }
 no_such_user:
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Not logged in'));

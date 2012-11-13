@@ -62,7 +62,7 @@ get_new_file_path:
 			$filepath = "/".$dir1."/".$dir2."/".$dir3."/"."/".$dir4."/".$dir5."/".$file.".png";
 			
 			// This should pretty much never happen, but still...
-			if(file_exists("/var/www".$filepath)
+			if(file_exists("/var/www".$filepath))
 				goto get_new_file_path;
 
 			// Actually write out the POSTed photo file data

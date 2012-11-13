@@ -108,7 +108,7 @@
                         //Ensure all variables needed are present
                         if(!empty($username) && !empty($password)) {
                                 //Send the confirmation!
-                        	$this->response(200);
+                        	$this->response('',200);
                         }
 
                         //Missing input, send response
@@ -133,7 +133,7 @@
                                 mysql_query($query, $this->link);
 
 				//Send the confirmation
-                                $this->response(200);                                                                                                                              
+                                $this->response('',200);                                                                                                                              
                         }
 no_such_user:
                         //Missing input, send response
@@ -172,7 +172,7 @@ no_such_user:
                                         mysql_query($query, $this->link);
 
                                         //Send the confirmation!                                                                                                                                
-                                        $this->response(200);
+                                        $this->response('',200);
                                 }
                         }
 
@@ -212,7 +212,7 @@ no_such_user:
                                         mysql_query($query, $this->link);
 
                                         //Send the confirmation!                                                                                                                                
-                                        $this->response(200);
+                                        $this->response('',200);
                                 }
                         }
 
