@@ -42,8 +42,13 @@
 				if(mysql_num_rows($res) > 0) {
 					//Get the row
 					$result = mysql_fetch_array($res, MYSQL_ASSOC);
+					
+					//starts a session, tracks user by member_id
+					session_start();
+					$_SESSION['member_id'] = $result['member_id'];
+
 					//Send the confirmation!
-					$this->response(json_encode($result));
+					$this->response(json_encode($result), 200);
 				}
 
 				//Not found, return missing content
