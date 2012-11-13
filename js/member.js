@@ -33,28 +33,6 @@ function login() {
 	//Request to be sent to the middleware
 	request = new XMLHttpRequest();
 
-			//Good data, proceed to login
-			if(request.status === 200) {
-				alert('200');
-			}
-
-			//Invalid username/password combo
-			else if(request.status === 204) {
-				alert('204');
-			}
-
-			//Our request messed up
-			else if(request.status === 400) {
-				alert('400');
-			}
-
-			//Something else went wrong
-			else {
-				alert('Unknown error: ' + request.status);
-			}
-		}
-	};*/
-
 	//Get and validate user inputs
 	request.open('POST', memberurl, false);
 
