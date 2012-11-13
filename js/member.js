@@ -43,7 +43,15 @@ function login() {
 
 	//Good data, proceed to login
 	if(request.status === 200) {
-		alert('200');
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		
+		//Add cookies to the array
+		for(var index in res)
+			setCookie(index, res[index], 7);
+
+		//Redirect to profile page
+		window.location = "./profile.html";
 	}
 	//Invalid username/password combo
 	else if(request.status === 204) {
@@ -58,7 +66,7 @@ function login() {
 		alert('Unknown error: ' + request.status);
 	}
 
-	//Return true, meaning the request was sent, NOT that the login was successful
+	//Return false to allow for redirection
 	return false;
 }
 

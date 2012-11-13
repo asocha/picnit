@@ -136,6 +136,8 @@
 				//Send the confirmation
                                 $this->response('',200);
                         }
+
+			no_such_user:
 			
 			//Missing input, send response
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
@@ -171,6 +173,7 @@
 					//Query the db
 					$query = "UPDATE members SET is_suspended = 1 where username='$toSuspend'";
 					mysql_query($query, $this->link);
+				}
 
                                 //check if member to suspend exists and isn't suspended                                                                       
                                 $query = "SELECT is_Suspended FROM members where username='$toSuspend'";          
