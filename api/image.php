@@ -25,7 +25,7 @@
 
 		public function getImage() {
 			$imageid = $_POST['imageid'];
-			
+
 			if(empty($imageid))
 				$this->response('', 400);
 
@@ -46,7 +46,7 @@
 				$this->response('', 400);
 
 			// $now = get_current_date_magically();
-						
+
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
 			// Storing very large numbers of files in a single directory is extremely sub-optimal
@@ -60,7 +60,7 @@ get_new_file_path:
 			$dir5 = mt_rand(0,9999);
 			$file = mt_rand(0,99);
 			$filepath = "/".$dir1."/".$dir2."/".$dir3."/"."/".$dir4."/".$dir5."/".$file.".png";
-			
+
 			// This should pretty much never happen, but still...
 			if(file_exists("/var/www".$filepath)
 				goto get_new_file_path;

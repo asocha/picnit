@@ -19,7 +19,7 @@
 		header("HTTP/1.1 404 Not Found");
 		exit;
 	}
-	
+
 	$publicness = mysql_result($result, 0, publicness);
 	$albumid = mysql_result($result, 0, album_id);
 
@@ -27,12 +27,12 @@
 		goto grant_access; // It's public - return it
 	if(empty($memberid))
 		goto deny_access; // Not public, not logged in - deny
-	
+
 	// Okay, the user is logged in with a valid session, and we have their ID
 
 	if(mysql_result(mysql_query("SELECT is_admin FROM members WHERE member_id='$memberid' LIMIT 1", $con), 0, is_admin) == 1)
 		goto grant_access; // The user logged in is an admin - allow it
-	
+
 	// We need the member_id of the owner of the image for the rest of the checks - go ahead and get it
 	$ownerid = mysql_result(mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid' LIMIT 1", $con), 0, owner_id);
 
