@@ -20,7 +20,7 @@
 			if(method_exists($this, $action))
 				$this->$action(); //Call if found, php magic
 			else
-				$this->response('',404); //Else send 404 (not found)
+				$this->response('Invalid action',404); //Else send 404 (not found)
 		}
 		
 		public function login() {
