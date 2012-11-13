@@ -28,7 +28,7 @@ form#signinform {
 }
 
 form#homebut {
-	float:right;
+	float:left;
 	margin-right:5px;
 }
 
@@ -69,8 +69,6 @@ input#signin {
 	color: #679FD2;
 	width:125px;
 }
-
-
 
 input#sign {
 	background-color: #0C5DA5;
@@ -139,27 +137,20 @@ div#gallery {
 	border-width:5px;
 	position:relative;
 	top: -135px;
-	height: 500px;
+	height: 700px;
 	-webkit-border-radius:12px;
 }
 
 div#info {
-	height:50px;
 	background-color:#408DD2;
 	border-style: solid;
 	border-color:#043A6B;
 	border-width:5px;
 	position:relative;
-	top: -130px;
 	-webkit-border-radius:12px;
-}
-div#infotext {
-	margin:auto;
-	width:300px;
 }
 
 div#overlay {
-	/*visibility:hidden;*/
 	position:fixed;
 	top:0px;
 	left:0px;
@@ -170,7 +161,6 @@ div#overlay {
 }
 
 div#signupbar {
-	/*visibility:hidden;*/
 	position:fixed;
 	top:50%;
 	left:50%;

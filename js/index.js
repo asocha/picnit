@@ -21,6 +21,7 @@ function login() {
 	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	var parms = 'username='+username+'&password='+password;
 	request.send(parms);
+	alert(request.responseText);
 	if(request.status === 200) {
 		alert('200');
 	}
@@ -32,10 +33,6 @@ function login() {
 	}
 		
 	}
-	return true;
-}
-
-function register() {
 	return true;
 }
 
