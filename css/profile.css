@@ -70,7 +70,7 @@ div#slideshow {
 
 #user-image-collection {
 	margin-left: auto;
-    	margin-right: auto;
+	margin-right: auto;
 	width: 412px;
 }
 
@@ -161,7 +161,7 @@ div#info {
 
 .slides img {
 	position:relative;
-	-webkit-border-radius:6px; 
+	-webkit-border-radius:6px;
 }
 
 div#collection {
