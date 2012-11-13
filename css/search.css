@@ -54,58 +54,6 @@ input#search {
 	width:125px;
 }
 
-div#slideshow {
-	background-color: #408DD2;
-	border-style:solid;
-	border-width:5px;
-	border-color:#043A6B;
-	-webkit-border-radius:12px;
-	margin-top:5px;
-	position:relative;
-	top:-135px;
-	width:66%;
-	margin:auto;
-	margin-bottom:55px;
-}
-
-#user-image-collection {
-	margin-left: auto;
-    	margin-right: auto;
-	width: 412px;
-}
-
-div#user-image-collection {
-	width:100%;
-}
-
-div#usermenu {
-	background-color: #408DD2;
-	border-style:solid;
-	border-width:5px;
-	border-color:#043A6B;
-	color:#043A6B;
-	-webkit-border-radius:12px;
-	margin:auto;
-	padding:5px;
-	position:relative;
-	top:-135px;
-}
-
-form#userform {
-	margin:auto;
-	width:520px;
-}
-
-div#usermenu input {
-	background-color: #0C5DA5;
-	border-style:solid;
-	border-width:3px;
-	border-color:#043A6B;
-	-webkit-border-radius:6px;
-	color: #679FD2;
-	width:125px;
-}
-
 div#menubar {
 	background-color: #408DD2;
 	border-style:solid;
@@ -154,17 +102,7 @@ div#info {
 	-webkit-border-radius:12px;
 }
 
-.slides li {
-	height:300px;
-	overflow:hidden;
-}
-
-.slides img {
-	position:relative;
-	-webkit-border-radius:6px; 
-}
-
-div#collection {
+div#gallery {
 	background-color:#408DD2;
 	border-style: solid;
 	border-color:#043A6B;
@@ -173,5 +111,4 @@ div#collection {
 	top: -135px;
 	height: 700px;
 	-webkit-border-radius:12px;
-	margin-top:5px;
 }
