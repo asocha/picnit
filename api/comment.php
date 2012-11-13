@@ -2,7 +2,7 @@
         //Include API Class
         require_once("API.php");
 
-        class Member extends API {
+        class Comment extends API {
 
                 public function __construct() {
                         //Parent Constructor
@@ -70,7 +70,7 @@
                         //Ensure all variables needed are present
                         if(!empty($image_id)) {
                                 //Query the db
-                                $query = "SELECT text FROM comments where image_id='$image_id'";                          
+                                $query = "SELECT comment_text FROM comments where image_id='$image_id'";                          
                                 $sql = mysql_query($query, $this->link);
 			        $result = mysql_fetch_array($sql, MYSQL_ASSOC);
                                 
@@ -84,7 +84,7 @@
                 }
 
 	} 
-        $api = new Member;
+        $api = new Comment;
         $api->process();
 ?>
 
