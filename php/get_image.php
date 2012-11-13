@@ -1,5 +1,8 @@
 <?php
-	// $memberid = ACTUALLY_GET_FROM_SESSION();
+	//gets member id from session
+	session_start();
+	$memberid = $_SESSION['member_id'];
+
 	$photoid = $_GET['id'];
 	if(empty($photoid)) {
 		header("HTTP/1.1 400 Bad Request");
@@ -43,7 +46,7 @@
 	}
 
 	// Now we have to see if the user is a follower of the owner
-	if(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$memberid' and followee_id='$ownerid' LIMIT 1")
+	if(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$memberid' and followee_id='$ownerid' LIMIT 1"))
 		goto grant_access;
 	goto deny_access;
 
