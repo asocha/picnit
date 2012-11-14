@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
-<title>Welcome to Your Profile!</title>
+<title><?php echo  $_GET['username']; ?>'s profile!</title>
 <head>
 	<link rel="stylesheet" href="css/profile.css" type="text/css">
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
+	<script src="js/general.js"></script>
 	<script src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script src="js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
-	    $('.flexslider').flexslider();
+	  	//See if logged in with cookies
+		if(!isLoggedIn()) {
+			//Not logged in? Go back to homepage
+			window.location = 'index.html';
+		}
+
+		//Load flexslider
+		$('.flexslider').flexslider();
 	  });
 	</script>
 </head>
@@ -23,7 +31,7 @@
 		</form>
 	</div>
 	<div>
-		<h1>profile</h1>
+		<h1><?php echo  $_GET['username']; ?>'s profile</h1>
 	</div>
 
 	<div id="searchbar">
