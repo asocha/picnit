@@ -51,7 +51,7 @@ function login() {
 			setCookie(index, res[index], 7);
 
 		//Redirect to profile page
-		window.location = "./profile.html";
+		window.location = "./profile.php?username=" + escape(res['username']);
 	}
 	//Invalid username/password combo
 	else if(request.status === 204) {

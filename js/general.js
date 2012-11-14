@@ -53,7 +53,7 @@ function deleteCookie(NameOfCookie) {
 
 function isLoggedIn() {
 	//Check to see if member_id cookie exists
-	if(getCookie('member_id')) {
+	if(getCookie('member_id') && getCookie('username') && getCookie('is_suspended')) {
 		//They are logged in
 		return true;
 	}
