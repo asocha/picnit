@@ -10,4 +10,4 @@ sed -r -i s/\\\ {1\,}\$//g $@
 sed -r -i s/\\t{1\,}\$//g $@
 
 # Convert mixed space-tab indentations to tab-only
-sed -r -i s/\\\ {1\,}\\t/\\t/g $@
+sed -r -i s/\\\ {1\,7}\\t/\\t/g $@

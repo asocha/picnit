@@ -34,8 +34,6 @@
 			if(empty($userid) || empty($albumid) || empty($publicness) || empty ($photo))
 				$this->response('', 400);
 
-			// $now = get_current_date_magically();
-
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
 			// Storing very large numbers of files in a single directory is extremely sub-optimal
@@ -59,7 +57,7 @@ get_new_file_path:
 			fwrite($fh, $photo);
 			fclose($fh);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', '$now')");
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
 			if(!$result)
 				$this->response('', 404);
 

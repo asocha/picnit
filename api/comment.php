@@ -17,21 +17,21 @@
 			$member_id = $_POST['member_id'];
 			$image_id = $_POST['image_id'];
 			$comment = mysql_real_escape_string($_POST['comment']);
-			
-                        //Ensure all variables needed are present
-                        if(!empty($member_id) && !empty($image_id) && !empty($comment)) {
-                                //Query the db
-                                $query = "INSERT INTO comments values ('$member_id', '$image_id', '$comment')";
-                                $sql = mysql_query($query, $this->link);
 
-                                //Send confirmation
-                                $this->response('',200);
-                        }
+			//Ensure all variables needed are present
+			if(!empty($member_id) && !empty($image_id) && !empty($comment)) {
+				//Query the db
+				$query = "INSERT INTO comments values ('$member_id', '$image_id', '$comment')";
+				$sql = mysql_query($query, $this->link);
 
-                        //Missing input, send response
-                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing member_id, image_id, or comment'));
-                        $this->response($error, 400);
-                }
+				//Send confirmation
+				$this->response('',200);
+			}
+
+			//Missing input, send response
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing member_id, image_id, or comment'));
+			$this->response($error, 400);
+		}
 
 		public function deleteComment() {
 			//Get the vars
@@ -43,9 +43,9 @@
 				$query = "DELETE FROM comments where comment_id='$comment_id'";
 				$sql = mysql_query($query, $this->link);
 
-                                //Send confirmation
-                                $this->response('',200);
-                        }
+				//Send confirmation
+				$this->response('',200);
+			}
 
 			//Missing input, send response
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing comment_id'));

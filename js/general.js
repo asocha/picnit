@@ -13,23 +13,23 @@ function getCookie(NameOfCookie)
 	//If we have cookies
 	if (document.cookie.length > 0) {
 		//Find it
-		begin = document.cookie.indexOf(NameOfCookie+"="); 
-		
+		begin = document.cookie.indexOf(NameOfCookie+"=");
+
 		//If found
 		if (begin != -1) {
 			//Get the ending
-			begin += NameOfCookie.length+1; 
+			begin += NameOfCookie.length+1;
 			end = document.cookie.indexOf(";", begin);
 			if (end == -1)
 				end = document.cookie.length;
-			
+
 			//Return the cookie value
 			return unescape(document.cookie.substring(begin, end));
-		} 
+		}
 	}
 
 	//No cookies or not found
-	return null; 
+	return null;
 }
 
 //Sets a cookies w/ expiration date
@@ -37,7 +37,7 @@ function setCookie(NameOfCookie, value, expiredays) {
 	//Set the exipiration date
 	var ExpireDate = new Date ();
 	ExpireDate.setTime(ExpireDate.getTime() + (expiredays * 24 * 3600 * 1000));
-	
+
 	//Add the cookie
 	document.cookie = NameOfCookie + "=" + escape(value) + ((expiredays == null) ? "" : "; expires=" + ExpireDate.toGMTString());
 }
@@ -46,7 +46,7 @@ function setCookie(NameOfCookie, value, expiredays) {
 function deleteCookie(NameOfCookie) {
 	//If the cookie exists
 	if (getCookie(NameOfCookie)) {
-		//Set the expiration backwards in time, deleted immediately 
+		//Set the expiration backwards in time, deleted immediately
 		document.cookie = NameOfCookie + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
 	}
 }
