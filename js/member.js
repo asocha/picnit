@@ -59,7 +59,7 @@ function login() {
 	}
 	//Our request messed up
 	else if(request.status === 400) {
-		alert('400');
+		alert('400\n' + request.responseText);
 	}
 	//Something else went wrong
 	else {

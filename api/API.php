@@ -125,7 +125,7 @@
 			return mysql_real_escape_string($_POST['username']);
 		}
 
-		public function getPassword() {
+		public function getPassword($username) {
 			if (isset($_POST['password'])) {
 				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
 				if(mysql_num_rows($saltqresult) != 0)

@@ -14,12 +14,8 @@
 
 		public function login() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
-			if (isset($_POST['password'])) {
-				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
-				if(mysql_num_rows($saltqresult) != 0)
-					$password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
-			}
+			$username = $this->getUsername();
+			$password = $this->getPassword($username);
 
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
