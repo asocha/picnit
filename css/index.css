@@ -95,7 +95,6 @@ div#searchbar {
 	color:#043A6B;
 	-webkit-border-radius:12px;
 	position:relative;
-	top:-135px;
 	padding:5px;
 	margin-bottom:5px;
 	height:25px;
@@ -136,7 +135,6 @@ div#gallery {
 	border-color:#043A6B;
 	border-width:5px;
 	position:relative;
-	top: -135px;
 	height: 700px;
 	-webkit-border-radius:12px;
 }
@@ -147,6 +145,7 @@ div#info {
 	border-color:#043A6B;
 	border-width:5px;
 	position:relative;
+	margin-top: 5px;
 	-webkit-border-radius:12px;
 }
 

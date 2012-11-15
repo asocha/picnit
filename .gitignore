@@ -1,2 +1,4 @@
-!images/.htaccess
 images/*
+!images/.htaccess
+!images/gui/*
+!images/gui
