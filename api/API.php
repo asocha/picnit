@@ -109,6 +109,16 @@
 				505 => 'HTTP Version Not Supported');
 			return ($status[$this->_code])?$status[$this->_code]:$status[500];
 		}
-	}
 
+		public function process() {
+			//Get the action
+			$action = $_POST['action'];
+
+			//See if method exists in class
+			if(method_exists($this, $action))
+				$this->$action(); //Call if found, php magic
+			else
+				$this->response('Invalid action',404); //Else send 404 (not found)
+		}
+	}
 ?>

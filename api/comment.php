@@ -12,17 +12,6 @@
 			$this->link = $this->db_connect();
 		}
 
-		public function process() {
-			//Get the action
-			$action = $_POST['action'];
-
-			//See if method exists in class
-			if(method_exists($this, $action))
-				$this->$action(); //Call if found, php magic
-			else
-				$this->response('',404); //Else send 404 (not found)
-		}
-
 		public function addComment() {
 			//Get the vars
 			$member_id = $_POST['member_id'];
