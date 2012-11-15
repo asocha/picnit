@@ -42,7 +42,7 @@
 				if(mysql_num_rows($res) > 0) {
 					//Get the row
 					$result = mysql_fetch_array($res, MYSQL_ASSOC);
-					
+
 					//Send the confirmation!
 					$this->response(json_encode($result), 200);
 				}
@@ -106,11 +106,11 @@
 					$password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
 			}
 
-                        //Ensure all variables needed are present
-                        if(!empty($username) && !empty($password)) {
-                                //Send the confirmation!
-                        	$this->response('',200);
-                        }
+			//Ensure all variables needed are present
+			if(!empty($username) && !empty($password)) {
+				//Send the confirmation!
+				$this->response('',200);
+			}
 
 			//Missing input, send response
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
@@ -134,11 +134,11 @@
 				mysql_query($query, $this->link);
 
 				//Send the confirmation
-                                $this->response('',200);
-                        }
+				$this->response('',200);
+			}
 
 			no_such_user:
-			
+
 			//Missing input, send response
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or password'));
 			$this->response($error, 400);
@@ -175,69 +175,69 @@
 					mysql_query($query, $this->link);
 				}
 
-                                //check if member to suspend exists and isn't suspended                                                                       
-                                $query = "SELECT is_Suspended FROM members where username='$toSuspend'";          
-                                $res = mysql_query($query, $this->link);
-                                                                                                                    
-                                if((mysql_num_rows($res) < 1) || ($res == 1)){                                                       
-                                        //member doesn't exist or is already suspended                                                                    
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already suspended'));
-                                        $this->response($error, 204);
-                                }
-                                else {
-                                        //Query the db
-                                        $query = "UPDATE members SET is_suspended = 1 where username='$toSuspend'";
-                                        mysql_query($query, $this->link);
+				//check if member to suspend exists and isn't suspended
+				$query = "SELECT is_Suspended FROM members where username='$toSuspend'";
+				$res = mysql_query($query, $this->link);
 
-                                        //Send the confirmation!                                                                                                                                
-                                        $this->response('',200);
-                                }
-                        }
+				if((mysql_num_rows($res) < 1) || ($res == 1)){
+					//member doesn't exist or is already suspended
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already suspended'));
+					$this->response($error, 204);
+				}
+				else {
+					//Query the db
+					$query = "UPDATE members SET is_suspended = 1 where username='$toSuspend'";
+					mysql_query($query, $this->link);
 
-                        //Missing input, send response
-                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username to suspend'));                                                                              
-                        $this->response($error, 400);
-                }
+					//Send the confirmation!
+					$this->response('',200);
+				}
+			}
 
-                public function unsuspendUser() {
-                        //Get the vars
-                        $toUnsuspend = mysql_real_escape_string($_POST['toUnsuspend']);
+			//Missing input, send response
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username to suspend'));
+			$this->response($error, 400);
+		}
+
+		public function unsuspendUser() {
+			//Get the vars
+			$toUnsuspend = mysql_real_escape_string($_POST['toUnsuspend']);
 			$username = mysql_real_escape_string($_POST['username']);
 
-                        //Ensure all variables needed are present
-                        if(!empty($toUnsuspend) && !empty($username)) {
-                                //check if user is an admin                                                                                                                                     
-                                $query = "SELECT is_Admin FROM members where username='$username'";                                                                                             
-                                $res = mysql_query($query, $this->link);
-                                if($res == 0){
-                                        //user is not admin, cannot unsuspend
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User is not admin'));                                                                        
-                                        $this->response($error, 401);
-                                }
+			//Ensure all variables needed are present
+			if(!empty($toUnsuspend) && !empty($username)) {
+				//check if user is an admin
+				$query = "SELECT is_Admin FROM members where username='$username'";
+				$res = mysql_query($query, $this->link);
+				if($res == 0){
+					//user is not admin, cannot unsuspend
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not admin'));
+					$this->response($error, 401);
+				}
 
-                                //check if member to suspend exists and is suspended                                                                                        
-                                $query = "SELECT is_suspended FROM members where username='$toUnsuspend'";
-                                $res = mysql_query($query, $this->link);
+				//check if member to suspend exists and is suspended
+				$query = "SELECT is_suspended FROM members where username='$toUnsuspend'";
+				$res = mysql_query($query, $this->link);
 
-                                if((mysql_num_rows($res) < 1) || ($res == 0)){
-                                        //member doesn't exist or is already unsuspended                                                                                 
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already unsuspended'));
-                                        $this->response($error, 204);                                                                                                                           
-                                }
-                                else {
-                                        //Query the db
-                                        $query = "UPDATE members SET is_suspended = 0 where username='$toUnsuspend'";
-                                        mysql_query($query, $this->link);
+				if((mysql_num_rows($res) < 1) || ($res == 0)){
+					//member doesn't exist or is already unsuspended
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already unsuspended'));
+					$this->response($error, 204);
+				}
+				else {
+					//Query the db
+					$query = "UPDATE members SET is_suspended = 0 where username='$toUnsuspend'";
+					mysql_query($query, $this->link);
 
-                                        //Send the confirmation!                                                                                                                                
-                                        $this->response('',200);
-                                }
-                        }
+					//Send the confirmation!
+					$this->response('',200);
+				}
+			}
 
-                        //Missing input, send response
-                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username to unsuspend'));
-                        $this->response($error, 400);
-                }
+			//Missing input, send response
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username to unsuspend'));
+			$this->response($error, 400);
+		}
 	}
 
 	$api = new Member;
