@@ -30,16 +30,14 @@ function login() {
 
 	//Getting here means that the inputs validated
 
-	//Request to be sent to the middleware
-	request = new XMLHttpRequest();
+	//Put data into associative array, include action
+	var params = new Array();
+	params['action'] = 'login';
+	params['username'] = username;
+	params['password'] = password;
 
-	//Get and validate user inputs
-	request.open('POST', memberurl, false);
-
-	//Send request
-	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	var parms = 'action=login&username='+username+'&password='+password;
-	request.send(parms);
+	//Send request to the API
+	request = picnitRequest(memberurl, params);
 
 	//Good data, proceed to login
 	if(request.status === 200) {

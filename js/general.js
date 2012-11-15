@@ -61,3 +61,26 @@ function isLoggedIn() {
 	//No users logged in
 	return false;
 }
+
+function picnitRequest(url, data) {
+	//Create request
+	var request = new XMLHttpRequest();
+  
+        //Get and validate user inputs
+        request.open('POST', url, false);
+
+        //Get data string
+  	var params = '';
+	for(var ind in data)
+		params += ind + "=" + data[ind] + "&";
+	params = params.substring(0, params.length - 1);
+
+	alert(params);
+
+	//Send request
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(params);
+
+	//Return request after response
+	return request;
+}
