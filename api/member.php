@@ -60,10 +60,15 @@
 					//Get error
 					$err = mysql_errno();
 
-					//Check if username already taken
 					if($err == 1062) {
-						// Username is already in use
-						$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						// Username or E-Mail is already in use - figure out which
+						$errstr = mysql_error();
+
+						if(strstr($errstr, "username")) {
+							$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						} else {
+							$error = json_encode(array('status' => 'Failed', 'msg' => 'E-Mail already in use'));
+						}
 						$this->response($error, 204);
 						return;
 					}
