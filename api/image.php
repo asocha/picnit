@@ -24,11 +24,10 @@
 		}
 
 		public function saveImage() {
-			// FIXME: Figure out if you can POST binary data
 			$userid = mysql_real_escape_string($_POST['userid']);
 			$albumid = mysql_real_escape_string($_POST['albumid']);
 			$publicness = mysql_real_escape_string($_POST['publicness']);
-			$photo = $_POST['image'];
+			$photo = base64_decode($_POST['image']);
 
 			// Check that we have everything we need
 			if(empty($userid) || empty($albumid) || empty($publicness) || empty ($photo))
