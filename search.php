@@ -12,7 +12,7 @@
 		<form id="signoutbut">
 			<span><input type="button" id="sign" value="Sign Out"/></span>
 		</form>
-		<form id="homebut" action="index.html">
+		<form id="homebut" action="index.php">
 			<span><input type="submit" id="home" value="Home"/></span>
 		</form>
 	</div>
@@ -21,7 +21,7 @@
 	</div>
 
 	<div id="searchbar">
-		<form id="search" action="index.html" method="post">
+		<form id="search" action="index.php" method="post">
 			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
 			<span><input type="submit" name="search" id="search" value="Submit"/></span>
 		</form>

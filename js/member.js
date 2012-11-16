@@ -68,8 +68,37 @@ function login() {
 	return false;
 }
 
-function register() {
-	return true;
+function createUser() {
+	//Get user inputs, we know they are validated and that passwords match
+	var params = new Array();
+	params['username'] = $("input#Newusername").val();
+	params['password'] = $("input#Newpassword").val();
+	params['email'] = $("input#email").val();
+	params['action'] = 'register';
+	
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Process requests
+	if(request.status === 200) {
+		alert("User created!");
+		return true;
+	}
+	else if(request.status === 204) {
+		alert("Username or email already in use!");
+	}
+	else {
+		alert("Unknown error: "+request.status);
+	}
+
+	return false;
+}
+
+function validatePassword(p1, p2) {
+	if(p1.value != p2.value)
+		p2.setCustomValidity("Doesn't match");
+	else
+		p2.setCustomValidity('');
 }
 
 function isValid(str) {

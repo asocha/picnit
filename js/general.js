@@ -75,8 +75,6 @@ function picnitRequest(url, data) {
 		params += ind + "=" + data[ind] + "&";
 	params = params.substring(0, params.length - 1);
 
-	alert(params);
-
 	//Send request
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	request.send(params);

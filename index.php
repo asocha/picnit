@@ -34,21 +34,20 @@
 			<span><input type="button" id="sign" value="Sign Up"/></span>
 		</form>
 	
-		<form id="signinform" onsubmit="return login();">
+		<form id="signinform" action="index.php" onsubmit="return login();">
 			<span><label for="Username">username:</label><input type="text" id="Username"/></span>
 			<span><label for="Password">password:</label><input type="password" id="Password"/></span>
 			<span><input type="submit" id="signin" value="Sign In"/></span>
 		</form>
-		<form id="homebut" action="index.html">
+		<form id="homebut" action="index.php">
 			<span><input type="submit" id="home" value="Home"/></span>
 		</form>
 	</div>
 
-	<!--<h1>picnit</h1>-->
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150">
 
 	<div id="searchbar">
-		<form id="search" action="index.html" method="post">
+		<form id="search" action="index.php" method="post">
 			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
 			<span><input type="submit" name="search" id="search" value="Submit"/></span>
 		</form>
@@ -64,10 +63,23 @@
 	<div id="overlay">
 	</div>
 	<div id="signupbar">
-		<form id="signupform" action="index.html">
-			<p><div><label for="Newusername">username: </label><input type="text" id="Newusername"/></div></p>
-			<p><div><label for="Newpassword">password: </label><input type="text" id="Newpassword"/></div>
-			<div><label for="Confirmpassword">confirm password: </label><input type="text" id="Confirmpassword"/></div></p>
+		<form id="signupform" onsubmit="return createUser();">
+			<p><div>
+				<label for="Newusername">username: </label>
+				<input type="text" id="Newusername" pattern="[\w]{3,15}" title="Must be between 3 and 15 letters, numbers, or underscores" required="required"/>
+			</div></p>
+			<p><div>
+				<label for="Newpassword">password: </label>
+				<input type="password" id="Newpassword" pattern".{5,}" title="Must be at least 3 characters" required="required"/>
+			</div>
+			<div>
+				<label for="Confirmpassword">confirm password: </label>
+				<input type="password" id="Confirmpassword" required="required" oninput="validatePassword(document.getElementById('Newpassword'), this);"/>
+			</div></p>
+			<p><div>
+				<label for="name">email: </label>
+				<input type="email" id="email" required="required"/>
+			</div></p>
 			<p><div><input type="submit" id="signup" value="sign up"/></div></p>
 			<p><div><input type="button" id="cancel" value="cancel"/></div><p>
 		</form>
