@@ -44,7 +44,7 @@
 
 		public function register() {
 			//Get data
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			$password = mysql_real_escape_string($_POST['password']);
 			$email = mysql_real_escape_string($_POST['email']);
 			$salt = mt_rand();
@@ -60,10 +60,15 @@
 					//Get error
 					$err = mysql_errno();
 
-					//Check if username already taken
 					if($err == 1062) {
-						// Username is already in use
-						$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						// Username or E-Mail is already in use - figure out which
+						$errstr = mysql_error();
+
+						if(strstr($errstr, "username")) {
+							$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						} else {
+							$error = json_encode(array('status' => 'Failed', 'msg' => 'E-Mail already in use'));
+						}
 						$this->response($error, 204);
 						return;
 					}
@@ -88,12 +93,8 @@
 		*/
 		public function logout() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
-			if(isset($_POST['password'])){
-				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
-				if(mysql_num_rows($saltqresult) != 0)
-					$password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
-			}
+			$username = $this->getUsername();
+			$password = $this->getPassword($username);
 
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
@@ -108,7 +109,7 @@
 
 		public function deleteAccount() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			if(isset($_POST['password'])) {
 				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
 				if(!$res)
@@ -135,7 +136,7 @@
 
 		public function suspendUser() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			$toSuspend = mysql_real_escape_string($_POST['toSuspend']);
 
 			//Ensure all variables needed are present
@@ -147,21 +148,6 @@
 					//user is not admin, cannot suspend
 					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not admin'));
 					$this->response($error, 401);
-				}
-
-				//check if member to suspend exists and isn't suspended
-				$query = "SELECT is_Suspended FROM members where username='$toSuspend'";
-				$res = mysql_query($query, $this->link);
-
-				if((mysql_num_rows($res) < 1) || ($res == 1)){
-					//member doesn't exist or is already suspended
-					$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already suspended'));
-					$this->response($error, 204);
-				}
-				else {
-					//Query the db
-					$query = "UPDATE members SET is_suspended = 1 where username='$toSuspend'";
-					mysql_query($query, $this->link);
 				}
 
 				//check if member to suspend exists and isn't suspended
@@ -191,7 +177,7 @@
 		public function unsuspendUser() {
 			//Get the vars
 			$toUnsuspend = mysql_real_escape_string($_POST['toUnsuspend']);
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 
 			//Ensure all variables needed are present
 			if(!empty($toUnsuspend) && !empty($username)) {
@@ -226,6 +212,55 @@
 			//Missing input, send response
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username to unsuspend'));
 			$this->response($error, 400);
+		}
+
+		public function memberData() {
+			$username = $this->getUsername();
+			if (!empty($username)){
+				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'");
+				$result = mysql_query($res, $this->link);
+				$this->response(json_encode($result), 200);
+			}
+			
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username'));
+			$this->response($error, 400);
+		}
+
+		public function requestFollow() {
+			$username = $this->getUsername();
+			$toFollow = mysql_real_escape_string($_POST['toFollow']);
+			if (!empty($username) && !empty($toFollow)){
+				//FIX ME: do something
+			}
+				//FIX ME: check not already requested
+				//FIX ME: check not already following
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or tofollow'));
+                        $this->response($error, 400);
+		}
+
+		public function follow() {
+			//FIX ME: delete follow request somehow
+			$username = $this->getUsername();
+                        $toFollow = mysql_real_escape_string($_POST['toFollow']);
+                        if (!empty($username) && !empty($toFollow)){
+                                $res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
+                                $this->response(json_encode('', 200);
+                        }
+			//FIX ME: check not already following
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toFollow'));
+                        $this->response($error, 400);
+		}
+
+		public function unfollow() {
+			$username = $this->getUsername();
+                        $toUnfollow = mysql_real_escape_string($_POST['toUnfollow']);
+                        if (!empty($username) && !empty($toUnfollow)){
+                                $res = mysql_query("REMOVE from follows where follower_id='$username' and followee_id='$toUnfollow'");
+                                $this->response('', 200);
+                        }
+			//FIX ME: make sure is actually following
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toUnfollow'));
+                        $this->response($error, 400);
 		}
 	}
 
