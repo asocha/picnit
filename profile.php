@@ -1,4 +1,15 @@
 <!DOCTYPE html>
+<?php
+	//Get general.php for DB calls
+	require_once('php/general.php');
+
+	//Check log in
+	if(!isLoggedIn())
+		header('Location: index.html');
+	
+	//See if this user exists
+
+?>
 <html>
 <title><?php echo  $_GET['username']; ?>'s profile!</title>
 <head>

@@ -26,4 +26,8 @@ function callAPI($url, $data) {
 	return array( 'result' => $result, 'status' => $status );
 }
 
+function isLoggedIn() {
+	return $_COOKIE['member_id'] && $_COOKIE['is_suspended'] && $_COOKIE['username'];
+}
+
 ?>
