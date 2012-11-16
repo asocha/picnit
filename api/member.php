@@ -244,7 +244,7 @@
                         $toFollow = mysql_real_escape_string($_POST['toFollow']);
                         if (!empty($username) && !empty($toFollow)){
                                 $res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
-                                $this->response(json_encode('', 200);
+                                $this->response(json_encode('', 200));
                         }
 			//FIX ME: check not already following
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toFollow'));
