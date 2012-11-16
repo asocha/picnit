@@ -44,7 +44,7 @@
 
 		public function register() {
 			//Get data
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			$password = mysql_real_escape_string($_POST['password']);
 			$email = mysql_real_escape_string($_POST['email']);
 			$salt = mt_rand();
@@ -88,12 +88,8 @@
 		*/
 		public function logout() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
-			if(isset($_POST['password'])){
-				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
-				if(mysql_num_rows($saltqresult) != 0)
-					$password = sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
-			}
+			$username = $this->getUsername();
+			$password = $this->getPassword($username);
 
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
@@ -108,7 +104,7 @@
 
 		public function deleteAccount() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			if(isset($_POST['password'])) {
 				$res = mysql_query("SELECT salt FROM members WHERE username='$username' LIMIT 1", $this->link);
 				if(!$res)
@@ -135,7 +131,7 @@
 
 		public function suspendUser() {
 			//Get the vars
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 			$toSuspend = mysql_real_escape_string($_POST['toSuspend']);
 
 			//Ensure all variables needed are present
@@ -191,7 +187,7 @@
 		public function unsuspendUser() {
 			//Get the vars
 			$toUnsuspend = mysql_real_escape_string($_POST['toUnsuspend']);
-			$username = mysql_real_escape_string($_POST['username']);
+			$username = $this->getUsername();
 
 			//Ensure all variables needed are present
 			if(!empty($toUnsuspend) && !empty($username)) {
