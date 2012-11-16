@@ -5,6 +5,7 @@
 	<link rel="stylesheet" type="text/css" href="css/index.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
+	<?php require_once('php/general.php'); ?>
 	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
@@ -30,6 +31,10 @@
 </head>
 <body>
 	<div id="menubar">
+		<?php
+			//Only show this section if user isn't logged in
+			if(!isLoggedIn()) {
+		?>
 		<form id="signupbut">
 			<span><input type="button" id="sign" value="Sign Up"/></span>
 		</form>
@@ -42,6 +47,16 @@
 		<form id="homebut" action="index.php">
 			<span><input type="submit" id="home" value="Home"/></span>
 		</form>
+		<?php
+			} //End if
+			else {
+		?>
+		<div id="userinfo">
+			<a href="profile.php?username=<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
+		</div>
+		<?php
+			}
+		?>
 	</div>
 
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150">

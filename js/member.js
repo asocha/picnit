@@ -101,6 +101,16 @@ function validatePassword(p1, p2) {
 		p2.setCustomValidity('');
 }
 
+function logout() {
+	//To logout, we delete all cookies
+	deleteCookie('username');
+	deleteCookie('member_id');
+	deleteCookie('is_suspended');
+
+	//Go back to the index
+	window.location = "./index.php";
+}
+
 function isValid(str) {
 	return /^\w+$/.test(str);
 }
