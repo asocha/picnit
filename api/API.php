@@ -133,5 +133,24 @@
 			}
 			return null;
 		}
+
+		public function authenticateUser() {
+			//Get the username
+			$username = $this->getUsername();
+
+			//Get the key value
+			$key = mysql_real_escape_string($_POST['key']);
+
+			//See if it exists in database
+			$query = "SELECT member_id FROM members WHERE username='$username' AND password='$key' AND is_suspended='false' LIMIT 1";
+			$result = mysql_query($query, $this->link);
+
+			//Result? Send member id
+			if(mysql_num_rows($result) != 0)
+				return mysql_result($result);
+
+			//Else return anon user
+			return -1;
+		}
 	}
 ?>
