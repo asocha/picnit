@@ -59,7 +59,7 @@ get_new_file_path:
 			fclose($fh);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
-			if(!$result)
+			if(!mysql_num_rows($result))
 				$this->response('', 404);
 
 			$this->response('',200);
