@@ -30,7 +30,7 @@
 
 					//Rename passowrd to key
 					$result['key'] = $result['password'];
-					unset($result['password');
+					unset($result['password']);
 
 					//Send the confirmation!
 					$this->response(json_encode($result), 200);
