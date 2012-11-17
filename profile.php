@@ -13,7 +13,7 @@
 <html>
 <title><?php echo  $_GET['username']; ?>'s profile!</title>
 <head>
-	<link rel="stylesheet" href="css/profile.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<script src="js/general.js"></script>
