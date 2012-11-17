@@ -41,6 +41,7 @@ function menubar() {
 
 //Function that returns the signup section
 function signup() {
+	if(!isLoggedIn()) {
 ?>
 	<div id="signupbar">
 		<form id="signupform" onsubmit="return createUser();">
@@ -65,5 +66,6 @@ function signup() {
 		</form>
 	</div>
 <?php
+	}
 }
 ?>
