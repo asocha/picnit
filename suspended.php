@@ -30,7 +30,7 @@
 	</script>
 </head>
 <body>
-	<?php include 'php/html/topbar.php'; ?>
+	<?php include 'php/html/topbar.php'; menubar(); ?>
 
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
@@ -51,27 +51,7 @@
 	</div>
 	<div id="overlay">
 	</div>
-	<div id="signupbar">
-		<form id="signupform" onsubmit="return createUser();">
-			<p><div>
-				<label for="Newusername">username: </label>
-				<input type="text" id="Newusername" pattern="[\w]{3,15}" title="Must be between 3 and 15 letters, numbers, or underscores" required="required"/>
-			</div></p>
-			<p><div>
-				<label for="Newpassword">password: </label>
-				<input type="password" id="Newpassword" pattern".{5,}" title="Must be at least 3 characters" required="required"/>
-			</div>
-			<div>
-				<label for="Confirmpassword">confirm password: </label>
-				<input type="password" id="Confirmpassword" required="required" oninput="validatePassword(document.getElementById('Newpassword'), this);"/>
-			</div></p>
-			<p><div>
-				<label for="name">email: </label>
-				<input type="email" id="email" required="required"/>
-			</div></p>
-			<p><div><input type="submit" id="signup" value="sign up"/></div></p>
-			<p><div><input type="button" id="cancel" value="cancel"/></div><p>
-		</form>
-	</div>
+	
+	<?php signup(); ?>
 </body>
 </html>
