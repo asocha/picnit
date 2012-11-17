@@ -23,7 +23,7 @@
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
 		//Set sign-out button
-		$('#signoutbut').click(logout);
+		$('#signoutbut').click(function() { logout(true); });
 
 		//Load flexslider
 		$('.flexslider').flexslider();

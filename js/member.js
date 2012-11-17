@@ -44,6 +44,13 @@ function login() {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
 		
+		//Check for suspension
+		if(res["is_suspended"] == "1") {
+			logout(false);
+			window.location = "./suspended.php";
+			return false;
+		}
+		
 		//Add cookies to the array
 		for(var index in res)
 			setCookie(index, res[index], 7);
@@ -101,14 +108,16 @@ function validatePassword(p1, p2) {
 		p2.setCustomValidity('');
 }
 
-function logout() {
+function logout(redirect) {
 	//To logout, we delete all cookies
 	deleteCookie('username');
 	deleteCookie('member_id');
 	deleteCookie('is_suspended');
+	deleteCookie('key');
 
 	//Go back to the index
-	window.location = "./index.php";
+	if(redirect)
+		window.location = "./index.php";
 }
 
 function isValid(str) {
