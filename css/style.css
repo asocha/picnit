@@ -7,7 +7,7 @@ body {
 div#menubar {
 	background-color: #408DD2;
 	border-style:solid;
-	border-width:5px;
+	/*border-width:5px;*/
 	border-color:#043A6B;
 	color:#043A6B;
 	position:relative;
