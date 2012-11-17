@@ -1,5 +1,3 @@
 *~
-images/*
-!images/.htaccess
-!images/gui/*
-!images/gui
+images/user/*
+!images/user/.htaccess

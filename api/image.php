@@ -28,10 +28,10 @@
 			$albumid = mysql_real_escape_string($_POST['albumid']);
 			$publicness = mysql_real_escape_string($_POST['publicness']);
 			$phototype = mysql_real_escape_string($_POST['phototype']);
-			$photo = base64_decode($_POST['image']);
+			$photo = base64_decode($_POST['photo']);
 
 			// Check that we have everything we need
-			if(empty($userid) || empty($albumid) || empty($publicness) || empty($photo) || empty($phototype) || strlen($phototype) != 3)
+			if(!isset($userid) || !isset($albumid) || !isset($publicness) || !isset($photo) || (strlen($phototype) != 3))
 				$this->response('', 400);
 
 get_new_file_path:
@@ -46,14 +46,15 @@ get_new_file_path:
 			$dir4 = mt_rand(0,9999);
 			$dir5 = mt_rand(0,9999);
 			$file = mt_rand(0,99);
-			$filepath = "/".$dir1."/".$dir2."/".$dir3."/"."/".$dir4."/".$dir5."/".$file.".$phototype";
+			$filepath = "/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5."/".$file.".$phototype";
 
 			// This should pretty much never happen, but still...
-			if(file_exists("/var/www".$filepath))
+			if(file_exists("/var/www/picnit/images/user".$filepath))
 				goto get_new_file_path;
 
 			// Actually write out the POSTed photo file data
-			$fh = fopen("/var/www".$filepath);
+			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
+			$fh = fopen("/var/www/picnit/images/user".$filepath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
 
