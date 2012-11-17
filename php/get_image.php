@@ -1,7 +1,5 @@
 <?php
-	//gets member id from session
-	session_start();
-	$memberid = $_SESSION['member_id'];
+	// Get $memberid and verify somehow?
 
 	$photoid = $_GET['id'];
 	if(empty($photoid)) {
@@ -18,7 +16,7 @@
 	mysql_select_db('picnit', $con);
 
 	$result = mysql_query("SELECT album_id,publicness FROM images WHERE image_id='$photoid' LIMIT 1", $con);
-	if(!$result) {
+	if(mysql_num_rows($result) == 0) {
 		header("HTTP/1.1 404 Not Found");
 		exit;
 	}
@@ -28,7 +26,7 @@
 
 	if($publicness == 0)
 		goto grant_access; // It's public - return it
-	if(empty($memberid))
+	if(!isset($memberid))
 		goto deny_access; // Not public, not logged in - deny
 
 	// Okay, the user is logged in with a valid session, and we have their ID
@@ -51,7 +49,6 @@
 	goto deny_access;
 
 grant_access:
-	// Path is stored in the form "/xxxx/xxxx/xxxx/xxxxxxxxxxxx.ext"
 	$imagepath = mysql_result(mysql_query("SELECT filepath FROM images WHERE image_id='$photoid' LIMIT 1"), 0, filepath);
 	$filetype = mime_content_type("/var/www/picnit/images/user".$imagepath);
 	header("Content-type: $filetype");
