@@ -19,7 +19,7 @@
 			$comment = mysql_real_escape_string($_POST['comment']);
 
 			//Ensure all variables needed are present
-			if(!empty($member_id) && !empty($image_id) && !empty($comment)) {
+			if(isset($member_id) && isset($image_id) && isset($comment)) {
 				//Query the db
 				$query = "INSERT INTO comments values ('$member_id', '$image_id', '$comment')";
 				$sql = mysql_query($query, $this->link);
@@ -38,7 +38,7 @@
 			$comment_id = $_POST['comment_id'];
 
 			//Ensure all variables needed are present
-			if(!empty($comment_id)) {
+			if(isset($comment_id)) {
 				//Query the db
 				$query = "DELETE FROM comments where comment_id='$comment_id'";
 				$sql = mysql_query($query, $this->link);
@@ -57,7 +57,7 @@
 			$image_id = $_POST['image_id'];
 
 			//Ensure all variables needed are present
-			if(!empty($image_id)) {
+			if(isset($image_id)) {
 				//Query the db
 				$query = "SELECT comment_text FROM comments where image_id='$image_id'";
 				$sql = mysql_query($query, $this->link);
