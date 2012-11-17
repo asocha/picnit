@@ -5,10 +5,10 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
-	<?php require_once('php/general.php'); ?>
-	<script type="text/javascript" src="js/general.js"></script>
-	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="js/member.js"></script>
+	<?php require_once('/picnit/php/general.php'); ?>
+	<script type="text/javascript" src="/picnit/js/general.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script>
 	window.onload = function() {
 		document.getElementById('overlay').style.visibility="hidden";
@@ -30,9 +30,9 @@
 	</script>
 </head>
 <body>
-	<?php include 'php/html/topbar.php'; ?>
+	<?php include '/picnit/php/html/topbar.php'; ?>
 
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
+	<img src="/picnit/images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
 	<div id="searchbar">
 		<form id="search" action="index.php" method="post">
