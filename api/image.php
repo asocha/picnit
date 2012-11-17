@@ -64,6 +64,65 @@ get_new_file_path:
 
 			$this->response('',200);
 		}
+
+		public function addTag() {
+			//Get the vars
+                        $image_id = $_POST['image_id'];
+                        $tag_id = $_POST['tag_id'];
+
+                        //Ensure all variables needed are present
+                        if(isset($tag_id) && isset($image_id)) {
+                                //create tag
+                                $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)", $this->link);
+
+                                //Make sure query works
+                                if(!$res) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //image already has that tag
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Image already has that tag'));
+                                                $this->response($error, 409);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+                                }
+
+                                //success
+                                $this->response(json_encode('', 200));
+                        }
+
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or tag'));
+                        $this->response($error, 400);
+		}
+
+		public function deleteTag() {
+			//Get the vars
+                        $image_id = $_POST['image_id'];
+                        $tag_id = $_POST['tag_id'];
+
+                        //Ensure all variables needed are present
+                        if(isset($tag_id) && isset($image_id)) {
+				//make sure tag exists
+				$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+				if($res){
+					//image does not have that tag
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not have that tag'));
+                                        $this->response($error, 409);
+				}
+
+                                //delete tag
+                                mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+                                //success
+                                $this->response(json_encode('', 200));
+                        }
+
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or tag'));
+                        $this->response($error, 400);
+		}
 	}
 
 	$api = new Image;

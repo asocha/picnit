@@ -1,5 +1,5 @@
 body {
-	background-color: #0C5DA5;
+	background-color: #FFFFFF;
 	font-family: 'Concert One', cursive;
 	min-width:820px;
 }
@@ -200,6 +200,20 @@ div#searchbar {
 	height:25px;
 }
 
+div#indexsearchbar {
+	background-color: #408DD2;
+	border-style:solid;
+	border-width:5px;
+	border-color:#043A6B;
+	color:#043A6B;
+	-webkit-border-radius:12px;
+	position:relative;
+	top:0px;
+	padding:5px;
+	margin-bottom:5px;
+	height:25px;
+}
+
 div#slideshow {
 	background-color: #408DD2;
 	border-style:solid;
@@ -292,5 +306,4 @@ form#signoutbut {
 
 img#logo {
 	position:relative;
-	top:50px;
 }
