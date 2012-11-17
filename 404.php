@@ -3,13 +3,13 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="css/Error.css"/>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="/picnit/css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
-	<?php require_once('php/general.php'); ?>
-	<script type="text/javascript" src="js/general.js"></script>
-	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="js/member.js"></script>
+	<?php require_once(dirname(__FILE__) . '/php/general.php'); ?>
+	<script type="text/javascript" src="/picnit/js/general.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script>
 	window.onload = function() {
 		document.getElementById('overlay').style.visibility="hidden";
@@ -31,9 +31,9 @@
 	</script>
 </head>
 <body>
-	<?php include 'php/html/topbar.php'; ?>
+	<?php include dirname(__FILE__) . '/php/html/topbar.php'; menubar(); ?>
 
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
+	<img src="/picnit/images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
 	<div id="searchbar">
 		<form id="search" action="index.php" method="post">
@@ -52,27 +52,7 @@
 	</div>
 	<div id="overlay">
 	</div>
-	<div id="signupbar">
-		<form id="signupform" onsubmit="return createUser();">
-			<p><div>
-				<label for="Newusername">username: </label>
-				<input type="text" id="Newusername" pattern="[\w]{3,15}" title="Must be between 3 and 15 letters, numbers, or underscores" required="required"/>
-			</div></p>
-			<p><div>
-				<label for="Newpassword">password: </label>
-				<input type="password" id="Newpassword" pattern".{5,}" title="Must be at least 3 characters" required="required"/>
-			</div>
-			<div>
-				<label for="Confirmpassword">confirm password: </label>
-				<input type="password" id="Confirmpassword" required="required" oninput="validatePassword(document.getElementById('Newpassword'), this);"/>
-			</div></p>
-			<p><div>
-				<label for="name">email: </label>
-				<input type="email" id="email" required="required"/>
-			</div></p>
-			<p><div><input type="submit" id="signup" value="sign up"/></div></p>
-			<p><div><input type="button" id="cancel" value="cancel"/></div><p>
-		</form>
-	</div>
+
+	<?php signup(); ?>
 </body>
 </html>
