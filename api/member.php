@@ -53,7 +53,7 @@
 			if(!empty($username) && !empty($password) && !empty($email)) {
 				//Hash the password
 				$hashedpass = sha1($password.$salt);
-				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')");
+				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')", $this->link);
 
 				//Make sure query works
 				if(!$result) {
@@ -217,9 +217,8 @@
 		public function memberData() {
 			$username = $this->getUsername();
 			if (!empty($username)){
-				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'");
-				$result = mysql_query($res, $this->link);
-				$this->response(json_encode($result), 200);
+				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'", $this->link);
+				$this->response(json_encode($res), 200);
 			}
 			
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username'));
@@ -242,11 +241,31 @@
 			//FIX ME: delete follow request somehow
 			$username = $this->getUsername();
                         $toFollow = mysql_real_escape_string($_POST['toFollow']);
+
                         if (!empty($username) && !empty($toFollow)){
-                                $res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
+				$res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')", $this->link);
+				
+				//Make sure query works
+                                if(!$res) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //user is already following that person
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'User is already following that person'));
+                                                $this->response($error, 417);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+                                }
+
+				//success
                                 $this->response(json_encode('', 200));
                         }
-			//FIX ME: check not already following
+			
+			//missing data
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toFollow'));
                         $this->response($error, 400);
 		}
@@ -254,11 +273,21 @@
 		public function unfollow() {
 			$username = $this->getUsername();
                         $toUnfollow = mysql_real_escape_string($_POST['toUnfollow']);
+
                         if (!empty($username) && !empty($toUnfollow)){
-                                $res = mysql_query("REMOVE from follows where follower_id='$username' and followee_id='$toUnfollow'");
+				//make sure user is following that person
+				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toUnfollow'", $this->link);
+				if(!$res){
+					//not following, error
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not following that person'));
+                        		$this->response($error, 417);
+				}
+
+				//success
+                                mysql_query("REMOVE from follows where follower_id='$username' and followee_id='$toUnfollow'");
                                 $this->response('', 200);
                         }
-			//FIX ME: make sure is actually following
+			
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toUnfollow'));
                         $this->response($error, 400);
 		}
