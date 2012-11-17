@@ -53,9 +53,9 @@
 grant_access:
 	// Path is stored in the form "/xxxx/xxxx/xxxx/xxxxxxxxxxxx.ext"
 	$imagepath = mysql_result(mysql_query("SELECT filepath FROM images WHERE image_id='$photoid' LIMIT 1"), 0, filepath);
-	$filetype = mime_content_type("/var/www/images".$imagepath);
+	$filetype = mime_content_type("/var/www/picnit/images/user".$imagepath);
 	header("Content-type: $filetype");
-	echo file_get_contents("/var/www/images".$imagepath);
+	echo file_get_contents("/var/www/picnit/images/user".$imagepath);
 	exit;
 deny_access:
 	header("HTTP/1.1 403 Forbidden");
