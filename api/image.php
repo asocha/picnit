@@ -15,7 +15,7 @@
 		public function getImage() {
 			$imageid = $_POST['imageid'];
 
-			if(empty($imageid))
+			if(!isset($imageid))
 				$this->response('', 400);
 
 			// Redirect to our get_image handler
@@ -110,7 +110,7 @@ get_new_file_path:
 		public function deleteTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
-                        $tag = mysql_real_escape_string($_POST['tag_id']);
+                        $tag = mysql_real_escape_string($_POST['tag']);
 
                         //Ensure all variables needed are present
                         if(isset($tag) && isset($image_id)) {
