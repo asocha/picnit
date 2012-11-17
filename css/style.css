@@ -37,7 +37,7 @@ input#home {
 	border-style:solid;
 	border-width:3px;
 	border-color:#043A6B;
-	/*-webkit-border-radius:6px;*/
+	-webkit-border-radius:6px;
 	color: #679FD2;
 	width:125px;
 }

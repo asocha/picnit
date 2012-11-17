@@ -40,8 +40,7 @@
 			<span><input type="submit" name="search" id="search" value="Submit"/></span>
 		</form>
 	</div>
-	<div id="gallery" name="gallery" class="gallery">
-	</div>
+	<div id="gallery" name="gallery" class="gallery"></div>
 	<div id="info" name="info">
 		<div id="infotext">
 			<div>picnit.net</div>
