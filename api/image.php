@@ -67,10 +67,18 @@ get_new_file_path:
 		public function addTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
-                        $tag_id = $_POST['tag_id'];
+                        $tag = mysql_real_escape_string($_POST['tag']);
 
                         //Ensure all variables needed are present
-                        if(isset($tag_id) && isset($image_id)) {
+                        if(isset($tag) && isset($image_id)) {
+				//get id for this tag
+				$tag_id = mysql_query("SELECT category_id from categories where category='$tag'", $this->link);
+				if(!$tag_id){
+					//id doesn't exist, create new id
+					mysql_query("INSERT INTO categories VALUES ('$tag')", $this->link);
+					$tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+				}
+
                                 //create tag
                                 $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)", $this->link);
 
@@ -101,13 +109,16 @@ get_new_file_path:
 		public function deleteTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
-                        $tag_id = $_POST['tag_id'];
+                        $tag = mysql_real_escape_string($_POST['tag_id']);
 
                         //Ensure all variables needed are present
-                        if(isset($tag_id) && isset($image_id)) {
+                        if(isset($tag) && isset($image_id)) {
+				//get id for this tag
+                                $tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+
 				//make sure tag exists
 				$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
-				if($res){
+				if(!$res){
 					//image does not have that tag
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not have that tag'));
                                         $this->response($error, 409);
