@@ -242,11 +242,31 @@
 			//FIX ME: delete follow request somehow
 			$username = $this->getUsername();
                         $toFollow = mysql_real_escape_string($_POST['toFollow']);
+
+			$res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
+
                         if (!empty($username) && !empty($toFollow)){
-                                $res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
+				//Make sure query works
+                                if(!$result) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //user is already following that person
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'User is already following that person'));
+                                                $this->response($error, 417);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+                                }
+
+				//success
                                 $this->response(json_encode('', 200));
                         }
-			//FIX ME: check not already following
+			
+			//missing data
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toFollow'));
                         $this->response($error, 400);
 		}
@@ -254,11 +274,21 @@
 		public function unfollow() {
 			$username = $this->getUsername();
                         $toUnfollow = mysql_real_escape_string($_POST['toUnfollow']);
+
                         if (!empty($username) && !empty($toUnfollow)){
+				//make sure user is following that person
+				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toUnfollow'");
+				if(!$res){
+					//not following, error
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not following that person'));
+                        		$this->response($error, 417);
+				}
+
+				//success
                                 $res = mysql_query("REMOVE from follows where follower_id='$username' and followee_id='$toUnfollow'");
                                 $this->response('', 200);
                         }
-			//FIX ME: make sure is actually following
+			
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toUnfollow'));
                         $this->response($error, 400);
 		}
