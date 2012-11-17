@@ -16,6 +16,8 @@
 		const DB_PASS = 'PhotoDolo247';
 		const DB_HOST = 'localhost';
 
+		public $memberid;
+
 		//Response code
 		private $_code = 200;
 
@@ -113,6 +115,9 @@
 		public function process() {
 			//Get the action
 			$action = $_POST['action'];
+
+			// Set our magic memberid variable
+			$this->$memberid = authenticateUser();
 
 			//See if method exists in class
 			if(method_exists($this, $action))

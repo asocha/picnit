@@ -18,7 +18,7 @@
 			$password = $this->getPassword($username);
 
 			//Ensure all variables needed are present
-			if(!empty($username) && !empty($password)) {
+			if(isset($username) && isset($password)) {
 				//Query the db
 				$query = "SELECT member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1";
 				$res = mysql_query($query, $this->link);
@@ -54,7 +54,7 @@
 			$salt = mt_rand();
 
 			//Make sure data arrives
-			if(!empty($username) && !empty($password) && !empty($email)) {
+			if(isset($username) && isset($password) && isset($email)) {
 				//Hash the password
 				$hashedpass = sha1($password.$salt);
 				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')", $this->link);
@@ -101,7 +101,7 @@
 			$password = $this->getPassword($username);
 
 			//Ensure all variables needed are present
-			if(!empty($username) && !empty($password)) {
+			if(isset($username) && isset($password)) {
 				//Send the confirmation!
 				$this->response('',200);
 			}
@@ -122,7 +122,7 @@
 			}
 
 			//Ensure all variables needed are present
-			if(!empty($username) && !empty($password)) {
+			if(isset($username) && isset($password)) {
 				//Query the db
 				$query = "REMOVE FROM members where username='$username' and password='$hashedpass'";
 				mysql_query($query, $this->link);
@@ -144,7 +144,7 @@
 			$toSuspend = mysql_real_escape_string($_POST['toSuspend']);
 
 			//Ensure all variables needed are present
-			if(!empty($toSuspend) && !empty($username)) {
+			if(isset($toSuspend) && isset($username)) {
 				//check if user is an admin
 				$query = "SELECT is_admin FROM members where username='$username'";
 				$res = mysql_query($query, $this->link);
@@ -184,7 +184,7 @@
 			$username = $this->getUsername();
 
 			//Ensure all variables needed are present
-			if(!empty($toUnsuspend) && !empty($username)) {
+			if(isset($toUnsuspend) && isset($username)) {
 				//check if user is an admin
 				$query = "SELECT is_admin FROM members where username='$username'";
 				$res = mysql_query($query, $this->link);
@@ -220,7 +220,7 @@
 
 		public function memberData() {
 			$username = $this->getUsername();
-			if (!empty($username)){
+			if (isset($username)){
 				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'", $this->link);
 				//success
 				$this->response(json_encode($res), 200);
@@ -234,7 +234,7 @@
 		public function requestFollow() {
 			$username = $this->getUsername();
 			$toFollow = mysql_real_escape_string($_POST['toFollow']);
-			if (!empty($username) && !empty($toFollow)){
+			if (isset($username) && isset($toFollow)){
 				//check if user is already following that person
 				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toFollow'", $this->link);
 				if ($res){
@@ -274,7 +274,7 @@
 			$username = $this->getUsername();
                         $toFollow = mysql_real_escape_string($_POST['toFollow']);
 
-                        if (!empty($username) && !empty($toFollow)){
+                        if (isset($username) && isset($toFollow)){
 				//make sure user has requested to follow
                                 $res = mysql_query("SELECT * FROM messages where sender_id='$username' and member_id='$toUnfollow'", $this->link);
                                 if(!$res){
@@ -318,7 +318,7 @@
 			$username = $this->getUsername();
                         $toUnfollow = mysql_real_escape_string($_POST['toUnfollow']);
 
-                        if (!empty($username) && !empty($toUnfollow)){
+                        if (isset($username) && isset($toUnfollow)){
 				//make sure user is following that person
 				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toUnfollow'", $this->link);
 				if(!$res){
