@@ -134,6 +134,66 @@ get_new_file_path:
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or tag'));
                         $this->response($error, 400);
 		}
+
+		public function addFavorite() {
+                        //Get the vars
+                        $image_id = $_POST['image_id'];
+                        $member_id = $_POST['member_id'];
+
+                        //Ensure all variables needed are present
+                        if(isset($member_id) && isset($image_id)) {
+                                //add Favorite
+                                $res = mysql_query("INSERT INTO favorites VALUES ($image_id, $member_id)", $this->link);
+
+                                //Make sure query works
+                                if(!$res) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //User already favorited this image
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Already favorited this image'));
+                                                $this->response($error, 409);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+                                }
+
+                                //success
+                                $this->response(json_encode('', 200));
+                        }
+
+			//missing data
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or member_id'));
+                        $this->response($error, 400);
+		}
+
+		public function deleteFavorite() {
+                        //Get the vars
+                        $image_id = $_POST['image_id'];
+                        $member_id = $_POST['member_id'];
+
+                        //Ensure all variables needed are present
+                        if(isset($member_id) && isset($image_id)) {
+                                //make sure already favorited
+                                $res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$member_id", $this->link);
+                                if(!$res){
+                                        //User has not favorited that image
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User has not favorited that image'));
+                                        $this->response($error, 409);
+                                }
+
+                                //delete favorite
+                                mysql_query("REMOVE FROM favorites where image_id=$image_id and member_id=$member_id", $this->link);
+                                //success
+                                $this->response(json_encode('', 200));
+                        }
+
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or member_id'));
+                        $this->response($error, 400);
+                }
 	}
 
 	$api = new Image;
