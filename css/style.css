@@ -138,6 +138,91 @@ div#overlay {
 	opacity:0.5;
 }
 
+div#imgoverlay {
+	visibility:hidden;
+	position:fixed;
+	top:0px;
+	left:0px;
+	height:100%;
+	width:100%;
+	background-color:#000000;
+	opacity:0.5;
+}
+
+div#imgviewer {
+	visibility:hidden;
+	position:fixed;
+	top:5%;
+	left:10%;
+	width:80%;
+	height:90%;
+	min-height:550px;
+	min-width:500px;
+}
+
+div#imgviewer div#editor {
+	height:60%;
+	width:100%;
+	margin-top:-15px;
+}
+
+div#imgviewer div#image {
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	height:100%;
+	-webkit-border-radius:12px;
+}
+
+div#imgviewer div#comments {
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	-webkit-border-radius:12px;
+	height:40%;
+	margin-top:15px;
+}
+
+div#image img {
+	border-style:solid;
+	height:300px;
+	width:300px;
+	position:relative;
+	left:50%;
+	margin-left:-150px;
+}
+
+div#image div#next {
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	-webkit-border-radius:12px;
+	position:relative;
+	height:50px;
+	width:50px;
+	float:right;
+	margin-right:-25px;
+	margin-bottom:-50px;
+	top:50%;
+}
+
+div#image div#prev {
+	background-color:#408DD2;
+	border-style: solid;
+	border-color:#043A6B;
+	border-width:5px;
+	-webkit-border-radius:12px;
+	height:50px;
+	width:50px;
+	margin-left:-25px;
+	margin-bottom:-50px;
+	position:relative;
+	top:50%;
+}
+
 div#signupbar {
 	visibility:hidden;
 	position:fixed;

@@ -11,11 +11,11 @@
 	<script type="text/javascript" src="js/member.js"></script>
 	<script>
 	window.onload = function() {
-		document.getElementById('overlay').style.visibility="hidden";
-		document.getElementById('signupbar').style.visibility="hidden";	
 		document.getElementById('signupbut').addEventListener('click',showsignup,false);
 		document.getElementById('cancel').addEventListener('click',hidesignup,false);
 		document.getElementById('overlay').addEventListener('click',hidesignup,false);
+		document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+		document.getElementById('testimg').addEventListener('click',showViewer,false);
 	}
 
 	function showsignup() {
@@ -31,6 +31,7 @@
 </head>
 <body>
 	<?php include 'php/html/topbar.php'; ?>
+	
 
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
@@ -41,6 +42,7 @@
 		</form>
 	</div>
 	<div id="gallery" name="gallery" class="gallery">
+		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
 	</div>
 	<div id="info" name="info">
 		<div id="infotext">
@@ -72,5 +74,7 @@
 			<p><div><input type="button" id="cancel" value="cancel"/></div><p>
 		</form>
 	</div>
+
+	<?php include 'php/html/imageview.php'; ?>
 </body>
 </html>
