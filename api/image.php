@@ -68,36 +68,58 @@ get_new_file_path:
 		public function addTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
-                        $tag = mysql_real_escape_string($_POST['tag']);
+                        $tag = mysql_real_escape_string($_POST['tag']); //if category tag
+			$member_id = $_POST['member_id']; //if member tag
 
                         //Ensure all variables needed are present
-                        if(isset($tag) && isset($image_id)) {
-				//get id for this tag
-				$tag_id = mysql_query("SELECT category_id from categories where category='$tag'", $this->link);
-				if(!$tag_id){
-					//id doesn't exist, create new id
-					mysql_query("INSERT INTO categories VALUES ('$tag')", $this->link);
-					$tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+                        if(isset($tag) && (isset($image_id) || isset($member_id))) {
+				if(isset($tag)){ //add category tag
+					//get id for this tag
+					$tag_id = mysql_query("SELECT category_id from categories where category='$tag'", $this->link);
+					if(mysql_num_rows($res) == 0){
+						//id doesn't exist, create new id
+						mysql_query("INSERT INTO categories VALUES ('$tag')", $this->link);
+						$tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+					}
+
+	                                //create tag
+        	                        $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)", $this->link);
+
+                	                //Make sure query works
+                        	        if(!$res) {
+                                	        //Get error
+                                        	$err = mysql_errno();
+
+	                                        if($err == 1062) {
+        	                                        //image already has that tag
+                	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Image already has that tag'));
+                        	                        $this->response($error, 409);
+                                	        }
+
+	                                        //Something else went wrong
+        	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                	                        $this->response($error, 500);
+                        	        }
 				}
+				else{ //add member tag
+	                                $res = mysql_query("INSERT INTO mem_tags VALUES ($member_id, $image_id, NOW())", $this->link);
 
-                                //create tag
-                                $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)", $this->link);
+        	                        //Make sure query works
+                	                if(!$res) {
+                        	                //Get error
+                                	        $err = mysql_errno();
 
-                                //Make sure query works
-                                if(!$res) {
-                                        //Get error
-                                        $err = mysql_errno();
+	                                        if($err == 1062) {
+        	                                        //User already tagged in this image
+                	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'User already tagged in this image'));
+                        	                        $this->response($error, 409);
+                                	        }
 
-                                        if($err == 1062) {
-                                                //image already has that tag
-                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Image already has that tag'));
-                                                $this->response($error, 409);
-                                        }
-
-                                        //Something else went wrong
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
-                                        $this->response($error, 500);
-                                }
+	                                        //Something else went wrong
+        	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                	                        $this->response($error, 500);
+                        	        }
+				}
 
                                 //success
                                 $this->response(json_encode('', 200));
@@ -110,23 +132,38 @@ get_new_file_path:
 		public function deleteTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
-                        $tag = mysql_real_escape_string($_POST['tag']);
+                        $tag = mysql_real_escape_string($_POST['tag']); //if category tag
+			$member_id = $_POST['member_id']; //if member tag
 
                         //Ensure all variables needed are present
-                        if(isset($tag) && isset($image_id)) {
-				//get id for this tag
-                                $tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+                        if(isset($tag) && (isset($image_id) || isset($member_id))) {
+				if(isset($tag)){ //delete category tag
+					//get id for this tag
+        	                        $tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
 
-				//make sure tag exists
-				$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
-				if(!$res){
-					//image does not have that tag
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not have that tag'));
-                                        $this->response($error, 409);
+					//make sure tag exists
+					$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+					if(mysql_num_rows($res) == 0){
+						//image does not have that tag
+        	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not have that tag'));
+                	                        $this->response($error, 409);
+					}
+
+                                	//delete tag
+                                	mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
 				}
+				else {
+					//make sure already tagged
+	                                $res = mysql_query("SELECT * FROM mem_tags where image_id=$image_id and member_id=$member_id", $this->link);
+        	                        if(mysql_num_rows($res) == 0){
+                	                        //Person is not tagged in that image
+                        	                $error = json_encode(array('status' => 'Failed', 'msg' => 'Person is not tagged in that image'));
+                                	        $this->response($error, 409);
+                                	}
 
-                                //delete tag
-                                mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+        	                        //delete tag
+	                                mysql_query("REMOVE FROM mem_tags where image_id=$image_id and member_id=$member_id", $this->link);
+				}
                                 //success
                                 $this->response(json_encode('', 200));
                         }
@@ -179,7 +216,7 @@ get_new_file_path:
                         if(isset($member_id) && isset($image_id)) {
                                 //make sure already favorited
                                 $res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$member_id", $this->link);
-                                if(!$res){
+                                if(mysql_num_rows($res) == 0){
                                         //User has not favorited that image
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'User has not favorited that image'));
                                         $this->response($error, 409);
