@@ -20,13 +20,17 @@
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
 				//Query the db
-				$query = "SELECT member_id, username, is_suspended FROM members where username='$username' and password='$password' LIMIT 1";
+				$query = "SELECT member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1";
 				$res = mysql_query($query, $this->link);
 
 				//Check the results
 				if(mysql_num_rows($res) > 0) {
 					//Get the row
 					$result = mysql_fetch_array($res, MYSQL_ASSOC);
+
+					//Rename passowrd to key
+					$result['key'] = $result['password'];
+					unset($result['password');
 
 					//Send the confirmation!
 					$this->response(json_encode($result), 200);
