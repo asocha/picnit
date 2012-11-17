@@ -20,13 +20,17 @@
 			//Ensure all variables needed are present
 			if(!empty($username) && !empty($password)) {
 				//Query the db
-				$query = "SELECT member_id, username, is_suspended FROM members where username='$username' and password='$password' LIMIT 1";
+				$query = "SELECT member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1";
 				$res = mysql_query($query, $this->link);
 
 				//Check the results
 				if(mysql_num_rows($res) > 0) {
 					//Get the row
 					$result = mysql_fetch_array($res, MYSQL_ASSOC);
+
+					//Rename passowrd to key
+					$result['key'] = $result['password'];
+					unset($result['password']);
 
 					//Send the confirmation!
 					$this->response(json_encode($result), 200);
@@ -53,7 +57,7 @@
 			if(!empty($username) && !empty($password) && !empty($email)) {
 				//Hash the password
 				$hashedpass = sha1($password.$salt);
-				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')");
+				$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')", $this->link);
 
 				//Make sure query works
 				if(!$result) {
@@ -142,7 +146,7 @@
 			//Ensure all variables needed are present
 			if(!empty($toSuspend) && !empty($username)) {
 				//check if user is an admin
-				$query = "SELECT is_Admin FROM members where username='$username'";
+				$query = "SELECT is_admin FROM members where username='$username'";
 				$res = mysql_query($query, $this->link);
 				if($res == 0){
 					//user is not admin, cannot suspend
@@ -151,7 +155,7 @@
 				}
 
 				//check if member to suspend exists and isn't suspended
-				$query = "SELECT is_Suspended FROM members where username='$toSuspend'";
+				$query = "SELECT is_suspended FROM members where username='$toSuspend'";
 				$res = mysql_query($query, $this->link);
 
 				if((mysql_num_rows($res) < 1) || ($res == 1)){
@@ -182,7 +186,7 @@
 			//Ensure all variables needed are present
 			if(!empty($toUnsuspend) && !empty($username)) {
 				//check if user is an admin
-				$query = "SELECT is_Admin FROM members where username='$username'";
+				$query = "SELECT is_admin FROM members where username='$username'";
 				$res = mysql_query($query, $this->link);
 				if($res == 0){
 					//user is not admin, cannot unsuspend
@@ -217,11 +221,12 @@
 		public function memberData() {
 			$username = $this->getUsername();
 			if (!empty($username)){
-				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'");
-				$result = mysql_query($res, $this->link);
-				$this->response(json_encode($result), 200);
+				$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where username='$username'", $this->link);
+				//success
+				$this->response(json_encode($res), 200);
 			}
 			
+			//missing data
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username'));
 			$this->response($error, 400);
 		}
@@ -230,23 +235,81 @@
 			$username = $this->getUsername();
 			$toFollow = mysql_real_escape_string($_POST['toFollow']);
 			if (!empty($username) && !empty($toFollow)){
-				//FIX ME: do something
+				//check if user is already following that person
+				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toFollow'", $this->link);
+				if ($res){
+					//user is already following that person
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'Already following that user'));
+                        		$this->response($error, 417);
+				}
+
+				//create follow request
+				$res = mysql_query("INSERT INTO messages VALUES ('$username', '$toFollow', 'follow_request', 0, '')", $this->link);
+
+                                //Make sure query works
+                                if(!$res) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //user has already follow requested that person
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Already requested to follow that user'));
+                                                $this->response($error, 409);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+				}
+
+				//success
+                                $this->response(json_encode('', 200));
 			}
-				//FIX ME: check not already requested
-				//FIX ME: check not already following
+			
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or tofollow'));
                         $this->response($error, 400);
 		}
 
 		public function follow() {
-			//FIX ME: delete follow request somehow
 			$username = $this->getUsername();
                         $toFollow = mysql_real_escape_string($_POST['toFollow']);
+
                         if (!empty($username) && !empty($toFollow)){
-                                $res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')");
+				//make sure user has requested to follow
+                                $res = mysql_query("SELECT * FROM messages where sender_id='$username' and member_id='$toUnfollow'", $this->link);
+                                if(!$res){
+                                        //has not sent follow request
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'User did not request to follow that person'));
+                                        $this->response($error, 417);
+                                }
+
+                                //delete follow request
+                                mysql_query("REMOVE FROM follows where follower_id='$username' and followee_id='$toUnfollow'");
+                                
+				//implement Follow
+				$res = mysql_query("INSERT INTO follows VALUES ('$username', '$toFollow')", $this->link);
+				
+				//Make sure query works
+                                if(!$res) {
+                                        //Get error
+                                        $err = mysql_errno();
+
+                                        if($err == 1062) {
+                                                //user is already following that person
+                                                $error = json_encode(array('status' => 'Failed', 'msg' => 'User is already following that person'));
+                                                $this->response($error, 409);
+                                        }
+
+                                        //Something else went wrong
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
+                                        $this->response($error, 500);
+                                }
+
+				//success
                                 $this->response(json_encode('', 200));
                         }
-			//FIX ME: check not already following
+			
+			//missing data
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toFollow'));
                         $this->response($error, 400);
 		}
@@ -254,11 +317,22 @@
 		public function unfollow() {
 			$username = $this->getUsername();
                         $toUnfollow = mysql_real_escape_string($_POST['toUnfollow']);
+
                         if (!empty($username) && !empty($toUnfollow)){
-                                $res = mysql_query("REMOVE from follows where follower_id='$username' and followee_id='$toUnfollow'");
+				//make sure user is following that person
+				$res = mysql_query("SELECT * FROM follows where follower_id='$username' and followee_id='$toUnfollow'", $this->link);
+				if(!$res){
+					//not following, error
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'User is not following that person'));
+                        		$this->response($error, 417);
+				}
+
+				//success
+                                mysql_query("REMOVE FROM follows where follower_id='$username' and followee_id='$toUnfollow'");
                                 $this->response('', 200);
                         }
-			//FIX ME: make sure is actually following
+			
+			//missing data
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing username or toUnfollow'));
                         $this->response($error, 400);
 		}
