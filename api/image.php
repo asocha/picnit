@@ -125,7 +125,7 @@ get_new_file_path:
                                 $this->response(json_encode('', 200));
                         }
 
-                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or tag'));
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
                         $this->response($error, 400);
 		}
 
@@ -168,7 +168,7 @@ get_new_file_path:
                                 $this->response(json_encode('', 200));
                         }
 
-                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or tag'));
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
                         $this->response($error, 400);
 		}
 
@@ -231,6 +231,31 @@ get_new_file_path:
                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or member_id'));
                         $this->response($error, 400);
                 }
+
+		public function setPrivacy() {
+			//Get the vars
+			$privacy = $_POST['privacy'];
+			$image_id = $_POST['image_id'];
+
+			//Ensure all variables needed are present
+                        if(isset($privacy) && isset($image_id)) {
+				//make sure image exists
+				$res = mysql_query("SELECT * FROM images where image_id=$image_id", $this->link);
+                                if(mysql_num_rows($res) == 0){
+                                        //image does not exist
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
+                                        $this->response($error, 409);
+                                }
+
+                                //update privacy
+                                mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id", $this->link);
+                                //success
+                                $this->response(json_encode('', 200));
+                        }
+
+                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id or privacy'));
+                        $this->response($error, 400);
+		}
 	}
 
 	$api = new Image;
