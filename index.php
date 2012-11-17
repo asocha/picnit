@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="css/index.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
 	<?php require_once('php/general.php'); ?>
@@ -59,7 +59,7 @@
 		?>
 	</div>
 
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="150">
+	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
 	<div id="searchbar">
 		<form id="search" action="index.php" method="post">

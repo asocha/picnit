@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-	<link rel="stylesheet" type="text/css" href="css/search.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>Search Results</title>
 	<script src="js/libraries/jquery-1.8.2.min.jss"></script>
@@ -26,7 +26,7 @@
 			<span><input type="submit" name="search" id="search" value="Submit"/></span>
 		</form>
 	</div>
-	<div id="gallery">
+	<div id="results">
 
 	</div>
 	<div id="info" name="info">
