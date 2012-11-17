@@ -117,7 +117,7 @@
 			$action = $_POST['action'];
 
 			// Set our magic memberid variable
-			$this->$memberid = $this->authenticateUser();
+			$this->memberid = $this->authenticateUser();
 
 			//See if method exists in class
 			if(method_exists($this, $action))
