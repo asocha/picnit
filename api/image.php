@@ -65,6 +65,27 @@ get_new_file_path:
 			$this->response('',200);
 		}
 
+		public function deleteImage() {
+			$image_id = $_POST['image_id'];
+			if (isset($image_id)){
+				$res = mysql_query("SELECT filepath from images where image_id=$image_id");
+				if(mysql_num_rows($res) == 0){
+					//image does not exist
+                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
+                                        $this->response($error, 409);
+				}
+				mysql_query("REMOVE FROM images where image_id=$image_id");
+				$array = mysql_fetch_array($res);
+				$filepath = $array['filepath'];
+				unlink("/var/www/picnit/images/user".$filepath);
+				$this->response('',200);
+			}
+
+			//missing data
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id'));
+                        $this->response($error, 400);
+		}
+
 		public function addTag() {
 			//Get the vars
                         $image_id = $_POST['image_id'];
@@ -75,15 +96,21 @@ get_new_file_path:
                         if(isset($tag) && (isset($image_id) || isset($member_id))) {
 				if(isset($tag)){ //add category tag
 					//get id for this tag
-					$tag_id = mysql_query("SELECT category_id from categories where category='$tag'", $this->link);
+					$res = mysql_query("SELECT category_id from categories where category='$tag'");
 					if(mysql_num_rows($res) == 0){
 						//id doesn't exist, create new id
-						mysql_query("INSERT INTO categories VALUES ('$tag')", $this->link);
-						$tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+						mysql_query("INSERT INTO categories VALUES ('$tag')");
+						$res = mysql_query("SELECT category_id FROM categories where category='$tag'");
+						$array = mysql_fetch_array($res);
+                                		$tag_id = $array['category_id'];
+					}
+					else {
+						$array = mysql_fetch_array($res);
+                                                $tag_id = $array['category_id'];
 					}
 
 	                                //create tag
-        	                        $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)", $this->link);
+        	                        $res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)");
 
                 	                //Make sure query works
                         	        if(!$res) {
@@ -102,7 +129,7 @@ get_new_file_path:
                         	        }
 				}
 				else{ //add member tag
-	                                $res = mysql_query("INSERT INTO mem_tags VALUES ($member_id, $image_id, NOW())", $this->link);
+	                                $res = mysql_query("INSERT INTO mem_tags VALUES ($member_id, $image_id, NOW())");
 
         	                        //Make sure query works
                 	                if(!$res) {
@@ -139,10 +166,12 @@ get_new_file_path:
                         if(isset($tag) && (isset($image_id) || isset($member_id))) {
 				if(isset($tag)){ //delete category tag
 					//get id for this tag
-        	                        $tag_id = mysql_query("SELECT category_id FROM categories where category='$tag'", $this->link);
+        	                        $res = mysql_query("SELECT category_id FROM categories where category='$tag'");
+					$array = mysql_fetch_array($res);
+                                        $tag_id = $array['category_id'];
 
 					//make sure tag exists
-					$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+					$res = mysql_query("SELECT * FROM category_tags where image_id=$image_id and category_tag=$tag_id");
 					if(mysql_num_rows($res) == 0){
 						//image does not have that tag
         	                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not have that tag'));
@@ -150,11 +179,11 @@ get_new_file_path:
 					}
 
                                 	//delete tag
-                                	mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id", $this->link);
+                                	mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
 				}
 				else {
 					//make sure already tagged
-	                                $res = mysql_query("SELECT * FROM mem_tags where image_id=$image_id and member_id=$member_id", $this->link);
+	                                $res = mysql_query("SELECT * FROM mem_tags where image_id=$image_id and member_id=$member_id");
         	                        if(mysql_num_rows($res) == 0){
                 	                        //Person is not tagged in that image
                         	                $error = json_encode(array('status' => 'Failed', 'msg' => 'Person is not tagged in that image'));
@@ -162,7 +191,7 @@ get_new_file_path:
                                 	}
 
         	                        //delete tag
-	                                mysql_query("REMOVE FROM mem_tags where image_id=$image_id and member_id=$member_id", $this->link);
+	                                mysql_query("REMOVE FROM mem_tags where image_id=$image_id and member_id=$member_id");
 				}
                                 //success
                                 $this->response(json_encode('', 200));
@@ -180,7 +209,7 @@ get_new_file_path:
                         //Ensure all variables needed are present
                         if(isset($member_id) && isset($image_id)) {
                                 //add Favorite
-                                $res = mysql_query("INSERT INTO favorites VALUES ($image_id, $member_id)", $this->link);
+                                $res = mysql_query("INSERT INTO favorites VALUES ($image_id, $member_id)");
 
                                 //Make sure query works
                                 if(!$res) {
@@ -215,7 +244,7 @@ get_new_file_path:
                         //Ensure all variables needed are present
                         if(isset($member_id) && isset($image_id)) {
                                 //make sure already favorited
-                                $res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$member_id", $this->link);
+                                $res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$member_id");
                                 if(mysql_num_rows($res) == 0){
                                         //User has not favorited that image
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'User has not favorited that image'));
@@ -223,7 +252,7 @@ get_new_file_path:
                                 }
 
                                 //delete favorite
-                                mysql_query("REMOVE FROM favorites where image_id=$image_id and member_id=$member_id", $this->link);
+                                mysql_query("REMOVE FROM favorites where image_id=$image_id and member_id=$member_id");
                                 //success
                                 $this->response(json_encode('', 200));
                         }
@@ -240,7 +269,7 @@ get_new_file_path:
 			//Ensure all variables needed are present
                         if(isset($privacy) && isset($image_id)) {
 				//make sure image exists
-				$res = mysql_query("SELECT * FROM images where image_id=$image_id", $this->link);
+				$res = mysql_query("SELECT * FROM images where image_id=$image_id");
                                 if(mysql_num_rows($res) == 0){
                                         //image does not exist
                                         $error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
@@ -248,7 +277,7 @@ get_new_file_path:
                                 }
 
                                 //update privacy
-                                mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id", $this->link);
+                                mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id");
                                 //success
                                 $this->response(json_encode('', 200));
                         }

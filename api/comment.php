@@ -21,9 +21,7 @@
 			//Ensure all variables needed are present
 			if(isset($member_id) && isset($image_id) && isset($comment)) {
 				//Query the db
-				$query = "INSERT INTO comments values ('$member_id', '$image_id', '$comment')";
-				$sql = mysql_query($query, $this->link);
-
+				mysql_query("INSERT INTO comments values ($member_id, $image_id, '$comment')");
 				//Send confirmation
 				$this->response('',200);
 			}
@@ -40,9 +38,7 @@
 			//Ensure all variables needed are present
 			if(isset($comment_id)) {
 				//Query the db
-				$query = "DELETE FROM comments where comment_id='$comment_id'";
-				$sql = mysql_query($query, $this->link);
-
+				mysql_query("DELETE FROM comments where comment_id=$comment_id");
 				//Send confirmation
 				$this->response('',200);
 			}
@@ -59,9 +55,8 @@
 			//Ensure all variables needed are present
 			if(isset($image_id)) {
 				//Query the db
-				$query = "SELECT comment_text FROM comments where image_id='$image_id'";
-				$sql = mysql_query($query, $this->link);
-				$result = mysql_fetch_array($sql, MYSQL_ASSOC);
+				$res = mysql_query("SELECT comment_text FROM comments where image_id=$image_id");
+				$result = mysql_fetch_array($res);
 
 				//Send the confirmation!
 				$this->response(json_encode($result));
