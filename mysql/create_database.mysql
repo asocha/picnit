@@ -88,10 +88,12 @@ CREATE TABLE follows (
 
 CREATE TABLE messages (
 	message_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
-	member_id	INT UNSIGNED	NOT NULL,
+	from_id		INT UNSIGNED	NOT NULL,
+	to_id		INT UNSIGNED	NOT NULL,
 	message_type	TINYINT		NOT NULL,
 	is_read		BOOL		NOT NULL,
 	message		TEXT		NOT NULL,
-	FOREIGN KEY (member_id) REFERENCES members (member_id) ON DELETE CASCADE,
+	FOREIGN KEY (from_id) REFERENCES members (member_id) ON DELETE CASCADE,
+	FOREIGN KEY (to_id) REFERENCES members (member_id) ON DELETE CASCADE,
 	PRIMARY KEY (message_id)
 );

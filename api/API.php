@@ -112,6 +112,15 @@
 			return ($status[$this->_code])?$status[$this->_code]:$status[500];
 		}
 
+		public function load($var, $req = true) {
+			if($req && ($var == NULL || $var == "")) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Required parameter not provided'));
+				$this->response($error, 400);
+			}
+
+			return mysql_real_escape_string($var);
+		}
+
 		public function process() {
 			//Get the action
 			$action = $_POST['action'];
@@ -126,22 +135,19 @@
 				$this->response('Invalid action',404); //Else send 404 (not found)
 		}
 
-		public function getUsername() {
-			return mysql_real_escape_string($_POST['username']);
-		}
-
-		public function getPassword($username) {
+		public function getHashedPassword($username) {
 			if (isset($_POST['password'])) {
 				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
 				if(mysql_num_rows($saltqresult) != 0)
 					 return sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
+				return $_POST['password']; //returns the invalid password, so that other php functions will Error as invalid username or password
 			}
 			return null;
 		}
 
 		public function authenticateUser() {
 			//Get the username
-			$username = $this->getUsername();
+			$username = $this->load($_POST['username']);
 
 			//Get the key value
 			$key = mysql_real_escape_string($_POST['key']);

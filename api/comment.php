@@ -13,65 +13,40 @@
 		}
 
 		public function addComment() {
-			//Get the vars
-			$member_id = $_POST['member_id'];
-			$image_id = $_POST['image_id'];
-			$comment = mysql_real_escape_string($_POST['comment']);
+			$image_id = $this->load($_POST['image_id']);
+			$comment = $this->load($_POST['comment']);
 
-			//Ensure all variables needed are present
-			if(isset($member_id) && isset($image_id) && isset($comment)) {
-				//Query the db
-				$query = "INSERT INTO comments values ('$member_id', '$image_id', '$comment')";
-				$sql = mysql_query($query, $this->link);
-
-				//Send confirmation
-				$this->response('',200);
+			// Verify that user has authenticated before proceeding
+			if($this->memberid == -1) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
+				$this->response($error, 403);
 			}
 
-			//Missing input, send response
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing member_id, image_id, or comment'));
-			$this->response($error, 400);
+			mysql_query("INSERT INTO comments values ('$this->memberid', '$image_id', '$comment')");
+			$this->response('',200);
 		}
 
 		public function deleteComment() {
-			//Get the vars
-			$comment_id = $_POST['comment_id'];
+			$comment_id = $this->load($_POST['comment_id']);
 
-			//Ensure all variables needed are present
-			if(isset($comment_id)) {
-				//Query the db
-				$query = "DELETE FROM comments where comment_id='$comment_id'";
-				$sql = mysql_query($query, $this->link);
-
-				//Send confirmation
-				$this->response('',200);
+			// Verify that user has authenticated before proceeding
+			if($this->memberid == -1) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
+				$this->response($error, 403);
 			}
 
-			//Missing input, send response
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing comment_id'));
-			$this->response($error, 400);
+			mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
+			$this->response('',200);
 		}
 
 		public function getComments(){
-			//Get the vars
-			$image_id = $_POST['image_id'];
+			$image_id = $this->load($_POST['image_id']);
 
-			//Ensure all variables needed are present
-			if(isset($image_id)) {
-				//Query the db
-				$query = "SELECT comment_text FROM comments where image_id='$image_id'";
-				$sql = mysql_query($query, $this->link);
-				$result = mysql_fetch_array($sql, MYSQL_ASSOC);
+			$res = mysql_query("SELECT comment_text FROM comments where image_id='$image_id'");
+			$result = mysql_fetch_array($res);
 
-				//Send the confirmation!
-				$this->response(json_encode($result));
-			}
-
-			//Missing input, send response
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing image_id'));
-			$this->response($error, 400);
+			$this->response(json_encode($result));
 		}
-
 	}
 	$api = new Comment;
 	$api->process();
