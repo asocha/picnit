@@ -29,7 +29,7 @@
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'This is not implemented yet!'));
 			$this->response($error, 501);
 		}
-
-	$api = new Member;
+	}
+	$api = new Album;
 	$api->process();
 ?>
