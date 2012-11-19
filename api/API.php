@@ -112,6 +112,15 @@
 			return ($status[$this->_code])?$status[$this->_code]:$status[500];
 		}
 
+		public function load($var, $req = true) {
+			if($req && ($var == NULL || $var == "")) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Required parameter not provided'));
+				$this->response($error, 400);
+			}
+
+			return mysql_real_escape_string($var);
+		}
+
 		public function process() {
 			//Get the action
 			$action = $_POST['action'];
