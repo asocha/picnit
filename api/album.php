@@ -72,8 +72,8 @@
 			$this->response($error, 400);
 		
 		}
-
-	$api = new Member;
+	}
+	$api = new Album;
 	$api->process();
 	}
 ?>
