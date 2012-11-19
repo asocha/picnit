@@ -115,6 +115,7 @@ div#gallery {
 	position:relative;
 	height: 700px;
 	-webkit-border-radius:12px;
+	text-align:center;
 }
 
 div#info {
