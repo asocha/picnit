@@ -147,7 +147,7 @@
 
 		public function authenticateUser() {
 			//Get the username
-			$username = $this->getUsername();
+			$username = $this->load($_POST['username']);
 
 			//Get the key value
 			$key = mysql_real_escape_string($_POST['key']);

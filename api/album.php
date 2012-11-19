@@ -12,8 +12,7 @@
 			$this->link = $this->db_connect();
 		}
 
-		public function createAlbum()
-		{
+		public function createAlbum() {
 			if ($this->memberid == -1) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate to create albums'));
 				$this->response($error, 401);
@@ -30,14 +29,12 @@
 			$this->response('', 200);
 		}
 
-		public function deleteAlbum()
-		{
+		public function deleteAlbum() {
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'This is not implemented yet!'));
 			$this->response($error, 501);
 		}
 
-		public function getImages()
-		{
+		public function getImages() {
 			if ($this->memberid == -1) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate to get images from albums, for now'));
 				$this->response($error, 401);
@@ -56,11 +53,12 @@
 				$this->response('', 204); // This is actually right - no images, no content
 			}
 
-			$row = mysql_fetch_array($res)
-			$this->response(json_encode($row), 200);
+			$rows = mysql_fetch_array($res);
+			$this->response(json_encode($rows), 200);
 		}
+
+	}
 
 	$api = new Album;
 	$api->process();
-	}
 ?>

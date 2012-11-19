@@ -77,7 +77,7 @@
 
 		public function deleteAccount() {
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Anonymous suicide is not permitted - you must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Anonymous suicide is not permitted - you must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -90,7 +90,7 @@
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -123,7 +123,7 @@
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -155,7 +155,7 @@
 		public function memberData() {
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -169,7 +169,7 @@
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -207,7 +207,7 @@
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
@@ -248,7 +248,7 @@
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate');
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
 				$this->response($error, 403);
 			}
 
