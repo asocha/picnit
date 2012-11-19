@@ -136,7 +136,7 @@
 			}
 
 			// Check if member to suspend exists and is suspended
-			$res = mysql_query("SELECT is_suspended FROM members where username='$userid'");
+			$res = mysql_query("SELECT is_suspended FROM members where member_id='$userid'");
 			$array = mysql_fetch_array($res);
 			$suspended = $array['is_suspended'];
 
@@ -145,7 +145,7 @@
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is not suspended'));
 				$this->response($error, 409);
 			} else {
-				mysql_query("UPDATE members SET is_suspended = 0 where username='$userid'");
+				mysql_query("UPDATE members SET is_suspended = 0 where member_id='$userid'");
 				$this->response('',200);
 			}
 		}
