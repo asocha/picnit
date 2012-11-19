@@ -3,7 +3,6 @@
 	require_once("API.php");
 
 	class Member extends API {
-
 		public function __construct() {
 			//Parent Constructor
 			parent::__construct();
@@ -81,7 +80,7 @@
 				$this->response($error, 403);
 			}
 
-			mysql_query("REMOVE FROM members where member_id='$this->memberid'");
+			mysql_query("DELETE FROM members where member_id=$this->memberid");
 			$this->response('',200);
 		}
 
