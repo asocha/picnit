@@ -20,7 +20,7 @@
 
 			if(mysql_num_rows($res) > 0) {
 				$result = mysql_fetch_array($res, MYSQL_ASSOC);
-				
+
 				// Rename passowrd to key
 				$result['key'] = $result['password'];
 				unset($result['password']);
@@ -55,7 +55,7 @@
 					} else {
 						$error = json_encode(array('status' => 'Failed', 'msg' => 'E-Mail already in use'));
 					}
-					
+
 					$this->response($error, 409);
 				}
 
@@ -63,7 +63,7 @@
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
 				$this->response($error, 500);
 			}
-			
+
 			// Successful creation
 			$msg = json_encode(array('status' => "Success"));
 			$this->response($msg, 200);
@@ -117,7 +117,7 @@
 				$this->response('',200);
 			}
 		}
-		
+
 		public function unsuspendUser() {
 			$userid = $this->load($_POST['userid']);
 
