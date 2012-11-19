@@ -29,7 +29,7 @@
 
 			//Not found, return missing content
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Invalid username or password'));
-			$this->response($error, 204);
+			$this->response($error, 403);
 		}
 
 		public function register() {
