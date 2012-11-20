@@ -23,7 +23,7 @@
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
 		//Set sign-out button
-		$('#signoutbut').click(function() { logout(true); });
+		$('#signoutbut').click(logout);
 
 		//Load flexslider
 		$('.flexslider').flexslider();
@@ -43,9 +43,9 @@
 		<h1><?php echo  $_GET['username']; ?>'s profile</h1>
 	</div>
 
-	<div id="searchbar">
+	<div id="searchbar" class="panels">
 		<form id="search" action="index.php" method="post">
-			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
+			<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
 			<span><input type="submit" name="search" id="search" value="Submit"/></span>
 		</form>
 	</div>
@@ -81,13 +81,6 @@
 			</div>
 		</div>
 	</div>
-	
-
-	<div id="info" name="info">
-		<div id="infotext">
-			<div>Picnit.net</div>
-			<div>A PhotoDolo Project</div>
-		</div>
-	</div>
+	<?php include 'php/html/infobar.php'; ?>
 </body>
 </html>
