@@ -3,7 +3,6 @@
 	require_once("API.php");
 
 	class Member extends API {
-
 		public function __construct() {
 			//Parent Constructor
 			parent::__construct();
@@ -30,7 +29,7 @@
 
 			//Not found, return missing content
 			$error = json_encode(array('status' => 'Failed', 'msg' => 'Invalid username or password'));
-			$this->response($error, 204);
+			$this->response($error, 403);
 		}
 
 		public function register() {
@@ -81,7 +80,7 @@
 				$this->response($error, 403);
 			}
 
-			mysql_query("REMOVE FROM members where member_id='$this->memberid'");
+			mysql_query("DELETE FROM members where member_id=$this->memberid");
 			$this->response('',200);
 		}
 
@@ -137,7 +136,7 @@
 			}
 
 			// Check if member to suspend exists and is suspended
-			$res = mysql_query("SELECT is_suspended FROM members where username='$userid'");
+			$res = mysql_query("SELECT is_suspended FROM members where member_id='$userid'");
 			$array = mysql_fetch_array($res);
 			$suspended = $array['is_suspended'];
 
@@ -146,7 +145,7 @@
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is not suspended'));
 				$this->response($error, 409);
 			} else {
-				mysql_query("UPDATE members SET is_suspended = 0 where username='$userid'");
+				mysql_query("UPDATE members SET is_suspended = 0 where member_id='$userid'");
 				$this->response('',200);
 			}
 		}
@@ -173,6 +172,20 @@
 				$this->response($error, 403);
 			}
 
+			// Make sure user is not trying to follow himself/herself
+			if ($userid == $this->memberid){
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You cannot follow yourself'));                                         
+                                $this->response($error, 417);
+			}
+
+			// Make sure user to follow exists
+                        $res = mysql_query("SELECT * FROM members where member_id='$userid'");
+                        if(mysql_num_rows($res) == 0) {
+                                // User does not exist
+                                $error = json_encode(array('status' => 'Failed', 'msg' => 'The user you are trying to follow does not seem to exist'));
+                                $this->response($error, 417);
+                        }
+
 			// Check if user is already following that person
 			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
 			if(mysql_num_rows($res)) {
@@ -181,18 +194,18 @@
 				$this->response($error, 417);
 			}
 
+			// Check if already follow requested that person
+			$res = mysql_query("SELECT * FROM messages where from_id='$this->memberid' and to_id='$userid' and message_type=0");
+                        if(mysql_num_rows($res)) {
+                                // User already follow requested that person
+                                $error = json_encode(array('status' => 'Failed', 'msg' => 'You have already requested to follow that user'));
+                                $this->response($error, 417);
+                        }
+
 			// Add message of type 0 --> REQUEST TO FOLLOW
-			$res = mysql_query("INSERT INTO messages (from_id,to_id,message_type,is_read,message) VALUES ('$this->memberid', '$userid', '0', 'false', '')");
+			$res = mysql_query("INSERT INTO messages (from_id, to_id, message_type, is_read, message) VALUES ('$this->memberid', '$userid', '0', 'false', '')");
 
 			if(!$res) {
-				$err = mysql_errno();
-
-				if($err == 1062) {
-					// User has already follow requested that person
-					$error = json_encode(array('status' => 'Failed', 'msg' => 'You already requested to follow that user'));
-					$this->response($error, 409);
-				}
-
 				// Something else went wrong
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
 				$this->response($error, 500);
@@ -220,17 +233,17 @@
 
 			// Delete follow request
 			$message_id = mysql_result($res, 0, message_id);
-			mysql_query("REMOVE FROM messages WHERE message_id='$message_id'");
+			mysql_query("DELETE FROM messages WHERE message_id='$message_id'");
 
 			// Implement Follow
-			$res = mysql_query("INSERT INTO follows VALUES ('$this->memberid', '$userid')");
+			$res = mysql_query("INSERT INTO follows VALUES ('$userid', '$this->memberid')");
 			if(!$res) {
 				//Get error
 				$err = mysql_errno();
 
 				if($err == 1062) {
-					// User is already following that person
-					$error = json_encode(array('status' => 'Failed', 'msg' => 'You are already following that person'));
+					// Person is already following the user
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'That person is already following you'));
 					$this->response($error, 409);
 				}
 
@@ -261,7 +274,7 @@
 			}
 
 			// Success
-			mysql_query("REMOVE FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
+			mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
 			$this->response('', 200);
 		}
 	}

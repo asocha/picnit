@@ -158,7 +158,7 @@
 
 			//Result? Send member id
 			if(mysql_num_rows($result) != 0)
-				return mysql_result($result);
+				return mysql_result($result, 0);
 
 			//Else return anon user
 			return -1;

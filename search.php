@@ -8,32 +8,22 @@
 	<script src="js/libraries/jquery-1.8.2.min.jss"></script>
 </head>
 <body>
-	<div id="menubar">
+	<div id="menubar" class="panels">
 		<form id="signoutbut">
-			<span><input type="button" id="sign" value="Sign Out"/></span>
+			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
 		</form>
 		<form id="homebut" action="index.php">
-			<span><input type="submit" id="home" value="Home"/></span>
+			<span><input type="submit" id="home" class="buttons" value="Home"/></span>
 		</form>
 	</div>
 	<div>
 		<h1>search</h1>
 	</div>
 
-	<div id="searchbar">
-		<form id="search" action="index.php" method="post">
-			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
-			<span><input type="submit" name="search" id="search" value="Submit"/></span>
-		</form>
-	</div>
-	<div id="results">
+	<?php include 'php/html/searchbar.php'; ?>
+	<div id="results" class="panels">
 
 	</div>
-	<div id="info" name="info">
-		<div id="infotext">
-			<div>Picnit.net</div>
-			<div>A PhotoDolo Project</div>
-		</div>
-	</div>
+	<?php include 'php/html/infobar.php'; ?>
 </body>
 </html>
