@@ -13,8 +13,8 @@
 
 	mysql_select_db('picnit', $con);
 
-	$result = mysql_query("SELECT filepath,publicness FROM images WHERE image_id='$photoid' LIMIT 1", $con);
-	if(mysql_num_rows($result) == 0) {
+	$result = mysql_query("SELECT filepath FROM images WHERE image_id='$photoid' LIMIT 1", $con);
+	if(!mysql_num_rows($result)) {
 		header("HTTP/1.1 404 Not Found");
 		exit;
 	}
@@ -23,9 +23,9 @@
 	$filepath = mysql_result($result, 0, filepath);
 
 	if($publicness == 0) {
-		$filetype = mime_content_type("/var/www/picnit/images/user".$imagepath);
+		$filetype = mime_content_type("/var/www/picnit/images/user".$filepath);
 		header("Content-type: $filetype");
-		echo file_get_contents("/var/www/picnit/images/user".$imagepath);
+		echo file_get_contents("/var/www/picnit/images/user".$filepath);
 		exit;
 	}
 
