@@ -51,7 +51,6 @@ allow_user_access:
 		}
 
 		public function saveImage() {
-			$userid = $this->load($_POST['userid']);
 			$albumid = $this->load($_POST['albumid']);
 			$publicness = $this->load($_POST['publicness']);
 			$phototype = $this->load($_POST['phototype']);
@@ -62,7 +61,6 @@ get_new_file_path:
 			// Storing very large numbers of files in a single directory is extremely sub-optimal
 			// on the ext3/ext4 filesystems. Adding a random directory tree like this dramatically
 			// enhances performance with large numbers of pictures.
-			// FIXME: We need some way to determine the file extention to add...
 			$dir1 = mt_rand(0,9999);
 			$dir2 = mt_rand(0,9999);
 			$dir3 = mt_rand(0,9999);
@@ -82,7 +80,7 @@ get_new_file_path:
 			fclose($fh);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
-			if(!mysql_num_rows($result))
+			if(!$result)
 				$this->response('', 404);
 
 			$this->response('',200);
