@@ -64,5 +64,6 @@ function signup() {
 	</div>
 	<?php
 		}
+	}
 	?>
 </div>
