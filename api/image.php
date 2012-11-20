@@ -22,7 +22,7 @@
 			}
 
 			$res = mysql_query("SELECT publicness,album_id,filepath FROM images WHERE image_id='$imageid'");
-			if(!$mysql_num_rows($res)) {
+			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
 			}
