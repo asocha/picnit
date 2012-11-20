@@ -114,15 +114,12 @@ get_new_file_path:
 					// ID doesn't exist, create new id
 					mysql_query("INSERT INTO categories VALUES ('$tag')");
 					$res = mysql_query("SELECT category_id FROM categories where category='$tag'");
-					$array = mysql_fetch_array($res);
-					$tag_id = $array['category_id'];
-				} else {
-					$array = mysql_fetch_array($res);
-					$tag_id = $array['category_id'];
 				}
+				$array = mysql_fetch_array($res);
+				$tag_id = $array['category_id'];
 
 				$res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)");
-				if(!$res) {
+				if(!$res) { // Add member tag
 					//Get error
 					$err = mysql_errno();
 					if($err == 1062) {
@@ -175,7 +172,7 @@ get_new_file_path:
 
 				mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
 			}
-			if($tmember_id != "") {
+			if($tmember_id != "") { // Delete member tag
 				//make sure already tagged
 				$res = mysql_query("SELECT * FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
 				if(mysql_num_rows($res) == 0) {
