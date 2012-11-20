@@ -30,28 +30,21 @@
 	</script>
 </head>
 <body>
-	<?php include 'php/html/topbar.php'; menubar(); ?>
+	<?php include 'php/html/topbar.php'; ?>
+
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
-	<div id="indexsearchbar">
+	<div id="indexsearchbar" class="panels">
 		<form id="search" action="index.php" method="post">
-			<span id="searchlabel"><label for="Searchterm">Search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
-			<span><input type="submit" name="search" id="search" value="Submit"/></span>
+			<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm" class="inputs"/></span>		
+			<span><input type="submit" name="search" id="search" class="buttons" value="Submit"/></span>
 		</form>
 	</div>
-	<div id="gallery" name="gallery" class="gallery">
+	<div id="gallery" name="gallery" class="panels">
 		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
 	</div>
-	<div id="info" name="info">
-		<div id="infotext">
-			<div>picnit.net</div>
-			<div>A PhotoDolo Project</div>
-		</div>
-	</div>
-	<div id="overlay">
-	</div>
-	
-	<?php signup(); ?>
+	<?php include 'php/html/infobar.php'; ?>
+	<?php include 'php/html/signupbar.php'; ?>
 	<?php include 'php/html/imageview.php'; ?>
 </body>
 </html>
