@@ -15,12 +15,42 @@
 		public function getImage() {
 			$imageid = $this->load($_POST['imageid']);
 
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'This is not implemented yet!'));
-			$this->response($error, 501);
+			// Verify that user has authenticated before proceeding
+			if($this->memberid == -1) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
+				$this->response($error, 403);
+			}
+
+			$res = mysql_query("SELECT publicness,album_id,filepath FROM images WHERE image_id='$imageid'");
+			if(!mysql_num_rows($res)) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
+				$this->response($error, 404);
+			}
+
+			$publicness = mysql_result($res, 0, publicness);
+
+			if($publicness == 0)
+				goto allow_user_access;
+
+			$album_id = mysql_result($res, 0, album_id);
+			$albres = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
+			$owner_id = mysql_result($albres, 0, owner_id);
+
+			if($this->memberid == $owner_id)
+				goto allow_user_access;
+
+			if($publicness == 1 && mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$owner_id'")))
+				goto allow_user_access;
+
+			$error = json_encode(array('status' => 'Failed', 'msg' => 'You are not permitted to access this image'));
+			$this->response($error, 403);
+allow_user_access:
+			$filepath = mysql_result($res, 0, filepath);
+			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath))));
+			$this->response($respnse, 200);
 		}
 
 		public function saveImage() {
-			$userid = $this->load($_POST['userid']);
 			$albumid = $this->load($_POST['albumid']);
 			$publicness = $this->load($_POST['publicness']);
 			$phototype = $this->load($_POST['phototype']);
@@ -31,7 +61,6 @@ get_new_file_path:
 			// Storing very large numbers of files in a single directory is extremely sub-optimal
 			// on the ext3/ext4 filesystems. Adding a random directory tree like this dramatically
 			// enhances performance with large numbers of pictures.
-			// FIXME: We need some way to determine the file extention to add...
 			$dir1 = mt_rand(0,9999);
 			$dir2 = mt_rand(0,9999);
 			$dir3 = mt_rand(0,9999);
@@ -51,7 +80,7 @@ get_new_file_path:
 			fclose($fh);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
-			if(!mysql_num_rows($result))
+			if(!$result)
 				$this->response('', 404);
 
 			$this->response('',200);
