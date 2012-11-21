@@ -40,6 +40,8 @@ function menubar() {
 function signup() {
 	if(!isLoggedIn()) {
 ?>
+	<div id="overlay" class="overlays">
+	</div>
 	<div id="signupbar" class="panels">
 		<form id="signupform" onsubmit="return createUser();">
 		<p><div>
