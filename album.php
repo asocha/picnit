@@ -4,7 +4,7 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<title>welcome to picnit!</title>
+	<title>Album</title>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
 	<script type="text/javascript" src="js/general.js"></script>
@@ -33,11 +33,11 @@
 <body>
 	<?php menubar(); ?>
 	<div>
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
+		<h1>album</h1>
 	</div>
 	<?php searchbar(); ?>
-	<div id="gallery" name="gallery" class="panels">
-		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
+	<div id="results" class="panels">
+
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>

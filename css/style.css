@@ -81,6 +81,13 @@ h1 {
 	top: -80px;
 }
 
+img#logo {
+	position: relative;
+	height:150px;
+	top: 0px;
+	margin-bottom:135px;
+}
+
 form#search {
 	margin:auto;
 	width:700px;
@@ -97,6 +104,7 @@ input#Searchterm {
 div#gallery {
 	position:relative;
 	height: 700px;
+	top:-135px;
 }
 
 div#info {
@@ -188,15 +196,6 @@ div#searchbar {
 	height:25px;
 }
 
-div#indexsearchbar {
-	color:#043A6B;
-	position:relative;
-	top:0px;
-	padding:5px;
-	margin-bottom:5px;
-	height:25px;
-}
-
 div#slideshow {
 	background-color: #408DD2;
 	border-style:solid;
@@ -263,9 +262,5 @@ div#results {
 form#signoutbut {
 	float:right;
 	margin-left:5px;
-}
-
-img#logo {
-	position:relative;
 }
 
