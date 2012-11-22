@@ -16,10 +16,10 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<script src="js/general.js"></script>
-	<script src="js/member.js"></script>
-	<script src="js/libraries/jquery-1.8.2.min.js"></script>
-	<script src="js/libraries/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="js/general.js"></script>
+	<script type="text/javascript" src="js/member.js"></script>
+	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
 		//Set sign-out button
@@ -31,12 +31,12 @@
 	</script>
 </head>
 <body>
-	<div id="menubar">
+	<div id="menubar" class="panels">
 		<form id="signoutbut">
-			<span><input type="button" id="sign" value="Sign Out"/></span>
+			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
 		</form>
 		<form id="homebut" action="index.php">
-			<span><input type="submit" id="home" value="Home"/></span>
+			<span><input type="submit" id="home" class="buttons" value="Home"/></span>
 		</form>
 	</div>
 	<div>
@@ -45,8 +45,8 @@
 
 	<div id="searchbar" class="panels">
 		<form id="search" action="index.php" method="post">
-			<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm"/></span>		
-			<span><input type="submit" name="search" id="search" value="Submit"/></span>
+			<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm" class="inputs"/></span>		
+			<span><input type="submit" name="search" id="search" class="buttons" value="Submit"/></span>
 		</form>
 	</div>
 	<div id="slideshow" class="flexslider">
@@ -63,15 +63,15 @@
 	  	</ul>
 	</div>
 	<div id="user-image-collection">
-		<div id="usermenu">
+		<div id="usermenu" class="panels">
 			<form id="userform">
-				<input id="albumsbut" type="button" value="Albums"/>
-				<input id="categorybut" type="button" value="Categories"/>
-				<input id="favoritebut"type="button" value="Favorites"/>
-				<input id="uploadbut" type="button" value="Upload"/>
+				<input id="albumsbut" class="buttons" type="button" value="Albums"/>
+				<input id="categorybut" class="buttons" type="button" value="Categories"/>
+				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
+				<input id="uploadbut" class="buttons" type="button" value="Upload"/>
 			</form>
 		</div>
-		<div id="collection">
+		<div id="collection" class="panels">
 			<div id="thumbnail-display">
 				<a href="images/AlArBdr.gif"><img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50"></a>
 				<a href="images/article-0-14C152E0000005DC-964_964x764.jpg"><img src="images/article-0-14C152E0000005DC-964_964x764.jpg" alt="Pulpit rock" width="50" height=50"></a>

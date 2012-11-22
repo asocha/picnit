@@ -15,8 +15,8 @@ function menubar() {
 	</form>
 
 	<form id="signinform" action="index.php" onsubmit="return login();">
-		<span><label for="Username">username: </label><input type="text" id="Username" class="inputs"/></span>
-		<span><label for="Password">password: </label><input type="password" id="Password" class="inputs"/></span>
+		<span><label for="Username">username: </label><input type="text" id="Username" class="inputs" pattern="[\w]{3,15}" title="Must be between 3 and 15 letters, numbers, or underscores" required="required"/></span>
+		<span><label for="Password">password: </label><input type="password" id="Password" class="inputs" pattern=".{5,}" title="Must be at least 5 characters" required="required"/></span>
 		<span><input type="submit" id="signin" class="buttons" value="Sign In"/></span>
 	</form>
 	<form id="homebut" action="index.php">
@@ -64,8 +64,69 @@ function signup() {
 			<p><div><input type="button" id="cancel" class="buttons" value="cancel"/></div><p>
 		</form>
 	</div>
+</div>
 	<?php
 		}
 	}
 	?>
+<?php 
+//Function that returns the info bar
+function info() {
+?>
+<div id="info" name="info" class="panels">
+	<div id="infotext">
+		<div>picnit.net</div>
+		<div>A PhotoDolo Project</div>
+	</div>
 </div>
+	<?php
+	}
+
+//Function that returns the image viewer
+function imageview() {
+?>
+<script>
+	function hideViewer() {
+		document.getElementById('imgoverlay').style.visibility="hidden";
+		document.getElementById('imgviewer').style.visibility="hidden";
+	}
+
+	function showViewer() {
+		document.getElementById('imgoverlay').style.visibility="visible";
+		document.getElementById('imgviewer').style.visibility="visible";
+	}
+</script>
+<div id="imgoverlay" class="overlays">
+</div>
+<div id="imgviewer">
+	<div id="editor">
+		<div id="menu">
+		</div>
+		<div id="image" class="panels">
+			<div id="next" class="viewerbuttons">
+			</div>
+			<div id="prev" class="viewerbuttons">
+			</div>
+			<img id="theimage" src="images/gui/test.jpg" alt="Pulpit rock" height="200px" width="200px"/>
+		</div>
+	</div>
+	<div id="comments" class="panels">
+	</div>
+</div>
+
+	<?php
+	}
+
+//Function that returns the search bar
+function searchbar() {
+
+?>
+<div id="searchbar" class="panels">
+	<form id="search" action="index.php" method="post">
+		<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm" class="inputs"/></span>		
+		<span><input type="submit" name="search" id="search" class="buttons" value="Submit"/></span>
+	</form>
+</div>
+	<?php
+	}
+	?>

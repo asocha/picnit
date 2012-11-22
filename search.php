@@ -5,25 +5,43 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>Search Results</title>
-	<script src="js/libraries/jquery-1.8.2.min.jss"></script>
+	<?php require_once('php/general.php'); ?>
+	<?php require_once('php/html/topbar.php'); ?>
+	<script type="text/javascript" src="js/general.js"></script>
+	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.jss"></script>
+	<script type="text/javascript" src="js/member.js"></script>
+	<script>
+	window.onload = function() {
+		document.getElementById('signupbut').addEventListener('click',showsignup,false);
+		document.getElementById('cancel').addEventListener('click',hidesignup,false);
+		document.getElementById('overlay').addEventListener('click',hidesignup,false);
+		document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+		
+	}
+
+	function showsignup() {
+		document.getElementById('overlay').style.visibility="visible";
+		document.getElementById('signupbar').style.visibility="visible";
+	}
+
+	function hidesignup() {
+		document.getElementById('overlay').style.visibility="hidden";
+		document.getElementById('signupbar').style.visibility="hidden";
+	}
+	</script>
 </head>
 <body>
-	<div id="menubar" class="panels">
-		<form id="signoutbut">
-			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
-		</form>
-		<form id="homebut" action="index.php">
-			<span><input type="submit" id="home" class="buttons" value="Home"/></span>
-		</form>
-	</div>
+	<?php menubar(); ?>
 	<div>
 		<h1>search</h1>
 	</div>
 
-	<?php include 'php/html/searchbar.php'; ?>
+	<?php searchbar(); ?>
 	<div id="results" class="panels">
 
 	</div>
-	<?php include 'php/html/infobar.php'; ?>
+	<?php info(); ?>
+	<?php signup(); ?>
+	<?php imageview();?>
 </body>
 </html>
