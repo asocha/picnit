@@ -1,34 +1,36 @@
 /*
-	album .js
+	comment .js
 	Author: PhotoDolo
 
-	Contains functions that communicate with the album API
+	Contains functions that communicate with the comment API
 */
 
 //URL for member functions
-var albumurl='api/album.php';
+var commenturl='api/comment.php';
 
 //Request to be sent to the middleware
 var request;
 
-function createAlbum() {
+function addComment() {
 	//Get user input, should be validated via html5
-	var albumname = $("input#albumname").val();
-	
+	var ctext = $("input#ctext").val();
+	var image_id = $("input#image_id").val();
+
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'createAlbum';
+	params['action'] = 'addComment';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['name'] = albumname;
+	params['comment'] = ctext;
+	params['image_id'] = image_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest(commenturl, params);
 
 	//Debug purposes
 	alert(request.status + "\n" + request.responseText);
 
-	//Good data, show album created
+	//Good data, show comment created
 	if(request.status === 200) {
 		
 	}
@@ -48,18 +50,19 @@ function createAlbum() {
 	return false;
 }
 
-function deleteAlbum() {
+function deleteComment() {
 	//Get user input, should be sent via GUI/other js call
-	var albumname = $("input#albumname");
+	var comment_id = $("input#comment_id");
 	
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'deleteAlbum';
+	params['action'] = 'deleteComment';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
+	params['comment_id'] = comment_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest(commenturl, params);
 
 	//Debug purposes
 	alert(request.status + "\n" + request.responseText);
@@ -84,16 +87,16 @@ function deleteAlbum() {
 	return false;
 }
 
-function getImages(album_id) {
+function getComments(image_id) {
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'getImages';
+	params['action'] = 'getComments';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['id'] = album_id;
+	params['image_id'] = image_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest(commenturl, params);
 
 	//Debug purposes
 	alert(request.status + "\n" + request.responseText);
