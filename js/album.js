@@ -50,7 +50,7 @@ function createAlbum() {
 
 function deleteAlbum() {
 	//Get user input, should be sent via GUI/other js call
-	var albumname = $("input#albumname");
+	var albumname = $("input#albumname").val();
 	
 	//Gather post request data
 	var params = new Array();
