@@ -6,6 +6,7 @@
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
 	<?php require_once('php/general.php'); ?>
+	<?php require_once('php/html/topbar.php'); ?>
 	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
@@ -30,7 +31,7 @@
 	</script>
 </head>
 <body>
-	<?php include 'php/html/topbar.php'; ?>
+	<?php menubar(); ?>
 
 	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
 
@@ -44,7 +45,7 @@
 		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
 	</div>
 	<?php include 'php/html/infobar.php'; ?>
-	<?php include 'php/html/signupbar.php'; ?>
+	<?php signup(); ?>
 	<?php include 'php/html/imageview.php'; ?>
 </body>
 </html>
