@@ -58,6 +58,8 @@ allow_user_access:
 			$albumid = $this->load($_POST['albumid']);
 			$publicness = $this->load($_POST['publicness']);
 			$phototype = $this->load($_POST['phototype']);
+			$name = $this->load($_POST['name']);
+			$description = $this->load($_POST['description']);
 			$photo = base64_decode($_POST['photo']);
 
 get_new_file_path:
@@ -83,7 +85,7 @@ get_new_file_path:
 			fwrite($fh, $photo);
 			fclose($fh);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description')");
 			if(!$result)
 				$this->response('', 404);
 
