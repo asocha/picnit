@@ -21,7 +21,7 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,album_id,filepath FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,album_id,filepath,name,description FROM images WHERE image_id='$imageid'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
@@ -46,7 +46,11 @@
 			$this->response($error, 403);
 allow_user_access:
 			$filepath = mysql_result($res, 0, filepath);
-			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath))));
+			$name = mysql_result($res, 0, name);
+			$description = mysql_result($res, 0, description);
+
+			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath)),
+			'name' => $name, 'description' => $description));
 			$this->response($respnse, 200);
 		}
 
