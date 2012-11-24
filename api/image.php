@@ -21,20 +21,17 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,album_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
 			}
 
 			$publicness = mysql_result($res, 0, publicness);
+			$owner_id = mysql_result($res, 0, owner_id);
 
 			if($publicness == 0)
 				goto allow_user_access;
-
-			$album_id = mysql_result($res, 0, album_id);
-			$albres = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
-			$owner_id = mysql_result($albres, 0, owner_id);
 
 			if($this->memberid == $owner_id)
 				goto allow_user_access;
@@ -98,14 +95,14 @@ get_new_file_path:
 			fclose($fh);
 			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type')");
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
 			$this->response('',200);
 		}
 
 		public function deleteImage() {
 			$image_id = $this->load($_POST['image_id']);
 
-			$res = mysql_query("SELECT filepath,album_id from images where image_id=$image_id");
+			$res = mysql_query("SELECT filepath,album_id,owner_id from images where image_id=$image_id");
 			if(!mysql_num_rows($res)) {
 				// Image does not exist
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
@@ -114,10 +111,9 @@ get_new_file_path:
 
 			$filepath = mysql_result($res, 0, filepath);
 			$albumid = mysql_result($res, 0, album_id);
+			$owner_id = mysql_result($res, 0, owner_id);
 
-			// Check that the user owns the image
-			$res = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
-			if($this->memberid != mysql_result($res, 0, owner_id))
+			if($this->memberid != $owner_id)
 				$this->response('', 403);
 
 			mysql_query("REMOVE FROM images where image_id='$image_id'");
