@@ -92,6 +92,7 @@
 			</div>
 		</div>
 	</div>
+	
 	<?php imageview(); ?>
 	<?php albumcreator(); ?>
 	<?php info(); ?>
