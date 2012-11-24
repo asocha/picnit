@@ -21,7 +21,7 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,album_id,filepath,name,description FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,album_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
@@ -48,9 +48,10 @@ allow_user_access:
 			$filepath = mysql_result($res, 0, filepath);
 			$name = mysql_result($res, 0, name);
 			$description = mysql_result($res, 0, description);
+			$type = mysql_result($res, 0, imgtype);
 
 			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath)),
-			'name' => $name, 'description' => $description));
+			'name' => $name, 'description' => $description, 'type' => $type));
 			$this->response($respnse, 200);
 		}
 
@@ -92,8 +93,9 @@ get_new_file_path:
 			$fh = fopen("/var/www/picnit/images/user".$filepath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
+			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description')");
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type')");
 			$this->response('',200);
 		}
 

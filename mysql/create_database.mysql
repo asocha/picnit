@@ -32,6 +32,7 @@ CREATE TABLE images (
 	date_added      DATE		NOT NULL,
 	name		VARCHAR(63)	NOT NULL,
 	description	TEXT		NOT NULL,
+	imgtype		VARCHAR(31)	NOT NULL,
 	PRIMARY KEY (image_id),
 	FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
 );
