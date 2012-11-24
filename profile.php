@@ -81,8 +81,9 @@
 			</div>
 		</div>
 	</div>
-	<?php info(); ?>
+	
 	<?php imageview(); ?>
 	<?php albumcreator(); ?>
+	<?php info(); ?>
 </body>
 </html>
