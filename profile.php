@@ -20,35 +20,13 @@
 	<script type="text/javascript" src="js/member.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
-	<script type="text/javascript" charset="utf-8">
-	  $(window).load(function() {
-		//Set sign-out button
-		$('#signoutbut').click(logout);
-
-		//Load flexslider
-		$('.flexslider').flexslider();
-	  });
-	</script>
 </head>
 <body>
-	<div id="menubar" class="panels">
-		<form id="signoutbut">
-			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
-		</form>
-		<form id="homebut" action="index.php">
-			<span><input type="submit" id="home" class="buttons" value="Home"/></span>
-		</form>
-	</div>
+	<?php menubar(); ?>
 	<div>
 		<h1><?php echo  $_GET['username']; ?>'s profile</h1>
 	</div>
-
-	<div id="searchbar" class="panels">
-		<form id="search" action="index.php" method="post">
-			<span id="searchlabel"><label for="Searchterm">search:</label></span><span><input type="text" name="Searchterm" id="Searchterm" class="inputs"/></span>		
-			<span><input type="submit" name="search" id="search" class="buttons" value="Submit"/></span>
-		</form>
-	</div>
+	<?php searchbar(); ?>
 	<div id="slideshow" class="flexslider">
 		<ul class="slides">
 			<li>
@@ -81,6 +59,6 @@
 			</div>
 		</div>
 	</div>
-	<?php include 'php/html/infobar.php'; ?>
+	<?php info(); ?>
 </body>
 </html>

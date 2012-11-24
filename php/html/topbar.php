@@ -3,6 +3,15 @@
 function menubar() {
 ?>
 <div id="menubar" class="panels">
+	<script type="text/javascript" charset="utf-8">
+	  $(window).load(function() {
+		//Set sign-out button
+		$('#signoutbut').click(logout);
+
+		//Load flexslider
+		$('.flexslider').flexslider();
+	  });
+	</script>
 	<?php
 		//Require general if not already
 		//require_once('/picnit/php/general.php');
