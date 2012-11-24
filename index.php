@@ -42,5 +42,6 @@
 	<?php info(); ?>
 	<?php signup(); ?>
 	<?php imageview(); ?>
+	<?php uploader(); ?>
 </body>
 </html>
