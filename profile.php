@@ -6,22 +6,23 @@
 	//Make sure they send in a username
 	if(!isset($_GET['username']))
 		if(isLoggedIn())
-			$_GET['username'] = getCookie('username');
+			$_GET['username'] = $_COOKIE['username'];
 		else
 			header("Location: index.php");
 	
 	//See if this user exists
 	$fields = array(
-		'username' => urlencode(getCookie('username')),
-		'key' => urlencode(getCookie('key')),
+		'action' => 'memberData',
+		'username' => urlencode($_COOKIE['username']),
+		'key' => urlencode($_COOKIE['key']),
 		'tusername' => urlencode($_GET['username'])
 	);
 
-	$res = callAPI('api/member.php', $fields);
+	$res = picnitRequest('api/member.php', $fields);
 
 	//If does, get user info
 	if($res['status'] == 200) 
-		$profile = $res['result'];
+		$profile = json_decode($res['result'], true);
 	else
 		header('Location: index.php');
 ?>
@@ -37,25 +38,6 @@
 	<script type="text/javascript" src="js/member.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
-	<script>
-		window.onload = function() {
-			if(isLoggedIn()) {
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
-			}
-			else {
-				document.getElementById('signupbut').addEventListener('click',showsignup,false);
-				document.getElementById('cancel').addEventListener('click',hidesignup,false);
-				document.getElementById('overlay').addEventListener('click',hidesignup,false);
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
-			}
-		}
-	</script>
 </head>
 <body>
 	<?php menubar(); ?>
@@ -83,7 +65,6 @@
 				<input id="categorybut" class="buttons" type="button" value="Categories"/>
 				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
 				<input id="uploadbut" class="buttons" type="button" value="Upload"/>
-				<input id="albumbut" class="buttons" type="button" value="Add Album"/>
 			</form>
 		</div>
 		<div id="collection" class="panels">
@@ -92,7 +73,5 @@
 		</div>
 	</div>
 	<?php info(); ?>
-	<?php imageview(); ?>
-	<?php albumcreator(); ?>
 </body>
 </html>
