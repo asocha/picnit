@@ -1,11 +1,14 @@
 <?php
 
-function callAPI($url, $data) {
+function picnitRequest($url, $fields) {
 	//Complete the url
-	$url = "http://localhost/picnit/api/" . $url;
+	$url = "http://localhost/picnit/" . $url;
 	
 	//Init curl
 	$ch = curl_init($url);
+
+	foreach($fields as $key=>$value) 
+		$data .= $key.'='.$value.'&';
 
 	//Set up operations
 	curl_setopt($ch, CURLOPT_POST, true);
