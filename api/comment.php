@@ -16,11 +16,7 @@
 			$image_id = $this->load('image_id');
 			$comment = $this->load('comment');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			mysql_query("INSERT INTO comments values ('$this->memberid', '$image_id', '$comment')");
 			$this->response('',200);
@@ -29,11 +25,7 @@
 		public function deleteComment() {
 			$comment_id = $this->load('comment_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
 			$this->response('',200);
