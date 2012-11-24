@@ -68,12 +68,6 @@
 			$this->response($msg, 200);
 		}
 
-		// No more cookies - do we need this?
-		public function logout() {
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'This is not implemented yet!'));
-			$this->response($error, 501);
-		}
-
 		public function deleteAccount() {
 			if($this->memberid == -1) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Anonymous suicide is not permitted - you must authenticate'));
@@ -149,7 +143,6 @@
 				$this->response('',200);
 			}
 		}
-
 
 		public function memberData() {
 			// Verify that user has authenticated before proceeding
