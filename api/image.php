@@ -79,16 +79,18 @@ get_new_file_path:
 			$dir5 = mt_rand(0,9999);
 			$file = mt_rand(0,99);
 			$filepath = "/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5."/".$file.".$phototype";
+			$fullpath = "/var/www/picnit/images/user".$filepath;
 
 			// This should pretty much never happen, but still...
-			if(file_exists("/var/www/picnit/images/user".$filepath))
+			if(file_exists($fullpath))
 				goto get_new_file_path;
 
 			// Actually write out the POSTed photo file data
-			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
-			$fh = fopen("/var/www/picnit/images/user".$filepath, 'w+');
+			mkdir($fullpath, 0775, true);
+			$fh = fopen($fullpath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
+			chmod($fullpath, 0664);
 			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$album_id','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
