@@ -18,7 +18,7 @@
 				$this->response($error, 401);
 			}
 
-			$album_name = $this->load($_POST['name']);
+			$album_name = $this->load('name');
 
 			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name) VALUES ('$this->memberid',NOW(),'$album_name')");
 			if(!$res) {
@@ -40,7 +40,7 @@
 				$this->response($error, 401);
 			}
 
-			$album_id = $this->load($_POST['album_id']);
+			$album_id = $this->load('album_id');
 
 			// Permission checking is done when the client fetches the images
 			$res = mysql_query("SELECT image_id FROM images WHERE album_id='$album_id'");

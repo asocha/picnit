@@ -13,8 +13,8 @@
 		}
 
 		public function addComment() {
-			$image_id = $this->load($_POST['image_id']);
-			$comment = $this->load($_POST['comment']);
+			$image_id = $this->load('image_id');
+			$comment = $this->load('comment');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -27,7 +27,7 @@
 		}
 
 		public function deleteComment() {
-			$comment_id = $this->load($_POST['comment_id']);
+			$comment_id = $this->load('comment_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -40,7 +40,7 @@
 		}
 
 		public function getComments(){
-			$image_id = $this->load($_POST['image_id']);
+			$image_id = $this->load('image_id');
 
 			$res = mysql_query("SELECT comment_text FROM comments where image_id='$image_id'");
 			$result = mysql_fetch_array($res);
