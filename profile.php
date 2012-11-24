@@ -34,10 +34,10 @@
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="js/general.js"></script>
-	<script type="text/javascript" src="js/member.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="js/general.js"></script>
+	<script type="text/javascript" src="js/member.js"></script>
 </head>
 <body>
 	<?php menubar(); ?>
