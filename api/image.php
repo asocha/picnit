@@ -190,7 +190,7 @@ get_new_file_path:
 					$this->response($error, 409);
 				}
 
-				mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
+				mysql_query("DELETE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
 			}
 			if($tmember_id != "") { // Delete member tag
 				//make sure already tagged
@@ -201,7 +201,7 @@ get_new_file_path:
 					$this->response($error, 409);
 				}
 
-				mysql_query("REMOVE FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
+				mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
 			}
 
 			$this->response(json_encode('', 200));
