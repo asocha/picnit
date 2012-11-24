@@ -165,7 +165,7 @@ function uploader() {
 	<div id="uploadoverlay" class="overlays">
 	</div>
 	<div id="uploadbar" class="panels">
-		<form id="uploadform">
+		<form id="uploadform" onsubmit="return saveImage();">
 		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="[\w]{3,15}" title="Image Name must contain between 3 and 15 letters, numbers, and underscores." required="required"/></div>
 		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
 		<p><div>
