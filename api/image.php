@@ -64,7 +64,7 @@ allow_user_access:
 				$this->response('', 400);
 
 			// Verify that the album exists, and the user owns it
-			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'")
+			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
 			if(!mysql_num_rows($result))
 				$this->response('', 404);
 
