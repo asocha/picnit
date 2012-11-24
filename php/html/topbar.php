@@ -149,7 +149,7 @@ function uploader() {
 	</div>
 	<div id="uploadbar" class="panels">
 		<form id="uploadform">
-		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="[\w]" title="Image Name must contain only letters and numbers" required="required"/></div>
+		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="[\w]{3,15}" title="Image Name must contain between 3 and 15 letters, numbers, and underscores." required="required"/></div>
 		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
 		<p><div>
 			<select id="publicness" class="inputs">
@@ -158,7 +158,7 @@ function uploader() {
 				<option value="2">Private</option>
 			</select>
 		</div></p>
-		<p><div><input type="button" id="image" class="buttons" value="browse"/></div></p>
+		<p><div><input type="file" id="image" class="buttons" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
 		</form>
