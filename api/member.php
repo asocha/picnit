@@ -68,10 +68,7 @@
 		}
 
 		public function deleteAccount() {
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Anonymous suicide is not permitted - you must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			mysql_query("DELETE FROM members where member_id=$this->memberid");
 			$this->response('',200);
@@ -80,11 +77,7 @@
 		public function suspendUser() {
 			$user_id = $this->load('user_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			// Only admins can suspend people
 			$res = mysql_query("SELECT is_admin FROM members where member_id='$this->memberid'");
@@ -113,11 +106,7 @@
 		public function unsuspendUser() {
 			$user_id = $this->load('user_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			// Only admins can unsuspend people
 			$res = mysql_query("SELECT is_admin FROM members where member_id='$this->memberid'");
@@ -163,11 +152,7 @@
 		public function requestFollow() {
 			$user_id = $this->load('user_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			// Make sure user is not trying to follow himself/herself
 			if ($user_id == $this->memberid){
@@ -215,11 +200,7 @@
 		public function follow() {
 			$user_id = $this->load('user_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			$res = mysql_query("SELECT message_id FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
 			if(!mysql_num_rows($res)) {
@@ -256,11 +237,7 @@
 		public function unfollow() {
 			$user_id = $this->load('user_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$this->forceauth();
 
 			// Make sure user is following that person
 			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");

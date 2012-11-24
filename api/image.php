@@ -15,12 +15,6 @@
 		public function getImage() {
 			$image_id = $this->load('image_id');
 
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
-
 			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$image_id'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
@@ -63,6 +57,8 @@ allow_user_access:
 			if(strlen($phototype) != 3)
 				$this->response('', 400);
 
+			$this->forceauth();
+
 			// Verify that the album exists, and the user owns it
 			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
 			if(!mysql_num_rows($result))
@@ -102,6 +98,8 @@ get_new_file_path:
 		public function deleteImage() {
 			$image_id = $this->load('image_id');
 
+			$this->forceauth();
+
 			$res = mysql_query("SELECT filepath,album_id,owner_id from images where image_id=$image_id");
 			if(!mysql_num_rows($res)) {
 				// Image does not exist
@@ -127,6 +125,8 @@ get_new_file_path:
 			$image_id = $this->load('image_id');
 			$tag = $this->load('tag', false); // If category
 			$tmember_id = $this->load('tmember_id', false); // If member
+
+			$this->forceauth();
 
 			if($tag != "") { // Add category tag
 				$res = mysql_query("SELECT category_id from categories where category='$tag'");
@@ -178,6 +178,8 @@ get_new_file_path:
 			$tag = $this->load('tag', false); // If category
 			$tmember_id = $this->load('tmember_id', false); // If member
 
+			$this->forceauth();
+
 			if($tag != "") { // Delete category tag
 				$res = mysql_query("SELECT category_id FROM categories where category='$tag'");
 				$array = mysql_fetch_array($res);
@@ -211,6 +213,8 @@ get_new_file_path:
 			$image_id = $this->load('image_id');
 			$tmember_id = $this->load('tmember_id');
 
+			$this->forceauth();
+
 			$res = mysql_query("INSERT INTO favorites VALUES ($image_id, $tmember_id)");
 			if(!$res) {
 				$err = mysql_errno();
@@ -231,6 +235,8 @@ get_new_file_path:
 			$image_id = $this->load('image_id');
 			$tmember_id = $this->load('tmember_id');
 
+			$this->forceauth();
+
 			// Make sure already favorited
 			$res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$tmember_id");
 			if(mysql_num_rows($res) == 0){
@@ -246,6 +252,8 @@ get_new_file_path:
 		public function setPrivacy() {
 			$privacy = $this->load('privacy');
 			$image_id = $this->load('image_id');
+
+			$this->forceauth();
 
 			// Make sure image exists
 			$res = mysql_query("SELECT * FROM images where image_id=$image_id");
@@ -288,11 +296,7 @@ get_new_file_path:
 		}
 
 		public function getFavorites() {
-			// Verify that user has authenticated before proceeding
-                        if($this->memberid == -1) {
-                                $error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-                                $this->response($error, 403);
-                        }
+			$this->forceauth();
 
                         $res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
                         if(!mysql_num_rows($res)) {
