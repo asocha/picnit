@@ -95,7 +95,7 @@ function sendImage(photo, phototype) {
 	params['description'] = desc;
 	params['photo'] = photo;
 	params['phototype'] = phototype;
-	params['albumid'] = albumid;
+	params['album_id'] = albumid;
 	params['publicness'] = publicness;
 
 	//Send request

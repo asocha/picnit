@@ -92,7 +92,7 @@ function getImages(album_id) {
 	params['action'] = 'getImages';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['id'] = album_id;
+	params['album_id'] = album_id;
 
 	//Send request
 	request = picnitRequest(albumurl, params);
