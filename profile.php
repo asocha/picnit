@@ -38,6 +38,25 @@
 	<script type="text/javascript" src="js/member.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
+	<script>
+		window.onload = function() {
+			if(isLoggedIn()) {
+				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
+				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
+				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+			}
+			else {
+				document.getElementById('signupbut').addEventListener('click',showsignup,false);
+				document.getElementById('cancel').addEventListener('click',hidesignup,false);
+				document.getElementById('overlay').addEventListener('click',hidesignup,false);
+				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
+				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
+				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+			}
+		}
+	</script>
 </head>
 <body>
 	<?php menubar(); ?>
@@ -65,6 +84,7 @@
 				<input id="categorybut" class="buttons" type="button" value="Categories"/>
 				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
 				<input id="uploadbut" class="buttons" type="button" value="Upload"/>
+				<input id="albumbut" class="buttons" type="button" value="Add Album"/>
 			</form>
 		</div>
 		<div id="collection" class="panels">
@@ -72,6 +92,8 @@
 			</div>
 		</div>
 	</div>
+	<?php imageview(); ?>
+	<?php albumcreator(); ?>
 	<?php info(); ?>
 </body>
 </html>
