@@ -12,23 +12,9 @@ var memberurl='api/member.php';
 var request;
 
 function login() {
-	//Get and validate user inputs
+	//Get user inputs
 	var username = $("input#Username").val();
 	var password = $("input#Password").val();
-	if(password.length < 5) {
-		alert('Password must be at least 6 characters.');
-		return false;
-	}
-	if(username.length < 2 || username.length >15) {
-		alert('Username must be between 3 and 15 characters.');
-		return false;
-	}
-	if(isValid(username)===false || isValid(password)===false) {
-		alert('Password or Username is Invalid');
-		return false;
-	}	
-
-	//Getting here means that the inputs validated
 
 	//Put data into associative array, include action
 	var params = new Array();
@@ -59,8 +45,8 @@ function login() {
 		window.location = "./profile.php?username=" + escape(res['username']);
 	}
 	//Invalid username/password combo
-	else if(request.status === 204) {
-		alert('204');
+	else if(request.status === 403) {
+		alert('403\n' + request.responseText);
 	}
 	//Our request messed up
 	else if(request.status === 400) {
@@ -91,8 +77,8 @@ function createUser() {
 		alert("User created!");
 		return true;
 	}
-	else if(request.status === 204) {
-		alert("Username or email already in use!");
+	else if(request.status === 409) {
+		alert('409\n' + request.responseText);
 	}
 	else {
 		alert("Unknown error: "+request.status);
@@ -118,8 +104,4 @@ function logout(redirect) {
 	//Go back to the index
 	if(redirect)
 		window.location = "./index.php";
-}
-
-function isValid(str) {
-	return /^\w+$/.test(str);
 }
