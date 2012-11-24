@@ -186,10 +186,29 @@ div#uploadbar {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
 }
 
+
+
 div#uploadbar div {
 	margin:auto;
 	width:125px;
 
+}
+
+div#albumbar {
+	visibility:hidden;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin-left:-250px;
+	margin-top:-150px;
+	border-color:#000000;
+	width:500px;
+	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+}
+
+div#albumbar div {
+	margin:auto;
+	width:125px;
 }
 
 form#signupform {
