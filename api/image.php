@@ -21,7 +21,7 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,album_id,filepath,name,description FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,album_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
@@ -48,9 +48,10 @@ allow_user_access:
 			$filepath = mysql_result($res, 0, filepath);
 			$name = mysql_result($res, 0, name);
 			$description = mysql_result($res, 0, description);
+			$type = mysql_result($res, 0, imgtype);
 
 			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath)),
-			'name' => $name, 'description' => $description));
+			'name' => $name, 'description' => $description, 'type' => $type));
 			$this->response($respnse, 200);
 		}
 
@@ -61,6 +62,17 @@ allow_user_access:
 			$name = $this->load($_POST['name']);
 			$description = $this->load($_POST['description']);
 			$photo = base64_decode($_POST['photo']);
+
+			if(strlen($phototype) != 3)
+				$this->response('', 400);
+
+			// Verify that the album exists, and the user owns it
+			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'")
+			if(!mysql_num_rows($result))
+				$this->response('', 404);
+
+			if(mysql_result($result, 0, owner_id) != $this->memberid)
+				$this->response('', 403);
 
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
@@ -84,25 +96,31 @@ get_new_file_path:
 			$fh = fopen("/var/www/picnit/images/user".$filepath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
+			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description')");
-			if(!$result)
-				$this->response('', 404);
-
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type')");
 			$this->response('',200);
 		}
 
 		public function deleteImage() {
 			$image_id = $this->load($_POST['image_id']);
 
-			$res = mysql_query("SELECT filepath from images where image_id=$image_id");
-			if(mysql_num_rows($res) == 0){
+			$res = mysql_query("SELECT filepath,album_id from images where image_id=$image_id");
+			if(!mysql_num_rows($res)) {
 				// Image does not exist
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 409);
 			}
 
-			mysql_query("REMOVE FROM images where image_id=$image_id");
+			$filepath = mysql_result($res, 0, filepath);
+			$albumid = mysql_result($res, 0, album_id);
+
+			// Check that the user owns the image
+			$res = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
+			if($this->memberid != mysql_result($res, 0, owner_id))
+				$this->response('', 403);
+
+			mysql_query("REMOVE FROM images where image_id='$image_id'");
 			$array = mysql_fetch_array($res);
 			$filepath = $array['filepath'];
 			unlink("/var/www/picnit/images/user".$filepath);
