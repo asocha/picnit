@@ -145,13 +145,14 @@
 		}
 
 		public function memberData() {
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$username = $this->load('username', false);
+			$user_id = $this->load('user_id', false);
 
-			$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where member_id='$this->memberid'");
+			if($user_id != "")
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE member_id='$user_id'");
+			else
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE username='$username'");
+
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
