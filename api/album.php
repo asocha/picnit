@@ -13,7 +13,6 @@
 		}
 
 		public function getAlbums() {
-			$album_id = $this->load('album_id');
 			$user_id = $this->load('user_id');
 
 			$res = mysql_query("SELECT album_id FROM albums WHERE owner_id='$user_id'");
@@ -22,7 +21,7 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['image_id']);
+				$tosend[$i++] = intval($row['album_id']);
 				$i += 1;
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
