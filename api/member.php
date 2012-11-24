@@ -28,8 +28,7 @@
 			}
 
 			//Not found, return missing content
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'Invalid username or password'));
-			$this->response($error, 403);
+			$this->response(json_encode(array('msg' => 'Invalid username or password')), 403);
 		}
 
 		public function register() {
@@ -50,9 +49,9 @@
 					$errstr = mysql_error();
 
 					if(strstr($errstr, "username")) {
-						$error = json_encode(array('status' => 'Failed', 'msg' => 'Username already in use'));
+						$error = json_encode(array('msg' => 'Username already in use'));
 					} else {
-						$error = json_encode(array('status' => 'Failed', 'msg' => 'E-Mail already in use'));
+						$error = json_encode(array('msg' => 'E-Mail already in use'));
 					}
 
 					$this->response($error, 409);
