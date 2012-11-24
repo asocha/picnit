@@ -290,8 +290,9 @@ get_new_file_path:
 			$i = 0;
 			while($row = mysql_fetch_array($res))
 				$tosend[$i++] = intval($row['image_id']);
+				$i += 1;
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => json_encode($tosend))), 200);
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
 		public function getFavorites() {
