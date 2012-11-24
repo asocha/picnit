@@ -13,7 +13,7 @@
 		}
 
 		public function getImage() {
-			$imageid = $this->load($_POST['imageid']);
+			$image_id = $this->load($_POST['image_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -21,7 +21,7 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$image_id'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
@@ -53,7 +53,7 @@ allow_user_access:
 		}
 
 		public function saveImage() {
-			$albumid = $this->load($_POST['albumid']);
+			$album_id = $this->load($_POST['album_id']);
 			$publicness = $this->load($_POST['publicness']);
 			$phototype = $this->load($_POST['phototype']);
 			$name = $this->load($_POST['name']);
@@ -64,7 +64,7 @@ allow_user_access:
 				$this->response('', 400);
 
 			// Verify that the album exists, and the user owns it
-			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
+			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
 			if(!mysql_num_rows($result))
 				$this->response('', 404);
 
@@ -95,7 +95,7 @@ get_new_file_path:
 			fclose($fh);
 			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$album_id','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
 			$this->response('',200);
 		}
 
@@ -110,7 +110,7 @@ get_new_file_path:
 			}
 
 			$filepath = mysql_result($res, 0, filepath);
-			$albumid = mysql_result($res, 0, album_id);
+			$album_id = mysql_result($res, 0, album_id);
 			$owner_id = mysql_result($res, 0, owner_id);
 
 			if($this->memberid != $owner_id)

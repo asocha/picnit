@@ -50,7 +50,7 @@ function getImage() {
 
 function saveImage() {
 	//Get photo data
-	var imgobj = $("input#image").attr("files")[0];
+	var imgobj = $("input#inpimage")[0].files[0];
 	var phototype = imgobj.type;
 
 	//Make sure it's an image, save extension
@@ -63,16 +63,16 @@ function saveImage() {
 	if(phototype == "jpeg")
 		phototype = "jpg";
 
-
 	//Parse it into base64, must be asycn
-	var photo;
 	var reader = new FileReader();
 	reader.onloadend = function(evt) {
 		if (evt.target.readyState == FileReader.DONE) {
-			sendImage(evt.target.result, phototype);
+			var photo = evt.target.result;
+			photo = photo.substring(photo.indexOf("base64,")+7);
+			sendImage(encodeURIComponent(photo), phototype);
 		}
 	}
-	reader.readAsDataURL();
+	reader.readAsDataURL(imgobj);
 
 	//Never redirect
 	return false;
@@ -83,7 +83,7 @@ function sendImage(photo, phototype) {
 	//Get user input, should be validated via html5
 	var imagename = $("input#imagename").val();
 	var albumid = $("input#albumid").val();
-	var publicness = $("input#publicness").val();
+	var publicness = $("select#publicness").val();
 	var desc = $("input#imagedesc").val();
 
 	//Gather post request data
@@ -92,9 +92,11 @@ function sendImage(photo, phototype) {
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['name'] = imagename;
-	params['description'] = imagedesc;
+	params['description'] = desc;
 	params['photo'] = photo;
 	params['phototype'] = phototype;
+	params['albumid'] = albumid;
+	params['publicness'] = publicness;
 
 	//Send request
 	request = picnitRequest(imageurl, params);
