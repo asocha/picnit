@@ -21,20 +21,17 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT publicness,album_id,filepath FROM images WHERE image_id='$imageid'");
+			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$imageid'");
 			if(!mysql_num_rows($res)) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 404);
 			}
 
 			$publicness = mysql_result($res, 0, publicness);
+			$owner_id = mysql_result($res, 0, owner_id);
 
 			if($publicness == 0)
 				goto allow_user_access;
-
-			$album_id = mysql_result($res, 0, album_id);
-			$albres = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
-			$owner_id = mysql_result($albres, 0, owner_id);
 
 			if($this->memberid == $owner_id)
 				goto allow_user_access;
@@ -46,7 +43,12 @@
 			$this->response($error, 403);
 allow_user_access:
 			$filepath = mysql_result($res, 0, filepath);
-			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath))));
+			$name = mysql_result($res, 0, name);
+			$description = mysql_result($res, 0, description);
+			$type = mysql_result($res, 0, imgtype);
+
+			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath)),
+			'name' => $name, 'description' => $description, 'type' => $type));
 			$this->response($respnse, 200);
 		}
 
@@ -54,7 +56,20 @@ allow_user_access:
 			$albumid = $this->load($_POST['albumid']);
 			$publicness = $this->load($_POST['publicness']);
 			$phototype = $this->load($_POST['phototype']);
+			$name = $this->load($_POST['name']);
+			$description = $this->load($_POST['description']);
 			$photo = base64_decode($_POST['photo']);
+
+			if(strlen($phototype) != 3)
+				$this->response('', 400);
+
+			// Verify that the album exists, and the user owns it
+			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
+			if(!mysql_num_rows($result))
+				$this->response('', 404);
+
+			if(mysql_result($result, 0, owner_id) != $this->memberid)
+				$this->response('', 403);
 
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
@@ -78,25 +93,30 @@ get_new_file_path:
 			$fh = fopen("/var/www/picnit/images/user".$filepath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
+			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added) VALUES ('$albumid','$publicness', '$filepath', NOW())");
-			if(!$result)
-				$this->response('', 404);
-
+			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
 			$this->response('',200);
 		}
 
 		public function deleteImage() {
 			$image_id = $this->load($_POST['image_id']);
 
-			$res = mysql_query("SELECT filepath from images where image_id=$image_id");
-			if(mysql_num_rows($res) == 0){
+			$res = mysql_query("SELECT filepath,album_id,owner_id from images where image_id=$image_id");
+			if(!mysql_num_rows($res)) {
 				// Image does not exist
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 409);
 			}
 
-			mysql_query("REMOVE FROM images where image_id=$image_id");
+			$filepath = mysql_result($res, 0, filepath);
+			$albumid = mysql_result($res, 0, album_id);
+			$owner_id = mysql_result($res, 0, owner_id);
+
+			if($this->memberid != $owner_id)
+				$this->response('', 403);
+
+			mysql_query("REMOVE FROM images where image_id='$image_id'");
 			$array = mysql_fetch_array($res);
 			$filepath = $array['filepath'];
 			unlink("/var/www/picnit/images/user".$filepath);
@@ -238,6 +258,32 @@ get_new_file_path:
 			// Update privacy
 			mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id");
 			$this->response(json_encode('', 200));
+		}
+
+		public function getLastImages() {
+			$num = $this->load($_POST['num']);
+			$id = $this->load($_POST['id'], false);
+
+			if($num > 10)
+				$num = 10;
+
+			if($id != "") {
+				if($this->memberid == $id)
+					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' ORDER BY image_id DESC LIMIT $num");
+
+				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$id'")))
+					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness < 2 ORDER BY image_id DESC LIMIT $num");
+
+				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and pubicness='0' ORDER BY image_id DESC LIMIT $num");
+			} else {
+				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
+			}
+
+			if(!mysql_num_rows($res))
+				$this->response('', 404);
+
+			$array = mysql_fetch_array($res);
+			$this->response(json_encode($array), 200);
 		}
 	}
 

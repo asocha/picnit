@@ -81,6 +81,13 @@ h1 {
 	top: -80px;
 }
 
+img#logo {
+	position: relative;
+	height:150px;
+	top: 0px;
+	margin-bottom:135px;
+}
+
 form#search {
 	margin:auto;
 	width:700px;
@@ -97,6 +104,7 @@ input#Searchterm {
 div#gallery {
 	position:relative;
 	height: 700px;
+	top:-135px;
 }
 
 div#info {
@@ -166,6 +174,24 @@ div#signupbar {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
 }
 
+div#uploadbar {
+	visibility:hidden;
+	position:fixed;
+	top:50%;
+	left:50%;
+	margin-left:-250px;
+	margin-top:-150px;
+	border-color:#000000;
+	width:500px;
+	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+}
+
+div#uploadbar div {
+	margin:auto;
+	width:125px;
+
+}
+
 form#signupform {
 	margin:auto;
 }
@@ -183,15 +209,6 @@ div#searchbar {
 	color:#043A6B;
 	position:relative;
 	top:-135px;
-	padding:5px;
-	margin-bottom:5px;
-	height:25px;
-}
-
-div#indexsearchbar {
-	color:#043A6B;
-	position:relative;
-	top:0px;
 	padding:5px;
 	margin-bottom:5px;
 	height:25px;
@@ -265,7 +282,7 @@ form#signoutbut {
 	margin-left:5px;
 }
 
-img#logo {
-	position:relative;
+div#userinfo {
+	float:right;
 }
 

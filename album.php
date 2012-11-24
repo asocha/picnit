@@ -4,34 +4,42 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<title>welcome to picnit!</title>
+	<title>Album</title>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
-	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
+	<script type="text/javascript" src="js/image.js"></script>
+	<script type="text/javascript" src="js/album.js"></script>
 	<script>
 	window.onload = function() {
 		if(isLoggedIn()) {
 			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
+			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
+			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
 		}
 		else {
 			document.getElementById('signupbut').addEventListener('click',showsignup,false);
 			document.getElementById('cancel').addEventListener('click',hidesignup,false);
 			document.getElementById('overlay').addEventListener('click',hidesignup,false);
 			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-		}	
+			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
+			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
+			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
+		}
 	}
 	</script>
 </head>
 <body>
 	<?php menubar(); ?>
 	<div>
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="150" id="logo">
+		<h1>album</h1>
 	</div>
 	<?php searchbar(); ?>
-	<div id="gallery" name="gallery" class="panels">
-		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
+	<div id="results" class="panels">
+		<input type="button" id="uploadbut" class="buttons" value="upload"/>
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>
