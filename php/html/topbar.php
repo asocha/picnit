@@ -177,10 +177,10 @@ function uploader() {
 				<option value="2">Private</option>
 			</select>
 		</div></p>
-		<p><div><input type="file" id="image" class="buttons" value="browse"/></div></p>
+		<p><div><input type="file" id="inpimage" class="buttons" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
-		<input type="hidden" id="albumid"/>
+		<input type="hidden" id="albumid" value="1"/>
 		</form>
 	</div>
 	<?php

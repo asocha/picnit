@@ -50,7 +50,7 @@ function getImage() {
 
 function saveImage() {
 	//Get photo data
-	var imgobj = $("input#image").attr("files")[0];
+	var imgobj = $("input#inpimage")[0].files[0];
 	var phototype = imgobj.type;
 
 	//Make sure it's an image, save extension
@@ -72,7 +72,7 @@ function saveImage() {
 			sendImage(evt.target.result, phototype);
 		}
 	}
-	reader.readAsDataURL();
+	reader.readAsDataURL(imgobj);
 
 	//Never redirect
 	return false;
@@ -83,7 +83,7 @@ function sendImage(photo, phototype) {
 	//Get user input, should be validated via html5
 	var imagename = $("input#imagename").val();
 	var albumid = $("input#albumid").val();
-	var publicness = $("input#publicness").val();
+	var publicness = $("select#publicness").val();
 	var desc = $("input#imagedesc").val();
 
 	//Gather post request data
