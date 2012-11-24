@@ -133,7 +133,7 @@
 			if(method_exists($this, $action))
 				$this->$action(); //Call if found, php magic
 			else
-				$this->response(json_encode(array('msg' => 'Action does not exist: '.$_POST['action'],404); //Else send 404 (not found)
+				$this->response(json_encode(array('msg' => 'Action does not exist: '.$_POST['action'],404))); //Else send 404 (not found)
 		}
 
 		public function getHashedPassword($username) {
