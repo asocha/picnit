@@ -285,6 +285,22 @@ get_new_file_path:
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
+
+		public function getFavorites() {
+			// Verify that user has authenticated before proceeding
+                        if($this->memberid == -1) {
+                                $error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
+                                $this->response($error, 403);
+                        }
+
+                        $res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
+                        if(!mysql_num_rows($res)) {
+                                $this->response('', 204); //user has no favorites
+                        }
+
+			$array = mysql_fetch_array($res);
+                        $this->response(json_encode($array), 200);
+		}
 	}
 
 	$api = new Image;
