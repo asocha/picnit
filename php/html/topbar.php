@@ -26,9 +26,13 @@ function menubar() {
 		} //End if
 		else {
 	?>
+	<form id="homebut" action="index.php">
+		<span><input type="submit" id="home" class="buttons" value="home"/></span>
+	</form>
 	<div id="userinfo">
 		<a href="profile.php?username=<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
 	</div>
+
 		<?php
 			}
 		?>
@@ -38,6 +42,19 @@ function menubar() {
 
 //Function that returns the signup section
 function signup() {
+?>
+	<script>
+	function showsignup() {
+		document.getElementById('overlay').style.visibility="visible";
+		document.getElementById('signupbar').style.visibility="visible";
+	}
+
+	function hidesignup() {
+		document.getElementById('overlay').style.visibility="hidden";
+		document.getElementById('signupbar').style.visibility="hidden";
+	}
+	</script>
+<?php
 	if(!isLoggedIn()) {
 ?>
 	<div id="overlay" class="overlays">
@@ -161,6 +178,7 @@ function uploader() {
 		<p><div><input type="button" id="image" class="buttons" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
+		<input type="hidden" id="albumid"/>
 		</form>
 	</div>
 	<?php
