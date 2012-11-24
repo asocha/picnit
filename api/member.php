@@ -20,7 +20,7 @@
 			if(mysql_num_rows($res) > 0) {
 				$result = mysql_fetch_array($res, MYSQL_ASSOC);
 
-				// Rename passowrd to key
+				// Rename password to key
 				$result['key'] = $result['password'];
 				unset($result['password']);
 
