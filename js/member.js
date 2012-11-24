@@ -45,8 +45,8 @@ function login() {
 		window.location = "./profile.php?username=" + escape(res['username']);
 	}
 	//Invalid username/password combo
-	else if(request.status === 204) {
-		alert('204');
+	else if(request.status === 403) {
+		alert('403\n' + request.responseText);
 	}
 	//Our request messed up
 	else if(request.status === 400) {
@@ -77,8 +77,8 @@ function createUser() {
 		alert("User created!");
 		return true;
 	}
-	else if(request.status === 204) {
-		alert("Username or email already in use!");
+	else if(request.status === 409) {
+		alert('409\n' + request.responseText);
 	}
 	else {
 		alert("Unknown error: "+request.status);
