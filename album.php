@@ -49,5 +49,6 @@
 	<?php signup(); ?>
 	<?php imageview(); ?>
 	<?php uploader(); ?>
+	<?php albumcreator(); ?>
 </body>
 </html>
