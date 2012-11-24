@@ -40,10 +40,10 @@
 				$this->response($error, 401);
 			}
 
-			$id = $this->load($_POST['id']);
+			$album_id = $this->load($_POST['album_id']);
 
 			// Permission checking is done when the client fetches the images
-			$res = mysql_query("SELECT image_id FROM images WHERE album_id='$id'");
+			$res = mysql_query("SELECT image_id FROM images WHERE album_id='$album_id'");
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);

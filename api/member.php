@@ -79,7 +79,7 @@
 		}
 
 		public function suspendUser() {
-			$userid = $this->load($_POST['userid']);
+			$user_id = $this->load($_POST['user_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -97,7 +97,7 @@
 			}
 
 			// Check if member to suspend exists and isn't suspended
-			$res = mysql_query("SELECT is_suspended FROM members where member_id='$userid'");
+			$res = mysql_query("SELECT is_suspended FROM members where member_id='$user_id'");
 			$array = mysql_fetch_array($res);
 			$suspended = $array['is_suspended'];
 
@@ -106,13 +106,13 @@
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is already suspended'));
 				$this->response($error, 409);
 			} else {
-				mysql_query("UPDATE members SET is_suspended = 1 where member_id='$userid'");
+				mysql_query("UPDATE members SET is_suspended = 1 where member_id='$user_id'");
 				$this->response('',200);
 			}
 		}
 
 		public function unsuspendUser() {
-			$userid = $this->load($_POST['userid']);
+			$user_id = $this->load($_POST['user_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -130,7 +130,7 @@
 			}
 
 			// Check if member to suspend exists and is suspended
-			$res = mysql_query("SELECT is_suspended FROM members where member_id='$userid'");
+			$res = mysql_query("SELECT is_suspended FROM members where member_id='$user_id'");
 			$array = mysql_fetch_array($res);
 			$suspended = $array['is_suspended'];
 
@@ -139,7 +139,7 @@
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is not suspended'));
 				$this->response($error, 409);
 			} else {
-				mysql_query("UPDATE members SET is_suspended = 0 where member_id='$userid'");
+				mysql_query("UPDATE members SET is_suspended = 0 where member_id='$user_id'");
 				$this->response('',200);
 			}
 		}
@@ -157,7 +157,7 @@
 		}
 
 		public function requestFollow() {
-			$userid = $this->load($_POST['userid']);
+			$user_id = $this->load($_POST['user_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -166,13 +166,13 @@
 			}
 
 			// Make sure user is not trying to follow himself/herself
-			if ($userid == $this->memberid){
+			if ($user_id == $this->memberid){
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'You cannot follow yourself'));                                         
                                 $this->response($error, 417);
 			}
 
 			// Make sure user to follow exists
-                        $res = mysql_query("SELECT * FROM members where member_id='$userid'");
+                        $res = mysql_query("SELECT * FROM members where member_id='$user_id'");
                         if(mysql_num_rows($res) == 0) {
                                 // User does not exist
                                 $error = json_encode(array('status' => 'Failed', 'msg' => 'The user you are trying to follow does not seem to exist'));
@@ -180,7 +180,7 @@
                         }
 
 			// Check if user is already following that person
-			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
+			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
 			if(mysql_num_rows($res)) {
 				// User is already following that person
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'You are already following that user'));
@@ -188,7 +188,7 @@
 			}
 
 			// Check if already follow requested that person
-			$res = mysql_query("SELECT * FROM messages where from_id='$this->memberid' and to_id='$userid' and message_type=0");
+			$res = mysql_query("SELECT * FROM messages where from_id='$this->memberid' and to_id='$user_id' and message_type=0");
                         if(mysql_num_rows($res)) {
                                 // User already follow requested that person
                                 $error = json_encode(array('status' => 'Failed', 'msg' => 'You have already requested to follow that user'));
@@ -196,7 +196,7 @@
                         }
 
 			// Add message of type 0 --> REQUEST TO FOLLOW
-			$res = mysql_query("INSERT INTO messages (from_id, to_id, message_type, is_read, message) VALUES ('$this->memberid', '$userid', '0', 'false', '')");
+			$res = mysql_query("INSERT INTO messages (from_id, to_id, message_type, is_read, message) VALUES ('$this->memberid', '$user_id', '0', 'false', '')");
 
 			if(!$res) {
 				// Something else went wrong
@@ -209,7 +209,7 @@
 		}
 
 		public function follow() {
-			$userid = $this->load($_POST['userid']);
+			$user_id = $this->load($_POST['user_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -217,7 +217,7 @@
 				$this->response($error, 403);
 			}
 
-			$res = mysql_query("SELECT message_id FROM messages where from_id='$userid' and to_id='$this->memberid' and message_type='0'");
+			$res = mysql_query("SELECT message_id FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
 			if(!mysql_num_rows($res)) {
 				// Has not sent follow request
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'User did not request to follow you'));
@@ -229,7 +229,7 @@
 			mysql_query("DELETE FROM messages WHERE message_id='$message_id'");
 
 			// Implement Follow
-			$res = mysql_query("INSERT INTO follows VALUES ('$userid', '$this->memberid')");
+			$res = mysql_query("INSERT INTO follows VALUES ('$user_id', '$this->memberid')");
 			if(!$res) {
 				//Get error
 				$err = mysql_errno();
@@ -250,7 +250,7 @@
 		}
 
 		public function unfollow() {
-			$userid = $this->load($_POST['userid']);
+			$user_id = $this->load($_POST['user_id']);
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -259,7 +259,7 @@
 			}
 
 			// Make sure user is following that person
-			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
+			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
 			if(!mysql_num_rows($res)) {
 				// Not following, error
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'You are not following that person'));
@@ -267,7 +267,7 @@
 			}
 
 			// Success
-			mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$userid'");
+			mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
 			$this->response('', 200);
 		}
 	}
