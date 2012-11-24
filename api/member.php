@@ -20,7 +20,7 @@
 			if(mysql_num_rows($res) > 0) {
 				$result = mysql_fetch_array($res, MYSQL_ASSOC);
 
-				// Rename passowrd to key
+				// Rename password to key
 				$result['key'] = $result['password'];
 				unset($result['password']);
 
@@ -133,7 +133,7 @@
 		}
 
 		public function memberData() {
-			$username = $this->load('username', false);
+			$username = $this->load('tusername', false);
 			$user_id = $this->load('user_id', false);
 
 			if($user_id != "")
@@ -141,6 +141,10 @@
 			else
 				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE username='$username'");
 
+			if(mysql_num_rows($res) < 1) {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'User does not exist or is not suspended'));
+				$this->response($error, 409);
+			}
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
