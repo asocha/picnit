@@ -161,5 +161,12 @@
 			//Else return anon user
 			return -1;
 		}
+
+		public function forceauth() {
+			if ($this->memberid == -1) {
+				$error = json_encode(array('msg' => 'You must authenticate to perform action: '.$_POST['action']));
+				$this->response($error, 403);
+			}
+		}
 	}
 ?>
