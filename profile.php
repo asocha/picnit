@@ -49,6 +49,7 @@
 				<input id="categorybut" class="buttons" type="button" value="Categories"/>
 				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
 				<input id="uploadbut" class="buttons" type="button" value="Upload"/>
+				<input id="albumbut" class="buttons" type="button" value="Add Album"/>
 			</form>
 		</div>
 		<div id="collection" class="panels">
