@@ -14,13 +14,15 @@ var request;
 function createAlbum() {
 	//Get user input, should be validated via html5
 	var albumname = $("input#albumname").val();
-	
+	var albumdesc = $("input#albumdesc").val();
+
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'createAlbum';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['name'] = albumname;
+	params['description'] = albumdesc;
 
 	//Send request
 	request = picnitRequest(albumurl, params);

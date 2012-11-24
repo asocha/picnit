@@ -3,15 +3,30 @@
 	//Get general.php for DB calls
 	require_once('php/general.php');
 
-	//Check log in
-	if(!isLoggedIn())
-		header('Location: index.php');
+	//Make sure they send in a username
+	if(!isset($_GET['username']))
+		if(isLoggedIn())
+			$_GET['username'] = getCookie('username');
+		else
+			header("Location: index.php");
 	
 	//See if this user exists
+	$fields = array(
+		'username' => urlencode(getCookie('username')),
+		'key' => urlencode(getCookie('key')),
+		'tusername' => urlencode($_GET['username'])
+	);
 
+	$res = callAPI('api/member.php', $fields);
+
+	//If does, get user info
+	if($res['status'] == 200) 
+		$profile = $res['result'];
+	else
+		header('Location: index.php');
 ?>
 <html>
-<title><?php echo  $_GET['username']; ?>'s profile!</title>
+<title><?php echo  $profile['username']; ?>'s profile!</title>
 <head>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
@@ -26,7 +41,7 @@
 <body>
 	<?php menubar(); ?>
 	<div>
-		<h1><?php echo  $_GET['username']; ?>'s profile</h1>
+		<h1><?php echo  $profile['username']; ?>'s profile</h1>
 	</div>
 	<?php searchbar(); ?>
 	<div id="slideshow" class="flexslider">
@@ -53,11 +68,6 @@
 		</div>
 		<div id="collection" class="panels">
 			<div id="thumbnail-display">
-				<a href="images/AlArBdr.gif"><img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50"></a>
-				<a href="images/article-0-14C152E0000005DC-964_964x764.jpg"><img src="images/article-0-14C152E0000005DC-964_964x764.jpg" alt="Pulpit rock" width="50" height=50"></a>
-				<a href="images/FD_image.jpg"><img src="images/FD_image.jpg" alt="Pulpit rock" width="50" height="50"></a>
-				<a href="images/image16.gif"><img src="images/image16.gif" alt="Pulpit rock" width="50" height="50"></a>
-			<a href="images/pia12832-browse.jpg"><img src="images/pia12832-browse.jpg" alt="Pulpit rock" width="50" height="50"></a>
 			</div>
 		</div>
 	</div>
