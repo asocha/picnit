@@ -7,29 +7,28 @@
 	<title>Album</title>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
-	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
+	<script type="text/javascript" src="js/image.js"></script>
+	<script type="text/javascript" src="js/album.js"></script>
 	<script>
 	window.onload = function() {
-		document.getElementById('signupbut').addEventListener('click',showsignup,false);
-		document.getElementById('cancel').addEventListener('click',hidesignup,false);
-		document.getElementById('overlay').addEventListener('click',hidesignup,false);
-		document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-		
-document.getElementById('uploadbut').addEventListener('click',showUploader,false);
-document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
-document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
-	}
-
-	function showsignup() {
-		document.getElementById('overlay').style.visibility="visible";
-		document.getElementById('signupbar').style.visibility="visible";
-	}
-
-	function hidesignup() {
-		document.getElementById('overlay').style.visibility="hidden";
-		document.getElementById('signupbar').style.visibility="hidden";
+		if(isLoggedIn()) {
+			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
+			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
+			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
+		}
+		else {
+			document.getElementById('signupbut').addEventListener('click',showsignup,false);
+			document.getElementById('cancel').addEventListener('click',hidesignup,false);
+			document.getElementById('overlay').addEventListener('click',hidesignup,false);
+			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
+			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
+			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
+			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
+		}
 	}
 	</script>
 </head>

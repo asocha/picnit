@@ -53,15 +53,29 @@ function saveImage() {
 	var imgobj = $("input#image").attr("files")[0];
 	var phototype = imgobj.type;
 
-	//Parse it into base64
+	//Make sure it's an image, save extension
+	if(phototype.indexOf("image") !== 0) {
+		alert("Not an image");
+		return;
+	}
+	//Get the extension
+	phototype = phototype.substring(phototype.indexOf("/")+1);
+	if(phototype == "jpeg")
+		phototype = "jpg";
+
+
+	//Parse it into base64, must be asycn
 	var photo;
 	var reader = new FileReader();
 	reader.onloadend = function(evt) {
-		if (evt.target.readyState == FileReader.DONE) { // DONE == 2
+		if (evt.target.readyState == FileReader.DONE) {
 			sendImage(evt.target.result, phototype);
 		}
 	}
 	reader.readAsDataURL();
+
+	//Never redirect
+	return false;
 }
 
 //Finish sending the image to the database to be saved
@@ -78,7 +92,7 @@ function sendImage(photo, phototype) {
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['name'] = imagename;
-	params['desc'] = imagedesc;
+	params['description'] = imagedesc;
 	params['photo'] = photo;
 	params['phototype'] = phototype;
 
@@ -100,9 +114,13 @@ function sendImage(photo, phototype) {
 	else if(request.status === 400) {
 		
 	}
-	//Unknown error
-	else {
+	//No album exists error
+	else if(request.status === 404) {
 		
+	}
+	//Unknown
+	else {
+
 	}
 
 	return false;
