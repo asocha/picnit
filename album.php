@@ -39,11 +39,16 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="results" class="panels">
-		<input type="button" id="uploadbut" class="buttons" value="upload"/>
+		<div id="albuminfo" class="panels">
+			<p><div id="albumtitle">Album: </div></p>
+			<p><div id="albumdesc">Description: </div></p>
+			<input type="button" id="uploadbut" class="buttons" value="upload"/>
+		</div>
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>
 	<?php imageview(); ?>
 	<?php uploader(); ?>
+	<?php albumcreator(); ?>
 </body>
 </html>

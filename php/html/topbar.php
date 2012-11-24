@@ -38,12 +38,13 @@ function menubar() {
 	<form id="homebut" action="index.php">
 		<span><input type="submit" id="home" class="buttons" value="home"/></span>
 	</form>
-	<div id="userinfo">
-		<a href="profile.php?username=<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
-	</div>
+	
 	<form id="signoutbut">
 			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
 		</form>
+	<div id="userinfo">
+		<a href="profile.php?username=<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
+	</div>
 		<?php
 			}
 		?>
@@ -192,6 +193,34 @@ function uploader() {
 		<input type="hidden" id="albumid" value="1"/>
 		</form>
 	</div>
+	<?php
+	}
+
+//Function that returns the album creator
+function albumcreator() {
+	?>
+	<script>
+	function hideAlbumCreator() {
+		document.getElementById('albumoverlay').style.visibility="hidden";
+		document.getElementById('albumbar').style.visibility="hidden";
+	}
+
+	function showAlbumCreator() {
+		document.getElementById('albumoverlay').style.visibility="visible";
+		document.getElementById('albumbar').style.visibility="visible";
+	}
+	</script>
+	<div id="albumoverlay" class="overlays">
+	</div>
+	<div id="albumbar" class="panels">
+		<form id="albumform">
+		<p><div><label for="albumname">album name: </label><input type="text" id="albumname" class="inputs" pattern="[\w]{3,15}" title="Album Name must contain between 3 and 15 letters, numbers, and underscores." required="required"/></div>
+		<div><label for="albumdesc">description: </label><input type="text" id="albumdesc" class="inputs"/></div></p>
+		<p><div><input type="submit" id="albsubmit" class="buttons" value="submit"/></div></p>
+		<p><div><input type="button" id="albcancel" class="buttons" value="cancel"/></div></p>
+		</form>
+	</div>
+
 	<?php
 	}
 	?>

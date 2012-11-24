@@ -12,7 +12,7 @@
 		}
 
 		public function login() {
-			$username = $this->load($_POST['username']);
+			$username = $this->load('username');
 			$password = $this->getHashedPassword($username);
 
 			$res = mysql_query("SELECT member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1");
@@ -33,9 +33,9 @@
 		}
 
 		public function register() {
-			$username = $this->load($_POST['username']);
-			$password = $this->load($_POST['password']);
-			$email = $this->load($_POST['email']);
+			$username = $this->load('username');
+			$password = $this->load('password');
+			$email = $this->load('email');
 			$salt = mt_rand();
 
 			// Hash the password
@@ -79,7 +79,7 @@
 		}
 
 		public function suspendUser() {
-			$user_id = $this->load($_POST['user_id']);
+			$user_id = $this->load('user_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -112,7 +112,7 @@
 		}
 
 		public function unsuspendUser() {
-			$user_id = $this->load($_POST['user_id']);
+			$user_id = $this->load('user_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -145,19 +145,20 @@
 		}
 
 		public function memberData() {
-			// Verify that user has authenticated before proceeding
-			if($this->memberid == -1) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
-				$this->response($error, 403);
-			}
+			$username = $this->load('username', false);
+			$user_id = $this->load('user_id', false);
 
-			$res = mysql_query("SELECT member_id, is_admin, is_suspended, username, password, email FROM members where member_id='$this->memberid'");
+			if($user_id != "")
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE member_id='$user_id'");
+			else
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE username='$username'");
+
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
 
 		public function requestFollow() {
-			$user_id = $this->load($_POST['user_id']);
+			$user_id = $this->load('user_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -209,7 +210,7 @@
 		}
 
 		public function follow() {
-			$user_id = $this->load($_POST['user_id']);
+			$user_id = $this->load('user_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -250,7 +251,7 @@
 		}
 
 		public function unfollow() {
-			$user_id = $this->load($_POST['user_id']);
+			$user_id = $this->load('user_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {

@@ -13,7 +13,7 @@
 		}
 
 		public function getImage() {
-			$image_id = $this->load($_POST['image_id']);
+			$image_id = $this->load('image_id');
 
 			// Verify that user has authenticated before proceeding
 			if($this->memberid == -1) {
@@ -53,11 +53,11 @@ allow_user_access:
 		}
 
 		public function saveImage() {
-			$album_id = $this->load($_POST['album_id']);
-			$publicness = $this->load($_POST['publicness']);
-			$phototype = $this->load($_POST['phototype']);
-			$name = $this->load($_POST['name']);
-			$description = $this->load($_POST['description']);
+			$album_id = $this->load('album_id');
+			$publicness = $this->load('publicness');
+			$phototype = $this->load('phototype');
+			$name = $this->load('name');
+			$description = $this->load('description');
 			$photo = base64_decode($_POST['photo']);
 
 			if(strlen($phototype) != 3)
@@ -100,7 +100,7 @@ get_new_file_path:
 		}
 
 		public function deleteImage() {
-			$image_id = $this->load($_POST['image_id']);
+			$image_id = $this->load('image_id');
 
 			$res = mysql_query("SELECT filepath,album_id,owner_id from images where image_id=$image_id");
 			if(!mysql_num_rows($res)) {
@@ -124,9 +124,9 @@ get_new_file_path:
 		}
 
 		public function addTag() {
-			$image_id = $this->load($_POST['image_id']);
-			$tag = $this->load($_POST['tag'], false); // If category
-			$tmember_id = $this->load($_POST['tmember_id'], false); // If member
+			$image_id = $this->load('image_id');
+			$tag = $this->load('tag', false); // If category
+			$tmember_id = $this->load('tmember_id', false); // If member
 
 			if($tag != "") { // Add category tag
 				$res = mysql_query("SELECT category_id from categories where category='$tag'");
@@ -174,9 +174,9 @@ get_new_file_path:
 			$this->response(json_encode('', 200));
 		}
 		public function deleteTag() {
-			$image_id = $this->load($_POST['image_id']);
-			$tag = $this->load($_POST['tag'], false); // If category
-			$tmember_id = $this->load($_POST['tmember_id'], false); // If member
+			$image_id = $this->load('image_id');
+			$tag = $this->load('tag', false); // If category
+			$tmember_id = $this->load('tmember_id', false); // If member
 
 			if($tag != "") { // Delete category tag
 				$res = mysql_query("SELECT category_id FROM categories where category='$tag'");
@@ -190,7 +190,7 @@ get_new_file_path:
 					$this->response($error, 409);
 				}
 
-				mysql_query("REMOVE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
+				mysql_query("DELETE FROM category_tags where image_id=$image_id and category_tag=$tag_id");
 			}
 			if($tmember_id != "") { // Delete member tag
 				//make sure already tagged
@@ -201,15 +201,15 @@ get_new_file_path:
 					$this->response($error, 409);
 				}
 
-				mysql_query("REMOVE FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
+				mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
 			}
 
 			$this->response(json_encode('', 200));
 		}
 
 		public function addFavorite() {
-			$image_id = $this->load($_POST['image_id']);
-			$tmember_id = $this->load($_POST['tmember_id']);
+			$image_id = $this->load('image_id');
+			$tmember_id = $this->load('tmember_id');
 
 			$res = mysql_query("INSERT INTO favorites VALUES ($image_id, $tmember_id)");
 			if(!$res) {
@@ -228,8 +228,8 @@ get_new_file_path:
 		}
 
 		public function deleteFavorite() {
-			$image_id = $this->load($_POST['image_id']);
-			$tmember_id = $this->load($_POST['tmember_id']);
+			$image_id = $this->load('image_id');
+			$tmember_id = $this->load('tmember_id');
 
 			// Make sure already favorited
 			$res = mysql_query("SELECT * FROM favorites where image_id=$image_id and member_id=$tmember_id");
@@ -244,8 +244,8 @@ get_new_file_path:
 		}
 
 		public function setPrivacy() {
-			$privacy = $this->load($_POST['privacy']);
-			$image_id = $this->load($_POST['image_id']);
+			$privacy = $this->load('privacy');
+			$image_id = $this->load('image_id');
 
 			// Make sure image exists
 			$res = mysql_query("SELECT * FROM images where image_id=$image_id");
@@ -261,8 +261,8 @@ get_new_file_path:
 		}
 
 		public function getLastImages() {
-			$num = $this->load($_POST['num']);
-			$id = $this->load($_POST['id'], false);
+			$num = $this->load('num');
+			$id = $this->load('id', false);
 
 			if($num > 10)
 				$num = 10;
@@ -279,11 +279,28 @@ get_new_file_path:
 				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
 			}
 
-			if(!mysql_num_rows($res))
-				$this->response('', 404);
+			$row = mysql_fetch_array($res);
+			$csv = $row['image_id'];
+			while($row = mysql_fetch_array($res))
+				$csv = $csv.','.$row['image_id'];
+
+			$this->response(json_encode(array('status' => 'Success', 'list' => $csv)), 200);
+		}
+
+		public function getFavorites() {
+			// Verify that user has authenticated before proceeding
+                        if($this->memberid == -1) {
+                                $error = json_encode(array('status' => 'Failed', 'msg' => 'You must authenticate'));
+                                $this->response($error, 403);
+                        }
+
+                        $res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
+                        if(!mysql_num_rows($res)) {
+                                $this->response('', 204); //user has no favorites
+                        }
 
 			$array = mysql_fetch_array($res);
-			$this->response(json_encode($array), 200);
+                        $this->response(json_encode($array), 200);
 		}
 	}
 

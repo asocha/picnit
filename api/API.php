@@ -112,9 +112,10 @@
 			return ($status[$this->_code])?$status[$this->_code]:$status[500];
 		}
 
-		public function load($var, $req = true) {
+		public function load($varstr, $req = true) {
+			$var = $_POST[$varstr];
 			if($req && ($var == NULL || $var == "")) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Required parameter not provided'));
+				$error = json_encode(array('msg' => 'Missing required parameter: '.$varstr));
 				$this->response($error, 400);
 			}
 
@@ -146,19 +147,8 @@
 		}
 
 		public function authenticateUser() {
-			//Get the username
-			$username = mysql_real_escape_string($_POST['username']);
-			if($username == "") {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Username field not provided'));
-				$this->response($error, 400);
-			}
-
-			//Get the key value
-			$key = mysql_real_escape_string($_POST['key']);
-			if($key == "") {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Key field not provided'));
-				$this->response($error, 400);
-			}
+			$username = $this->load('username', false);
+			$key = $this->load('key', false);
 
 			//See if it exists in database
 			$query = "SELECT member_id FROM members WHERE username='$username' AND password='$key' AND is_suspended='false' LIMIT 1";
