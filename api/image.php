@@ -116,7 +116,7 @@ get_new_file_path:
 			if($this->memberid != $owner_id)
 				$this->response('', 403);
 
-			mysql_query("REMOVE FROM images where image_id='$image_id'");
+			mysql_query("DELETE FROM images where image_id='$image_id'");
 			$array = mysql_fetch_array($res);
 			$filepath = $array['filepath'];
 			unlink("/var/www/picnit/images/user".$filepath);
@@ -239,7 +239,7 @@ get_new_file_path:
 				$this->response($error, 409);
 			}
 
-			mysql_query("REMOVE FROM favorites where image_id=$image_id and member_id=$tmember_id");
+			mysql_query("DELETE FROM favorites where image_id=$image_id and member_id=$tmember_id");
 			$this->response(json_encode('', 200));
 		}
 
