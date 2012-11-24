@@ -13,7 +13,7 @@
 
 	mysql_select_db('picnit', $con);
 
-	$result = mysql_query("SELECT filepath FROM images WHERE image_id='$photoid' LIMIT 1", $con);
+	$result = mysql_query("SELECT filepath,publicness FROM images WHERE image_id='$photoid' LIMIT 1", $con);
 	if(!mysql_num_rows($result)) {
 		header("HTTP/1.1 404 Not Found");
 		exit;
