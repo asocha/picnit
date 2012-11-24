@@ -147,7 +147,7 @@
 
 		public function authenticateUser() {
 			//Get the username
-			$username = mysql_real_escape_string($_POST['username'])
+			$username = mysql_real_escape_string($_POST['username']);
 			if($username == "") {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Username field not provided'));
 				$this->response($error, 400);
