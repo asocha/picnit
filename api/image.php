@@ -287,12 +287,12 @@ get_new_file_path:
 				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
 			}
 
-			$row = mysql_fetch_array($res);
-			$csv = $row['image_id'];
+			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$csv = $csv.','.$row['image_id'];
+				$tosend[$i++] = intval($row['image_id']);
+				$i += 1;
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $csv)), 200);
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
 		public function getFavorites() {

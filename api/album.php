@@ -12,12 +12,29 @@
 			$this->link = $this->db_connect();
 		}
 
+		public function getAlbums() {
+			$album_id = $this->load('album_id');
+			$user_id = $this->load('user_id');
+
+			$res = mysql_query("SELECT album_id FROM albums WHERE owner_id='$user_id'");
+			if(!mysql_num_rows($res))
+				$this->response('', 204);
+
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+				$tosend[$i++] = intval($row['image_id']);
+				$i += 1;
+
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+		}
+
 		public function createAlbum() {
 			$album_name = $this->load('name');
+			$album_description = $this->load('description');
 
 			$this->forceauth();
 
-			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name) VALUES ('$this->memberid',NOW(),'$album_name')");
+			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name,description) VALUES ('$this->memberid',NOW(),'$album_name','$description')");
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);
