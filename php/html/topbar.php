@@ -129,4 +129,40 @@ function searchbar() {
 </div>
 	<?php
 	}
+
+//Function that returns the image uploader
+function uploader() {
+
+?>
+	<script>
+	function hideUploader() {
+		document.getElementById('uploadoverlay').style.visibility="hidden";
+		document.getElementById('uploadbar').style.visibility="hidden";
+	}
+
+	function showUploader() {
+		document.getElementById('uploadoverlay').style.visibility="visible";
+		document.getElementById('uploadbar').style.visibility="visible";
+	}
+</script>
+	<div id="uploadoverlay" class="overlays">
+	</div>
+	<div id="uploadbar" class="panels">
+		<form id="uploadform">
+		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="[\w]" title="Image Name must contain only letters and numbers" required="required"/></div>
+		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
+		<p><div>
+			<select id="publicness" class="inputs">
+				<option selected value="0">Public</option>
+				<option value="1">Followers</option>
+				<option value="2">Private</option>
+			</select>
+		</div></p>
+		<p><div><input type="button" id="image" class="buttons" value="browse"/></div></p>
+		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
+		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
+		</form>
+	</div>
+	<?php
+	}
 	?>

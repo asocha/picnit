@@ -16,7 +16,10 @@
 		document.getElementById('cancel').addEventListener('click',hidesignup,false);
 		document.getElementById('overlay').addEventListener('click',hidesignup,false);
 		document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-		document.getElementById('testimg').addEventListener('click',showViewer,false);
+		
+document.getElementById('uploadbut').addEventListener('click',showUploader,false);
+document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
+document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
 	}
 
 	function showsignup() {
@@ -37,10 +40,11 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="results" class="panels">
-
+		<input type="button" id="uploadbut" class="buttons" value="upload"/>
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>
 	<?php imageview(); ?>
+	<?php uploader(); ?>
 </body>
 </html>
