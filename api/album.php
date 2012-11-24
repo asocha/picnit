@@ -13,7 +13,6 @@
 		}
 
 		public function getAlbums() {
-			$album_id = $this->load('album_id');
 			$user_id = $this->load('user_id');
 
 			$res = mysql_query("SELECT album_id FROM albums WHERE owner_id='$user_id'");
