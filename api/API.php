@@ -147,10 +147,18 @@
 
 		public function authenticateUser() {
 			//Get the username
-			$username = $this->load($_POST['username']);
+			$username = mysql_real_escape_string($_POST['username'])
+			if($username == "") {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Username field not provided'));
+				$this->response($error, 400);
+			}
 
 			//Get the key value
 			$key = mysql_real_escape_string($_POST['key']);
+			if($key == "") {
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Key field not provided'));
+				$this->response($error, 400);
+			}
 
 			//See if it exists in database
 			$query = "SELECT member_id FROM members WHERE username='$username' AND password='$key' AND is_suspended='false' LIMIT 1";
