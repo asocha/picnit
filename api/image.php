@@ -62,6 +62,14 @@ allow_user_access:
 			$description = $this->load($_POST['description']);
 			$photo = base64_decode($_POST['photo']);
 
+			// Verify that the album exists, and the user owns it
+			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'")
+			if(!mysql_num_rows($result))
+				$this->response('', 404);
+
+			if(mysql_result($result, 0, owner_id) != $this->memberid)
+				$this->response('', 403);
+
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
 			// Storing very large numbers of files in a single directory is extremely sub-optimal
@@ -86,23 +94,28 @@ get_new_file_path:
 			fclose($fh);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description) VALUES ('$albumid','$publicness', '$filepath', NOW(), '$name', '$description')");
-			if(!$result)
-				$this->response('', 404);
-
 			$this->response('',200);
 		}
 
 		public function deleteImage() {
 			$image_id = $this->load($_POST['image_id']);
 
-			$res = mysql_query("SELECT filepath from images where image_id=$image_id");
-			if(mysql_num_rows($res) == 0){
+			$res = mysql_query("SELECT filepath,album_id from images where image_id=$image_id");
+			if(!mysql_num_rows($res)) {
 				// Image does not exist
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
 				$this->response($error, 409);
 			}
 
-			mysql_query("REMOVE FROM images where image_id=$image_id");
+			$filepath = mysql_result($res, 0, filepath);
+			$albumid = mysql_result($res, 0, album_id);
+
+			// Check that the user owns the image
+			$res = mysql_query("SELECT owner_id FROM albums WHERE album_id='$albumid'");
+			if($this->memberid != mysql_result($res, 0, owner_id))
+				$this->response('', 403);
+
+			mysql_query("REMOVE FROM images where image_id='$image_id'");
 			$array = mysql_fetch_array($res);
 			$filepath = $array['filepath'];
 			unlink("/var/www/picnit/images/user".$filepath);
