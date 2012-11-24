@@ -138,7 +138,7 @@
 
 		public function getHashedPassword($username) {
 			if (isset($_POST['password'])) {
-				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1;", $this->link);
+				$saltqresult = mysql_query("SELECT salt FROM members where username='$username' LIMIT 1", $this->link);
 				if(mysql_num_rows($saltqresult) != 0)
 					 return sha1($_POST['password'].mysql_result($saltqresult, 0, salt));
 				return $_POST['password']; //returns the invalid password, so that other php functions will Error as invalid username or password
