@@ -44,13 +44,12 @@
 
 			// Permission checking is done when the client fetches the images
 			$res = mysql_query("SELECT image_id, link FROM images WHERE album_id='$id'");
+			if(mysql_num_rows($res) == 0) {
+                                $this->response('', 204); // This is actually right - no images, no content
+                        }
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);
-			}
-
-			if(mysql_num_rows($res) == 0) {
-				$this->response('', 204); // This is actually right - no images, no content
 			}
 
 			$rows = mysql_fetch_array($res);
