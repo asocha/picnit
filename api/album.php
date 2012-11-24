@@ -56,12 +56,12 @@
 			if(mysql_num_rows($res) == 0)
 				$this->response('', 204); // This is actually right - no images, no content
 
-			$row = mysql_fetch_array($res);
-			$csv = $row['image_id'];
+			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$csv = $csv.','.$row['image_id'];
+				$tosend[$i++] = intval($row['image_id']);
+				$i += 1;
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $csv)), 200);
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);	
 		}
 
 	}
