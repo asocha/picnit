@@ -20,6 +20,7 @@ CREATE TABLE albums (
 	owner_id	INT UNSIGNED	NOT NULL,
 	date_created	DATE		NOT NULL,
 	name		VARCHAR(63)	NOT NULL,
+	description	TEXT		NOT NULL,
 	PRIMARY KEY (album_id),
 	FOREIGN KEY (owner_id) REFERENCES members (member_id) ON DELETE CASCADE
 );

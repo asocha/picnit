@@ -14,10 +14,11 @@
 
 		public function createAlbum() {
 			$album_name = $this->load('name');
+			$album_description = $this->load('description');
 
 			$this->forceauth();
 
-			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name) VALUES ('$this->memberid',NOW(),'$album_name')");
+			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name,description) VALUES ('$this->memberid',NOW(),'$album_name','$description')");
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);
