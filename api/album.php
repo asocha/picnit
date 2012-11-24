@@ -20,7 +20,7 @@
 
 			$album_name = $this->load($_POST['name']);
 
-			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name) VALUES ('$this->memberid',NOW(),'$album_name')", $this->link);
+			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name) VALUES ('$this->memberid',NOW(),'$album_name')");
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);
@@ -53,8 +53,12 @@
 				$this->response('', 204); // This is actually right - no images, no content
 			}
 
-			$rows = mysql_fetch_array($res);
-			$this->response(json_encode($rows), 200);
+			$row = mysql_fetch_array($res);
+			$csv = $row['image_id'];
+			while($row = mysql_fetch_array($res))
+				$csv = $csv.','.$row['image_id'];
+
+			$this->response(json_encode(array('status' => 'Success', 'list' => $csv)), 200);
 		}
 
 	}
