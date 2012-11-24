@@ -282,3 +282,7 @@ form#signoutbut {
 	margin-left:5px;
 }
 
+div#userinfo {
+	float:right;
+}
+
