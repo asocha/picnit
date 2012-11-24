@@ -259,6 +259,32 @@ get_new_file_path:
 			mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id");
 			$this->response(json_encode('', 200));
 		}
+
+		public function getLastImages() {
+			$num = $this->load($_POST['num']);
+			$id = $this->load($_POST['id'], false);
+
+			if($num > 10)
+				$num = 10;
+
+			if($id != "") {
+				if($this->memberid == $id)
+					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' ORDER BY image_id DESC LIMIT $num");
+
+				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$id'")))
+					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness < 2 ORDER BY image_id DESC LIMIT $num");
+
+				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and pubicness='0' ORDER BY image_id DESC LIMIT $num");
+			} else {
+				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
+			}
+
+			if(!mysql_num_rows($res))
+				$this->response('', 404);
+
+			$array = mysql_fetch_array($res);
+			$this->response(json_encode($array), 200);
+		}
 	}
 
 	$api = new Image;
