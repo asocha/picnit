@@ -80,8 +80,8 @@ get_new_file_path:
 			fclose($fh);
 			$type = mime_content_type($tmppath);
 
-			if(!strstr($image, "image"))
-				$this->response(json_encode(array('msg' => 'Image file format not supported')),415);
+			if(!strstr($type, "image"))
+				$this->response(json_encode(array('msg' => 'Image file format not supported: '.$type)),415);
 
 			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
 			link($tmppath,$fullpath);
