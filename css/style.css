@@ -321,6 +321,11 @@ div#albuminfo {
 	border-color:#043A6B;
 }
 
+h1#errorheader{
+	text-align:center;
+	color:#FF0000;
+}
+
 /* Tiny Carousel */
 #slider1 { 
 	height: 100px;
