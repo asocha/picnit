@@ -71,14 +71,14 @@
 
 		public function albumData() {
 			$album_name = $this->load('album_name', false);
-                        $user_id = $this->load('user_id', false);
+                        $album_id = $this->load('album_id', false);
 
-                        if ($user_id == "" && $album_name == "") {
+                        if ($album_id == "" && $album_name == "") {
                                 $error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
                                 $this->response($error, 400);
                         }
                         else if($user_id != "")
-                                $res = mysql_query("SELECT album_id, owner_id, date_created, name, description FROM albums WHERE owner_id='$user_id'");
+                                $res = mysql_query("SELECT album_id, owner_id, date_created, name, description FROM albums WHERE album_id='$album_id'");
                         else
                                 $res = mysql_query("SELECT album_id, owner_id, date_created, name, description FROM albums WHERE name='$album_name'");
 

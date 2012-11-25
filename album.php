@@ -4,7 +4,7 @@
 
 	//Make sure id has been passed
 	if(!isset($_GET['id']))
-		header('Location: 404.php');
+		header('Location: /picnit/404.php');
 
 	//Get data of this album
 	$fields = array(
@@ -20,7 +20,7 @@
 	if($res['status'] === 200)
 		$albuminfo = json_decode($res['result'], true);
 	else
-		header("Location: 404.php");
+		header("Location: /picnit/404.php?$res[status]");
 ?>
 <html>
 <head>
