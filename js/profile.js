@@ -52,3 +52,19 @@
 	}
 	disp.html(line);
  }
+
+ function createFlexsliderElements(num,user_id) {
+	//Get the photos
+	var list = getLastImages(num,user_id);
+
+	//Get display area
+	var disp = $('.slides');
+	
+	var line="";
+	for(x in list) {
+		line+="<li>";
+		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="</li>";
+	}
+	disp.html(line);
+ }

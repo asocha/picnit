@@ -25,9 +25,6 @@ function getImage() {
 	//Send request
 	request = picnitRequest(imageurl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, show image created
 	if(request.status === 200) {
 		
@@ -101,9 +98,6 @@ function sendImage(photo, phototype) {
 	//Send request
 	request = picnitRequest(imageurl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, show image created
 	if(request.status === 200) {
 		window.location = "/picnit/album/"+albumid;
@@ -140,7 +134,16 @@ function getLastImages(num,user_id) {
 	if(typeof user_id == "number")
 		params['user_id'] = user_id;
 
+	//Send request
 	request = picnitRequest(imageurl, params);
 
-	alert(request.status + "\n" + request.responseText);
+	//Good data, give back JSON
+	if(request.status === 200) {
+		var resp = $.parseJSON(request.responseText);
+		resp = resp['list'];
+
+		return resp;
+	}
+
+	return null;
 }
