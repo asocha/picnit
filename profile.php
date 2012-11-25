@@ -62,16 +62,19 @@
 	  	</ul>
 	</div>
 	<div id="user-image-collection">
-		
 		<div id="collection" class="panels">
 		<div id="usermenu" class="panels">
 			<form id="userform">
 				<input id="albumsbut" class="buttons" type="button" value="Albums"/>
-				<input id="categorybut" class="buttons" type="button" value="Categories"/>
+				<input id="picsbut" class="buttons" type="button" value="Pics"/>
+				<input id="followersbut" class="buttons" type="button" value="Followers"/>
 				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
-				<input id="uploadbut" class="buttons" type="button" value="Upload"/>
+				<input id="taggedbut" class="buttons" type="button" value="Tagged"/>
+				<input id="followeesbut" class="buttons" type="button" value="Followees"/>
+				<input id="requestsbut" class="buttons" type="button" value="Requests"/>
+			</form>	
+				<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
 				<input id="albumbut" class="buttons" type="button" value="Add Album"/>
-			</form>
 		</div>
 			<div id="thumbnail-display">
 				<a href="images/AlArBdr.gif"><img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50"></a>
