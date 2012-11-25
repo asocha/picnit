@@ -14,8 +14,8 @@
 
 		public function addTag() {
 			$image_id = $this->load('image_id');
-			$tag_id = $this->load('tag_id', false); // If category
-			$tmember_id = $this->load('tmember_id', false); // If member
+			$cat_id = $this->load('cat_id', false); // If category
+			$user_id = $this->load('user_id', false); // If member
 
 			$this->forceauth();
 
@@ -24,7 +24,7 @@
 				$this->response(json_encode(array('msg' => 'You do not own this image')), 403);
 
 			if($tag != "") { // Add category tag
-				$res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $tag_id)");
+				$res = mysql_query("INSERT INTO category_tags VALUES ($image_id, $cat_id)");
 				if(!$res) {
 					$err = mysql_errno();
 					if($err == 1452)
@@ -35,8 +35,8 @@
 					$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 				}
 			}
-			else if($tmember_id != "") { // Add member tag
-				$res = mysql_query("INSERT INTO mem_tags VALUES ($tmember_id, $image_id, NOW())");
+			else if($user_id != "") { // Add member tag
+				$res = mysql_query("INSERT INTO mem_tags VALUES ($user_id, $image_id, NOW())");
 				if(!$res) {
 					$err = mysql_errno();
 					if($err == 1452)
@@ -52,19 +52,19 @@
 		}
 		public function deleteTag() {
 			$image_id = $this->load('image_id');
-			$tag_id = $this->load('tag_id', false); // If category
-			$tmember_id = $this->load('tmember_id', false); // If member
+			$cat_id = $this->load('cat_id', false); // If category
+			$user_id = $this->load('user_id', false); // If member
 
 			$this->forceauth();
 
 			$res = mysql_query("SELECT owner_id FROM images WHERE image_id='$image_id'");
-			if($this->memberid != mysql_result($res, 0, owner_id) && $this->memberid != $tmember_id)
+			if($this->memberid != mysql_result($res, 0, owner_id) && $this->memberid != $user_id)
 				$this->response(json_encode(array('msg' => 'You do not own this image')), 403);
 
-			if($tmember_id != "") // Delete member tag
-				$res = mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
+			if($user_id != "") // Delete member tag
+				$res = mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$user_id");
 			else if($tag != "") // Delete category tag	
-				$res = mysql_query("DELETE FROM category_tags WHERE image_id='$image_id' and category_tag='$tag_id'");
+				$res = mysql_query("DELETE FROM category_tags WHERE image_id='$image_id' and category_tag='$cat_id'");
 
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
