@@ -40,6 +40,7 @@
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script type="text/javascript" src="/picnit/js/image.js"></script>
 	<script type="text/javascript" src="/picnit/js/album.js"></script>
+	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 	<script>
 	window.onload = function() {
 		if(isLoggedIn()) {
@@ -72,11 +73,16 @@
 			<p><div id="albumdesc">Description: </div></p>
 			<input type="button" id="uploadbut" class="buttons" value="upload"/>
 		</div>
+		<div id="image-holder">
+		</div>
+		<script type="text/javascript">
+			createAlbumImagesElements(<?php echo $albuminfo['album_id']; ?>);
+		</script>
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>
 	<?php imageview(); ?>
-	<?php uploader(); ?>
+	<?php uploader($albuminfo['album_id']); ?>
 	<?php albumcreator(); ?>
 </body>
 </html>

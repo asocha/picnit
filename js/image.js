@@ -106,7 +106,7 @@ function sendImage(photo, phototype) {
 
 	//Good data, show image created
 	if(request.status === 200) {
-		
+		window.location = "/picnit/album/"+albumid;
 	}
 	//Unauthorized
 	else if(request.status === 401) {

@@ -32,3 +32,23 @@
 	}
 	disp.html(line);
  }
+
+ function createAlbumImagesElements(album_id) {
+	//Get the photos
+	var list = getImages(album_id);
+
+	//Get display area
+	var disp = $('#image-holder');
+
+	//Clear current content
+	disp.empty();
+
+	//Insert code
+	var line="";
+	for(x in list) {
+		line+="<div class='dispimage'>";
+		line+="<img src='data:" + list[x]['imgtype'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="</div>";
+	}
+	disp.html(line);
+ }
