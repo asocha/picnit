@@ -91,9 +91,14 @@
 				$this->response(json_encode(array('msg' => 'Album does not exist')), 404);
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['album_id']);
-
+			while($row = mysql_fetch_array($res)) {
+				$tosend[$i]['album_id'] = intval($row['album_id']);
+				$tosend[$i]['owner_id'] = $row['owner_id'];
+				$tosend[$i]['date_created'] = $row['date_created'];
+				$tosend[$i]['name'] = $row['name'];
+				$tosend[$i]['description'] = $row['description'];
+				i++;
+			}
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 
 		}
