@@ -115,16 +115,10 @@ get_new_file_path:
 
 			$this->forceauth();
 
-			// Make sure image exists
-			$res = mysql_query("SELECT * FROM images where image_id=$image_id");
-			if(mysql_num_rows($res) == 0){
-				// Image does not exist
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
-				$this->response($error, 409);
-			}
+			$res = 	mysql_query("UPDATE images SET publicness='$privacy' where image_id='$image_id' and owner_id='$this->memberid'");
+			if(!mysql_affected_rows($res))
+				$this->response(json_encode(array('msg' => 'Failed. Does the image exist? Do you own it?')), 404);
 
-			// Update privacy
-			mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id");
 			$this->response(json_encode('', 200));
 		}
 
