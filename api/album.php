@@ -55,7 +55,7 @@
 		public function getImages() {
 			$album_id = $this->load('album_id');
 
-			$res = mysql_query("SELECT image_id,owner_id,publicness,imgtype,filepath FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id'");
 
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // This is actually right - no images, no content
@@ -75,6 +75,9 @@
 				if($row['publicness'] <= $cutoff) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
 					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['date_added'] = $row['date_added'];
+					$tosend[$i]['name'] = $row['name'];
+					$tosend[$i]['description'] = $row['description'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
 				}
@@ -110,7 +113,7 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT publicness,image_id,owner_id,filepath,imgtype FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
+			$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
 			if(!mysql_num_rows($res))
 				$this->response('', 204);
 
@@ -129,6 +132,9 @@
 				if($row['publicness'] <= $cutoff) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
 					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['date_added'] = $row['date_added'];
+					$tosend[$i]['name'] = $row['name'];
+					$tosend[$i]['description'] = $row['description'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
 				}
