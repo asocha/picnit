@@ -280,15 +280,6 @@ div#usermenu {
 	border-style:none;
 }
 
-form#userform {
-	margin:auto;
-	width:655px;
-}
-
-div#usermenu input {
-	width:125px;
-}
-
 .slides li {
 	height:300px;
 	overflow:hidden;
