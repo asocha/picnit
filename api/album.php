@@ -39,10 +39,8 @@
 			$this->forceauth();
 
 			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name,description) VALUES ('$this->memberid',NOW(),'$album_name','$album_description')");
-			if(!$res) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
-				$this->response($error, 503);
-			}
+			if(!$res)
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 
 			$this->response('', 200);
 		}
