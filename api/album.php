@@ -46,8 +46,16 @@
 		}
 
 		public function deleteAlbum() {
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'This is not implemented yet!'));
-			$this->response($error, 501);
+			$album_id = $this->load('album_id');
+
+			$this->forceauth();
+			$res = mysql_query("SELECT filepath FROM images WHERE album_id='$album_id' and owner_id='$this->memberid'");
+
+			while($row = mysql_fetch_array($res))
+				unlink("/var/www/picnit/images/user".$row['filepath']);
+
+			mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
+			$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
 		}
 
 		public function getImages() {

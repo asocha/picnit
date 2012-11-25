@@ -67,7 +67,7 @@ CREATE TABLE favorites (
 );
 
 CREATE TABLE categories (
-	category_id	INT UNSIGNED	NOT NULL,
+	category_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
 	category	VARCHAR(63)	NOT NULL,
 	UNIQUE KEY (category),
 	PRIMARY KEY (category_id)

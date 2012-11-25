@@ -110,8 +110,21 @@
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // User has no favorites
 
-			$array = mysql_fetch_array($res);
-			$this->response(json_encode($array), 200);
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+				$tosend[$i++] = $row['image_id'];
+
+			$this->response(json_encode($tosend), 200);
+		}
+
+		public function getCategories() {
+			$res = mysql_query("SELECT category FROM categories");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+				$tosend[$i++] = $row['category'];
+
+			$this->response(json_encode($tosend), 200);
 		}
 	}
 
