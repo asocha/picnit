@@ -6,12 +6,12 @@
 */
 
 //URL for member functions
-var imageurl='/picnit/api/tag.php';
+var tagurl='/picnit/api/tag.php';
 
 //Request to be sent to the middleware
 var request;
 
-function getFavorites(uid) {
+function getFavorites() {
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'getFavorites';
@@ -19,7 +19,7 @@ function getFavorites(uid) {
 	params['key'] = getCookie('key');
 
 	//Send request
-	request = picnitRequest(imageurl, params);
+	request = picnitRequest(tagurl, params);
 
 	//Good data, show image created
 	if(request.status === 200) {

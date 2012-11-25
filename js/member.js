@@ -74,7 +74,6 @@ function createUser() {
 
 	//Process requests
 	if(request.status === 200) {
-		alert("User created!");
 		return true;
 	}
 	else if(request.status === 409) {

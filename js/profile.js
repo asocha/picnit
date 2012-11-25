@@ -68,3 +68,20 @@
 	}
 	disp.html(line);
  }
+
+ function createFavoritesElements(uid) {
+	//Get the album information of this user
+	var list = get(uid);
+
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='dispfav'>";
+		line += "</div>";
+	}
+	disp.html(line);
+ }
