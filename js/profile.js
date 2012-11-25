@@ -14,9 +14,9 @@
 
 	//Clear the current contents
 	disp.empty();
-
+	var line="";
 	for(x in list) {
-		var line="";
+		
 		line+="<div class='dispalbum'>";
 		line+="<a href='album.php?id="+list[x]['albumid']+"'>";
 		line+=list[x]['name'];
@@ -32,4 +32,5 @@
 		//list[x]['owner_id'];
 		//list[x]['album_id'];
 	}
+	disp.html(line);
  }
