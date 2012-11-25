@@ -42,7 +42,7 @@ function login() {
 			setCookie(index, res[index], 7);
 
 		//Redirect to profile page
-		window.location = "./profile.php?username=" + escape(res['username']);
+		window.location = "./profile/" + escape(res['username']);
 	}
 	//Invalid username/password combo
 	else if(request.status === 403) {
@@ -103,5 +103,5 @@ function logout(redirect) {
 
 	//Go back to the index
 	if(redirect)
-		window.location = "./index.php";
+		window.location = "/picnit/index.php";
 }
