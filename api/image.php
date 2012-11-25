@@ -293,28 +293,38 @@ get_new_file_path:
 
 		public function getLastImages() {
 			$num = $this->load('num');
-			$id = $this->load('id', false);
+			$user_id = $this->load('user_id', false);
 
 			if($num > 10)
 				$num = 10;
 
-			if($id != "") {
-				if($this->memberid == $id)
-					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' ORDER BY image_id DESC LIMIT $num");
+			if($user_id != "") {
+				$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' ORDER BY image_id DESC LIMIT $num");
 
-				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$id'")))
-					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness < 2 ORDER BY image_id DESC LIMIT $num");
+				$row = mysql_fetch_array($res);
+				$alb_owner = $row['owner_id'];
 
-				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness='0' ORDER BY image_id DESC LIMIT $num");
+				if($this->memberid == $alb_owner)
+					$cutoff = 2;
+				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+					$cutoff = 1;
+				else
+					$cutoff = 0;
 			} else {
-				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
+				$res = mysql_query("SELECT * FROM images ORDER BY image_id DESC LIMIT $num");
+				$row = mysql_fetch_array($res);	// For do..while() loop
+				$cutoff = 0;
 			}
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['image_id']);
-				$i += 1;
-
+			do {
+				if($row['publicness'] <= $cutoff) {
+					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+					$i++;
+				}
+			} while($row = mysql_fetch_array($res));
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
