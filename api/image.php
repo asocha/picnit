@@ -174,12 +174,17 @@ get_new_file_path:
 			$num = $this->load('num');
 			$text = $this->load('text');
 
-			$res = mysql_query("SELECT image_id FROM images LEFT JOIN follows ON owner_id=followee_id LEFT JOIN category_tags LEFT JOIN categories WHERE ((publicness=0) OR (publicness=1 and follower_id='$this->memberid') OR (owner_id='$this->memberid')) and (name='$text' or category='$text') ORDER BY image_id DESC LIMIT $num");
+			$res = mysql_query("SELECT image_id, imgtype, date_added, name, description, filepath FROM images LEFT JOIN follows ON owner_id=followee_id NATURAL LEFT JOIN category_tags NATURAL LEFT JOIN categories WHERE ((publicness=0) OR (publicness=1 and follower_id='$this->memberid') OR (owner_id='$this->memberid')) and (name='$text' or category='$text') ORDER BY image_id DESC LIMIT $num");
 
 			$i = 0;
-			while($row = mysql_fetch_array($res)){
-				$tosend[$i++] = intval($row['image_id']);
-				$i += 1;
+			while($row = mysql_fetch_array($res)) {
+                                $tosend[$i]['image_id'] = intval($row['image_id']);
+                                $tosend[$i]['image_type'] = $row['imgtype'];
+                                $tosend[$i]['date_added'] = $row['date_added'];
+                                $tosend[$i]['name'] = $row['name'];
+                                $tosend[$i]['description'] = $row['description'];
+                                $tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+				$i+=1;
 			}
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);

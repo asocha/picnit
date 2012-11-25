@@ -14,6 +14,10 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#slider1').tinycarousel({display: 2});
+			$('#slider2').tinycarousel({display: 2});
+			$('#slider3').tinycarousel({display: 2});
+			$('#slider4').tinycarousel({display: 2});
+			$('#slider5').tinycarousel({display: 2});
 		});
 	</script>
 	<script>
@@ -37,19 +41,90 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="gallery" name="gallery" class="panels">
-		<div id="slider1">
-		<a class="buttons prev" href="#">left</a>
+	<div id="slider1">
+	<span id="cat1label" class="catlabel">
+	CATEGORY
+	</span>
+		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
 				<li><img src="images/gui/picture6.jpg" width="100"/></li>
 				<li><img src="images/gui/picture5.jpg" width="100"/></li>
-				<li><img src="images/gui/picture4.jpg" width="100"/></li>									
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>		
 				<li><img src="images/gui/picture3.jpg" width="100"/></li>
 				<li><img src="images/gui/picture2.jpg" width="100"/></li>
 				<li><img src="images/gui/picture1.jpg" width="100"/></li>
 			</ul>
 		</div>
-		<a class="buttons next" href="#">right</a>
+		<a class="buttonsalt next" href="#">right</a>
+	</div>
+	<div id="slider2">
+	<span id="cat2label" class="catlabel">
+	CATEGORY
+	</span>
+		<a class="buttonsalt prev" href="#">left</a>
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="images/gui/picture6.jpg" width="100"/></li>
+				<li><img src="images/gui/picture5.jpg" width="100"/></li>
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>			
+				<li><img src="images/gui/picture3.jpg" width="100"/></li>
+				<li><img src="images/gui/picture2.jpg" width="100"/></li>
+				<li><img src="images/gui/picture1.jpg" width="100"/></li>
+			</ul>
+		</div>
+		<a class="buttonsalt next" href="#">right</a>
+	</div>
+	<div id="slider3">
+	<span id="cat3label" class="catlabel">
+	CATEGORY
+	</span>
+		<a class="buttonsalt prev" href="#">left</a>
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="images/gui/picture6.jpg" width="100"/></li>
+				<li><img src="images/gui/picture5.jpg" width="100"/></li>
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>			
+				<li><img src="images/gui/picture3.jpg" width="100"/></li>
+				<li><img src="images/gui/picture2.jpg" width="100"/></li>
+				<li><img src="images/gui/picture1.jpg" width="100"/></li>
+			</ul>
+		</div>
+		<a class="buttonsalt next" href="#">right</a>
+	</div>
+	<div id="slider4">
+	<span id="cat4label" class="catlabel">
+	CATEGORY
+	</span>
+		<a class="buttonsalt prev" href="#">left</a>
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="images/gui/picture6.jpg" width="100"/></li>
+				<li><img src="images/gui/picture5.jpg" width="100"/></li>
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>			
+				<li><img src="images/gui/picture3.jpg" width="100"/></li>
+				<li><img src="images/gui/picture2.jpg" width="100"/></li>
+				<li><img src="images/gui/picture1.jpg" width="100"/></li>
+			</ul>
+		</div>
+		<a class="buttonsalt next" href="#">right</a>
+	</div>
+	<div id="slider5">
+	<span id="cat5label" class="catlabel">
+	CATEGORY
+	</span>
+		<a class="buttonsalt prev" href="#">left</a>
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="images/gui/picture6.jpg" width="100"/></li>
+				<li><img src="images/gui/picture5.jpg" width="100"/></li>
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>			
+				<li><img src="images/gui/picture3.jpg" width="100"/></li>
+				<li><img src="images/gui/picture2.jpg" width="100"/></li>
+				<li><img src="images/gui/picture1.jpg" width="100"/></li>
+			</ul>
+		</div>
+		<a class="buttonsalt next" href="#">right</a>
 	</div>
 	</div>
 	<?php info(); ?>

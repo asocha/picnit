@@ -29,7 +29,7 @@ function createAlbum() {
 
 	//Good data, show album created
 	if(request.status === 200) {
-		window.location = '/picnit/profile';
+		window.location = '/picnit/profile/' + getCookie('username');
 	}
 	//Unauthorized
 	else if(request.status === 401) {
