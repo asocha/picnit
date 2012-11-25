@@ -13,6 +13,18 @@ body {
 	width:125px;
 }
 
+.innerbuttons {
+	width:125px;
+}
+
+.louterbuttons {
+	width:125px;
+}
+
+.routerbuttons {
+	width:125px;
+}
+
 .panels {
 	background-color:#FFFFFF;
 	border-style: solid;
