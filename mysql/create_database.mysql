@@ -22,7 +22,8 @@ CREATE TABLE albums (
 	name		VARCHAR(63)	NOT NULL,
 	description	TEXT		NOT NULL,
 	PRIMARY KEY (album_id),
-	FOREIGN KEY (owner_id) REFERENCES members (member_id) ON DELETE CASCADE
+	FOREIGN KEY (owner_id) REFERENCES members (member_id) ON DELETE CASCADE,
+	FULLTEXT (name,description)
 );
 
 CREATE TABLE images (
@@ -36,7 +37,8 @@ CREATE TABLE images (
 	description	TEXT		NOT NULL,
 	imgtype		VARCHAR(31)	NOT NULL,
 	PRIMARY KEY (image_id),
-	FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE
+	FOREIGN KEY (album_id) REFERENCES albums (album_id) ON DELETE CASCADE,
+	FULLTEXT (name,description)
 );
 
 CREATE TABLE comments (
@@ -70,7 +72,8 @@ CREATE TABLE categories (
 	category_id	INT UNSIGNED	NOT NULL AUTO_INCREMENT,
 	category	VARCHAR(63)	NOT NULL,
 	UNIQUE KEY (category),
-	PRIMARY KEY (category_id)
+	PRIMARY KEY (category_id),
+	FULLTEXT (category)
 );
 
 CREATE TABLE category_tags (
