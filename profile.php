@@ -43,6 +43,7 @@
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script type="text/javascript" src="/picnit/js/album.js"></script>
 	<script type="text/javascript" src="/picnit/js/image.js"></script>
+	<script type="text/javascript" src="/picnit/js/tag.js"></script>
 	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 	<script>
 		window.onload = function() {
@@ -90,7 +91,7 @@
 						createAlbumElements(<?php echo $profile['member_id']; ?>)
 					});
 					$('#favoritebut').click(function() {
-						//Insert favs here
+						createFavoritesElements();
 					});
 					$('#taggedbut').click(function() {
 						//Tagged photo's here

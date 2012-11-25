@@ -48,6 +48,9 @@
 	for(x in list) {
 		line+="<div class='dispimage'>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="<input type='button' id='picdelbut' class='buttons' value='delete'/>";
+		line+="<input type='button' id='picfavbut' class='buttons' value='favorite'/>";
+		line+="<input type='button' id='pictagbut' class='buttons' value='tag'/>";
 		line+="</div>";
 	}
 	disp.html(line);
@@ -68,3 +71,25 @@
 	}
 	disp.html(line);
  }
+
+ function createFavoritesElements() {
+	//Get the album information of this user
+	var list = getFavorites(uid);
+
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='dispfav'>";
+		line += list[x].toString();
+		line += "</div>";
+	}
+	disp.html(line);
+ }
+
+function createTaggedElements() {
+
+}
