@@ -127,3 +127,20 @@ function sendImage(photo, phototype) {
 
 	return false;
 }
+
+function getLastImages(num,user_id) {
+	//Gather params
+	var params = new Array();
+	params['action'] = "getLastImages";
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['num'] = num;
+
+	//If user_id was passed, send with request
+	if(typeof user_id == "number")
+		params['user_id'] = user_id;
+
+	request = picnitRequest(imageurl, params);
+
+	alert(request.status + "\n" + request.responseText);
+}
