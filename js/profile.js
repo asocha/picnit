@@ -20,7 +20,7 @@
 		line+="<a href='/picnit/album/"+list[x]['album_id']+"'>";
 		line+=list[x]['name'];
 		line+="</a>"
-		line+=list[x]['date_created'];
+		line+="<div id='albumdate'>"+list[x]['date_created']+"</div>";
 		line+="<p><div>";
 		line+=list[x]['description'];
 		line+="</div></p>";
