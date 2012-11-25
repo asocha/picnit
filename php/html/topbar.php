@@ -23,19 +23,19 @@ function menubar() {
 		<span><input type="button" id="sign" class="buttons" value="Sign Up"/></span>
 	</form>
 
-	<form id="signinform" action="index.php" onsubmit="return login();">
+	<form id="signinform" action="/picnit/index.php" onsubmit="return login();">
 		<span><label for="Username">username: </label><input type="text" id="Username" class="inputs" pattern="[\w]{3,15}" title="Must be between 3 and 15 letters, numbers, or underscores" required="required"/></span>
 		<span><label for="Password">password: </label><input type="password" id="Password" class="inputs" pattern=".{5,}" title="Must be at least 5 characters" required="required"/></span>
 		<span><input type="submit" id="signin" class="buttons" value="Sign In"/></span>
 	</form>
-	<form id="homebut" action="index.php">
+	<form id="homebut" action="/picnit/index.php">
 		<span><input type="submit" id="home" class="buttons" value="Home"/></span>
 	</form>
 	<?php
 		} //End if
 		else {
 	?>
-	<form id="homebut" action="index.php">
+	<form id="homebut" action="/picnit/index.php">
 		<span><input type="submit" id="home" class="buttons" value="home"/></span>
 	</form>
 	
