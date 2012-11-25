@@ -62,9 +62,6 @@ allow_user_access:
 
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
-			// Storing very large numbers of files in a single directory is extremely sub-optimal
-			// on the ext3/ext4 filesystems. Adding a random directory tree like this dramatically
-			// enhances performance with large numbers of pictures.
 			$dir1 = mt_rand(0,9999);
 			$dir2 = mt_rand(0,9999);
 			$dir3 = mt_rand(0,9999);
@@ -74,19 +71,24 @@ get_new_file_path:
 			$filepath = "/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5."/".$file.".$phototype";
 			$fullpath = "/var/www/picnit/images/user".$filepath;
 
-			// This should pretty much never happen, but still...
 			if(file_exists($fullpath))
 				goto get_new_file_path;
 
-			// Actually write out the POSTed photo file data
-			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
-			$fh = fopen($fullpath, 'w+');
+			$tmppath = "/tmp/".mt_rand();
+			$fh = fopen($tmppath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
-			chmod($fullpath, 0664);
-			$type = mime_content_type($fullpath);
+			$type = mime_content_type($tmppath);
 
-			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$album_id','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
+			if(!strstr($image, "image"))
+				$this->response(json_encode(array('msg' => 'Image file format not supported')),415);
+
+			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
+			link($tmppath,$fullpath);
+			unlink($tmppath);
+			chmod($fullpath, 0664);
+
+			mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$album_id','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
 			$this->response('',200);
 		}
 
