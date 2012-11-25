@@ -6,7 +6,7 @@
 */
 
 //URL for member functions
-var memberurl='api/member.php';
+var memberurl='/picnit/api/member.php';
 
 //Request to be sent to the middleware
 var request;

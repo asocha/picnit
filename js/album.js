@@ -6,7 +6,7 @@
 */
 
 //URL for member functions
-var albumurl='api/album.php';
+var albumurl='/picnit/api/album.php';
 
 //Request to be sent to the middleware
 var request;
@@ -29,7 +29,7 @@ function createAlbum() {
 
 	//Good data, show album created
 	if(request.status === 200) {
-		window.location = 'profile.php';
+		window.location = '/picnit/profile';
 	}
 	//Unauthorized
 	else if(request.status === 401) {
@@ -91,7 +91,7 @@ function getAlbums(user_id) {
 	params['user_id'] = user_id;
 
 	//Send request
-	request = picnitRequest("/picnit/"+albumurl, params);
+	request = picnitRequest(albumurl, params);
 
 	//Good data, list of albums
 	if(request.status === 200) {

@@ -6,7 +6,7 @@
 */
 
 //URL for member functions
-var imageurl='api/image.php';
+var imageurl='/picnit/api/image.php';
 
 //Request to be sent to the middleware
 var request;

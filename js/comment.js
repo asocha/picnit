@@ -6,7 +6,7 @@
 */
 
 //URL for member functions
-var commenturl='api/comment.php';
+var commenturl='/picnit/api/comment.php';
 
 //Request to be sent to the middleware
 var request;
