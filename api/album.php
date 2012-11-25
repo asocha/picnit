@@ -60,7 +60,9 @@
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // This is actually right - no images, no content
 
-			$alb_owner = mysql_result($res, 0, owner_id);
+			$row = mysql_fetch_array($res);
+			$alb_owner = $row['owner_id'];
+
 			if($this->memberid == $alb_owner)
 				$cutoff = 2;
 			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
@@ -69,14 +71,14 @@
 				$cutoff = 0;
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
+			do {
 				if($row['publicness'] <= $cutoff) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
 					$tosend[$i]['image_type'] = $row['imgtype'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
 				}
-
+			} while($row = mysql_fetch_array($res));
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
