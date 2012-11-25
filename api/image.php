@@ -148,7 +148,9 @@ get_new_file_path:
 				$row = mysql_fetch_array($res);
 				$alb_owner = $row['owner_id'];
 
-				if($this->memberid == $alb_owner)
+				if($this->memberid == -1)
+					$cutoff = 0;
+				else if($this->memberid == $alb_owner)
 					$cutoff = 2;
 				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
 					$cutoff = 1;
