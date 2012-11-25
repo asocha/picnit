@@ -63,8 +63,7 @@
 	</div>
 	<div id="user-image-collection">
 		<div id="collection" class="panels">
-		<div id="usermenu" class="panels">
-			<form id="userform">
+			<div id="usermenu" class="panels">
 				<input id="albumsbut" class="buttons" type="button" value="Albums"/>
 				<input id="picsbut" class="buttons" type="button" value="Pics"/>
 				<input id="followersbut" class="buttons" type="button" value="Followers"/>
@@ -72,16 +71,18 @@
 				<input id="taggedbut" class="buttons" type="button" value="Tagged"/>
 				<input id="followeesbut" class="buttons" type="button" value="Followees"/>
 				<input id="requestsbut" class="buttons" type="button" value="Requests"/>
-			</form>	
-				<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
-				<input id="albumbut" class="buttons" type="button" value="Add Album"/>
-		</div>
+				
+			</div>
+			<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
+			<input id="albumbut" class="buttons" type="button" value="Add Album"/>
+			<input id="followuserbut" class="buttons" type="button" value="Follow"/>
+			<input id="suspenduserbut" class="buttons" type="button" value="Suspend"/>
 			<div id="thumbnail-display">
-				<a href="images/AlArBdr.gif"><img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50"></a>
-				<a href="images/article-0-14C152E0000005DC-964_964x764.jpg"><img src="images/article-0-14C152E0000005DC-964_964x764.jpg" alt="Pulpit rock" width="50" height=50"></a>
-				<a href="images/FD_image.jpg"><img src="images/FD_image.jpg" alt="Pulpit rock" width="50" height="50"></a>
-				<a href="images/image16.gif"><img src="images/image16.gif" alt="Pulpit rock" width="50" height="50"></a>
-			<a href="images/pia12832-browse.jpg"><img src="images/pia12832-browse.jpg" alt="Pulpit rock" width="50" height="50"></a>
+				<img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50">
+				<img src="images/article-0-14C152E0000005DC-964_964x764.jpg" alt="Pulpit rock" width="50" height=50">
+				<img src="images/FD_image.jpg" alt="Pulpit rock" width="50" height="50">
+				<img src="images/image16.gif" alt="Pulpit rock" width="50" height="50">
+				<img src="images/pia12832-browse.jpg" alt="Pulpit rock" width="50" height="50">
 			</div>
 		</div>
 	</div>
