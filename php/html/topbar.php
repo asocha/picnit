@@ -160,7 +160,7 @@ function searchbar() {
 	}
 
 //Function that returns the image uploader
-function uploader() {
+function uploader($album_id) {
 
 ?>
 	<script>
@@ -190,7 +190,7 @@ function uploader() {
 		<p><div><input type="file" id="inpimage" class="buttons" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
-		<input type="hidden" id="albumid" value="1"/>
+		<input type="hidden" id="albumid" value="<?php echo $album_id; ?>"/>
 		</form>
 	</div>
 	<?php

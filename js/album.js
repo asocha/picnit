@@ -123,12 +123,10 @@ function getImages(album_id) {
 	//Send request
 	request = picnitRequest(albumurl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, request contains data
 	if(request.status === 200) {
-		return $parseJSON(request.responseText);
+		var tmp = $.parseJSON(request.responseText);
+		return tmp['list'];
 	}
 	//Unauthorized
 	else if(request.status === 401) {
