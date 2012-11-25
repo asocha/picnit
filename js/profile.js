@@ -17,7 +17,7 @@
 	var line="";
 	for(x in list) {
 		line+="<div class='dispalbum'>";
-		line+="<a href='album/"+list[x]['album_id']+"'>";
+		line+="<a href='/picnit/album/"+list[x]['album_id']+"'>";
 		line+=list[x]['name'];
 		line+="</a>"
 		line+=list[x]['date_created'];
