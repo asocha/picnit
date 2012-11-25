@@ -41,7 +41,10 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="gallery" name="gallery" class="panels">
-		<div id="slider1">
+	<div id="slider1">
+	<span id="cat1label" class="catlabel">
+	CATEGORY
+	</span>
 		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
@@ -56,6 +59,9 @@
 		<a class="buttonsalt next" href="#">right</a>
 	</div>
 	<div id="slider2">
+	<span id="cat2label" class="catlabel">
+	CATEGORY
+	</span>
 		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
@@ -70,6 +76,9 @@
 		<a class="buttonsalt next" href="#">right</a>
 	</div>
 	<div id="slider3">
+	<span id="cat3label" class="catlabel">
+	CATEGORY
+	</span>
 		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
@@ -84,6 +93,9 @@
 		<a class="buttonsalt next" href="#">right</a>
 	</div>
 	<div id="slider4">
+	<span id="cat4label" class="catlabel">
+	CATEGORY
+	</span>
 		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
@@ -98,6 +110,9 @@
 		<a class="buttonsalt next" href="#">right</a>
 	</div>
 	<div id="slider5">
+	<span id="cat5label" class="catlabel">
+	CATEGORY
+	</span>
 		<a class="buttonsalt prev" href="#">left</a>
 		<div class="viewport">
 			<ul class="overview">
