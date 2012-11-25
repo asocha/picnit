@@ -2,6 +2,7 @@
 <?php
 	require_once('php/general.php');
 
+		header("Location: /picnit/404.php?$_GET[id]");
 	//Make sure id has been passed
 	if(!isset($_GET['id']))
 		header('Location: /picnit/404.php');
@@ -20,7 +21,7 @@
 	if($res['status'] === 200)
 		$albuminfo = json_decode($res['result'], true);
 	else
-		header("Location: /picnit/404.php?$res[status]");
+		header("Location: /picnit/404.php?$_GET[id]");
 ?>
 <html>
 <head>
