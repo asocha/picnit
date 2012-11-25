@@ -99,21 +99,14 @@ get_new_file_path:
 
 			$this->forceauth();
 
-			$res = mysql_query("SELECT filepath,album_id,owner_id from images where image_id=$image_id");
-			if(!mysql_num_rows($res))
-				$this->response(json_encode(array('msg' => 'Image does not exist')), 404);
-
-			$row = mysql_fetch_assoc($res);
-
-			if($this->memberid != $row['owner_id'])
-				$this->response('', 403);
-
-			mysql_query("DELETE FROM images WHERE image_id='$image_id'");
+			mysql_query("DELETE FROM images WHERE image_id='$image_id' and owner_id='$this->memberid'");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 
-			unlink("/var/www/picnit/images/user".$row['filepath']);
-			$this->response('', 200);
+			if(mysql_affected_rows() == 1)
+				unlink("/var/www/picnit/images/user".$row['filepath']);
+
+			$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, own the image, and the image exists')));
 		}
 
 		public function setPrivacy() {
