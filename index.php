@@ -9,7 +9,13 @@
 	<?php require_once('php/html/topbar.php'); ?>
 	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="js/libraries/jquery.tinycarousel.min.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#slider1').tinycarousel({display: 2});
+		});
+	</script>
 	<script>
 	window.onload = function() {
 		if(isLoggedIn()) {
@@ -31,7 +37,20 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="gallery" name="gallery" class="panels">
-		<img id="testimg" src="images/gui/test.jpg" alt="Pulpit rock" height="50px" width="50px"/>
+		<div id="slider1">
+		<a class="buttons prev" href="#">left</a>
+		<div class="viewport">
+			<ul class="overview">
+				<li><img src="images/gui/picture6.jpg" width="100"/></li>
+				<li><img src="images/gui/picture5.jpg" width="100"/></li>
+				<li><img src="images/gui/picture4.jpg" width="100"/></li>									
+				<li><img src="images/gui/picture3.jpg" width="100"/></li>
+				<li><img src="images/gui/picture2.jpg" width="100"/></li>
+				<li><img src="images/gui/picture1.jpg" width="100"/></li>
+			</ul>
+		</div>
+		<a class="buttons next" href="#">right</a>
+	</div>
 	</div>
 	<?php info(); ?>
 	<?php signup(); ?>
