@@ -138,7 +138,7 @@
 
 			if ($user_id == "" && $username == "") {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Missing data'));
-                        	$this->response($error, 400);
+				$this->response($error, 400);
 			}
 			else if($user_id != "")
 				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username FROM members WHERE member_id='$user_id'");
@@ -160,17 +160,17 @@
 
 			// Make sure user is not trying to follow himself/herself
 			if ($user_id == $this->memberid){
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You cannot follow yourself'));                                         
-                                $this->response($error, 417);
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You cannot follow yourself'));
+				$this->response($error, 417);
 			}
 
 			// Make sure user to follow exists
-                        $res = mysql_query("SELECT * FROM members where member_id='$user_id'");
-                        if(mysql_num_rows($res) == 0) {
-                                // User does not exist
-                                $error = json_encode(array('status' => 'Failed', 'msg' => 'The user you are trying to follow does not seem to exist'));
-                                $this->response($error, 417);
-                        }
+			$res = mysql_query("SELECT * FROM members where member_id='$user_id'");
+			if(mysql_num_rows($res) == 0) {
+				// User does not exist
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'The user you are trying to follow does not seem to exist'));
+				$this->response($error, 417);
+			}
 
 			// Check if user is already following that person
 			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
@@ -182,11 +182,11 @@
 
 			// Check if already follow requested that person
 			$res = mysql_query("SELECT * FROM messages where from_id='$this->memberid' and to_id='$user_id' and message_type=0");
-                        if(mysql_num_rows($res)) {
-                                // User already follow requested that person
-                                $error = json_encode(array('status' => 'Failed', 'msg' => 'You have already requested to follow that user'));
-                                $this->response($error, 417);
-                        }
+			if(mysql_num_rows($res)) {
+				// User already follow requested that person
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'You have already requested to follow that user'));
+				$this->response($error, 417);
+			}
 
 			// Add message of type 0 --> REQUEST TO FOLLOW
 			$res = mysql_query("INSERT INTO messages (from_id, to_id, message_type, is_read, message) VALUES ('$this->memberid', '$user_id', '0', 'false', '')");

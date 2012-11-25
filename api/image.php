@@ -184,19 +184,19 @@ get_new_file_path:
 
 			if ($tag != "" && $tmember_id != ""){
 				// attempted to delete both a category and member tag at the same time
-                                $error = json_encode(array('status' => 'Failed', 'msg' => 'Can\'t delete a category tag and a member tag at the same time!'));
-                                $this->response($error, 400);
-                        }
+				$error = json_encode(array('status' => 'Failed', 'msg' => 'Can\'t delete a category tag and a member tag at the same time!'));
+				$this->response($error, 400);
+			}
 
 			$res = mysql_query("SELECT owner_id FROM images where image_id = $image_id");
-                        $array = mysql_fetch_array($res);
+			$array = mysql_fetch_array($res);
 
 			if($tag != "") { // Delete category tag
 				//make sure user is allowed to delete this tag
 				if ($array['owner_id'] != $this->memberid){
 					// person does not own that image
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'You don\'t own that image'));
-                                        $this->response($error, 403);
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'You don\'t own that image'));
+					$this->response($error, 403);
 				}
 				$res = mysql_query("SELECT category_id FROM categories where category='$tag'");
 				$array = mysql_fetch_array($res);
@@ -214,10 +214,10 @@ get_new_file_path:
 			if($tmember_id != "") { // Delete member tag
 				//make sure user is allowed to remove this tag
 				if ($array['owner_id'] != $this->memberid && $tmember_id != $this->memberid){
-                                        // person does not own that image and is not the tagged person
-                                        $error = json_encode(array('status' => 'Failed', 'msg' => 'You can only remove a tag if you own the image or you are the person tagged'));
-                                        $this->response($error, 403);
-                                }
+					// person does not own that image and is not the tagged person
+					$error = json_encode(array('status' => 'Failed', 'msg' => 'You can only remove a tag if you own the image or you are the person tagged'));
+					$this->response($error, 403);
+				}
 				//make sure already tagged
 				$res = mysql_query("SELECT * FROM mem_tags where image_id=$image_id and member_id=$tmember_id");
 				if(mysql_num_rows($res) == 0) {
@@ -321,13 +321,13 @@ get_new_file_path:
 		public function getFavorites() {
 			$this->forceauth();
 
-                        $res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
-                        if(!mysql_num_rows($res)) {
-                                $this->response('', 204); //user has no favorites
-                        }
+			$res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
+			if(!mysql_num_rows($res)) {
+				$this->response('', 204); //user has no favorites
+			}
 
 			$array = mysql_fetch_array($res);
-                        $this->response(json_encode($array), 200);
+			$this->response(json_encode($array), 200);
 		}
 	}
 
