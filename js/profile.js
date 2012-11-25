@@ -16,15 +16,17 @@
 	disp.empty();
 
 	for(x in list) {
-		disp.append("<div class='dispalbum'>");
-		disp.append("<a href='album.php?id='+list[x]['albumid']>");
-		disp.append(list[x]['name']);
-		disp.append("</a>");
-		disp.append(list[x]['date_created']);
-		disp.append("<p><div>");
-		disp.append(list[x]['description']);
-		disp.append("</div></p>");
-		disp.append("</div>");
+		var line="";
+		line+="<div class='dispalbum'>";
+		line+="<a href='album.php?id="+list[x]['albumid']+"'>";
+		line+=list[x]['name'];
+		line+="</a>"
+		line+=list[x]['date_created'];
+		line+="<p><div>";
+		line+=list[x]['description'];
+		line+="</div></p>";
+		line+="</div>";
+		disp.append(line);
 		//list[x]['description'];
 		//list[x]['date_created'];
 		//list[x]['owner_id'];
