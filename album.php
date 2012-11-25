@@ -1,4 +1,25 @@
 <!DOCTYPE html>
+<?php
+	require_once('php/general.php');
+
+	//Make sure id has been passed
+	if(!isset($_GET['id']))
+		header('Location: 404.php');
+
+	//Get data of this album
+	$fields = array(
+		'action' => 'albumData',
+		'username' => $_COOKIE['username'],
+		'key' => $_COOKIE['key'],
+		'album_id' => $_GET['id']
+	);
+
+	//Send request
+	$res = picnitRequest('api/album.php', $fields);
+
+	if($res['status'] === 200)
+		
+?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
