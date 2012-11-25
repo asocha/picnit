@@ -260,7 +260,6 @@ div#usermenu {
 	margin:auto;
 	padding:5px;
 	position:relative;
-	top:-135px;
 }
 
 form#userform {
@@ -308,5 +307,63 @@ div#albuminfo {
 	margin-top:5px;
 	margin-left:5px;
 	margin-right:5px;
+}
+
+/* Tiny Carousel */
+#slider1 { 
+	height: 100px;
+	width:550px; 
+	overflow:hidden; 
+	padding: 0 0 10px; 
+	margin:auto;  
+}
+
+#slider1 .viewport { 
+	float: left; 
+	width: 450px; 
+	height: 75px;
+	overflow: hidden; 
+	position: relative; 
+}
+
+#slider1 .buttons { 
+	background:url("../images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
+	display: block; margin: 30px 10px 0 0; 
+	background-position: 0 -38px; 
+	text-indent: -999em;
+	float: left; 
+	width: 39px; 
+	height: 37px; 
+	overflow: hidden; 
+	position: relative; 
+	border-style:none;
+}
+
+#slider1 .next { 
+	background-position: 0 0;
+	margin: 30px 0 0 10px;  
+}
+
+#slider1 .disable { 
+	visibility: hidden; 
+}
+
+#slider1 .overview { 
+	list-style: none; 
+	position: absolute; 
+	padding: 0; 
+	margin: 0; 
+	width: 240px; 
+	left: 0;
+ 	top: 0; 
+}
+
+#slider1 .overview li{ 
+	float: left; 
+	margin: 20px 10px 0 0; 
+	padding: 1px; 
+	height: 52px; 
+	border: 1px solid #dcdcdc; 
+	width: 101px;
 }
 
