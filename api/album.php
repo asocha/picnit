@@ -55,16 +55,23 @@
 		public function getImages() {
 			$album_id = $this->load('album_id');
 
-			// Permission checking is done when the client fetches the images
-			$res = mysql_query("SELECT image_id FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT image_id,owner_id,publicness,filepath FROM images WHERE album_id='$album_id'");
 
-			if(mysql_num_rows($res) == 0)
+			if(!mysql_num_rows($res))
 				$this->response('', 204); // This is actually right - no images, no content
+
+			$alb_owner = mysql_result($res, 0, owner_id);
+			if($this->memberid == $alb_owner)
+				$cutoff = 2;
+			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+				$cutoff = 1;
+			else
+				$cutoff = 0;
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['image_id']);
-				$i += 1;
+				if($row['publicness'] <= $cutoff)
+					$tosend[$i++] = intval($row['image_id']);
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
@@ -95,26 +102,21 @@
 			$res = mysql_query("SELECT publicness,image_id,owner_id FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
 			$alb_owner = mysql_result($res, 0, owner_id);
 
-			if($this->memberid == $alb_owner) {
+			$alb_owner = mysql_result($res, 0, owner_id);
+			if($this->memberid == $alb_owner)
 				$cutoff = 2;
-			} else {
-				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
-					$cutoff = 1;
-				else
-					$cutoff = 0;
-			}
+			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+				$cutoff = 1;
+			else
+				$cutoff = 0;
 
 			$i = 0;
-			while($row = mysql_fetch_array($res)) {
+			while($row = mysql_fetch_array($res))
 				if($row['publicness'] <= $cutoff)
 					$tosend[$i++] = intval($row['image_id']);
-				else
-					i++;
-			}
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
-
 	}
 
 	$api = new Album;
