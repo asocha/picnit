@@ -31,15 +31,15 @@
 <head>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
-	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
+	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="js/libraries/jquery-1.8.2.min.js"></script>
-	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
-	<script type="text/javascript" src="js/general.js"></script>
-	<script type="text/javascript" src="js/member.js"></script>
-	<script type="text/javascript" src="js/album.js"></script>
-	<script type="text/javascript" src="js/profile.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="/picnit/js/general.js"></script>
+	<script type="text/javascript" src="/picnit/js/member.js"></script>
+	<script type="text/javascript" src="/picnit/js/album.js"></script>
+	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 	<script>
 		window.onload = function() {
 			if(isLoggedIn()) {
@@ -99,11 +99,6 @@
 				<script type="text/javascript">
 					createAlbumElements(<?php echo $profile['member_id']; ?>);
 				</script>
-				<img src="images/AlArBdr.gif" alt="Pulpit rock" width="50" height="50">
-				<img src="images/article-0-14C152E0000005DC-964_964x764.jpg" alt="Pulpit rock" width="50" height=50">
-				<img src="images/FD_image.jpg" alt="Pulpit rock" width="50" height="50">
-				<img src="images/image16.gif" alt="Pulpit rock" width="50" height="50">
-				<img src="images/pia12832-browse.jpg" alt="Pulpit rock" width="50" height="50">
 			</div>
 		</div>
 	</div>

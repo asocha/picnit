@@ -1,2 +1,6 @@
 ErrorDocument 403 /picnit/403.php
 ErrorDocument 404 /picnit/404.php
+
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule ^profile/([a-zA-Z0-9_]+)$ /profile.php?username=$1 [NC]

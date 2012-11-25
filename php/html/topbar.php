@@ -43,7 +43,7 @@ function menubar() {
 			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
 		</form>
 	<div id="userinfo">
-		<a href="profile.php?username=<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
+		<a href="profile/<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
 	</div>
 		<?php
 			}
