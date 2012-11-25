@@ -353,7 +353,6 @@ get_new_file_path:
 			}
 
                         $this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
-	                } 
 		}
 	}
 
