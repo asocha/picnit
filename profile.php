@@ -102,6 +102,7 @@
 	<?php info(); ?>
 	<?php imageview(); ?>
 	<?php albumcreator(); ?>
+	<?php signup(); ?>
 	
 </body>
 </html>
