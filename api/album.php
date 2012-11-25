@@ -80,7 +80,6 @@
 			$i = 0;
 			while($row = mysql_fetch_array($res))
 				$tosend[$i++] = intval($row['album_id']);
-				$i += 1;
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 
@@ -88,28 +87,30 @@
 
 		public function getLastAlbumImages() {
 			$num = $this->load('num');
-			$album_id = $this->load('album_id');
-			$id = $this->load('id', false);
+			$album_id = $this->load('album_id');	
 
 			if($num > 10)
 				$num = 10;
 
-			if($id != "") {
-				if($this->memberid == $id)
-					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' && album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
+			$res = mysql_query("SELECT publicness,image_id,owner_id FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
+			$alb_owner = mysql_result($res, 0, owner_id);
 
-				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$id'")))
-					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness < 2 and album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
-
-				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness='0' and album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
+			if($this->memberid == $alb_owner) {
+				$cutoff = 2;
 			} else {
-				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' and album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
+				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+					$cutoff = 1;
+				else
+					$cutoff = 0;
 			}
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['image_id']);
-				$i += 1;
+			while($row = mysql_fetch_array($res)) {
+				if($row['publicness'] <= $cutoff)
+					$tosend[$i++] = intval($row['image_id']);
+				else
+					i++;
+			}
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
