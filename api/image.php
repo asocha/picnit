@@ -106,7 +106,7 @@ get_new_file_path:
 			if(mysql_affected_rows() == 1)
 				unlink("/var/www/picnit/images/user".$row['filepath']);
 
-			$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, own the image, and the image exists')));
+			$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
 		}
 
 		public function setPrivacy() {
