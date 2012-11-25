@@ -1,3 +1,4 @@
 *~
 images/user/*
 !images/user/.htaccess
+*.swp

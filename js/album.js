@@ -32,7 +32,7 @@ function createAlbum() {
 
 	//Good data, show album created
 	if(request.status === 200) {
-		
+		window.location = 'profile.php';
 	}
 	//Unauthorized
 	else if(request.status === 401) {
@@ -94,7 +94,27 @@ function getAlbums(user_id) {
 	params['user_id'] = user_id;
 
 	//Send request
-	request = 
+	request = picnitRequest(albumurl, params);
+
+	alert(request.status + "\n" + request.responseText);
+
+	//Good data, list of albums
+	if(request.status === 200) {
+		//Parse the response
+		var resp = $.parseJSON(request.responseText);
+
+		//Return the list
+		return resp['list'];
+	}
+	//No albums
+	else if(request.status === 204) {
+		return null;
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return null;
 }
 
 function getImages(album_id) {

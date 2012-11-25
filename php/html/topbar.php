@@ -213,7 +213,7 @@ function albumcreator() {
 	<div id="albumoverlay" class="overlays">
 	</div>
 	<div id="albumbar" class="panels">
-		<form id="albumform">
+		<form id="albumform" onsubmit="return createAlbum();">
 		<p><div><label for="albumname">album name: </label><input type="text" id="albumname" class="inputs" pattern="[\w]{3,15}" title="Album Name must contain between 3 and 15 letters, numbers, and underscores." required="required"/></div>
 		<div><label for="albumdesc">description: </label><input type="text" id="albumdesc" class="inputs"/></div></p>
 		<p><div><input type="submit" id="albsubmit" class="buttons" value="submit"/></div></p>

@@ -38,6 +38,7 @@
 	<script type="text/javascript" src="js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" src="js/general.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
+	<script type="text/javascript" src="js/album.js"></script>
 	<script>
 		window.onload = function() {
 			if(isLoggedIn()) {

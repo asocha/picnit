@@ -22,7 +22,6 @@
 			$i = 0;
 			while($row = mysql_fetch_array($res))
 				$tosend[$i++] = intval($row['album_id']);
-				$i += 1;
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
@@ -33,7 +32,7 @@
 
 			$this->forceauth();
 
-			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name,description) VALUES ('$this->memberid',NOW(),'$album_name','$description')");
+			$res = mysql_query("INSERT INTO albums (owner_id,date_created,name,description) VALUES ('$this->memberid',NOW(),'$album_name','$album_description')");
 			if(!$res) {
 				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error - try again'));
 				$this->response($error, 503);
