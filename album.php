@@ -72,6 +72,7 @@
 			<p><div id="albumtitle">Album: </div></p>
 			<p><div id="albumdesc">Description: </div></p>
 			<input type="button" id="uploadbut" class="buttons" value="upload"/>
+			<input type="button" id="albdelbut" class="buttons" value="delete"/>
 		</div>
 		<div id="image-holder">
 		</div>
