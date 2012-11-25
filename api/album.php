@@ -15,7 +15,7 @@
 		public function getAlbums() {
 			$user_id = $this->load('user_id');
 
-			$res = mysql_query("SELECT *  FROM albums WHERE owner_id='$user_id'");
+			$res = mysql_query("SELECT * FROM albums WHERE owner_id='$user_id'");
 			if(!mysql_num_rows($res))
 				$this->response('', 204);
 
@@ -55,7 +55,7 @@
 		public function getImages() {
 			$album_id = $this->load('album_id');
 
-			$res = mysql_query("SELECT image_id,owner_id,publicness,filepath FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT image_id,owner_id,publicness,imgtype,filepath FROM images WHERE album_id='$album_id'");
 
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // This is actually right - no images, no content
@@ -70,8 +70,12 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				if($row['publicness'] <= $cutoff)
-					$tosend[$i++] = intval($row['image_id']);
+				if($row['publicness'] <= $cutoff) {
+					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+					$i++;
+				}
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
