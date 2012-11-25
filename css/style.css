@@ -311,7 +311,6 @@ div#collection {
 div#results {
 	position:relative;
 	top: -135px;
-	height: 700px;
 }
 
 form#signoutbut {
@@ -343,6 +342,19 @@ div#albuminfo {
 h1#errorheader{
 	text-align:center;
 	color:#FF0000;
+}
+
+div.dispimage {
+	border-style:solid;
+	background-color:#FFFFFF;
+	margin:5px;
+	padding:5px;
+}
+
+.dispimage img {
+	display:block;
+	margin-right:auto;
+	margin-left:auto;
 }
 
 /* Tiny Carousel */
