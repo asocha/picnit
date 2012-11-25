@@ -22,7 +22,7 @@
 
 	if($res['status'] === 200) {
 		$albuminfo = json_decode($res['result'], true);
-		print_r($albuminfo['list']);
+		$albuminfo = $albuminfo['list'][0];
 	}
 	else
 		header("Location: /picnit/404.php?$id");
