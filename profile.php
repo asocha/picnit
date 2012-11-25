@@ -79,23 +79,39 @@
 	<div id="user-image-collection">
 		<div id="collection" class="panels">
 			<div id="usermenu" class="panels">
-				<input id="albumsbut" class="buttons louterbuttons" type="button" value="Albums"/>
-				<input id="picsbut" class="buttons innerbuttons" type="button" value="Pics"/>
-				<input id="followersbut" class="buttons innerbuttons" type="button" value="Followers"/>
-				<input id="favoritebut" class="buttons innerbuttons" type="button" value="Favorites"/>
-				<input id="taggedbut" class="buttons innerbuttons" type="button" value="Tagged"/>
-				<input id="followeesbut" class="buttons innerbuttons" type="button" value="Followees"/>
-				<input id="requestsbut" class="buttons routerbuttons" type="button" value="Requests"/>
-				
+				<input id="albumsbut" class="buttons louterbuttons" type="button" value="albums"/>
+				<input id="favoritebut" class="buttons innerbuttons" type="button" value="favorites"/>
+				<input id="taggedbut" class="buttons innerbuttons" type="button" value="tagged"/>
+				<input id="followersbut" class="buttons innerbuttons" type="button" value="followers"/>
+				<input id="followeesbut" class="buttons innerbuttons" type="button" value="followees"/>
+				<input id="requestsbut" class="buttons routerbuttons" type="button" value="requests"/>
+				<script type="text/javascript">
+					$('#albumsbut').click(function() {
+						createAlbumElements(<?php echo $profile['member_id']; ?>)
+					});
+					$('#favoritebut').click(function() {
+						//Insert favs here
+					});
+					$('#taggedbut').click(function() {
+						//Tagged photo's here
+					});
+					$('#followersbut').click(function() {
+						//Followers
+					});
+					$('#followeesbut').click(function() {
+						//Followees
+					});
+					$('#requestsbut').click(function() {
+						//Requests here
+					});
+					
+				</script>
 			</div>
 			<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
 			<input id="albumbut" class="buttons" type="button" value="Add Album"/>
 			<input id="followuserbut" class="buttons" type="button" value="Follow"/>
 			<input id="suspenduserbut" class="buttons" type="button" value="Suspend"/>
 			<div id="thumbnail-display">
-				<script type="text/javascript">
-					createAlbumElements(<?php echo $profile['member_id']; ?>);
-				</script>
 			</div>
 		</div>
 	</div>

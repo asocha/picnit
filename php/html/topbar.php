@@ -17,10 +17,11 @@ function menubar() {
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
 		//Set sign-out button
-		$('#signoutbut').click(logout);
+		$('#sign').click(function() { logout(true); });
 
 		//Load flexslider
-		$('.flexslider').flexslider();
+		if($('.flexslider').length > 0)
+			$('.flexslider').flexslider();
 	  });
 	</script>
 	<?php
@@ -40,7 +41,7 @@ function menubar() {
 		<span><input type="submit" id="signin" class="buttons" value="Sign In"/></span>
 	</form>
 	<form id="homebut" action="/picnit/index.php">
-		<span><input type="submit" id="home" class="buttons" value="Home"/></span>
+		<span><input type="submit" id="home" class="buttons" value="home"/></span>
 	</form>
 	<?php
 		} //End if
@@ -51,7 +52,7 @@ function menubar() {
 	</form>
 	
 	<form id="signoutbut">
-			<span><input type="button" id="sign" class="buttons" value="Sign Out"/></span>
+			<span><input type="button" id="sign" class="buttons" value="sign out"/></span>
 		</form>
 	<div id="userinfo">
 		<a href="/picnit/profile/<?php echo $_COOKIE['username']; ?>"><span id="dispname"><?php echo $_COOKIE['username']; ?></a>
