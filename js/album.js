@@ -125,7 +125,8 @@ function getImages(album_id) {
 
 	//Good data, request contains data
 	if(request.status === 200) {
-		return $.parseJSON(request.responseText);
+		var tmp = $.parseJSON(request.responseText);
+		return tmp['list'];
 	}
 	//Unauthorized
 	else if(request.status === 401) {
