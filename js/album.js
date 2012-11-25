@@ -86,6 +86,17 @@ function deleteAlbum() {
 	return false;
 }
 
+function getAlbums(user_id) {
+	var params = new Array();
+	params['action'] = 'getAlbums';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['user_id'] = user_id;
+
+	//Send request
+	request = 
+}
+
 function getImages(album_id) {
 	//Gather post request data
 	var params = new Array();
