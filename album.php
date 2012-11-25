@@ -18,7 +18,9 @@
 	$res = picnitRequest('api/album.php', $fields);
 
 	if($res['status'] === 200)
-		
+		$albuminfo = json_decode($res['result'], true);
+	else
+		header("Location: 404.php");
 ?>
 <html>
 <head>
