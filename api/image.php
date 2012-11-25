@@ -329,6 +329,22 @@ get_new_file_path:
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
+
+		public function filterImages() {
+			$num = $this->load('num');
+			$text = $this->load('text');
+
+                        $res = mysql_query("SELECT image_id FROM images JOIN follows ON owner_id=followee_id NATURAL JOIN category_tags NATURAL JOIN categories WHERE ((publicness=0) OR (publicness=1 and follower_id='$this->memberid') OR (owner_id='$this->memberid')) and (name='$text' or category='$text') ORDER BY image_id DESC LIMIT $num");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)){
+                        	$tosend[$i++] = intval($row['image_id']);
+                                $i += 1;
+			}
+
+                        $this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+	                } 
+		}
 	}
 
 	$api = new Image;
