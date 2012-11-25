@@ -91,7 +91,7 @@ function getAlbums(user_id) {
 	params['user_id'] = user_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest("/picnit/"+albumurl, params);
 
 	//Good data, list of albums
 	if(request.status === 200) {
