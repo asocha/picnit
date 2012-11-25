@@ -147,7 +147,7 @@ function imageview() {
 			</div>
 			<div id="prev" class="viewerbuttons">
 			</div>
-			<img id="theimage" src="images/gui/test.jpg" alt="Pulpit rock" height="200px" width="200px"/>
+			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock" height="200px" width="200px"/>
 		</div>
 	</div>
 	<div id="comments" class="panels">
@@ -171,7 +171,7 @@ function searchbar() {
 	}
 
 //Function that returns the image uploader
-function uploader() {
+function uploader($album_id) {
 
 ?>
 	<script>
@@ -201,7 +201,7 @@ function uploader() {
 		<p><div><input type="file" id="inpimage" class="buttons" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
-		<input type="hidden" id="albumid" value="1"/>
+		<input type="hidden" id="albumid" value="<?php echo $album_id; ?>"/>
 		</form>
 	</div>
 	<?php

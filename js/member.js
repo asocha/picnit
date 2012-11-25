@@ -103,5 +103,5 @@ function logout(redirect) {
 
 	//Go back to the index
 	if(redirect)
-		window.location = "/picnit/index.php";
+		window.location = "/picnit/";
 }

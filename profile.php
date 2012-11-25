@@ -5,7 +5,7 @@
 
 	//Get username from url
 	$username = substr($_SERVER['REQUEST_URI'], strripos($_SERVER['REQUEST_URI'], "/") + 1);
-	
+
 	//Make sure they send in a username
 	if($username === "")
 		if(isLoggedIn())
