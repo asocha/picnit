@@ -15,35 +15,28 @@
 		public function getImage() {
 			$image_id = $this->load('image_id');
 
-			$res = mysql_query("SELECT publicness,owner_id,filepath,name,description,imgtype FROM images WHERE image_id='$image_id'");
-			if(!mysql_num_rows($res)) {
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
-				$this->response($error, 404);
-			}
+			$res = mysql_query("SELECT * FROM images WHERE image_id='$image_id'");
+			if(!mysql_num_rows($res))
+				$this->response(json_encode(array('msg' => 'Image does not exist')), 404);
 
-			$publicness = mysql_result($res, 0, publicness);
-			$owner_id = mysql_result($res, 0, owner_id);
+			$row = mysql_fetch_assoc($res);
+			$owner_id = $row['owner_id'];
 
-			if($publicness == 0)
+			if($row['publicness'] == 0)
 				goto allow_user_access;
 
-			if($this->memberid == $owner_id)
+			if($this->memberid == $row['owner_id'])
 				goto allow_user_access;
 
-			if($publicness == 1 && mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$owner_id'")))
-				goto allow_user_access;
+			if($row['publicness'] == 1)
+				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$owner_id")))
+					goto allow_user_access;
 
-			$error = json_encode(array('status' => 'Failed', 'msg' => 'You are not permitted to access this image'));
-			$this->response($error, 403);
+			$this->response(json_encode(array('msg' => 'You are not permitted to access this image')), 403);
 allow_user_access:
-			$filepath = mysql_result($res, 0, filepath);
-			$name = mysql_result($res, 0, name);
-			$description = mysql_result($res, 0, description);
-			$type = mysql_result($res, 0, imgtype);
-
-			$respnse = json_encode(array('status' => 'Success', 'img' => base64_encode(file_get_contents("/var/www/picnit/images/user".$filepath)),
-			'name' => $name, 'description' => $description, 'type' => $type));
-			$this->response($respnse, 200);
+			$row['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+			unset($row['filepath']);
+			$this->response(json_encode($row), 200);
 		}
 
 		public function saveImage() {
