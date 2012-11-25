@@ -354,7 +354,39 @@ h1#errorheader{
 	margin:auto;  
 }
 
-#slider1 .viewport { 
+#slider2 { 
+	height: 100px;
+	width:550px; 
+	overflow:hidden; 
+	padding: 0 0 10px; 
+	margin:auto;  
+}
+
+#slider3 { 
+	height: 100px;
+	width:550px; 
+	overflow:hidden; 
+	padding: 0 0 10px; 
+	margin:auto;  
+}
+
+#slider4 { 
+	height: 100px;
+	width:550px; 
+	overflow:hidden; 
+	padding: 0 0 10px; 
+	margin:auto;  
+}
+
+#slider5 { 
+	height: 100px;
+	width:550px; 
+	overflow:hidden; 
+	padding: 0 0 10px; 
+	margin:auto;  
+}
+
+.viewport { 
 	float: left; 
 	width: 450px; 
 	height: 75px;
@@ -362,7 +394,7 @@ h1#errorheader{
 	position: relative; 
 }
 
-#slider1 .buttons { 
+.buttonsalt { 
 	background:url("../images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
 	display: block; margin: 30px 10px 0 0; 
 	background-position: 0 -38px; 
@@ -375,16 +407,16 @@ h1#errorheader{
 	border-style:none;
 }
 
-#slider1 .next { 
+.next { 
 	background-position: 0 0;
 	margin: 30px 0 0 10px;  
 }
 
-#slider1 .disable { 
+.disable { 
 	visibility: hidden; 
 }
 
-#slider1 .overview { 
+.overview { 
 	list-style: none; 
 	position: absolute; 
 	padding: 0; 
@@ -394,7 +426,7 @@ h1#errorheader{
  	top: 0; 
 }
 
-#slider1 .overview li{ 
+.overview li{ 
 	float: left; 
 	margin: 20px 10px 0 0; 
 	padding: 1px; 
