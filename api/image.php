@@ -115,16 +115,10 @@ get_new_file_path:
 
 			$this->forceauth();
 
-			// Make sure image exists
-			$res = mysql_query("SELECT * FROM images where image_id=$image_id");
-			if(mysql_num_rows($res) == 0){
-				// Image does not exist
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Image does not exist'));
-				$this->response($error, 409);
-			}
+			$res = 	mysql_query("UPDATE images SET publicness='$privacy' where image_id='$image_id' and owner_id='$this->memberid'");
+			if(!mysql_affected_rows($res))
+				$this->response(json_encode(array('msg' => 'Failed. Does the image exist? Do you own it?')), 404);
 
-			// Update privacy
-			mysql_query("UPDATE images SET publicness=$privacy where image_id=$image_id");
 			$this->response(json_encode('', 200));
 		}
 
@@ -136,28 +130,20 @@ get_new_file_path:
 				$num = 10;
 
 			if($user_id != "") {
-				$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' ORDER BY image_id DESC LIMIT $num");
-
-				$row = mysql_fetch_array($res);
-				$alb_owner = $row['owner_id'];
-
 				if($this->memberid == -1)
-					$cutoff = 0;
-				else if($this->memberid == $alb_owner)
-					$cutoff = 2;
-				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
-					$cutoff = 1;
+					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
+				else if($this->memberid == $user_id)
+					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' ORDER BY image_id DESC LIMIT $num");
+				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$user_id'")))
+					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness < 2 ORDER BY image_id DESC LIMIT $num");
 				else
-					$cutoff = 0;
+					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
 			} else {
-				$res = mysql_query("SELECT * FROM images ORDER BY image_id DESC LIMIT $num");
-				$row = mysql_fetch_array($res);	// For do..while() loop
-				$cutoff = 0;
+				$res = mysql_query("SELECT * FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
 			}
 
 			$i = 0;
-			do {
-				if($row['publicness'] <= $cutoff) {
+			while($row = mysql_fetch_array($res)) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
 					$tosend[$i]['image_type'] = $row['imgtype'];
 					$tosend[$i]['date_added'] = $row['date_added'];
@@ -165,8 +151,8 @@ get_new_file_path:
 					$tosend[$i]['description'] = $row['description'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
-				}
-			} while($row = mysql_fetch_array($res));
+			}
+
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
