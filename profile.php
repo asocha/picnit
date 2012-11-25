@@ -3,8 +3,11 @@
 	//Get general.php for DB calls
 	require_once('php/general.php');
 
+	//Get username from url
+	$username = substr($_SERVER['REQUEST_URI'], strripos($_SERVER['REQUEST_URI'], "/") + 1);
+	
 	//Make sure they send in a username
-	if(!isset($_GET['username']))
+	if($username === "")
 		if(isLoggedIn())
 			$_GET['username'] = $_COOKIE['username'];
 		else
@@ -15,7 +18,7 @@
 		'action' => 'memberData',
 		'username' => urlencode($_COOKIE['username']),
 		'key' => urlencode($_COOKIE['key']),
-		'tusername' => urlencode($_GET['username'])
+		'tusername' => urlencode($username)
 	);
 
 	$res = picnitRequest('api/member.php', $fields);
