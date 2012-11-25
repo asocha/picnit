@@ -16,9 +16,8 @@
 	disp.empty();
 	var line="";
 	for(x in list) {
-		
 		line+="<div class='dispalbum'>";
-		line+="<a href='album.php?id="+list[x]['albumid']+"'>";
+		line+="<a href='album.php?id="+list[x]['album_id']+"'>";
 		line+=list[x]['name'];
 		line+="</a>"
 		line+=list[x]['date_created'];
@@ -26,7 +25,6 @@
 		line+=list[x]['description'];
 		line+="</div></p>";
 		line+="</div>";
-		disp.append(line);
 		//list[x]['description'];
 		//list[x]['date_created'];
 		//list[x]['owner_id'];

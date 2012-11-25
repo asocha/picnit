@@ -23,7 +23,7 @@
 			while($row = mysql_fetch_assoc($res)) {
 				$tosend[$i]['album_id'] = intval($row['album_id']);
 				$tosend[$i]['owner_id'] = intval($row['owner_id']);
-				$tosend[$i]['date_created'] = $row['album_id'];
+				$tosend[$i]['date_created'] = $row['date_created'];
 				$tosend[$i]['name'] = $row['name'];
 				$tosend[$i]['description'] = $row['description'];
 				$i++;
