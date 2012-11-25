@@ -2,22 +2,11 @@
 //Function that returns the top bar
 function menubar() {
 ?>
-<script>
-	function showsignup() {
-		document.getElementById('overlay').style.visibility="visible";
-		document.getElementById('signupbar').style.visibility="visible";
-	}
-
-	function hidesignup() {
-		document.getElementById('overlay').style.visibility="hidden";
-		document.getElementById('signupbar').style.visibility="hidden";
-	}
-	</script>
 <div id="menubar" class="panels">
 	<script type="text/javascript" charset="utf-8">
 	  $(window).load(function() {
 		//Set sign-out button
-		$('#sign').click(function() { logout(true); });
+		$('#signoutbut').click(function() { logout(true); });
 
 		//Load flexslider
 		if($('.flexslider').length > 0)
