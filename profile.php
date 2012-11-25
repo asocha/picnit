@@ -42,6 +42,7 @@
 	<script type="text/javascript" src="/picnit/js/general.js"></script>
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script type="text/javascript" src="/picnit/js/album.js"></script>
+	<script type="text/javascript" src="/picnit/js/image.js"></script>
 	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 	<script>
 		window.onload = function() {
@@ -71,16 +72,9 @@
 	<?php searchbar(); ?>
 	<div id="slideshow" class="flexslider">
 		<ul class="slides">
-			<li>
-	      			<img src="images/300px-Leuk01.jpg" />
-	    		</li>
-	    		<li>
-	      			<img src="images/dark_energy_camera_images.jpg" />
-	    		</li>
-	    		<li>
-	      			<img src="images/help_clip_image020.jpg" />
-	    		</li>
-	  	</ul>
+	  	
+		</ul>
+		<script type="text/javascript">createFlexsliderElements(5,<?php echo $profile['member_id']; ?>);</script>
 	</div>
 	<div id="user-image-collection">
 		<div id="collection" class="panels">
