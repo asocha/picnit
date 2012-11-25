@@ -113,6 +113,14 @@
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode($array), 200);
 		}
+
+		public function getCategories() {
+			$res = mysql_query("SELECT category_name FROM categories");
+
+			$row = mysql_fetch_assoc($res);
+
+			$this->response(json_encode($row), 200);
+		}
 	}
 
 	$api = new Tag;
