@@ -386,6 +386,10 @@ h1#errorheader{
 	margin:auto;  
 }
 
+.catlabel {
+	text-align: center;
+}
+
 .viewport { 
 	float: left; 
 	width: 450px; 
