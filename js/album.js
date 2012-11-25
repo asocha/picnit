@@ -27,9 +27,6 @@ function createAlbum() {
 	//Send request
 	request = picnitRequest(albumurl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, show album created
 	if(request.status === 200) {
 		window.location = 'profile.php';
@@ -95,8 +92,6 @@ function getAlbums(user_id) {
 
 	//Send request
 	request = picnitRequest(albumurl, params);
-
-	alert(request.status + "\n" + request.responseText);
 
 	//Good data, list of albums
 	if(request.status === 200) {

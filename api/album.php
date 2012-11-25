@@ -15,13 +15,19 @@
 		public function getAlbums() {
 			$user_id = $this->load('user_id');
 
-			$res = mysql_query("SELECT album_id FROM albums WHERE owner_id='$user_id'");
+			$res = mysql_query("SELECT *  FROM albums WHERE owner_id='$user_id'");
 			if(!mysql_num_rows($res))
 				$this->response('', 204);
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['album_id']);
+			while($row = mysql_fetch_assoc($res)) {
+				$tosend[$i]['album_id'] = intval($row['album_id']);
+				$tosend[$i]['owner_id'] = intval($row['owner_id']);
+				$tosend[$i]['date_created'] = $row['album_id'];
+				$tosend[$i]['name'] = $row['name'];
+				$tosend[$i]['description'] = $row['description'];
+				$i++;
+			}
 
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
