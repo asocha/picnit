@@ -23,7 +23,7 @@ function getFavorites() {
 
 	//Good data, show image created
 	if(request.status === 200) {
-		return request.responseText;
+		return $.parseJSON(request.responseText);
 	}
 	//Unauthorized
 	else if(request.status === 401) {

@@ -69,9 +69,9 @@
 	disp.html(line);
  }
 
- function createFavoritesElements(uid) {
+ function createFavoritesElements() {
 	//Get the album information of this user
-	var list = get(uid);
+	var list = getFavorites(uid);
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -81,7 +81,12 @@
 	var line="";
 	for(x in list) {
 		line += "<div class='dispfav'>";
+		line += list[x].toString();
 		line += "</div>";
 	}
 	disp.html(line);
  }
+
+function createTaggedElements() {
+
+}

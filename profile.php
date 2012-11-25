@@ -91,7 +91,7 @@
 						createAlbumElements(<?php echo $profile['member_id']; ?>)
 					});
 					$('#favoritebut').click(function() {
-						//Insert favs here
+						createFavoritesElements();
 					});
 					$('#taggedbut').click(function() {
 						//Tagged photo's here
