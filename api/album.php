@@ -97,7 +97,7 @@
 				$tosend[$i]['date_created'] = $row['date_created'];
 				$tosend[$i]['name'] = $row['name'];
 				$tosend[$i]['description'] = $row['description'];
-				i++;
+				$i++;
 			}
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 
