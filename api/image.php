@@ -305,7 +305,7 @@ get_new_file_path:
 				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$id'")))
 					$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness < 2 ORDER BY image_id DESC LIMIT $num");
 
-				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and pubicness='0' ORDER BY image_id DESC LIMIT $num");
+				$res = mysql_query("SELECT image_id FROM images WHERE owner_id='$id' and publicness='0' ORDER BY image_id DESC LIMIT $num");
 			} else {
 				$res = mysql_query("SELECT image_id FROM images WHERE publicness='0' ORDER BY image_id DESC LIMIT $num");
 			}
