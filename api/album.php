@@ -113,25 +113,19 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
-			if(!mysql_num_rows($res))
-				$this->response('', 204);
-
-			$row = mysql_fetch_array($res);
-			$alb_owner = $row['owner_id'];
+			$alb_owner = mysql_result(mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'"), 0, owner_id);
 
 			if($this->memberid == -1)
-				$cutoff = 0;
+				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
 			else if($this->memberid == $alb_owner)
-				$cutoff = 2;
+				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
 			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
-				$cutoff = 1;
+				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness < 2 ORDER BY image_id DESC LIMIT $num");
 			else
-				$cutoff = 0;
+				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
 
 			$i = 0;
-			do {
-				if($row['publicness'] <= $cutoff) {
+			while($row = mysql_fetch_array($res)) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
 					$tosend[$i]['image_type'] = $row['imgtype'];
 					$tosend[$i]['date_added'] = $row['date_added'];
@@ -139,8 +133,8 @@
 					$tosend[$i]['description'] = $row['description'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
-				}
-			} while($row = mysql_fetch_array($res));
+			}
+
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 	}
