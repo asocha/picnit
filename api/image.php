@@ -86,12 +86,12 @@ get_new_file_path:
 				goto get_new_file_path;
 
 			// Actually write out the POSTed photo file data
-			mkdir($fullpath, 0775, true);
+			mkdir("/var/www/picnit/images/user/".$dir1."/".$dir2."/".$dir3."/".$dir4."/".$dir5, 0775, true);
 			$fh = fopen($fullpath, 'w+');
 			fwrite($fh, $photo);
 			fclose($fh);
 			chmod($fullpath, 0664);
-			$type = mime_content_type("/var/www/picnit/images/user".$filepath);
+			$type = mime_content_type($fullpath);
 
 			$result = mysql_query("INSERT INTO images (album_id,publicness,filepath,date_added,name,description,imgtype,owner_id) VALUES ('$album_id','$publicness', '$filepath', NOW(), '$name', '$description', '$type', '$this->memberid')");
 			$this->response('',200);
