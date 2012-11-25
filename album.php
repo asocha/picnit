@@ -2,32 +2,37 @@
 <?php
 	require_once('php/general.php');
 
+	//Get data from URI
+	$id = substr($_SERVER['REQUEST_URI'], strripos($_SERVER['REQUEST_URI'], "/") + 1); 
+
 	//Make sure id has been passed
-	if(!isset($_GET['id']))
+	if($id === "")
 		header('Location: /picnit/404.php');
 
 	//Get data of this album
 	$fields = array(
 		'action' => 'albumData',
-		'username' => $_COOKIE['username'],
-		'key' => $_COOKIE['key'],
-		'album_id' => $_GET['id']
+		'username' => urlencode($_COOKIE['username']),
+		'key' => urlencode($_COOKIE['key']),
+		'album_id' => $id
 	);
 
 	//Send request
 	$res = picnitRequest('api/album.php', $fields);
 
-	if($res['status'] === 200)
+	if($res['status'] === 200) {
 		$albuminfo = json_decode($res['result'], true);
+		print_r($albuminfo['list']);
+	}
 	else
-		header("Location: /picnit/404.php?$res[status]");
+		header("Location: /picnit/404.php?$id");
 ?>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="/picnit/css/style.css"/>
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<title>Album</title>
+	<title><?php echo $albuminfo['name']; ?></title>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
 	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
@@ -58,7 +63,7 @@
 <body>
 	<?php menubar(); ?>
 	<div>
-		<h1>album</h1>
+		<h1><?php echo $albuminfo['name']; ?></h1>
 	</div>
 	<?php searchbar(); ?>
 	<div id="results" class="panels">

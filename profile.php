@@ -3,8 +3,11 @@
 	//Get general.php for DB calls
 	require_once('php/general.php');
 
+	//Get username from url
+	$username = substr($_SERVER['REQUEST_URI'], strripos($_SERVER['REQUEST_URI'], "/") + 1);
+	
 	//Make sure they send in a username
-	if(!isset($_GET['username']))
+	if($username === "")
 		if(isLoggedIn())
 			$_GET['username'] = $_COOKIE['username'];
 		else
@@ -15,7 +18,7 @@
 		'action' => 'memberData',
 		'username' => urlencode($_COOKIE['username']),
 		'key' => urlencode($_COOKIE['key']),
-		'tusername' => urlencode($_GET['username'])
+		'tusername' => urlencode($username)
 	);
 
 	$res = picnitRequest('api/member.php', $fields);
@@ -82,13 +85,13 @@
 	<div id="user-image-collection">
 		<div id="collection" class="panels">
 			<div id="usermenu" class="panels">
-				<input id="albumsbut" class="buttons" type="button" value="Albums"/>
-				<input id="picsbut" class="buttons" type="button" value="Pics"/>
-				<input id="followersbut" class="buttons" type="button" value="Followers"/>
-				<input id="favoritebut" class="buttons" type="button" value="Favorites"/>
-				<input id="taggedbut" class="buttons" type="button" value="Tagged"/>
-				<input id="followeesbut" class="buttons" type="button" value="Followees"/>
-				<input id="requestsbut" class="buttons" type="button" value="Requests"/>
+				<input id="albumsbut" class="buttons louterbuttons" type="button" value="Albums"/>
+				<input id="picsbut" class="buttons innerbuttons" type="button" value="Pics"/>
+				<input id="followersbut" class="buttons innerbuttons" type="button" value="Followers"/>
+				<input id="favoritebut" class="buttons innerbuttons" type="button" value="Favorites"/>
+				<input id="taggedbut" class="buttons innerbuttons" type="button" value="Tagged"/>
+				<input id="followeesbut" class="buttons innerbuttons" type="button" value="Followees"/>
+				<input id="requestsbut" class="buttons routerbuttons" type="button" value="Requests"/>
 				
 			</div>
 			<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
