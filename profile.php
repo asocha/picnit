@@ -30,7 +30,12 @@
 		header('Location: /picnit/404.php');
 	
 	//See if we are an admin
-	
+	$fields = array(
+		'action' => 'memberData',
+		'username' => urlencode($_COOKIE['username']),
+		'key' => urlencode($_COOKIE['key']),
+		'tusername' => $_COOKIE['username']
+	);
 
 	$res = picnitRequest('api/member.php', $fields);
 
