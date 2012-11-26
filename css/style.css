@@ -93,6 +93,26 @@ body {
 	margin-bottom:-50px;
 }
 
+.dispfollowers {
+	border-style: solid;
+	margin: 5px;
+	padding: 5px;
+}
+
+.folrembut {
+	float:right;
+	position:relative;
+	top: 0px;
+}
+
+h2 {
+	font-size: 75px;
+	width:300px;
+	height:75px;
+	margin:10px;
+	color: #679FD2;
+}
+
 div#menubar {
 	color:#043A6B;
 	position:relative;
@@ -351,6 +371,14 @@ div#albumtitle {
 
 div#albumdesc {
 	margin:5px;
+}
+
+#uploadbut {
+	margin:5px;
+}
+
+#albdelbut {
+	margin-right:5px;
 }
 
 .dispalbum {
