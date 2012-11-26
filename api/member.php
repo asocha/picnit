@@ -302,10 +302,11 @@
 			$res = mysql_query("SELECT mes.from_id, mem.username FROM messages mes, members mem WHERE mes.message_type=0 and mes.to_id='$this->memberid' and mes.from_id=mem.member_id");
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
+			while($row = mysql_fetch_array($res)) {
 				$tosend[$i]['user_id'] = $row['from_id'];
 				$tosend[$i]['username'] = $row['username'];
 				$i++;
+			}
 
 			$this->response(json_encode($tosend), 200);
 		}
