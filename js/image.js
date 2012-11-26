@@ -122,6 +122,24 @@ function sendImage(photo, phototype) {
 	return false;
 }
 
+function deleteImage(imgid) {
+	var params = new Array();
+	params['action'] = 'deleteImage';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = imgid;
+
+	request = picnitRequest(imageurl, params);
+
+	if(request.status === 200) {
+		return true;
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+	return false;
+}
+
 function getLastImages(num,user_id) {
 	//Gather params
 	var params = new Array();
