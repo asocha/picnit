@@ -126,6 +126,25 @@
 
 			$this->response(json_encode($tosend), 200);
 		}
+
+		public function getCategoryTaggedImages() {
+			$cat_id = $this->load('cat_id');
+
+			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM category_tags c,images i,follows f WHERE c.category_id='$cat_id' and c.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid'))");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res)) {
+					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['date_added'] = $row['date_added'];
+					$tosend[$i]['name'] = $row['name'];
+					$tosend[$i]['description'] = $row['description'];
+					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+					$i++;
+			}
+
+			$this->response(json_encode($tosend), 200);
+		}
 	}
 
 	$api = new Tag;
