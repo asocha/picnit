@@ -41,10 +41,10 @@ function getFavorites() {
 	return null;
 }
 
-function getUserTagImages(id) {
+function getUserTaggedImages(id) {
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'getCategoryTagImages';
+	params['action'] = 'getUserTaggedImages';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['user_id'] = id;
@@ -70,5 +70,51 @@ function getUserTagImages(id) {
 	}
 
 	return null;
+}
+
+function addFavorite(id) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'addFavorite';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = id;
+
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return true;
+	}
+	//Unknown error
+	else {
+		
+	}
+
+	return false;
+}
+
+function deleteFavorite(id) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'deleteFavorite';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = id;
+
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return true;
+	}
+	//Unknown error
+	else {
+		
+	}
+
+	return false;
 }
 

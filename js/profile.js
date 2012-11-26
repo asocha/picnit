@@ -49,7 +49,7 @@
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="<div class='imgbuts'>";
 		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
-		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='favorite'/>";
+		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>"
 		line+="</div>";
@@ -67,6 +67,15 @@
 		});
 		$("#picfavbut"+list[x]['image_id']).click(function() {
 			var id = $(this).attr('id').substring(9);
+
+			if($(this).val() == 'favorite') {
+				if(addFavorite(id))
+					$(this).val('unfavorite');
+			}
+			else {
+				if(deleteFavorite(id))
+					$(this).val('favorite');
+			}
 		});
 		$("#pictagbut"+list[x]['image_id']).click(function() {
 			var id = $(this).attr('id').substring(9);
