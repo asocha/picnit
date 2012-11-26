@@ -293,7 +293,7 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = $row['from_id']
+				$tosend[$i++] = $row['from_id'];
 
 			$this->response(json_encode($tosend), 200);
 		}
