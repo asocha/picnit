@@ -137,7 +137,7 @@ function imageview() {
 			</div>
 			<div id="prev" class="viewerbuttons">
 			</div>
-			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock" height="200px" width="200px"/>
+			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock"/>
 		</div>
 	</div>
 	<div id="comments" class="panels">
