@@ -303,7 +303,9 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = $row['from_id'];
+				$tosend[$i]['user_id'] = $row['from_id'];
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
 
 			$this->response(json_encode($tosend), 200);
 		}
