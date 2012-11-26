@@ -31,6 +31,8 @@
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
 			}
+
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
 		public function getAlbumsByName() {
@@ -51,6 +53,8 @@
 					$tosend[$i]['description'] = $row['description'];
 					$i++;
 			}
+
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
 		public function filterMembers() {
