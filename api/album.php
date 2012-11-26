@@ -155,10 +155,8 @@
 
                         $res = mysql_query("SELECT count(*) FROM images WHERE album_id='$album_id'");
 
-                        if(!mysql_num_rows($res))
-                                $this->response(json_encode(array('msg' => 'Album does not exist')), 404);
 			$array = mysql_fetch_array($res);
-                        $this->response(json_encode($array[0], 200));
+                        $this->response(json_encode(array('num' => $array[0])), 200);
                 }
 	}
 
