@@ -11,7 +11,7 @@
 		if(isLoggedIn())
 			$_GET['username'] = $_COOKIE['username'];
 		else
-			header("Location: index.php");
+			header("Location: /picnit/index.php");
 
 	//See if this user exists
 	$fields = array(
@@ -27,7 +27,7 @@
 	if($res['status'] == 200) 
 		$profile = json_decode($res['result'], true);
 	else
-		header('Location: 404.php');
+		header('Location: /picnit/404.php');
 ?>
 <html>
 <title><?php echo  $profile['username']; ?>'s profile!</title>
