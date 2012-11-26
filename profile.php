@@ -110,10 +110,11 @@
 					
 				</script>
 			</div>
-			<input id="uploadbut" class="buttons" type="button" value="Upload"/> 
-			<input id="albumbut" class="buttons" type="button" value="Add Album"/>
-			<input id="followuserbut" class="buttons" type="button" value="Follow"/>
-			<input id="suspenduserbut" class="buttons" type="button" value="Suspend"/>
+			<div id="optionsbar">
+			<input id="albumbut" class="buttons" type="button" value="add album"/>
+			<input id="followuserbut" class="buttons" type="button" value="follow"/>
+			<input id="suspenduserbut" class="buttons" type="button" value="suspend"/>
+			</div>
 			<div id="thumbnail-display">
 			</div>
 		</div>
