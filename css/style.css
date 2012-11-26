@@ -214,12 +214,13 @@ div#info {
 }
 
 div#imgviewer {
-	visibility:hidden;
-	position:fixed;
-	top:5%;
-	left:10%;
-	width:80%;
-	min-width:500px;
+	visibility: hidden;
+	width: 80%;
+	min-width: 500px;
+	position: relative;
+	top: 10%;
+	left: 10%;
+	margin-bottom: 10%;
 }
 
 div#imgviewer div#editor {
