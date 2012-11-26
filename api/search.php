@@ -58,18 +58,18 @@
 		}
 
 		public function filterMembers() {
-                        $name = $this->load('name');
+			$name = $this->load('name');
 
-                        $res = mysql_query("SELECT member_id FROM members WHERE username='$name'");
+			$res = mysql_query("SELECT member_id FROM members WHERE username='$name'");
 
-                        $i = 0;
-                        while($row = mysql_fetch_array($res)){
-                                $tosend[$i++] = intval($row['member_id']);
-                                $i += 1;
-                        }
+			$i = 0;
+			while($row = mysql_fetch_array($res)){
+				$tosend[$i++] = intval($row['member_id']);
+				$i += 1;
+			}
 
-                        $this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
-                }
+			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+		}
 
 		public function filterImages() {
 			$num = $this->load('num');
@@ -79,12 +79,12 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
-                                $tosend[$i]['image_id'] = intval($row['image_id']);
-                                $tosend[$i]['image_type'] = $row['imgtype'];
-                                $tosend[$i]['date_added'] = $row['date_added'];
-                                $tosend[$i]['name'] = $row['name'];
-                                $tosend[$i]['description'] = $row['description'];
-                                $tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+				$tosend[$i]['image_id'] = intval($row['image_id']);
+				$tosend[$i]['image_type'] = $row['imgtype'];
+				$tosend[$i]['date_added'] = $row['date_added'];
+				$tosend[$i]['name'] = $row['name'];
+				$tosend[$i]['description'] = $row['description'];
+				$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 				$i+=1;
 			}
 

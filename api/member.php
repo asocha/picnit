@@ -246,15 +246,15 @@
 		}
 
 		public function refuseFollow() {
-                        $user_id = $this->load('user_id');
+			$user_id = $this->load('user_id');
 
-                        $this->forceauth();
+			$this->forceauth();
 
-                        $res = mysql_query("DELETE FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
+			$res = mysql_query("DELETE FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
 
-                        // Success
-                        $this->response(json_encode('', 200));
-                }
+			// Success
+			$this->response(json_encode('', 200));
+		}
 
 		public function removeFollower() {
 			$user_id = $this->load('user_id');

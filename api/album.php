@@ -56,7 +56,7 @@
 
 			$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
 			if(mysql_affected_rows($res))
-				$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
+				$this->response(json_encode(array('msg' => 'Deletion was succesfully performed')), 200);
 
 			$this->response(json_encode(array('msg' => 'Album was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
 		}
@@ -120,7 +120,7 @@
 
 		public function getLastAlbumImages() {
 			$num = $this->load('num');
-			$album_id = $this->load('album_id');	
+			$album_id = $this->load('album_id');
 
 			if($num > 10)
 				$num = 10;
@@ -151,15 +151,13 @@
 		}
 
 		public function numImages() {
-                        $album_id = $this->load('album_id');
+			$album_id = $this->load('album_id');
 
-                        $res = mysql_query("SELECT count(*) FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT count(*) FROM images WHERE album_id='$album_id'");
 
-                        if(!mysql_num_rows($res))
-                                $this->response(json_encode(array('msg' => 'Album does not exist')), 404);
 			$array = mysql_fetch_array($res);
-                        $this->response(json_encode($array[0], 200));
-                }
+			$this->response(json_encode(array('num' => $array[0])), 200);
+		}
 	}
 
 	$api = new Album;
