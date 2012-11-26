@@ -139,7 +139,7 @@
 			if ($user_id == "" && $username == "")
 				$this->response(json_encode(array('msg' => 'Missing data')), 400);
 			else if ($user_id != "")
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing FROM members WHERE member_id='$user_id");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing FROM members WHERE member_id='$user_id'");
 			else
 				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing FROM members WHERE username='$username'");
 
