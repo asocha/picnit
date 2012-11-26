@@ -37,6 +37,24 @@ body {
 	border-left-width: 1px;
 }
 
+.imgbuts {
+	width: 375px;
+	margin: auto;
+}
+
+.picdelbut {
+	border-left-style:none;
+}
+
+.picfavbut {
+	border-right-width: 1px;
+	border-left-width: 1px;
+}
+
+.pictagbut {
+	border-right-style:none;
+}
+
 .panels {
 	background-color:#FFFFFF;
 	border-style: solid;
@@ -324,9 +342,15 @@ div#userinfo {
 
 div#albuminfo {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
-	margin-top:5px;
-	margin-left:5px;
-	margin-right:5px;
+	margin:5px;
+}
+
+div#albumtitle {
+	margin:5px;
+}
+
+div#albumdesc {
+	margin:5px;
 }
 
 .dispalbum {
