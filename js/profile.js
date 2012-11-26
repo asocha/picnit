@@ -110,11 +110,12 @@ function createTaggedElements() {
 		line += list[x].toString();
 		line += "</div>";
 	}
+	disp.html(line);
 }
 
 function createFollowersElements() {
 	//Get the tagged elements
-	var list = null;
+	var list = getFollowers();
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -124,14 +125,17 @@ function createFollowersElements() {
 	var line="";
 	for(x in list) {
 		line += "<div class='dispfollowers'>";
-		line += list[x].toString();
+		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
+		line += "<span class='follower'>"+list[x]['username']+"</span>";
+		line += "</a>";
 		line += "</div>";
 	}
+	disp.html(line);
 }
 
 function createFolloweesElements() {
 	//Get the tagged elements
-	var list = null;
+	var list = getFollowees();
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -141,14 +145,17 @@ function createFolloweesElements() {
 	var line="";
 	for(x in list) {
 		line += "<div class='dispfollowees'>";
-		line += list[x].toString();
+		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
+		line += "<span class='follower'>"+list[x]['username']+"</span>";
+		line += "</a>";
 		line += "</div>";
 	}
+	disp.html(line);
 }
 
 function createFollowReqElements() {
 	//Get the tagged elements
-	var list = null;
+	var list = getFollowRequests();
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -161,4 +168,5 @@ function createFollowReqElements() {
 		line += list[x].toString();
 		line += "</div>";
 	}
+	disp.html(line);
 }

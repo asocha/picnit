@@ -84,7 +84,7 @@
 				<input id="favoritebut" class="buttons innerbuttons" type="button" value="favorites"/>
 				<input id="taggedbut" class="buttons innerbuttons" type="button" value="tagged"/>
 				<input id="followersbut" class="buttons innerbuttons" type="button" value="followers"/>
-				<input id="followeesbut" class="buttons innerbuttons" type="button" value="followees"/>
+				<input id="followeesbut" class="buttons innerbuttons" type="button" value="following"/>
 				<input id="requestsbut" class="buttons routerbuttons" type="button" value="requests"/>
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
@@ -94,16 +94,16 @@
 						createFavoritesElements();
 					});
 					$('#taggedbut').click(function() {
-						//Tagged photo's here
+						createTaggedElements();
 					});
 					$('#followersbut').click(function() {
-						//Followers
+						createFollowersElements();
 					});
 					$('#followeesbut').click(function() {
-						//Followees
+						createFolloweesElements();
 					});
 					$('#requestsbut').click(function() {
-						//Requests here
+						createFollowReqElements();
 					});
 					
 				</script>
