@@ -177,7 +177,7 @@ function follow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-		alert('Follow accepted');
+		alert('Follow sent');
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
@@ -198,7 +198,7 @@ function unfollow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-		alert('Unfollow accepted');
+		alert('Unfollowed');
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
@@ -219,7 +219,28 @@ function requestFollow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-		alert('Follow accepted');
+		alert('Request accepted');
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return false;
+}
+
+function removeFollower(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'removeFollower';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		alert('Remove follow accepted');
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
