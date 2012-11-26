@@ -178,7 +178,7 @@ function uploader($album_id) {
 	</div>
 	<div id="uploadbar" class="panels">
 		<form id="uploadform" onsubmit="return saveImage();">
-		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="{3,63}" title="Image Name must contain between 3 and 63 letters, numbers, and underscores." required="required"/></div>
+		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="{3,63}" title="Image Name must contain between 3 and 63 characters." required="required"/></div>
 		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
 		<p><div>
 			<select id="publicness" class="inputs">
