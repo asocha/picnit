@@ -139,15 +139,16 @@
 			if ($user_id == "" && $username == "")
 				$this->response(json_encode(array('msg' => 'Missing data')), 400);
 			else if ($user_id != "")
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing FROM members WHERE member_id='$user_id'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE member_id='$user_id'");
 			else
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing FROM members WHERE username='$username'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE username='$username'");
 
 			if(mysql_num_rows($res) < 1)
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);
 
 			$array = mysql_fetch_assoc($res);
 			$array['isfollowing'] ? $array['isfollowing'] = true : $array['isfollowing'] = false;
+			$array['requestsent'] ? $array['requestsent'] = true : $array['requestsent'] = false;
 			$this->response(json_encode($array), 200);
 		}
 
