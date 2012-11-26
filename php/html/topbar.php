@@ -137,6 +137,7 @@ function imageview() {
 		</div>
 	</div>
 	<div id="comments" class="panels">
+		<h2>comments</h2>
 	</div>
 </div>
 
