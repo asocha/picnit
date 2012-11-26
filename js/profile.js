@@ -14,7 +14,7 @@
 
 	//Clear the current contents
 	disp.empty();
-	var line="";
+	var line="<h2>albums</h2>";
 	for(x in list) {
 		line+="<div class='dispalbum'>";
 		line+="<a href='/picnit/album/"+list[x]['album_id']+"'>";
@@ -108,7 +108,7 @@
 
 	//Clear the current contents
 	disp.empty();
-	var line="";
+	var line="<h2>favorites</h2>";
 	for(x in list) {
 		line += "<div class='dispfav'>";
 		line += list[x].toString();
@@ -126,7 +126,7 @@ function createTaggedElements() {
 
 	//Clear the current contents
 	disp.empty();
-	var line="";
+	var line="<h2>pictures of you</h2>";
 	for(x in list) {
 		line += "<div class='disptagged'>";
 		line += list[x].toString();
@@ -188,7 +188,7 @@ function createFollowReqElements() {
 
 	//Clear the current contents
 	disp.empty();
-	var line="";
+	var line="<h2>follow requests</h2>";
 	for(x in list) {
 		line += "<div class='dispfollowreq'>";
 		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
