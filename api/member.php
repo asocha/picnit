@@ -285,6 +285,18 @@
 
 			$this->response(json_encode($tosend), 200);
 		}
+
+		public function getFollowRequests() {
+			$this->forceauth();
+
+			$res = mysql_query("SELECT from_id FROM messages WHERE message_type=0 and to_id='$this->memberid'");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+				$tosend[$i++] = $row['from_id']
+
+			$this->response(json_encode($tosend), 200);
+		}
 	}
 
 	$api = new Member;
