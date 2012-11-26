@@ -13,7 +13,7 @@
 		}
 
 		public function getImagesByName() {
-			$text = $this->load('name');
+			$name = $this->load('name');
 			$num = $this->load('num');
 
 			if($num > 10)
