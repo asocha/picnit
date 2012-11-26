@@ -73,6 +73,14 @@
 			<p><div id="albumdesc">Description: </div></p>
 			<input type="button" id="uploadbut" class="buttons" value="upload"/>
 			<input type="button" id="albdelbut" class="buttons" value="delete"/>
+			<script type="text/javascript">
+				$('#albdelbut').click(function() {
+					if(deleteAlbum(<?php echo $albuminfo['album_id']; ?>))
+						window.location = '/picnit/profile/' + getCookie('username');
+					else
+						alert("Failed deletion");
+				});
+			</script>
 		</div>
 		<div id="image-holder">
 		</div>

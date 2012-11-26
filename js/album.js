@@ -47,33 +47,21 @@ function createAlbum() {
 	return false;
 }
 
-function deleteAlbum() {
-	//Get user input, should be sent via GUI/other js call
-	var albumname = $("input#albumname").val();
-	
+function deleteAlbum(aid) {
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'deleteAlbum';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
+	params['album_id'] = aid;
 
 	//Send request
 	request = picnitRequest(albumurl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, show album created
 	if(request.status === 200) {
-		
-	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
+		alert("Album Deleted");
+		return true;
 	}
 	//Unknown error
 	else {
