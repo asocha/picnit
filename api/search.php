@@ -53,6 +53,20 @@
 			}
 		}
 
+		public function filterMembers() {
+                        $name = $this->load('name');
+
+                        $res = mysql_query("SELECT member_id FROM members WHERE username='$name'");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)){
+                                $tosend[$i++] = intval($row['member_id']);
+                                $i += 1;
+                        }
+
+                        $this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+                }
+
 		public function filterImages() {
 			$num = $this->load('num');
 			$text = $this->load('text');
