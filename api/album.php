@@ -56,7 +56,7 @@
 
 			$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
 			if(mysql_affected_rows($res))
-				$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
+				$this->response(json_encode(array('msg' => 'Deletion was succesfully performed')), 200);
 
 			$this->response(json_encode(array('msg' => 'Album was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
 		}
