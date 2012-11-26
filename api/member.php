@@ -262,7 +262,7 @@
 			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid'");
 
 			$i = 0;
-			while($ros = mysql_fetch_array($res)) {
+			while($row = mysql_fetch_array($res)) {
 				$tosend[$i]['user_id'] = $row['followee_id'];
 				$tosend[$i]['username'] = $row['username'];
 				$i++;
@@ -277,7 +277,7 @@
 			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid'");
 
 			$i = 0;
-			while($ros = mysql_fetch_array($res)) {
+			while($row = mysql_fetch_array($res)) {
 				$tosend[$i]['user_id'] = $row['follower_id'];
 				$tosend[$i]['username'] = $row['username'];
 				$i++;
