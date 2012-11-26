@@ -106,13 +106,20 @@
 		public function getFavorites() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT image_id FROM favorites WHERE member_id='$this->memberid'");
+			$res = mysql_query("SELECT * FROM favorites WHERE member_id='$this->memberid'");
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // User has no favorites
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = $row['image_id'];
+			while($row = mysql_fetch_array($res)) {
+					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['date_added'] = $row['date_added'];
+					$tosend[$i]['name'] = $row['name'];
+					$tosend[$i]['description'] = $row['description'];
+					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+					$i++;
+			}
 
 			$this->response(json_encode($tosend), 200);
 		}
