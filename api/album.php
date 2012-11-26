@@ -54,7 +54,7 @@
 			while($row = mysql_fetch_array($res))
 				unlink("/var/www/picnit/images/user".$row['filepath']);
 
-			mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
+			$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
 			if(mysql_affected_rows($res))
 				$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
 
