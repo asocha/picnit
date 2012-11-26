@@ -234,6 +234,18 @@
 			$this->response(json_encode($tosend), 200);
 
 		}
+
+		public function getTagsByImage() {
+			$image_id = $this->load('image_id');
+
+			$res = mysql_query("SELECT t.member_id FROM images i,tags t WHERE i.image_id=t.image_id");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+					$tosend[$i++] = intval($row['member_id']);
+
+			$this->response(json_encode($tosend), 200);
+		}
 	}
 
 	$api = new Tag;
