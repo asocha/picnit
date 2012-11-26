@@ -259,11 +259,11 @@
 		public function getFollowers() {
 			$this->forceauth();
 
-$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and m.member_id=f.follower_id");
+			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and m.member_id=f.follower_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
-				$tosend[$i]['user_id'] = $row['followee_id'];
+				$tosend[$i]['user_id'] = $row['follower_id'];
 				$tosend[$i]['username'] = $row['username'];
 				$i++;
 			}
