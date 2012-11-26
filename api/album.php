@@ -55,7 +55,7 @@
 				unlink("/var/www/picnit/images/user".$row['filepath']);
 
 			$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
-			if(mysql_affected_rows($res))
+			if(mysql_affected_rows())
 				$this->response(json_encode(array('msg' => 'Deletion was succesfully performed')), 200);
 
 			$this->response(json_encode(array('msg' => 'Album was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
