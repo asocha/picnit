@@ -74,7 +74,7 @@
 
  function createFavoritesElements() {
 	//Get the album information of this user
-	var list = getFavorites(uid);
+	var list = getFavorites();
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -91,5 +91,69 @@
  }
 
 function createTaggedElements() {
+	//Get the tagged elements
+	var list = null;
 
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='disptagged'>";
+		line += list[x].toString();
+		line += "</div>";
+	}
+}
+
+function createFollowersElements() {
+	//Get the tagged elements
+	var list = null;
+
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='dispfollowers'>";
+		line += list[x].toString();
+		line += "</div>";
+	}
+}
+
+function createFolloweesElements() {
+	//Get the tagged elements
+	var list = null;
+
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='dispfollowees'>";
+		line += list[x].toString();
+		line += "</div>";
+	}
+}
+
+function createFollowReqElements() {
+	//Get the tagged elements
+	var list = null;
+
+	//Get display area
+	var disp = $("#thumbnail-display");
+
+	//Clear the current contents
+	disp.empty();
+	var line="";
+	for(x in list) {
+		line += "<div class='dispfollowreq'>";
+		line += list[x].toString();
+		line += "</div>";
+	}
 }
