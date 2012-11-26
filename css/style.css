@@ -438,6 +438,15 @@ div.dispimage {
 	max-width:100%;
 }
 
+div#viewercontainer {
+	height: 100%;
+	width: 100%;
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	overflow: scroll;
+}
+
 /* Tiny Carousel */
 #slider1 { 
 	height: 100px;
