@@ -299,11 +299,13 @@
 		public function getFollowRequests() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT from_id FROM messages WHERE message_type=0 and to_id='$this->memberid'");
+			$res = mysql_query("SELECT mes.from_id, mem.username FROM messages mes, members mem WHERE mes.message_type=0 and mes.to_id='$this->memberid' and mes.from_id=mem.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = $row['from_id'];
+				$tosend[$i]['user_id'] = $row['from_id'];
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
 
 			$this->response(json_encode($tosend), 200);
 		}
