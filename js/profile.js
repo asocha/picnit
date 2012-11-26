@@ -20,15 +20,11 @@
 		line+="<a href='/picnit/album/"+list[x]['album_id']+"'>";
 		line+=list[x]['name'];
 		line+="</a>"
-		line+="<div id='albumdate'>"+list[x]['date_created']+"</div>";
+		line+="<div class='albumdate'>"+list[x]['date_created']+"</div>";
 		line+="<p><div>";
 		line+=list[x]['description'];
 		line+="</div></p>";
 		line+="</div>";
-		//list[x]['description'];
-		//list[x]['date_created'];
-		//list[x]['owner_id'];
-		//list[x]['album_id'];
 	}
 	disp.html(line);
  }
@@ -46,19 +42,28 @@
 	//Insert code
 	var line="";
 	for(x in list) {
-		line+="<div class='dispimage'>";
+		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="<div class='imgbuts'>";
-		line+="<input type='button' id='picdelbut' class='buttons' value='delete'/>";
-		line+="<input type='button' id='picfavbut' class='buttons' value='favorite'/>";
-		line+="<input type='button' id='pictagbut' class='buttons' value='tag'/>";
+		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons' value='delete'/>";
+		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons' value='favorite'/>";
+		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons' value='tag'/>";
 		line+="</div>"
 		line+="</div>";
 	}
 	disp.html(line);
+
+	//Add event handlers
+	for(x in list) {
+		$("#picdelbut"+list[x]['image_id']).click(function() {
+			if(deleteImage(list[x]['image_id']))
+				$('#dispimage'+list[x]['image_id']).remove();
+		});
+
+	}
  }
 
  function createFlexsliderElements(num,user_id) {
@@ -165,7 +170,9 @@ function createFollowReqElements() {
 	var line="";
 	for(x in list) {
 		line += "<div class='dispfollowreq'>";
-		line += list[x].toString();
+		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
+		line += "<span class='follower'>"+list[x]['username']+"</span>";
+		line += "</a>";
 		line += "</div>";
 	}
 	disp.html(line);
