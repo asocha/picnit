@@ -105,12 +105,55 @@ body {
 	top: 0px;
 }
 
+.dispfollowers a {
+	font-size:25px;
+}
+
+.dispfollowees {
+	border-style:solid;
+	margin:5px;
+	padding:5px;
+}
+
+.unfollbut {
+	float:right;
+	position:relative;
+	top:0px;
+}
+
+.dispfollowees a {
+	font-size:25px;
+}
+
 h2 {
 	font-size: 75px;
 	width:300px;
 	height:75px;
 	margin:10px;
+	margin-bottom:15px;
 	color: #679FD2;
+}
+
+div#optionsbar {
+	visibility:hidden;
+}
+
+div#otionsbar #albumbut {
+	float:left;
+	position:absolute;
+	left:0px;
+}
+
+div#optionsbar {
+	float:left;
+	position:absolute;
+	left:0px;
+}
+
+div#optionsbar {
+	float:right;
+	position:absolute;
+	right:23px;
 }
 
 div#menubar {
