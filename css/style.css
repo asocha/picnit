@@ -138,6 +138,24 @@ div#optionsbar {
 	visibility:hidden;
 }
 
+div#otionsbar #albumbut {
+	float:left;
+	position:absolute;
+	left:0px;
+}
+
+div#optionsbar {
+	float:left;
+	position:absolute;
+	left:0px;
+}
+
+div#optionsbar {
+	float:right;
+	position:absolute;
+	right:23px;
+}
+
 div#menubar {
 	color:#043A6B;
 	position:relative;
