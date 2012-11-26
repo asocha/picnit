@@ -65,18 +65,22 @@
 		window.onload = function() {
 			if(isLoggedIn()) {
 				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+				if(document.getElementById('albcancel')) {
+					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
+					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
+					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+				}
 			}
 			else {
 				document.getElementById('signupbut').addEventListener('click',showsignup,false);
 				document.getElementById('cancel').addEventListener('click',hidesignup,false);
 				document.getElementById('overlay').addEventListener('click',hidesignup,false);
 				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-				document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
-				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+				if(document.getElementById('albcancel')) {
+					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
+					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
+					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
+				}
 			}
 
 			$('#albumsbut').click();
@@ -98,12 +102,38 @@
 	<div id="user-image-collection">
 		<div id="collection" class="panels">
 			<div id="usermenu" class="panels">
-				<input id="albumsbut" class="buttons louterbuttons" type="button" value="albums"/>
+				<?php
+					//Add addalbum or follow button
+					if($profile['username'] === $_COOKIE['username']) {
+				?>
+				<input id="albumbut" class="buttons louterbuttons" type="button" value="add album"/>
+				<?php
+					}
+					else {
+				?>
+				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow"/>
+				<?php
+					}
+				?>
+				<input id="albumsbut" class="buttons innerbuttons" type="button" value="albums"/>
 				<input id="favoritebut" class="buttons innerbuttons" type="button" value="favorites"/>
 				<input id="taggedbut" class="buttons innerbuttons" type="button" value="tagged"/>
 				<input id="followersbut" class="buttons innerbuttons" type="button" value="followers"/>
 				<input id="followeesbut" class="buttons innerbuttons" type="button" value="following"/>
+				<?php
+					//Add suspend button
+					if($admin && $profile['username'] !== $_COOKIE['username']) {
+				?>
+				<input id="requestsbut" class="buttons innerbuttons" type="button" value="requests"/>
+				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="suspend"/>
+				<?php
+					}
+					else {
+				?>
 				<input id="requestsbut" class="buttons routerbuttons" type="button" value="requests"/>
+				<?php
+					}
+				?>
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
 						createAlbumElements(<?php echo $profile['member_id']; ?>)
@@ -123,27 +153,15 @@
 					$('#requestsbut').click(function() {
 						createFollowReqElements();
 					});
-					
+					if($('#followuserbut').length > 0)
+						$('#followuserbut').click(function() {
+
+						});
+					if($('#suspenduserbut').length > 0)
+						$('#suspenduserbut').click(function() {
+
+						});
 				</script>
-			</div>
-			<div id="optionsbar">
-			<?php
-				if($profile['username'] === $_COOKIE['username']) {
-			?>
-			<input id="albumbut" class="buttons" type="button" value="add album"/>
-			<?php
-				}
-				else {
-			?>
-			<input id="followuserbut" class="buttons" type="button" value="follow"/>
-			<?php
-				if($admin) {
-			?>
-			<input id="suspenduserbut" class="buttons" type="button" value="suspend"/>
-			<?php
-				}
-				}
-			?>
 			</div>
 			<div id="thumbnail-display">
 			</div>
@@ -151,7 +169,7 @@
 	</div>
 	<?php info(); ?>
 	<?php imageview(); ?>
-	<?php albumcreator(); ?>
+	<?php if($profile['username'] === $_COOKIE['username']) albumcreator(); ?>
 	<?php signup(); ?>
 	
 </body>
