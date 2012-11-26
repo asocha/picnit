@@ -146,7 +146,7 @@
 			if(mysql_num_rows($res) < 1)
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);
 
-			$array = mysql_fetch_array($res);
+			$array = mysql_fetch_assoc($res);
 			$array['isfollowing'] ? $array['isfollowing'] = true : $array['isfollowing'] = false;
 			$this->response(json_encode($array), 200);
 		}
