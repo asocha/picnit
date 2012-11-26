@@ -128,20 +128,19 @@ function imageview() {
 </script>
 <div id="imgoverlay" class="overlays">
 </div>
+<div id="viewercontainer">
 <div id="imgviewer">
 	<div id="editor">
 		<div id="menu">
 		</div>
 		<div id="image" class="panels">
-			<div id="next" class="viewerbuttons">
-			</div>
-			<div id="prev" class="viewerbuttons">
-			</div>
-			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock" height="200px" width="200px"/>
+			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock"/>
 		</div>
 	</div>
 	<div id="comments" class="panels">
+		<h2>comments</h2>
 	</div>
+</div>
 </div>
 
 	<?php
