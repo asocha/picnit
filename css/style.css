@@ -418,7 +418,7 @@ div.dispimage {
 }
 
 .buttonsalt { 
-	background:url("../images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
+	background:url("/picnit/images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
 	display: block; margin: 30px 10px 0 0; 
 	background-position: 0 -38px; 
 	text-indent: -999em;
