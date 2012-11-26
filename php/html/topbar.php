@@ -133,10 +133,6 @@ function imageview() {
 		<div id="menu">
 		</div>
 		<div id="image" class="panels">
-			<div id="next" class="viewerbuttons">
-			</div>
-			<div id="prev" class="viewerbuttons">
-			</div>
 			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock"/>
 		</div>
 	</div>
