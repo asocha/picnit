@@ -61,7 +61,7 @@
 		public function getImages() {
 			$album_id = $this->load('album_id');
 
-			$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT *,(SELECT image_id FROM favorites WHERE member_id='$this->memberid' and i.image_id=image_id) AS isfavorite FROM images i WHERE i.album_id='$album_id'");
 
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // This is actually right - no images, no content
@@ -82,6 +82,7 @@
 			do {
 				if($row['publicness'] <= $cutoff) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['favorited'] = $row['isfavorite'] ? true : false;
 					$tosend[$i]['image_type'] = $row['imgtype'];
 					$tosend[$i]['date_added'] = $row['date_added'];
 					$tosend[$i]['name'] = $row['name'];
