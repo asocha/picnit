@@ -41,4 +41,34 @@ function getFavorites() {
 	return null;
 }
 
+function getUserTagImages(id) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'getCategoryTagImages';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['user_id'] = id;
+
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	//Unauthorized
+	else if(request.status === 401) {
+		
+	}
+	//Missing data
+	else if(request.status === 400) {
+		
+	}
+	//Unknown error
+	else {
+		
+	}
+
+	return null;
+}
 
