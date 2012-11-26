@@ -28,6 +28,17 @@
 		$profile = json_decode($res['result'], true);
 	else
 		header('Location: /picnit/404.php');
+	
+	//See if we are an admin
+	
+
+	$res = picnitRequest('api/member.php', $fields);
+
+	$admin = false;
+	if($res['status'] == 200) {
+		$temp = json_decode($res['result'], true);
+		$admin = ($temp['is_admin'] == '1')? true : false;
+	}
 ?>
 <html>
 <title><?php echo  $profile['username']; ?>'s profile!</title>
@@ -111,9 +122,23 @@
 				</script>
 			</div>
 			<div id="optionsbar">
+			<?php
+				if($profile['username'] === $_COOKIE['username']) {
+			?>
 			<input id="albumbut" class="buttons" type="button" value="add album"/>
+			<?php
+				}
+				else {
+			?>
 			<input id="followuserbut" class="buttons" type="button" value="follow"/>
+			<?php
+				if($admin) {
+			?>
 			<input id="suspenduserbut" class="buttons" type="button" value="suspend"/>
+			<?php
+				}
+				}
+			?>
 			</div>
 			<div id="thumbnail-display">
 			</div>

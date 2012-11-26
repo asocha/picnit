@@ -134,10 +134,6 @@ h2 {
 	color: #679FD2;
 }
 
-div#optionsbar {
-	visibility:hidden;
-}
-
 div#otionsbar #albumbut {
 	float:left;
 	position:absolute;
