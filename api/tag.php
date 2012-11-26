@@ -77,7 +77,7 @@
 
 			$this->forceauth();
 
-			$res = mysql_query("INSERT INTO favorites VALUES ($image_id, $this->memberid)");
+			$res = mysql_query("INSERT INTO favorites (image_id,member_id) VALUES ($image_id, $this->memberid)");
 			if(!$res) {
 				$err = mysql_errno();
 				if($err == 1452)
