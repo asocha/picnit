@@ -99,7 +99,7 @@ get_new_file_path:
 
 			$this->forceauth();
 
-			mysql_query("DELETE FROM images WHERE image_id='$image_id' and owner_id='$this->memberid'");
+			$res = mysql_query("DELETE FROM images WHERE image_id='$image_id' and owner_id='$this->memberid'");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 
