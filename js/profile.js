@@ -57,6 +57,7 @@
 	disp.html(line);
 
 	//Add event handlers
+	//This loop may be unnecessary... pending further testing
 	for(x in list) {
 		$("#picdelbut"+list[x]['image_id']).click(function() {
 			var id = $(this).attr('id').substring(9);
@@ -64,7 +65,12 @@
 				$('#dispimage'+id).remove();
 			}
 		});
-
+		$("#picfavbut"+list[x]['image_id']).click(function() {
+			var id = $(this).attr('id').substring(9);
+		});
+		$("#pictagbut"+list[x]['image_id']).click(function() {
+			var id = $(this).attr('id').substring(9);
+		});
 	}
  }
 
