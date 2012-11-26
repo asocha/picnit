@@ -104,3 +104,127 @@ function logout(redirect) {
 	if(redirect)
 		window.location = "/picnit/";
 }
+
+function getFollowers() {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'getFollowers';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+
+	}
+
+	return null;
+}
+
+function getFollowees() {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'getFollowees';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+
+	}
+
+	return null;
+}
+
+function getFollowRequests() {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'getFollowRequests';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+
+	}
+
+	return null;
+}
+
+function follow(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'follow';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		alert('Follow accepted');
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return false;
+}
+
+function unfollow(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'unfollow';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		alert('Unfollow accepted');
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return false;
+}
+
+function requestFollow(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'requestFollow';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		alert('Follow accepted');
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return false;
+}
+

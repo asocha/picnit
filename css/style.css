@@ -339,6 +339,12 @@ div#albuminfo {
 	margin:5px;
 }
 
+.imgdesc {
+	margin-bottom:5px;
+	max-width:100%;
+	width:100%;
+}
+
 h1#errorheader{
 	text-align:center;
 	color:#FF0000;
