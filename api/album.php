@@ -76,7 +76,7 @@
 				$cutoff = 0;
 			else if($this->memberid == $alb_owner)
 				$cutoff = 2;
-			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner' and is_accepted=true")))
 				$cutoff = 1;
 			else
 				$cutoff = 0;
@@ -131,7 +131,7 @@
 				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
 			else if($this->memberid == $alb_owner)
 				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
-			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner'")))
+			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner' and is_accepted=true")))
 				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness < 2 ORDER BY image_id DESC LIMIT $num");
 			else
 				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");

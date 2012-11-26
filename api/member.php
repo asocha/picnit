@@ -139,9 +139,9 @@
 			if ($user_id == "" && $username == "")
 				$this->response(json_encode(array('msg' => 'Missing data')), 400);
 			else if ($user_id != "")
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE member_id='$user_id'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE member_id='$user_id'");
 			else
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE username='$username'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE username='$username'");
 
 			if(mysql_num_rows($res) < 1)
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);
@@ -222,7 +222,7 @@
 
 			$this->forceauth();
 
-			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id'");
+			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id' and is_accpeted=true");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 			if(mysql_affected_rows($res))
@@ -234,7 +234,7 @@
 		public function getFollowers() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and m.member_id=f.follower_id");
+			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and f.is_accepted=true and m.member_id=f.follower_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -249,7 +249,7 @@
 		public function getFollowees() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.followee_id=m.member_id");
+			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.is_accepted=true and f.followee_id=m.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
