@@ -176,6 +176,9 @@
 			$cat_id = $this->load('cat_id');
 			$num = $this->load('num');
 
+			if($num > 10)
+				$num = 10;
+
 			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM category_tags c,images i,follows f WHERE c.category_id='$cat_id' and c.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid')) LIMIT $num");
 
 			$i = 0;
@@ -196,6 +199,9 @@
 			$cat_id = $this->load('user_id');
 			$num = $this->load('num');
 
+			if($num > 10)
+				$num = 10;
+
 			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM member_tags m,images i,follows f WHERE m.member_id='$user_id' and m.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid')) LIMIT $num");
 
 			$i = 0;
@@ -210,6 +216,23 @@
 			}
 
 			$this->response(json_encode($tosend), 200);
+		}
+
+		public function getTopCategories() {
+			$num = $this->load('num');
+			$user_id = $this->load('user_id',false);
+
+			if($num > 10)
+				$num = 10;
+
+			$res = mysql_query("SELECT category_id,(SELECT COUNT(*)) as count FROM category_tags ORDER BY count DESC LIMIT $num");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res))
+					$tosend[$i++] = intval($row['category_id']);
+
+			$this->response(json_encode($tosend), 200);
+
 		}
 	}
 
