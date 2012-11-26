@@ -47,7 +47,7 @@ function deleteCookie(NameOfCookie) {
 	//If the cookie exists
 	if (getCookie(NameOfCookie)) {
 		//Set the expiration backwards in time, deleted immediately
-		document.cookie = NameOfCookie + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+		document.cookie = NameOfCookie + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT; path=/picnit";
 	}
 }
 
