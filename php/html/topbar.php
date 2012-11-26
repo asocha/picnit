@@ -119,11 +119,13 @@ function imageview() {
 	function hideViewer() {
 		document.getElementById('imgoverlay').style.visibility="hidden";
 		document.getElementById('imgviewer').style.visibility="hidden";
+		document.getElementById('viewercontainer').style.visibility="hidden";
 	}
 
 	function showViewer() {
 		document.getElementById('imgoverlay').style.visibility="visible";
 		document.getElementById('imgviewer').style.visibility="visible";
+		document.getElementById('viewercontainer').style.visibility="visible";
 	}
 </script>
 <div id="imgoverlay" class="overlays">

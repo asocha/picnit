@@ -106,7 +106,7 @@
 		public function getFavorites() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT * FROM favorites WHERE member_id='$this->memberid'");
+			$res = mysql_query("SELECT * FROM favorites NATURAL JOIN images WHERE member_id='$this->memberid'");
 			if(!mysql_num_rows($res))
 				$this->response('', 204); // User has no favorites
 
