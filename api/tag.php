@@ -206,8 +206,6 @@
 		}
 	}
 
-	}
-
 	$api = new Tag;
 	$api->process();
 ?>
