@@ -109,6 +109,16 @@
 				<input id="albumbut" class="buttons louterbuttons" type="button" value="add album"/>
 				<?php
 					}
+					else if($profile['requestsent']) {
+				?>
+				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow pending"/>
+				<?php
+					}
+					else if($profile['isfollowing']) {
+				?>
+				<input id="followuserbut" class="buttons louterbuttons" type="button" value="unfollow"/>
+				<?php
+					}
 					else {
 				?>
 				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow"/>
@@ -155,7 +165,13 @@
 					});
 					if($('#followuserbut').length > 0)
 						$('#followuserbut').click(function() {
-
+							var val = $(this).val();
+							if(val === 'follow')
+								if(requestFollow(<?php echo $profile['member_id']; ?>))
+									$(this).val('follow pending');
+							else if(val === 'unfollow')
+								if(unfollow(<?php echo $profile['member_id']; ?>))
+									$(this).val('follow');
 						});
 					if($('#suspenduserbut').length > 0)
 						$('#suspenduserbut').click(function() {

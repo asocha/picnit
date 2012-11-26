@@ -177,7 +177,7 @@ function follow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-	
+		return true;
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
@@ -198,7 +198,7 @@ function unfollow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-	
+		return true;
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
@@ -219,7 +219,7 @@ function requestFollow(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-	
+		return true;
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
