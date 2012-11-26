@@ -274,7 +274,7 @@
 		public function getFollowees() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid'");
+			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.follower_id=m.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
