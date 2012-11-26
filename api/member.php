@@ -247,7 +247,7 @@
 			$this->response('', 200);
 		}
 
-		public function remove_follower() {
+		public function removeFollower() {
 			$user_id = $this->load('user_id');
 
 			$this->forceauth();
@@ -256,20 +256,35 @@
 			$this->response('', 200);
 		}
 
-		public function filterMembers() {
-                        $name = $this->load('name');
+		public function getFollowers() {
+			$this->forceauth();
 
-                        $res = mysql_query("SELECT member_id FROM members WHERE username='$name'");
+			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid'");
 
-                        $i = 0;
-                        while($row = mysql_fetch_array($res)){
-                                $tosend[$i++] = intval($row['member_id']);
-                                $i += 1;
-                        }
+			$i = 0;
+			while($ros = mysql_fetch_array($res)) {
+				$tosend[$i]['user_id'] = $row['followee_id'];
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
+			}
 
-                        $this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
-                }
+			$this->response(json_encode($tosend), 200);
+		}
 
+		public function getFollowees() {
+			$this->forceauth();
+
+			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid'");
+
+			$i = 0;
+			while($ros = mysql_fetch_array($res)) {
+				$tosend[$i]['user_id'] = $row['follower_id'];
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
+			}
+
+			$this->response(json_encode($tosend), 200);
+		}
 	}
 
 	$api = new Member;
