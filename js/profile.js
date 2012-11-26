@@ -136,11 +136,13 @@ function createFollowersElements() {
 	//Clear the current contents
 	disp.empty();
 	var line="";
+	line+="<h2>followers</h2>";
 	for(x in list) {
 		line += "<div class='dispfollowers'>";
 		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
 		line += "<span class='follower'>"+list[x]['username']+"</span>";
 		line += "</a>";
+		line+="<input type='button' id='folrembut"+list[x]['user_id']+"' class='buttons folrembut' value='remove'/>";
 		line += "</div>";
 	}
 	disp.html(line);
