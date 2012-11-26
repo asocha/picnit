@@ -62,6 +62,8 @@
 				document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
 				document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
 			}
+
+			$('#albumsbut').click();
 		}
 	</script>
 </head>
