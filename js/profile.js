@@ -47,6 +47,9 @@
 	var line="";
 	for(x in list) {
 		line+="<div class='dispimage'>";
+		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
+		line+="<div class='imgname'>"+list[x]['name']+"</div>";
+		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="<input type='button' id='picdelbut' class='buttons' value='delete'/>";
 		line+="<input type='button' id='picfavbut' class='buttons' value='favorite'/>";
