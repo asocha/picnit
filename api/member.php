@@ -243,16 +243,16 @@
 
 			$this->forceauth();
 
-			// Make sure user is following that person
-			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
-			if(!mysql_num_rows($res)) {
-				// Not following, error
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You are not following that person'));
-				$this->response($error, 417);
-			}
-
-			// Success
 			mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
+			$this->response('', 200);
+		}
+
+		public function remove_follower() {
+			$user_id = $this->load('user_id');
+
+			$this->forceauth();
+
+			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id'");
 			$this->response('', 200);
 		}
 
