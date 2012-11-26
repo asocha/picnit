@@ -48,9 +48,9 @@
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="<div class='imgbuts'>";
-		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
-		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='favorite'/>";
 		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
+		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='favorite'/>";
+		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>"
 		line+="</div>";
 	}
