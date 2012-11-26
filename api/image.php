@@ -103,10 +103,12 @@ get_new_file_path:
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 
-			if(mysql_affected_rows() == 1)
+			if(mysql_affected_rows() == 1) {
 				unlink("/var/www/picnit/images/user".$row['filepath']);
+				$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
+			}
 
-			$this->response(json_encode(array('msg' => 'Deletion was performed if you exist, you own the image, and the image exists')), 200);
+			$this->response(json_encode(array('msg' => 'Image was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
 		}
 
 		public function setPrivacy() {
