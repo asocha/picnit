@@ -120,7 +120,7 @@
 
 		public function getLastAlbumImages() {
 			$num = $this->load('num');
-			$album_id = $this->load('album_id');	
+			$album_id = $this->load('album_id');
 
 			if($num > 10)
 				$num = 10;
@@ -151,13 +151,13 @@
 		}
 
 		public function numImages() {
-                        $album_id = $this->load('album_id');
+			$album_id = $this->load('album_id');
 
-                        $res = mysql_query("SELECT count(*) FROM images WHERE album_id='$album_id'");
+			$res = mysql_query("SELECT count(*) FROM images WHERE album_id='$album_id'");
 
 			$array = mysql_fetch_array($res);
-                        $this->response(json_encode(array('num' => $array[0])), 200);
-                }
+			$this->response(json_encode(array('num' => $array[0])), 200);
+		}
 	}
 
 	$api = new Album;

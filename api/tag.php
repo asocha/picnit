@@ -63,7 +63,7 @@
 
 			if($user_id != "") // Delete member tag
 				$res = mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$user_id");
-			else if($tag != "") // Delete category tag	
+			else if($tag != "") // Delete category tag
 				$res = mysql_query("DELETE FROM category_tags WHERE image_id='$image_id' and category_tag='$cat_id'");
 
 			if(!$res)
@@ -84,7 +84,7 @@
 					$this->response(json_encode(array('msg' => 'Image does not exist')), 404);
 				if($err == 1062)
 					$this->response(json_encode(array('msg' => 'You already favorited this image')), 409);
-			
+
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 			}
 
@@ -99,7 +99,7 @@
 			$res = mysql_query("DELETE FROM favorites where image_id=$image_id and member_id=$this->memberid");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
-			
+
 			$this->response(json_encode('', 200));
 		}
 
