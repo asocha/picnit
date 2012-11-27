@@ -182,7 +182,7 @@
 			$res = mysql_query("UPDATE follows SET is_accepted=true WHERE followee_id='$this->memberid' and follower_id='$user_id'");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
-			if(mysql_affected_rows($res))
+			if(mysql_affected_rows())
 				$this->response('', 200);
 
 			$this->response(json_encode(array('msg' => 'User has not requested you or user does not exist or you aleady follow user')), 409);
@@ -210,7 +210,7 @@
 			$res = mysql_query("DELETE FROM follows where follower_id='$user_id' and followee_id='$this->memberid' and is_accepted=false");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
-			if(mysql_affected_rows($res))
+			if(mysql_affected_rows())
 				$this->response('', 200);
 
 			$this->response(json_encode(array('msg' => 'User already follows you or user has not requested you or user does not exist')), 409);
