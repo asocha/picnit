@@ -189,7 +189,7 @@ function uploader($album_id) {
 				<option value="2">Private</option>
 			</select>
 		</div></p>
-		<p><div><input type="file" id="inpimage" class="buttons" value="browse"/></div></p>
+		<p><div><input type="file" id="inpimage" class="buttons" required="required" accept="image/*" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
 		<input type="hidden" id="albumid" value="<?php echo $album_id; ?>"/>

@@ -50,6 +50,12 @@ function saveImage() {
 	var imgobj = $("input#inpimage")[0].files[0];
 	var phototype = imgobj.type;
 
+	//Make sure size is less thab 1MB
+	if(imgobj.size > 1048576) {
+		alert("Image must be less than 1MB");
+		return false;
+	}
+	
 	//Make sure it's an image, save extension
 	if(phototype.indexOf("image") !== 0) {
 		alert("Not an image");
