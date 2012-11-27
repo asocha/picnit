@@ -448,6 +448,12 @@ div#viewercontainer {
 	overflow: scroll;
 }
 
+.dispfollowreq {
+	border-style: solid;
+	margin: 5px;
+	padding: 5px;
+}
+
 /* Tiny Carousel */
 #slider1 { 
 	height: 100px;
