@@ -454,6 +454,10 @@ div#viewercontainer {
 	padding: 5px;
 }
 
+div.dispfollowreq a {
+	font-size: 25px;
+}
+
 /* Tiny Carousel */
 #slider1 { 
 	height: 100px;
