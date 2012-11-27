@@ -464,6 +464,12 @@ div.dispfollowreq a {
 	top: 0px;
 }
 
+.decfolreq {
+	float: right;
+	position: relative;
+	top: 0px;
+}
+
 /* Tiny Carousel */
 #slider1 { 
 	height: 100px;
