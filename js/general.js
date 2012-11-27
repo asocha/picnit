@@ -39,7 +39,7 @@ function setCookie(NameOfCookie, value, expiredays) {
 	ExpireDate.setTime(ExpireDate.getTime() + (expiredays * 24 * 3600 * 1000));
 
 	//Add the cookie
-	document.cookie = NameOfCookie + "=" + escape(value) + ((expiredays == null) ? "" : "; expires=" + ExpireDate.toGMTString());
+	document.cookie = NameOfCookie + "=" + escape(value) + ((expiredays == null) ? "" : "; expires=" + ExpireDate.toGMTString() + "; path=/picnit");
 }
 
 //Deletes a cookie
