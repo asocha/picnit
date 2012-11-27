@@ -6,3 +6,4 @@ RewriteEngine on
 RewriteRule ^profile/([a-zA-Z0-9_]+)$ /picnit/profile.php?username=$1 [NC]
 RewriteRule ^album/([0-9]+)$ /picnit/album.php?id=$1 [NC]
 
+php_value post_max_size 2M
