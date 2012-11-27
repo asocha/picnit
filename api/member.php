@@ -139,9 +139,9 @@
 			if ($user_id == "" && $username == "")
 				$this->response(json_encode(array('msg' => 'Missing data')), 400);
 			else if ($user_id != "")
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE member_id='$user_id'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE member_id='$user_id'");
 			else
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id) AS isfollowing,(SELECT member_id FROM messages WHERE from_id='$this->memberid' and to_id=member_id) AS requestsent FROM members WHERE username='$username'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE username='$username'");
 
 			if(mysql_num_rows($res) < 1)
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);
@@ -157,46 +157,20 @@
 
 			$this->forceauth();
 
-			// Make sure user is not trying to follow himself/herself
-			if ($user_id == $this->memberid){
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You cannot follow yourself'));
-				$this->response($error, 417);
-			}
+			if ($user_id == $this->memberid)
+				$this->response(json_encode(array('msg' => 'You cannot follow yourself')), 409);
 
-			// Make sure user to follow exists
-			$res = mysql_query("SELECT * FROM members where member_id='$user_id'");
-			if(mysql_num_rows($res) == 0) {
-				// User does not exist
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'The user you are trying to follow does not seem to exist'));
-				$this->response($error, 417);
-			}
-
-			// Check if user is already following that person
-			$res = mysql_query("SELECT * FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
-			if(mysql_num_rows($res)) {
-				// User is already following that person
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You are already following that user'));
-				$this->response($error, 417);
-			}
-
-			// Check if already follow requested that person
-			$res = mysql_query("SELECT * FROM messages where from_id='$this->memberid' and to_id='$user_id' and message_type=0");
-			if(mysql_num_rows($res)) {
-				// User already follow requested that person
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'You have already requested to follow that user'));
-				$this->response($error, 417);
-			}
-
-			// Add message of type 0 --> REQUEST TO FOLLOW
-			$res = mysql_query("INSERT INTO messages (from_id, to_id, message_type, is_read, message) VALUES ('$this->memberid', '$user_id', '0', 'false', '')");
-
+			$res = mysql_query("INSERT INTO follows (follower_id,followee_id,is_accepted) VALUES ('$this->memberid','$user_id',false)");
 			if(!$res) {
-				// Something else went wrong
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
-				$this->response($error, 500);
+				$err = mysql_errno();
+				if($err == 1452)
+					$this->response(json_encode(array('msg' => 'User does not exist')), 404);
+				if($err == 1062)
+					$this->response(json_encode(array('msg' => 'You are already following/requesting to follow this user')), 409);
+
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 			}
 
-			// Success
 			$this->response(json_encode('', 200));
 		}
 
@@ -205,36 +179,13 @@
 
 			$this->forceauth();
 
-			$res = mysql_query("SELECT message_id FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
-			if(!mysql_num_rows($res)) {
-				// Has not sent follow request
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'User did not request to follow you'));
-				$this->response($error, 417);
-			}
+			$res = mysql_query("UPDATE follows SET is_accepted=true WHERE followee_id='$this->memberid' and follower_id='$user_id'");
+			if(!$res)
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
+			if(mysql_affected_rows($res))
+				$this->response('', 200);
 
-			// Delete follow request
-			$message_id = mysql_result($res, 0, message_id);
-			mysql_query("DELETE FROM messages WHERE message_id='$message_id'");
-
-			// Implement Follow
-			$res = mysql_query("INSERT INTO follows VALUES ('$user_id', '$this->memberid')");
-			if(!$res) {
-				//Get error
-				$err = mysql_errno();
-
-				if($err == 1062) {
-					// Person is already following the user
-					$error = json_encode(array('status' => 'Failed', 'msg' => 'That person is already following you'));
-					$this->response($error, 409);
-				}
-
-				//Something else went wrong
-				$error = json_encode(array('status' => 'Failed', 'msg' => 'Unknown error'));
-				$this->response($error, 500);
-			}
-
-			// Success
-			$this->response(json_encode('', 200));
+			$this->response(json_encode(array('msg' => 'User has not requested you or user does not exist or you aleady follow user')), 409);
 		}
 
 		public function unfollow() {
@@ -242,8 +193,13 @@
 
 			$this->forceauth();
 
-			mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
-			$this->response('', 200);
+			$res = mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
+			if(!$res)
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
+			if(mysql_affected_rows($res))
+				$this->response('', 200);
+
+			$this->response(json_encode(array('msg' => 'You do not follow user or user does not exist')), 409);
 		}
 
 		public function refuseFollow() {
@@ -251,10 +207,14 @@
 
 			$this->forceauth();
 
-			$res = mysql_query("DELETE FROM messages where from_id='$user_id' and to_id='$this->memberid' and message_type='0'");
+			$res = mysql_query("DELETE FROM messages where follower_id='$user_id' and followee_id='$this->memberid' and is_accepted=false");
+			if(!$res)
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
+			if(mysql_affected_rows($res))
+				$this->response('', 200);
 
-			// Success
-			$this->response(json_encode('', 200));
+			$this->response(json_encode(array('msg' => 'User already follows you or user has not requested you or user does not exist')), 409);
+
 		}
 
 		public function removeFollower() {
@@ -262,14 +222,19 @@
 
 			$this->forceauth();
 
-			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id'");
-			$this->response('', 200);
+			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id' and is_accpeted=true");
+			if(!$res)
+				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
+			if(mysql_affected_rows($res))
+				$this->response('', 200);
+
+			$this->response(json_encode(array('msg' => 'You are not followed by user or user does not exist')), 409);
 		}
 
 		public function getFollowers() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and m.member_id=f.follower_id");
+			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and f.is_accepted=true and m.member_id=f.follower_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -284,7 +249,7 @@
 		public function getFollowees() {
 			$this->forceauth();
 
-			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.followee_id=m.member_id");
+			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.is_accepted=true and f.followee_id=m.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {

@@ -27,7 +27,7 @@
 			if($this->memberid == $row['owner_id'])
 				goto allow_user_access;
 			if($row['publicness'] == 1)
-				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$owner_id")))
+				if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$owner_id and is_accepted=true")))
 					goto allow_user_access;
 
 			$this->response(json_encode(array('msg' => 'You are not permitted to access this image')), 403);
@@ -136,7 +136,7 @@ get_new_file_path:
 					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
 				else if($this->memberid == $user_id)
 					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' ORDER BY image_id DESC LIMIT $num");
-				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$user_id'")))
+				else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$user_id' and is_accepted=true")))
 					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness < 2 ORDER BY image_id DESC LIMIT $num");
 				else
 					$res = mysql_query("SELECT * FROM images WHERE owner_id='$user_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
