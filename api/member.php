@@ -207,7 +207,7 @@
 
 			$this->forceauth();
 
-			$res = mysql_query("DELETE FROM messages where follower_id='$user_id' and followee_id='$this->memberid' and is_accepted=false");
+			$res = mysql_query("DELETE FROM follows where follower_id='$user_id' and followee_id='$this->memberid' and is_accepted=false");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 			if(mysql_affected_rows($res))
