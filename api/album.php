@@ -61,42 +61,6 @@
 			$this->response(json_encode(array('msg' => 'Album was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
 		}
 
-		public function getImages() {
-			$album_id = $this->load('album_id');
-
-			$res = mysql_query("SELECT *,(SELECT image_id FROM favorites WHERE member_id='$this->memberid' and i.image_id=image_id) AS isfavorite FROM images i WHERE i.album_id='$album_id'");
-
-			if(!mysql_num_rows($res))
-				$this->response('', 204); // This is actually right - no images, no content
-
-			$row = mysql_fetch_array($res);
-			$alb_owner = $row['owner_id'];
-
-			if($this->memberid == -1)
-				$cutoff = 0;
-			else if($this->memberid == $alb_owner)
-				$cutoff = 2;
-			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner' and is_accepted=true")))
-				$cutoff = 1;
-			else
-				$cutoff = 0;
-
-			$i = 0;
-			do {
-				if($row['publicness'] <= $cutoff) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['favorited'] = $row['isfavorite'] ? true : false;
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-				}
-			} while($row = mysql_fetch_array($res));
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
-		}
-
 		public function albumData() {
 			$album_id = $this->load('album_id');
 
@@ -116,38 +80,6 @@
 			}
 			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 
-		}
-
-		public function getLastAlbumImages() {
-			$num = $this->load('num');
-			$album_id = $this->load('album_id');
-
-			if($num > 10)
-				$num = 10;
-
-			$alb_owner = mysql_result(mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'"), 0, owner_id);
-
-			if($this->memberid == -1)
-				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
-			else if($this->memberid == $alb_owner)
-				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' ORDER BY image_id DESC LIMIT $num");
-			else if(mysql_num_rows(mysql_query("SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id='$alb_owner' and is_accepted=true")))
-				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness < 2 ORDER BY image_id DESC LIMIT $num");
-			else
-				$res = mysql_query("SELECT * FROM images WHERE album_id='$album_id' AND publicness='0' ORDER BY image_id DESC LIMIT $num");
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
-
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
 		}
 
 		public function numImages() {
