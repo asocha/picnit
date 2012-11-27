@@ -118,7 +118,7 @@ get_new_file_path:
 			$this->forceauth();
 
 			$res =	mysql_query("UPDATE images SET publicness='$privacy' where image_id='$image_id' and owner_id='$this->memberid'");
-			if(!mysql_affected_rows($res))
+			if(!mysql_affected_rows())
 				$this->response(json_encode(array('msg' => 'Failed. Does the image exist? Do you own it?')), 404);
 
 			$this->response(json_encode('', 200));

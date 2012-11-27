@@ -196,7 +196,7 @@
 			$res = mysql_query("DELETE FROM follows where follower_id='$this->memberid' and followee_id='$user_id'");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
-			if(mysql_affected_rows($res))
+			if(mysql_affected_rows())
 				$this->response('', 200);
 
 			$this->response(json_encode(array('msg' => 'You do not follow user or user does not exist')), 409);
@@ -225,7 +225,7 @@
 			mysql_query("DELETE FROM follows where followee_id='$this->memberid' and follower_id='$user_id' and is_accpeted=true");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
-			if(mysql_affected_rows($res))
+			if(mysql_affected_rows())
 				$this->response('', 200);
 
 			$this->response(json_encode(array('msg' => 'You are not followed by user or user does not exist')), 409);
