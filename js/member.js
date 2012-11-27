@@ -240,7 +240,7 @@ function removeFollower(uid) {
 	request = picnitRequest(memberurl, params);
 
 	if(request.status === 200) {
-	
+		return true;	
 	}
 	else {
 		alert(request.status + "\n" + request.responseText);
@@ -249,3 +249,23 @@ function removeFollower(uid) {
 	return false;
 }
 
+function refuseFollow(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'refuseFollow';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	if(request.status === 200) {
+		return true;
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return false;
+}

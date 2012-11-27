@@ -53,7 +53,8 @@
 	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.transit.min.js"></script>
 	<script type="text/javascript" src="/picnit/js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" src="/picnit/js/general.js"></script>
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
@@ -83,6 +84,7 @@
 				}
 			}
 
+			//Make albums show first
 			$('#albumsbut').click();
 		}
 	</script>
@@ -146,32 +148,46 @@
 				?>
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
-						createAlbumElements(<?php echo $profile['member_id']; ?>)
+						changePanel(function() {
+							createAlbumElements(<?php echo $profile['member_id']; ?>);
+						});
 					});
 					$('#favoritebut').click(function() {
-						createFavoritesElements();
+						changePanel(function() {
+							createFavoritesElements();
+						});
 					});
 					$('#taggedbut').click(function() {
-						createTaggedElements();
+						changePanel(function() {
+							createTaggedElements();
+						});
 					});
 					$('#followersbut').click(function() {
-						createFollowersElements();
+						changePanel(function() {
+							createFollowersElements();
+						});
 					});
 					$('#followeesbut').click(function() {
-						createFolloweesElements();
+						changePanel(function() {
+							createFolloweesElements();
+						});
 					});
 					$('#requestsbut').click(function() {
-						createFollowReqElements();
+						changePanel(function() {
+							createFollowReqElements();
+						});
 					});
 					if($('#followuserbut').length > 0)
 						$('#followuserbut').click(function() {
 							var val = $(this).val();
-							if(val === 'follow')
+							if(val === 'follow') {
 								if(requestFollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow pending');
-							else if(val === 'unfollow')
+							}
+							else if(val === 'unfollow') {
 								if(unfollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow');
+							}
 						});
 					if($('#suspenduserbut').length > 0)
 						$('#suspenduserbut').click(function() {
