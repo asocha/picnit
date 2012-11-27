@@ -180,12 +180,14 @@
 					if($('#followuserbut').length > 0)
 						$('#followuserbut').click(function() {
 							var val = $(this).val();
-							if(val === 'follow')
+							if(val === 'follow') {
 								if(requestFollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow pending');
-							else if(val === 'unfollow')
+							}
+							else if(val === 'unfollow') {
 								if(unfollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow');
+							}
 						});
 					if($('#suspenduserbut').length > 0)
 						$('#suspenduserbut').click(function() {
