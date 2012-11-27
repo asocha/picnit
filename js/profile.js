@@ -129,9 +129,7 @@ function createFavoritesElements() {
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
-		line+="<div class='imgbuts'>";
-		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
-		line+="</div>";
+		line+="<input type='button' id='profavbut"+list[x]['image_id']+"' class='buttons profavbut' value='unfavorite'/>";
 		line+="</div>";
 	}
 	//Clear the current contents
@@ -142,6 +140,13 @@ function createFavoritesElements() {
 
 	//Re display
 	disp.transition({opacity: 1}, 'fast');
+
+	//Add button events
+	$('.profavbut').click(function() {
+		var id = $(this).attr('id').substring(9);
+		if(deleteFavorite(id))
+			$(this).parent().remove();
+	});
 }
 
 function createTaggedElements() {

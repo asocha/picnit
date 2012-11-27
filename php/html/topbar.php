@@ -10,7 +10,10 @@ function menubar() {
 
 		//Load flexslider
 		if($('.flexslider').length > 0)
-			$('.flexslider').flexslider();
+			$('.flexslider').flexslider({
+				animation: "slide",
+				minItems: 1
+			});
 	  });
 	</script>
 	<?php
