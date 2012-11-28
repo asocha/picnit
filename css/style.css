@@ -133,7 +133,7 @@ h2 {
 	color: #679FD2;
 }
 
-div#otionsbar #albumbut {
+div#optionsbar #albumbut {
 	float:left;
 	position:absolute;
 	left:0px;
@@ -270,7 +270,38 @@ div#uploadbar {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
 }
 
+div#tagbar {
+	visibility:hidden;
+	position:fixed;
+	top:50%;
+	left:50%;
+	width:500px;
+	margin-left:-250px;
+	margin-top:-150px;
+	border-color:#000000;
+	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+}
 
+#tagcancel {
+	float:right;
+	margin:5px;
+}
+
+#tagsubmit {
+	float:right;
+	width:30px;
+	margin:5px;
+}
+
+#tagspan {
+	float:right;
+	margin:5px;
+}
+
+#tagname {
+	width: 285px;
+	margin-right:-13px;
+}
 
 div#uploadbar div {
 	margin:auto;
@@ -326,6 +357,18 @@ div#albumbar {
 div#albumbar div {
 	margin:auto;
 	width:125px;
+}
+
+#albumdesc {
+	max-width: 200px;
+	width: 200px;
+	max-height: 100px;
+	height: 100px;
+	background-color: #0C5DA5;
+	border-style: solid;
+	border-color: #043A6B;
+	border-width: 3px;
+	color: #FFFFFF;
 }
 
 form#signupform {

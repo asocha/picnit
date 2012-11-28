@@ -18,6 +18,7 @@
 			$user_id = $this->load('user_id',false);
 			$tagged_user_id = $this->load('tagged_user_id',false);
 			$cat_id = $this->load('cat_id',false);
+			$fuser_id = $this->load('fuser_id',false);
 			$num = $this->load('num',false);
 			$offset = $this->load('offset',false);
 
@@ -40,8 +41,10 @@
 				$res = mysql_query("SELECT i.* FROM member_tags m,images i,follows f WHERE m.member_id='$tagged_user_id' and m.image_id=i.image_id and ((i.publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and f.is_accepted=true and publicness < 2) or (i.owner_id='$this->memberid')) ORDER BY i.image_id desc$limclause");
 			else if($cat_id != "")
 				$res = mysql_query("SELECT i.* FROM category_tags c,images i,follows f WHERE c.category_id='$cat_id' and c.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and f.is_accepted=true and publicness < 2) or (i.owner_id='$this->memberid')) ORDER BY i.image_id desc$limclause");
+			else if($fuser_id != "")
+				$res = mysql_query("SELECT *,(SELECT member_id FROM follows f,members m WHERE (m.member_id=f.follower_id and f.followee_id=i.owner_id and m.member_id='$this->memberid' and f.is_accepted=true and i.publicness < 2) or (m.member_id=i.owner_id and m.member_id='$this->memberid') or (i.publicness=0) LIMIT 1) AS cansee,(SELECT member_id FROM favorites v,members m WHERE m.member_id='$fuser_id' and v.member_id=m.member_id and v.image_id=i.image_id) AS isfavorite FROM images i HAVING cansee!='NULL' and isfavorite!='NULL' ORDER BY i.image_id desc$limclause");
 			else
-				$this->response(json_encode(array('msg' => "You must provide image_id,album_id,user_id,tagged_user_id, or cat_id")), 400);
+				$this->response(json_encode(array('msg' => "You must provide image_id,album_id,user_id,tagged_user_id,fuser_id, or cat_id")), 400);
 
 			if(!$res)
 				$this->response(json_encode(array('msg' => "Error: ".mysql_error())), 400);

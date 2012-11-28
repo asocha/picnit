@@ -139,9 +139,9 @@
 			if ($user_id == "" && $username == "")
 				$this->response(json_encode(array('msg' => 'Missing data')), 400);
 			else if ($user_id != "")
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE member_id='$user_id'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true LIMIT 1) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false LIMIT 1) AS requestsent FROM members WHERE member_id='$user_id'");
 			else
-				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false) AS requestsent FROM members WHERE username='$username'");
+				$res = mysql_query("SELECT member_id,is_admin,is_suspended,username,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=true LIMIT 1) AS isfollowing,(SELECT follower_id FROM follows WHERE follower_id='$this->memberid' and followee_id=member_id and is_accepted=false LIMIT 1) AS requestsent FROM members WHERE username='$username'");
 
 			if(mysql_num_rows($res) < 1)
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);

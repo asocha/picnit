@@ -34,7 +34,9 @@
 
 		public function createAlbum() {
 			$album_name = $this->load('name');
-			$album_description = $this->load('description');
+			$album_description = $this->load('description', false);
+
+			if ($album_description == null) $album_description = "";
 
 			$this->forceauth();
 
