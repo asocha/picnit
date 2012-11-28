@@ -158,6 +158,22 @@
 			$array = mysql_fetch_array($res);
 			$this->response(json_encode(array('num' => $array[0])), 200);
 		}
+
+		public function getAlbumPrefix() {
+                        $prefix = $this->load('prefix', false);
+
+                        $res = mysql_query("SELECT album_name,album_id from albums where album_name LIKE '$prefix%'");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)) {
+                                $tosend[$i]['name'] = $row['album_name'];
+				$tosend[$i]['id'] = $row['album_id'];
+				$i++;
+			}
+
+                        $this->response(json_encode($tosend), 200);
+                }
+
 	}
 
 	$api = new Album;
