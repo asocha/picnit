@@ -275,6 +275,22 @@
 
 			$this->response(json_encode($tosend), 200);
 		}
+
+		public function getMembersPrefix() {
+                        $prefix = $this->load('prefix', false);
+
+                        $res = mysql_query("SELECT member_id,username from members where username LIKE '$prefix%'");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)) {
+                                $tosend[$i]['id'] = $row['member_id'];
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
+			}
+
+                        $this->response(json_encode($tosend), 200);
+                }
+
 	}
 
 	$api = new Member;
