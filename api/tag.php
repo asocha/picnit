@@ -242,10 +242,40 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
-					$tosend[$i++] = intval($row['member_id']);
+				$tosend[$i++] = intval($row['member_id']);
 
 			$this->response(json_encode($tosend), 200);
 		}
+
+		public function getUserTags() {
+			$prefix = $this->load('prefix', false);
+
+			$res = mysql_query("SELECT username, member_id from members where username LIKE '$prefix%'");
+
+			$i = 0;
+                        while($row = mysql_fetch_array($res)) {
+                        	$tosend[$i]['username'] = $row['username'];
+				$tosend[$i]['member_id'] = $row['member_id'];
+				$i++;
+			}
+
+                        $this->response(json_encode($tosend), 200);
+		}
+
+		public function getCategoryTags() {
+                        $prefix = $this->load('prefix', false);
+
+                        $res = mysql_query("SELECT category, category_id from categories where category LIKE '$prefix%'");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)) {
+                                $tosend[$i]['category'] = $row['category'];
+				$tosend[$i]['category_id'] = $row['category_id'];
+				$i++;
+			}
+
+                        $this->response(json_encode($tosend), 200);
+                }
 	}
 
 	$api = new Tag;

@@ -42,8 +42,10 @@ allow_user_access:
 			$publicness = $this->load('publicness');
 			$phototype = $this->load('phototype');
 			$name = $this->load('name');
-			$description = $this->load('description');
+			$description = $this->load('description', false);
 			$photo = base64_decode($_POST['photo']);
+
+			if ($description == null) $description = "";
 
 			if(strlen($phototype) != 3)
 				$this->response(json_encode(array('msg' => 'Photo Type must be 3 characters')), 400);
