@@ -35,7 +35,8 @@
 	<title><?php echo $albuminfo['name']; ?></title>
 	<?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
-	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.transit.min.js"></script>
 	<script type="text/javascript" src="/picnit/js/general.js"></script>
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
 	<script type="text/javascript" src="/picnit/js/image.js"></script>

@@ -7,6 +7,7 @@
 
 //URL for member functions
 var albumurl='/picnit/api/album.php';
+var imageurl='/picnit/api/image.php';
 
 //Request to be sent to the middleware
 var request;
@@ -109,12 +110,11 @@ function getImages(album_id) {
 	params['album_id'] = album_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest(imageurl, params);
 
 	//Good data, request contains data
 	if(request.status === 200) {
-		var tmp = $.parseJSON(request.responseText);
-		return tmp['list'];
+		return $.parseJSON(request.responseText);
 	}
 	//Unauthorized
 	else if(request.status === 401) {

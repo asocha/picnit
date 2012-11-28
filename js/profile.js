@@ -24,7 +24,7 @@ function createAlbumImagesElements(album_id) {
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
-		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="<div class='imgbuts'>";
 		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
 		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
@@ -35,30 +35,28 @@ function createAlbumImagesElements(album_id) {
 	disp.html(line);
 
 	//Add event handlers
-	//This loop may be unnecessary... pending further testing
-	for(x in list) {
-		$("#picdelbut"+list[x]['image_id']).click(function() {
-			var id = $(this).attr('id').substring(9);
-			if(deleteImage(id)) {
-				$('#dispimage'+id).remove();
-			}
-		});
-		$("#picfavbut"+list[x]['image_id']).click(function() {
-			var id = $(this).attr('id').substring(9);
+	//Buttons
+	$(".picdelbut").click(function() {
+		var id = $(this).attr('id').substring(9);
+		if(deleteImage(id)) {
+			$('#dispimage'+id).remove();
+		}
+	});
+	$(".picfavbut").click(function() {
+		var id = $(this).attr('id').substring(9);
 
-			if($(this).val() == 'favorite') {
-				if(addFavorite(id))
-					$(this).val('unfavorite');
-			}
-			else {
-				if(deleteFavorite(id))
-					$(this).val('favorite');
-			}
-		});
-		$("#pictagbut"+list[x]['image_id']).click(function() {
-			var id = $(this).attr('id').substring(9);
-		});
-	}
+		if($(this).val() == 'favorite') {
+			if(addFavorite(id))
+				$(this).val('unfavorite');
+		}
+		else {
+			if(deleteFavorite(id))
+				$(this).val('favorite');
+		}
+	});
+	$(".pictagbut").click(function() {
+		var id = $(this).attr('id').substring(9);
+	});
 }
 
 function createFlexsliderElements(num,user_id) {

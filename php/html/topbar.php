@@ -220,7 +220,7 @@ function albumcreator() {
 	<div id="albumbar" class="panels">
 		<form id="albumform" onsubmit="return createAlbum();">
 		<p><div><label for="albumname">album name: </label><input type="text" id="albumname" class="inputs" pattern=".{3,63}" title="Album Name must contain between 3 and 63 characters." required="required"/></div>
-		<div><label for="albumdesc">description: </label><input type="text" id="albumdesc" class="inputs"/></div></p>
+		<div><label for="albumdesc">description: </label><textarea id="albumdesc"><textarea></div></p>
 		<p><div><input type="submit" id="albsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="albcancel" class="buttons" value="cancel"/></div></p>
 		</form>
@@ -228,8 +228,8 @@ function albumcreator() {
 
 	<?php
 	}
-
-//Function that returns the tag bar
+	
+	//Function that returns the tag bar
 function tagbar() {
 	?>
 	<script>
