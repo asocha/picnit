@@ -7,6 +7,7 @@
 
 //URL for member functions
 var tagurl='/picnit/api/tag.php';
+var imageurl='/picnit/api/imageurl.php';
 
 //Request to be sent to the middleware
 var request;
@@ -25,15 +26,6 @@ function getFavorites() {
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
 	else {
 		
 	}
@@ -44,13 +36,13 @@ function getFavorites() {
 function getUserTaggedImages(id) {
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'getUserTaggedImages';
+	params['action'] = 'getImages';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['user_id'] = id;
 
 	//Send request
-	request = picnitRequest(tagurl, params);
+	request = picnitRequest(imageurl, params);
 
 	//Good data, show image created
 	if(request.status === 200) {
@@ -118,3 +110,6 @@ function deleteFavorite(id) {
 	return false;
 }
 
+function addTag(image_id, id, type) {
+	return false;
+}
