@@ -228,4 +228,32 @@ function albumcreator() {
 
 	<?php
 	}
+
+//Function that returns the tag bar
+function tagbar() {
+	?>
+	<script>
+	function hideTag() {
+		document.getElementById('tagoverlay').style.visibility="hidden";
+		document.getElementById('tagbar').style.visibility="hidden";
+	}
+
+	function showTag() {
+		document.getElementById('tagoverlay').style.visibility="visible";
+		document.getElementById('tagbar').style.visibility="visible";
+	}
+	</script>
+	<div id="tagoverlay" class="overlays">
+	</div>
+	<div id="tagbar" class="panels">
+		<form id="tagform">
+			<div>
+			<span><input type="button" id="tagcancel" class="buttons" value="cancel"/></span>
+			<span><input type="submit" id="tagsubmit" class="buttons" value="+"/></span>
+			<span id="tagspan"><label for="tagname">tag: </label><input type="text" id="tagname" class="inputs" pattern=".{3,63}" title="Tag Name must contain between 3 and 63 characters." required="required"/></span>
+			</div>
+		</form>
+	</div>
+	<?php
+	}
 	?>
