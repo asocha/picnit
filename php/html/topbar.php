@@ -250,10 +250,21 @@ function tagbar() {
 			<div>
 			<span><input type="button" id="tagcancel" class="buttons" value="cancel"/></span>
 			<span><input type="submit" id="tagsubmit" class="buttons" value="+"/></span>
-			<span id="tagspan"><label for="tagname">tag: </label><input type="text" id="tagname" class="inputs" pattern=".{3,63}" title="Tag Name must contain between 3 and 63 characters." required="required"/></span>
+			<span id="tagspan"><label for="tagname">tag: </label><input id="tagname" class="inputs" pattern="[a-zA-Z]{3,15}" title="Tag Name must contain between 3 and 15 letters." required="required"/></span>
 			</div>
 		</form>
 	</div>
+	<script type="text/javascript">
+		$(function() {
+			$('#tagname').autocomplete({
+				source: ["dogs","doggies","donuts"],
+				minLength: 2,
+				select: function( event, ui ) {
+					log( ui.item? "Selected: " + ui.item.value  :  "Nothing selected, input was " + this.value );
+				}
+			});
+		});
+	</script>
 	<?php
 	}
 	?>

@@ -56,6 +56,8 @@ function createAlbumImagesElements(album_id) {
 	});
 	$(".pictagbut").click(function() {
 		var id = $(this).attr('id').substring(9);
+
+		showTag();
 	});
 }
 
