@@ -15,7 +15,7 @@ var request;
 function createAlbum() {
 	//Get user input, should be validated via html5
 	var albumname = $("input#albumname").val();
-	var albumdesc = $("input#albumdesc").val();
+	var albumdesc = $("#albumdesc").val();
 
 	//Gather post request data
 	var params = new Array();
