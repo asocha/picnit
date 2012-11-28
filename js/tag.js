@@ -7,7 +7,7 @@
 
 //URL for member functions
 var tagurl='/picnit/api/tag.php';
-var imageurl='/picnit/api/imageurl.php';
+var imageurl='/picnit/api/image.php';
 
 //Request to be sent to the middleware
 var request;
