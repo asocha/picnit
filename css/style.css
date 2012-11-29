@@ -447,6 +447,9 @@ div#collection {
 div#results {
 	position:relative;
 	top: -135px;
+	border-style:none;
+	-webkit-box-shadow: 0px 0px 0px 0px #CCC;
+	margin-top:10px;
 }
 
 form#signoutbut {
@@ -501,10 +504,11 @@ h1#errorheader{
 }
 
 div.dispimage {
-	border-style:solid;
+	border-style:none;
 	background-color:#FFFFFF;
 	margin:5px;
 	padding:5px;
+	width:50%;
 }
 
 .dispimage img {
@@ -512,6 +516,13 @@ div.dispimage {
 	margin-right:auto;
 	margin-left:auto;
 	max-width:100%;
+}
+
+#image-holder {
+	width: 80%;
+	margin:auto;
+	border-style:solid;
+
 }
 
 div#viewercontainer {
