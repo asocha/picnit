@@ -94,19 +94,19 @@
 		}
 
 		public function getAlbumPrefix() {
-                        $prefix = $this->load('prefix', false);
+			$prefix = $this->load('prefix', false);
 
-                        $res = mysql_query("SELECT album_name,album_id from albums where album_name LIKE '$prefix%'");
+			$res = mysql_query("SELECT album_name,album_id from albums where album_name LIKE '$prefix%'");
 
-                        $i = 0;
-                        while($row = mysql_fetch_array($res)) {
-                                $tosend[$i]['name'] = $row['album_name'];
+			$i = 0;
+			while($row = mysql_fetch_array($res)) {
+				$tosend[$i]['name'] = $row['album_name'];
 				$tosend[$i]['id'] = $row['album_id'];
 				$i++;
 			}
 
-                        $this->response(json_encode($tosend), 200);
-                }
+			$this->response(json_encode($tosend), 200);
+		}
 
 	}
 

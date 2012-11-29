@@ -48,7 +48,7 @@
 
 			if(!$res)
 				$this->response(json_encode(array('msg' => "Error: ".mysql_error())), 400);
-			
+
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
