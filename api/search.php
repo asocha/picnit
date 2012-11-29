@@ -32,7 +32,7 @@
 					$i++;
 			}
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
 
 		public function getAlbumsByName() {
@@ -54,7 +54,7 @@
 					$i++;
 			}
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
 
 		public function filterMembers() {
@@ -68,7 +68,7 @@
 				$i += 1;
 			}
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
 
 		public function filterImages() {
@@ -88,7 +88,7 @@
 				$i+=1;
 			}
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
 	}
 
