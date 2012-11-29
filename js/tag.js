@@ -12,15 +12,16 @@ var imageurl='/picnit/api/image.php';
 //Request to be sent to the middleware
 var request;
 
-function getFavorites() {
+function getFavorites(fuser_id) {
 	//Gather post request data
 	var params = new Array();
-	params['action'] = 'getFavorites';
+	params['action'] = 'getImages';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
+	params['fuser_id'] = fuser_id;
 
 	//Send request
-	request = picnitRequest(tagurl, params);
+	request = picnitRequest(imageurl, params);
 
 	//Good data, show image created
 	if(request.status === 200) {

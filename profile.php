@@ -154,7 +154,7 @@
 					});
 					$('#favoritebut').click(function() {
 						changePanel(function() {
-							createFavoritesElements();
+							createFavoritesElements(<?php echo $profile['member_id']; ?>);
 						});
 					});
 					$('#taggedbut').click(function() {

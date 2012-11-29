@@ -114,12 +114,12 @@ function createAlbumElements(uid) {
 	disp.transition({opacity: 1}, 'fast');
 }
 
-function createFavoritesElements() {
+function createFavoritesElements(fuser_id) {
 	//Get display area
 	var disp = $("#thumbnail-display");
 	
 	//Get the album information of this user
-	var list = getFavorites();
+	var list = getFavorites(fuser_id);
 
 	//Generate html
 	var line="<h2>favorites</h2>";
