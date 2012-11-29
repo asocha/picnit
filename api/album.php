@@ -29,7 +29,7 @@
 				$i++;
 			}
 
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
 
 		public function createAlbum() {
@@ -80,7 +80,7 @@
 				$tosend[$i]['description'] = $row['description'];
 				$i++;
 			}
-			$this->response(json_encode(array('status' => 'Success', 'list' => $tosend)), 200);
+			$this->response(json_encode(array('list' => $tosend)), 200);
 
 		}
 
