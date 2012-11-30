@@ -1,5 +1,5 @@
 /*
-	album .js
+	album.js
 	Author: PhotoDolo
 
 	Contains functions that communicate with the album API
@@ -32,17 +32,11 @@ function createAlbum() {
 	if(request.status === 200) {
 		window.location = '/picnit/profile/' + getCookie('username');
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -64,9 +58,11 @@ function deleteAlbum(aid) {
 		alert("Album Deleted");
 		return true;
 	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -94,8 +90,11 @@ function getAlbums(user_id) {
 	else if(request.status === 204) {
 		return null;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return null;
@@ -116,17 +115,11 @@ function getImages(album_id) {
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return null;

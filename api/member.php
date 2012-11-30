@@ -27,7 +27,7 @@
 				$this->response(json_encode($result), 200);
 			}
 
-			//Not found, return missing content
+			//Not found, invalid login info
 			$this->response(json_encode(array('msg' => 'Invalid username or password')), 403);
 		}
 
@@ -59,7 +59,7 @@
 
 				// Something else went wrong
 				$error = json_encode(array('msg' => 'Unknown error'));
-				$this->response($error, 500);
+				$this->response($error, 503);
 			}
 
 			// Successful creation
