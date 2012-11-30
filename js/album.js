@@ -60,9 +60,6 @@ function deleteAlbum(aid) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -78,13 +75,13 @@ function getAlbums(user_id) {
 	//Send request
 	request = picnitRequest(albumurl, params);
 
+	//Parse the JSON result
+        var res = $.parseJSON(request.responseText);
+
 	//Good data, list of albums
 	if(request.status === 200) {
-		//Parse the response
-		var resp = $.parseJSON(request.responseText);
-
 		//Return the list
-		return resp['list'];
+		return res['list'];
 	}
 	//No albums
 	else if(request.status === 204) {
@@ -92,8 +89,6 @@ function getAlbums(user_id) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
 		alert(request.status + "\n" + res["msg"];
 	}
 
