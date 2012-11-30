@@ -133,13 +133,25 @@
 		public function getTagsByImage() {
 			$image_id = $this->load('image_id');
 
-			$res = mysql_query("SELECT t.member_id FROM images i,tags t WHERE i.image_id=t.image_id");
+			$res = mysql_query("SELECT m.member_id, m.username FROM images i,mem_tags t, members m WHERE i.image_id=t.image_id and t.member_id=m.member_id");
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-				$tosend[$i++] = intval($row['member_id']);
+			while($row = mysql_fetch_array($res)){
+				$tosend[$i]['member_id'] = intval($row['member_id']);
+				$tosend[$i]['username'] = $row['username'];
+				$i++;
+			}
 
-			$this->response(json_encode($tosend), 200);
+			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and c.category_id=t.category_id");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)){
+                                $tosend2[$i]['category_id'] = intval($row['category_id']);
+                                $tosend2[$i]['category'] = $row['category'];
+                                $i++;
+                        }
+
+			$this->response(json_encode($tosend) . "\n" . json_encode($tosend2), 200);
 		}
 
 		public function getUserTags() {
