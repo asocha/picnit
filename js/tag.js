@@ -27,8 +27,11 @@ function getFavorites(fuser_id) {
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return null;
@@ -49,17 +52,11 @@ function getUserTaggedImages(id) {
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return null;
@@ -80,9 +77,11 @@ function addFavorite(id) {
 	if(request.status === 200) {
 		return true;
 	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -103,9 +102,11 @@ function deleteFavorite(id) {
 	if(request.status === 200) {
 		return true;
 	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
