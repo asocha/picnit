@@ -112,5 +112,47 @@ function deleteFavorite(id) {
 }
 
 function addTag(image_id, id, type) {
-	return false;
+	//Make sure type is valid
+	if(type !== 'user_id' && type !== 'cat_id')
+		return null;
+
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'addTag';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = image_id;
+	params[type] = id;
+
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return null;
+}
+
+function getTagsByImage() {
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'getTagsByImage';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+	
+	return null;
 }
