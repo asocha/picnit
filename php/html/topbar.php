@@ -15,6 +15,10 @@ function menubar() {
 				minItems: 1
 			});
 	  });
+	function showsignup() {
+		document.getElementById('overlay').style.visibility="visible";
+		document.getElementById('signupbar').style.visibility="visible";
+	}
 	</script>
 	<?php
 		//Require general if not already
@@ -53,6 +57,9 @@ function menubar() {
 			}
 		?>
 	</div>
+	<script type="text/javascript">
+	$('#signupbut').click(showsignup);
+	</script>
 <?php
 }
 
@@ -60,10 +67,6 @@ function menubar() {
 function signup() {
 ?>
 	<script>
-	function showsignup() {
-		document.getElementById('overlay').style.visibility="visible";
-		document.getElementById('signupbar').style.visibility="visible";
-	}
 
 	function hidesignup() {
 		document.getElementById('overlay').style.visibility="hidden";
@@ -98,6 +101,10 @@ function signup() {
 		</form>
 	</div>
 </div>
+	<script type="text/javascript">
+	$('#cancel').click(hidesignup);
+	$('#overlay').click(hidesignup);
+	</script>
 	<?php
 		}
 	}
@@ -147,7 +154,10 @@ function imageview() {
 	</div>
 </div>
 </div>
-
+	<script type="text/javascript">
+	$('#imgoverlay').click(hideViewer);
+	$('#overlay').click(hideViewer);
+	</script>
 	<?php
 	}
 
@@ -198,6 +208,10 @@ function uploader($album_id) {
 		<input type="hidden" id="albumid" value="<?php echo $album_id; ?>"/>
 		</form>
 	</div>
+	<script type="text/javascript">
+	$('#imgcancel').click(hideUploader);
+	$('#uploadoverlay').click(hideUploader);
+	</script>
 	<?php
 	}
 
@@ -225,6 +239,10 @@ function albumcreator() {
 		<p><div><input type="button" id="albcancel" class="buttons" value="cancel"/></div></p>
 		</form>
 	</div>
+	<script type="text/javascript">
+	$('#albcancel').click(hideAlbumCreator);
+	$('#albumoverlay').click(hideAlbumCreator);
+	</script>
 
 	<?php
 	}
@@ -277,6 +295,7 @@ function tagbar() {
 			var res = addTag();
 		});
 	</script>
+	
 	<?php
 	}
 	?>
