@@ -81,9 +81,9 @@
 			// Verify that the album exists, and the user owns it
 			$result = mysql_query("SELECT owner_id FROM albums WHERE album_id='$album_id'");
 			if(!mysql_num_rows($result))
-				$this->response('', 404);
+				$this->response(json_encode(array('msg' => 'Album does not exist')), 404);
 			if(mysql_result($result, 0, owner_id) != $this->memberid)
-				$this->response('', 403);
+				$this->response(json_encode(array('msg' => 'You don\'t own that album')), 403);
 
 get_new_file_path:
 			// Path is stored in the form "/xxxx/xxxx/xxxx/xxxx/xxxx/xx.ext"
