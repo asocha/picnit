@@ -48,19 +48,10 @@
 	<script>
 	window.onload = function() {
 		if(isLoggedIn()) {
-			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
-			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
-			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
 		}
 		else {
-			document.getElementById('signupbut').addEventListener('click',showsignup,false);
-			document.getElementById('cancel').addEventListener('click',hidesignup,false);
-			document.getElementById('overlay').addEventListener('click',hidesignup,false);
-			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 			document.getElementById('uploadbut').addEventListener('click',showUploader,false);
-			document.getElementById('imgcancel').addEventListener('click',hideUploader,false);
-			document.getElementById('uploadoverlay').addEventListener('click',hideUploader,false);
 		}
 	}
 	</script>

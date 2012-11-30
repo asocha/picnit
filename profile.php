@@ -65,21 +65,12 @@
 	<script>
 		window.onload = function() {
 			if(isLoggedIn()) {
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 				if(document.getElementById('albcancel')) {
-					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
 					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
 				}
 			}
 			else {
-				document.getElementById('signupbut').addEventListener('click',showsignup,false);
-				document.getElementById('cancel').addEventListener('click',hidesignup,false);
-				document.getElementById('overlay').addEventListener('click',hidesignup,false);
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 				if(document.getElementById('albcancel')) {
-					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
 					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
 				}
 			}
