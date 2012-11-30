@@ -1,5 +1,5 @@
 /*
-	image .js
+	image.js
 	Author: PhotoDolo
 
 	Contains functions that communicate with the image API
