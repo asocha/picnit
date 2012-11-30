@@ -159,7 +159,7 @@
 					});
 					$('#taggedbut').click(function() {
 						changePanel(function() {
-							createTaggedElements();
+							createTaggedElements(<?php echo $profile['member_id']; ?>);
 						});
 					});
 					$('#followersbut').click(function() {

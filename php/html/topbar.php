@@ -232,15 +232,18 @@ function albumcreator() {
 	//Function that returns the tag bar
 function tagbar() {
 	?>
-	<script>
+	<script type="text/javascript">
 	function hideTag() {
 		document.getElementById('tagoverlay').style.visibility="hidden";
 		document.getElementById('tagbar').style.visibility="hidden";
 	}
 
-	function showTag() {
+	function showTag(image_id, mem_or_cat) {
 		document.getElementById('tagoverlay').style.visibility="visible";
 		document.getElementById('tagbar').style.visibility="visible";
+
+		$('label[for="tagname"]').text(mem_or_cat+" tag:");
+		$('#tagname').attr('image_id', image_id).attr('tagtype', (mem_or_cat === "Category")? "cat_id" : "user_id");
 	}
 	</script>
 	<div id="tagoverlay" class="overlays">
@@ -250,7 +253,7 @@ function tagbar() {
 			<div>
 			<span><input type="button" id="tagcancel" class="buttons" value="cancel"/></span>
 			<span><input type="submit" id="tagsubmit" class="buttons" value="+"/></span>
-			<span id="tagspan"><label for="tagname">tag: </label><input id="tagname" class="inputs" pattern="[a-zA-Z]{3,15}" title="Tag Name must contain between 3 and 15 letters." required="required"/></span>
+			<span id="tagspan"><label for="tagname"></label><input id="tagname" class="inputs" pattern="[a-zA-Z]{3,15}" title="Tag Name must contain between 3 and 15 letters." required="required"/></span>
 			</div>
 		</form>
 	</div>
@@ -260,9 +263,18 @@ function tagbar() {
 				source: ["dogs","doggies","donuts"],
 				minLength: 2,
 				select: function( event, ui ) {
-					log( ui.item? "Selected: " + ui.item.value  :  "Nothing selected, input was " + this.value );
+					alert( ui.item? "Selected: " + ui.item.value  :  "Nothing selected, input was " + this.value );
 				}
 			});
+		});
+		$('#tagoverlay').click(hideTag);
+		$('#tagcancel').click(hideTag);
+		$('#tagsubmit').click( function() {
+			var image_id = $('#tagname').attr('image_id');
+			var mem_or_cat = $("#tagname").attr('tagtype');
+			var tag = null;
+
+			var res = addTag();
 		});
 	</script>
 	<?php

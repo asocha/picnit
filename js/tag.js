@@ -29,9 +29,7 @@ function getFavorites(fuser_id) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+
 	}
 
 	return null;
@@ -43,7 +41,7 @@ function getUserTaggedImages(id) {
 	params['action'] = 'getImages';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['user_id'] = id;
+	params['tagged_user_id'] = id;
 
 	//Send request
 	request = picnitRequest(imageurl, params);
@@ -54,9 +52,7 @@ function getUserTaggedImages(id) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+
 	}
 
 	return null;
@@ -79,9 +75,7 @@ function addFavorite(id) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+
 	}
 
 	return false;
@@ -104,9 +98,7 @@ function deleteFavorite(id) {
 	}
 	//Error
 	else {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+
 	}
 
 	return false;

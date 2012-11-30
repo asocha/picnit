@@ -59,7 +59,7 @@ function createAlbumImagesElements(album_id) {
 	$(".pictagbut").click(function() {
 		var id = $(this).attr('id').substring(9);
 
-		showTag();
+		showTag(id, 'category');
 	});
 }
 
@@ -151,9 +151,9 @@ function createFavoritesElements(fuser_id) {
 	});
 }
 
-function createTaggedElements() {
+function createTaggedElements(user_id) {
 	//Get the tagged elements
-	var list = null;
+	var list = getUserTaggedImages(user_id);
 
 	//Get display area
 	var disp = $("#thumbnail-display");

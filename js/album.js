@@ -36,7 +36,7 @@ function createAlbum() {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -62,7 +62,7 @@ function deleteAlbum(aid) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -94,7 +94,7 @@ function getAlbums(user_id) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;
@@ -119,7 +119,7 @@ function getImages(album_id) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;

@@ -78,7 +78,7 @@ function sendImage(photo, phototype) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -99,7 +99,7 @@ function deleteImage(imgid) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 	return false;
 }
