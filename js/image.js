@@ -21,7 +21,7 @@ function saveImage() {
 		alert("Image must be less than 1MB");
 		return false;
 	}
-	
+
 	//Make sure it's an image, save extension
 	if(phototype.indexOf("image") !== 0) {
 		alert("Not an image");
@@ -74,21 +74,11 @@ function sendImage(photo, phototype) {
 	if(request.status === 200) {
 		window.location = "/picnit/album/"+albumid;
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//No album exists error
-	else if(request.status === 404) {
-		
-	}
-	//Unknown
+	//Error
 	else {
-
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -107,7 +97,9 @@ function deleteImage(imgid) {
 		return true;
 	}
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 	return false;
 }
