@@ -47,7 +47,7 @@
 				$this->response(json_encode(array('msg' => "You must provide image_id,album_id,user_id,tagged_user_id,fuser_id, or cat_id")), 400);
 
 			if(!$res)
-				$this->response(json_encode(array('msg' => "Error: ".mysql_error())), 400);
+				$this->response(json_encode(array('msg' => "Error: ".mysql_error())), 503);
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
