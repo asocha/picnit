@@ -369,6 +369,17 @@ textarea#albumdesc {
 	border-width: 3px;
 	color: #FFFFFF;
 }
+textarea#imagedesc {
+        max-width: 200px;
+        width: 200px;
+        max-height: 100px;
+        height: 100px;
+        background-color: #0C5DA5;
+        border-style: solid;
+        border-color: #043A6B;
+        border-width: 3px;
+        color: #FFFFFF;
+}^
 
 form#signupform {
 	margin:auto;
