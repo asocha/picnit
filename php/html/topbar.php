@@ -194,7 +194,7 @@ function uploader($album_id) {
 	<div id="uploadbar" class="panels">
 		<form id="uploadform" onsubmit="return saveImage();">
 		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern=".{3,63}" title="Image Name must contain between 3 and 63 characters." required="required"/></div>
-		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
+		<div><label for="imagedesc">description: </label><textarea id="imagedesc"></textarea></div></p>
 		<p><div>
 			<select id="publicness" class="inputs">
 				<option selected value="0">Public</option>
