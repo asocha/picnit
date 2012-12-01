@@ -1,5 +1,5 @@
 body {
-	background-color: #FFFFFF;
+	background-color: #EEEEEE;
 	font-family: 'Concert One', cursive;
 	min-width:830px;
 }
@@ -209,6 +209,7 @@ div#gallery {
 	-webkit-box-shadow: 0px 0px 0px 0px;
 	margin-top: 12px;
 	margin-bottom:-135px;
+	background-color:#EEEEEE;
 }
 
 div#info {
