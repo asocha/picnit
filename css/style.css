@@ -57,7 +57,6 @@ body {
 
 .panels {
 	background-color:#FFFFFF;
-	border-style: solid;
 	border-color:#043A6B;
 	border-width:5px;
 	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
@@ -154,10 +153,12 @@ div#optionsbar {
 div#menubar {
 	color:#043A6B;
 	position:relative;
-	padding:5px;
+	padding:10px;
 	height:25px;
 	top: 0;
-	margin-top:5px;
+	margin-top:-10px;
+	margin-right:-10px;
+	margin-left:-10px;
 }
 
 form#signupbut {
@@ -205,11 +206,18 @@ div#gallery {
 	position:relative;
 	height: 700px;
 	top:-135px;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	margin-top: 12px;
+	margin-bottom:-135px;
 }
 
 div#info {
 	position:relative;
 	margin-top: 5px;
+	margin-left:-10px;
+	margin-right:-10px;
+	margin-bottom:-10px;
+	padding:10px;
 }
 
 div#imgviewer {
@@ -376,8 +384,10 @@ div#searchbar {
 	color:#043A6B;
 	position:relative;
 	top:-135px;
-	padding:5px;
+	padding:10px;
 	margin-bottom:5px;
+	margin-right:-10px;
+	margin-left:-10px;
 	height:25px;
 }
 
