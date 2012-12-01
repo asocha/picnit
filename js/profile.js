@@ -30,6 +30,7 @@ function createAlbumImagesElements(album_id) {
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="</div>";
+		line+="<div class='disppanel'>";
 		line+="<div id='tagarea'>";
 		line+="Member Tags<br/>";
 		if(tags && tags['member_tags'])
@@ -48,6 +49,7 @@ function createAlbumImagesElements(album_id) {
 		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
 		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
+		line+="</div>";
 		line+="</div>";
 		line+="</div>";
 	}
