@@ -522,8 +522,11 @@ div#userinfo {
 }
 
 div#albuminfo {
-	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+	-webkit-border-radius: 12px;
 	margin:5px;
+	padding:10px;
+	margin-top:15px;
 }
 
 div#albumtitle {
@@ -535,11 +538,16 @@ div#albumdesc {
 }
 
 #uploadbut {
-	margin:5px;
+	float:right;
+	position:relative;
+	top:-20px;
 }
 
 #albdelbut {
 	margin-right:5px;
+	float:right;
+	position:relative;
+	top:-20px;
 }
 
 .dispalbum {
