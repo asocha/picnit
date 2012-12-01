@@ -93,9 +93,11 @@ body {
 }
 
 .dispfollowers {
-	border-style: solid;
 	margin: 5px;
-	padding: 5px;
+	padding: 10px;
+	-webkit-border-radius:12px;
+	-webkit-box-shadow:3px 3px 5px 6px #CCC;
+	background-color:#EEEEEE;
 }
 
 .folrembut {
@@ -104,14 +106,17 @@ body {
 	top: 0px;
 }
 
-.dispfollowers a {
+.dispfollowers a:link {
 	font-size:25px;
+	text-decoration:none;
 }
 
 .dispfollowees {
-	border-style:solid;
 	margin:5px;
-	padding:5px;
+	padding:10px;
+	background-color:#EEEEEE;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	-webkit-border-radius: 12px;
 }
 
 .unfollbut {
@@ -120,8 +125,9 @@ body {
 	top:0px;
 }
 
-.dispfollowees a {
+.dispfollowees a:link {
 	font-size:25px;
+	text-decoration:none;
 }
 
 h2 {
@@ -425,13 +431,13 @@ div#slideshow {
 	background-color: #408DD2;
 	border-style:solid;
 	border-width:5px;
-	border-color:#043A6B;
 	margin-top:5px;
 	position:relative;
 	top:-135px;
 	width:66%;
 	margin:auto;
 	margin-bottom:55px;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
 }
 
 div#usermenu {
@@ -504,9 +510,15 @@ div#albumdesc {
 	background-color:#EEEEEE;
 	height:75px;
 	padding:10px;
+	padding-bottom:20px;
 	margin:5px;
 	-webkit-box-shadow:3px 3px 3px 3px #CCC;
 	-webkit-border-radius:12px;
+}
+
+div.dispalbum a:link {
+	font-size:25px;
+	text-decoration:none;
 }
 
 .imgdesc {
@@ -525,6 +537,17 @@ div.dispimage {
 	padding:10px;
 	width:47%;
 	display:inline-block;
+}
+
+div.otherdispimage {
+	border-style: none;
+	background-color: #EEEEEE;
+	margin: auto;
+	margin-bottom: 10px;
+	padding: 10px;
+	max-width: 90%;
+	-webkit-border-radius: 12px;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
 }
 
 .dispimage img {
@@ -571,13 +594,16 @@ div#viewercontainer {
 }
 
 .dispfollowreq {
-	border-style: solid;
 	margin: 5px;
-	padding: 5px;
+	padding: 10px;
+	background-color:#EEEEEE;
+	-webkit-border-radius:12px;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
 }
 
-div.dispfollowreq a {
+div.dispfollowreq a:link {
 	font-size: 25px;
+	text-decoration:none;
 }
 
 .accfolreq {
