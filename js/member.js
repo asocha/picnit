@@ -294,3 +294,53 @@ function refuseFollow(uid) {
 
 	return false;
 }
+
+function suspendUser(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'suspendUser';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Success
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}
+
+function unsuspendUser(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'unsuspendUser';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Success
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}

@@ -128,7 +128,7 @@
 					if($admin && $profile['username'] !== $_COOKIE['username']) {
 				?>
 				<input id="requestsbut" class="buttons innerbuttons" type="button" value="requests"/>
-				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="suspend"/>
+				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="<?php echo ($profile['is_suspended']==true)? 'unsuspend' : 'suspend'; ?>"/>
 				<?php
 					}
 					else {
@@ -182,7 +182,15 @@
 						});
 					if($('#suspenduserbut').length > 0)
 						$('#suspenduserbut').click(function() {
-
+							var val = $(this).val();
+							if(val === 'suspend') {
+								if(suspendUser(<?php echo $profile['member_id']; ?>))
+									$(this).val('unsuspend');
+							}
+							else if(val === 'unsuspend') {
+								if(unsuspendUser(<?php echo $profile['member_id']; ?>))
+									$(this).val('suspend');
+							}
 						});
 				</script>
 			</div>

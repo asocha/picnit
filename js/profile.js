@@ -252,6 +252,8 @@ function createFolloweesElements() {
 	//Set clicks
 	$('.unfollbut').click(function() {
 		var id = $(this).attr('id').substring(9);
+		if(unfollow(id))
+			$(this).parent().remove();
 	});
 }
 
