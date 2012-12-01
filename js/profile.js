@@ -131,7 +131,7 @@ function createAlbumElements(uid) {
 	disp.transition({opacity: 1}, 'fast');
 }
 
-function createFavoritesElements(fuser_id) {
+function createFavoritesElements(fuser_id, member_id) {
 	//Get display area
 	var disp = $("#thumbnail-display");
 	
@@ -146,7 +146,9 @@ function createFavoritesElements(fuser_id) {
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
-		line+="<input type='button' id='profavbut"+list[x]['image_id']+"' class='buttons profavbut' value='unfavorite'/>";
+		if (member_id == fuser_id){
+			line+="<input type='button' id='profavbut"+list[x]['image_id']+"' class='buttons profavbut' value='unfavorite'/>";
+		}
 		line+="</div>";
 	}
 	//Clear the current contents
