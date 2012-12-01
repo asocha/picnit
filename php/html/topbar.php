@@ -10,8 +10,15 @@ function menubar() {
 
 		//Load flexslider
 		if($('.flexslider').length > 0)
-			$('.flexslider').flexslider();
+			$('.flexslider').flexslider({
+				animation: "slide",
+				minItems: 1
+			});
 	  });
+	function showsignup() {
+		document.getElementById('overlay').style.visibility="visible";
+		document.getElementById('signupbar').style.visibility="visible";
+	}
 	</script>
 	<?php
 		//Require general if not already
@@ -50,6 +57,9 @@ function menubar() {
 			}
 		?>
 	</div>
+	<script type="text/javascript">
+	$('#signupbut').click(showsignup);
+	</script>
 <?php
 }
 
@@ -57,10 +67,6 @@ function menubar() {
 function signup() {
 ?>
 	<script>
-	function showsignup() {
-		document.getElementById('overlay').style.visibility="visible";
-		document.getElementById('signupbar').style.visibility="visible";
-	}
 
 	function hidesignup() {
 		document.getElementById('overlay').style.visibility="hidden";
@@ -95,6 +101,10 @@ function signup() {
 		</form>
 	</div>
 </div>
+	<script type="text/javascript">
+	$('#cancel').click(hidesignup);
+	$('#overlay').click(hidesignup);
+	</script>
 	<?php
 		}
 	}
@@ -144,7 +154,10 @@ function imageview() {
 	</div>
 </div>
 </div>
-
+	<script type="text/javascript">
+	$('#imgoverlay').click(hideViewer);
+	$('#overlay').click(hideViewer);
+	</script>
 	<?php
 	}
 
@@ -180,8 +193,8 @@ function uploader($album_id) {
 	</div>
 	<div id="uploadbar" class="panels">
 		<form id="uploadform" onsubmit="return saveImage();">
-		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern="{3,63}" title="Image Name must contain between 3 and 63 characters." required="required"/></div>
-		<div><label for="imagedesc">description: </label><input type="text" id="imagedesc" class="inputs"/></div></p>
+		<p><div><label for="imagename">image name: </label><input type="text" id="imagename" class="inputs" pattern=".{3,63}" title="Image Name must contain between 3 and 63 characters." required="required"/></div>
+		<div><label for="imagedesc">description: </label><textarea id="imagedesc"></textarea></div></p>
 		<p><div>
 			<select id="publicness" class="inputs">
 				<option selected value="0">Public</option>
@@ -189,12 +202,16 @@ function uploader($album_id) {
 				<option value="2">Private</option>
 			</select>
 		</div></p>
-		<p><div><input type="file" id="inpimage" class="buttons" value="browse"/></div></p>
+		<p><div><input type="file" id="inpimage" class="buttons" required="required" accept="image/*" value="browse"/></div></p>
 		<p><div><input type="submit" id="imgsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="imgcancel" class="buttons" value="cancel"/></div></p>
 		<input type="hidden" id="albumid" value="<?php echo $album_id; ?>"/>
 		</form>
 	</div>
+	<script type="text/javascript">
+	$('#imgcancel').click(hideUploader);
+	$('#uploadoverlay').click(hideUploader);
+	</script>
 	<?php
 	}
 
@@ -217,12 +234,68 @@ function albumcreator() {
 	<div id="albumbar" class="panels">
 		<form id="albumform" onsubmit="return createAlbum();">
 		<p><div><label for="albumname">album name: </label><input type="text" id="albumname" class="inputs" pattern=".{3,63}" title="Album Name must contain between 3 and 63 characters." required="required"/></div>
-		<div><label for="albumdesc">description: </label><input type="text" id="albumdesc" class="inputs"/></div></p>
+		<div><label for="albumdesc">description: </label><textarea id="albumdesc"></textarea></div></p>
 		<p><div><input type="submit" id="albsubmit" class="buttons" value="submit"/></div></p>
 		<p><div><input type="button" id="albcancel" class="buttons" value="cancel"/></div></p>
 		</form>
 	</div>
+	<script type="text/javascript">
+	$('#albcancel').click(hideAlbumCreator);
+	$('#albumoverlay').click(hideAlbumCreator);
+	</script>
 
+	<?php
+	}
+	
+	//Function that returns the tag bar
+function tagbar() {
+	?>
+	<script type="text/javascript">
+	function hideTag() {
+		document.getElementById('tagoverlay').style.visibility="hidden";
+		document.getElementById('tagbar').style.visibility="hidden";
+	}
+
+	function showTag(image_id, mem_or_cat) {
+		document.getElementById('tagoverlay').style.visibility="visible";
+		document.getElementById('tagbar').style.visibility="visible";
+
+		$('label[for="tagname"]').text(mem_or_cat+" tag:");
+		$('#tagname').attr('image_id', image_id).attr('tagtype', (mem_or_cat === "Category")? "cat_id" : "user_id");
+	}
+	</script>
+	<div id="tagoverlay" class="overlays">
+	</div>
+	<div id="tagbar" class="panels">
+		<form id="tagform">
+			<div>
+			<span><input type="button" id="tagcancel" class="buttons" value="cancel"/></span>
+			<span><input type="submit" id="tagsubmit" class="buttons" value="+"/></span>
+			<span id="tagspan"><label for="tagname"></label><input id="tagname" class="inputs" pattern="[a-zA-Z]{3,15}" title="Tag Name must contain between 3 and 15 letters." required="required"/></span>
+			</div>
+		</form>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$('#tagname').autocomplete({
+				source: ["dogs","doggies","donuts"],
+				minLength: 2,
+				select: function( event, ui ) {
+					alert( ui.item? "Selected: " + ui.item.value  :  "Nothing selected, input was " + this.value );
+				}
+			});
+		});
+		$('#tagoverlay').click(hideTag);
+		$('#tagcancel').click(hideTag);
+		$('#tagsubmit').click( function() {
+			var image_id = $('#tagname').attr('image_id');
+			var mem_or_cat = $("#tagname").attr('tagtype');
+			var tag = null;
+
+			var res = addTag();
+		});
+	</script>
+	
 	<?php
 	}
 	?>

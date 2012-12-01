@@ -10,15 +10,6 @@
 	<script type="text/javascript" src="/picnit/js/general.js"></script>
 	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
-	<script>
-	window.onload = function() {
-		document.getElementById('overlay').style.visibility="hidden";
-		document.getElementById('signupbar').style.visibility="hidden";	
-		document.getElementById('signupbut').addEventListener('click',showsignup,false);
-		document.getElementById('cancel').addEventListener('click',hidesignup,false);
-		document.getElementById('overlay').addEventListener('click',hidesignup,false);
-	}
-	</script>
 </head>
 <body>
 	<?php menubar(); ?>

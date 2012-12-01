@@ -1,5 +1,5 @@
 /*
-	comment .js
+	comment.js
 	Author: PhotoDolo
 
 	Contains functions that communicate with the comment API
@@ -32,19 +32,13 @@ function addComment() {
 
 	//Good data, show comment created
 	if(request.status === 200) {
-		
+
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -53,7 +47,7 @@ function addComment() {
 function deleteComment() {
 	//Get user input, should be sent via GUI/other js call
 	var comment_id = $("input#comment_id");
-	
+
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'deleteComment';
@@ -67,21 +61,15 @@ function deleteComment() {
 	//Debug purposes
 	alert(request.status + "\n" + request.responseText);
 
-	//Good data, show album created
+	//Good data, comment deleted
 	if(request.status === 200) {
-		
+
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return false;
@@ -105,17 +93,11 @@ function getComments(image_id) {
 	if(request.status === 200) {
 		return $parseJSON(request.responseText);
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"];
 	}
 
 	return null;

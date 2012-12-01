@@ -20,24 +20,11 @@
 			$('#slider5').tinycarousel({display: 2});
 		});
 	</script>
-	<script>
-	window.onload = function() {
-		if(isLoggedIn()) {
-			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-		}
-		else {
-			document.getElementById('signupbut').addEventListener('click',showsignup,false);
-			document.getElementById('cancel').addEventListener('click',hidesignup,false);
-			document.getElementById('overlay').addEventListener('click',hidesignup,false);
-			document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
-		}	
-	}
-	</script>
 </head>
 <body>
 	<?php menubar(); ?>
 	<div>
-	<img src="images/gui/largelogo.png" alt="picnit.net" height="100" id="logo">
+	<img src="images/gui/smalllogo.png" alt="picnit.net" height="150" id="logo">
 	</div>
 	<?php searchbar(); ?>
 	<div id="gallery" name="gallery" class="panels">

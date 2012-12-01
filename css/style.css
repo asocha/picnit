@@ -1,5 +1,5 @@
 body {
-	background-color: #FFFFFF;
+	background-color: #EEEEEE;
 	font-family: 'Concert One', cursive;
 	min-width:830px;
 }
@@ -57,7 +57,6 @@ body {
 
 .panels {
 	background-color:#FFFFFF;
-	border-style: solid;
 	border-color:#043A6B;
 	border-width:5px;
 	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
@@ -127,14 +126,13 @@ body {
 
 h2 {
 	font-size: 75px;
-	width:300px;
 	height:75px;
 	margin:10px;
 	margin-bottom:15px;
 	color: #679FD2;
 }
 
-div#otionsbar #albumbut {
+div#optionsbar #albumbut {
 	float:left;
 	position:absolute;
 	left:0px;
@@ -155,10 +153,12 @@ div#optionsbar {
 div#menubar {
 	color:#043A6B;
 	position:relative;
-	padding:5px;
+	padding:10px;
 	height:25px;
 	top: 0;
-	margin-top:5px;
+	margin-top:-10px;
+	margin-right:-10px;
+	margin-left:-10px;
 }
 
 form#signupbut {
@@ -206,11 +206,21 @@ div#gallery {
 	position:relative;
 	height: 700px;
 	top:-135px;
+	-webkit-border-radius:12px;
+	width:80%;
+	margin:auto;
+	margin-top: 12px;
+	margin-bottom:-128px;
+	background-color:#FFFFFF;
 }
 
 div#info {
 	position:relative;
 	margin-top: 5px;
+	margin-left:-10px;
+	margin-right:-10px;
+	margin-bottom:-10px;
+	padding:10px;
 }
 
 div#imgviewer {
@@ -271,12 +281,64 @@ div#uploadbar {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
 }
 
+div#tagbar {
+	visibility:hidden;
+	position:fixed;
+	top:50%;
+	left:50%;
+	width:600px;
+	margin-left:-250px;
+	margin-top:-150px;
+	border-color:#000000;
+	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+}
 
+#tagcancel {
+	float:right;
+	margin:5px;
+}
+
+#tagsubmit {
+	float:right;
+	width:30px;
+	margin:5px;
+}
+
+#tagspan {
+	float:right;
+	margin:5px;
+}
+
+#tagname {
+	width: 285px;
+	margin-right:-13px;
+}
 
 div#uploadbar div {
 	margin:auto;
 	width:125px;
 
+}
+
+#tagcancel {
+	float:right;
+	margin:5px;
+}
+
+#tagsubmit {
+	float:right;
+	width:30px;
+	margin:5px;
+}
+
+#tagspan {
+	float:right;
+	margin:5px;
+}
+
+#tagname {
+	width: 285px;
+	margin-right:-13px;
 }
 
 div#albumbar {
@@ -296,6 +358,29 @@ div#albumbar div {
 	width:125px;
 }
 
+textarea#albumdesc {
+	max-width: 200px;
+	width: 200px;
+	max-height: 100px;
+	height: 100px;
+	background-color: #0C5DA5;
+	border-style: solid;
+	border-color: #043A6B;
+	border-width: 3px;
+	color: #FFFFFF;
+}
+textarea#imagedesc {
+        max-width: 200px;
+        width: 200px;
+        max-height: 100px;
+        height: 100px;
+        background-color: #0C5DA5;
+        border-style: solid;
+        border-color: #043A6B;
+        border-width: 3px;
+        color: #FFFFFF;
+}^
+
 form#signupform {
 	margin:auto;
 }
@@ -313,8 +398,10 @@ div#searchbar {
 	color:#043A6B;
 	position:relative;
 	top:-135px;
-	padding:5px;
+	padding:10px;
 	margin-bottom:5px;
+	margin-right:-10px;
+	margin-left:-10px;
 	height:25px;
 }
 
@@ -331,20 +418,6 @@ div#slideshow {
 	margin-bottom:55px;
 }
 
-#user-image-collection {
-	margin-left: auto;
-	margin-right: auto;
-	width: 412px;
-}
-
-div#user-image-collection {
-	width:100%;
-}
-
-div#collection {
-	padding:5px;
-}
-
 div#usermenu {
 	margin:auto;
 	padding:5px;
@@ -355,7 +428,7 @@ div#usermenu {
 }
 
 .slides li {
-	height:300px;
+	height:400px;
 	overflow:hidden;
 }
 
@@ -367,11 +440,17 @@ div#collection {
 	position:relative;
 	top: -135px;
 	margin-top:5px;
+	padding:5px;
+	margin-bottom:-128px;
+	-webkit-border-radius:12px;
 }
 
 div#results {
 	position:relative;
 	top: -135px;
+	border-style:none;
+	-webkit-box-shadow: 0px 0px 0px 0px #CCC;
+	margin-top:10px;
 }
 
 form#signoutbut {
@@ -426,10 +505,11 @@ h1#errorheader{
 }
 
 div.dispimage {
-	border-style:solid;
+	border-style:none;
 	background-color:#FFFFFF;
 	margin:5px;
 	padding:5px;
+	width:50%;
 }
 
 .dispimage img {
@@ -437,6 +517,13 @@ div.dispimage {
 	margin-right:auto;
 	margin-left:auto;
 	max-width:100%;
+}
+
+#image-holder {
+	width: 80%;
+	margin:auto;
+	border-style:solid;
+
 }
 
 div#viewercontainer {
@@ -447,6 +534,28 @@ div#viewercontainer {
 	top: 0%;
 	left: 0%;
 	overflow: scroll;
+}
+
+.dispfollowreq {
+	border-style: solid;
+	margin: 5px;
+	padding: 5px;
+}
+
+div.dispfollowreq a {
+	font-size: 25px;
+}
+
+.accfolreq {
+	position: relative;
+	float: right;
+	top: 0px;
+}
+
+.decfolreq {
+	float: right;
+	position: relative;
+	top: 0px;
 }
 
 /* Tiny Carousel */

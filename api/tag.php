@@ -103,117 +103,12 @@
 			$this->response(json_encode('', 200));
 		}
 
-		public function getFavorites() {
-			$this->forceauth();
-
-			$res = mysql_query("SELECT * FROM favorites NATURAL JOIN images WHERE member_id='$this->memberid'");
-			if(!mysql_num_rows($res))
-				$this->response('', 204); // User has no favorites
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
-
-			$this->response(json_encode($tosend), 200);
-		}
-
 		public function getCategories() {
 			$res = mysql_query("SELECT category FROM categories");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res))
 				$tosend[$i++] = $row['category'];
-
-			$this->response(json_encode($tosend), 200);
-		}
-
-		public function getCategoryTaggedImages() {
-			$cat_id = $this->load('cat_id');
-
-			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM category_tags c,images i,follows f WHERE c.category_id='$cat_id' and c.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid'))");
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
-
-			$this->response(json_encode($tosend), 200);
-		}
-
-		public function getUserTaggedImages() {
-			$cat_id = $this->load('user_id');
-
-			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM member_tags m,images i,follows f WHERE m.member_id='$user_id' and m.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid'))");
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
-
-			$this->response(json_encode($tosend), 200);
-		}
-
-		public function getLastCategoryTaggedImages() {
-			$cat_id = $this->load('cat_id');
-			$num = $this->load('num');
-
-			if($num > 10)
-				$num = 10;
-
-			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM category_tags c,images i,follows f WHERE c.category_id='$cat_id' and c.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid')) LIMIT $num");
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
-
-			$this->response(json_encode($tosend), 200);
-		}
-
-		public function getLastUserTaggedImages() {
-			$cat_id = $this->load('user_id');
-			$num = $this->load('num');
-
-			if($num > 10)
-				$num = 10;
-
-			$res = mysql_query("SELECT i.image_id,i.image_type,i.date_added,i.name,i.description FROM member_tags m,images i,follows f WHERE m.member_id='$user_id' and m.image_id=i.image_id and ((publicness=0) or (i.owner_id=f.followee_id and f.follower_id='$this->memberid' and publicness < 2) or (i.owner_id='$this->memberid')) LIMIT $num");
-
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
 
 			$this->response(json_encode($tosend), 200);
 		}
@@ -238,11 +133,53 @@
 		public function getTagsByImage() {
 			$image_id = $this->load('image_id');
 
-			$res = mysql_query("SELECT t.member_id FROM images i,tags t WHERE i.image_id=t.image_id");
+			$res = mysql_query("SELECT m.member_id, m.username FROM images i,mem_tags t, members m WHERE i.image_id=t.image_id and i.image_id='$image_id' and m.member_id=t.member_id");
 
 			$i = 0;
-			while($row = mysql_fetch_array($res))
-					$tosend[$i++] = intval($row['member_id']);
+			while($row = mysql_fetch_array($res)){
+				$tosend['member_tags'][$i]['member_id'] = intval($row['member_id']);
+				$tosend['member_tags'][$i]['username'] = $row['username'];
+				$i++;
+			}
+
+			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and i.image_id='$image_id' c.category_id=t.category_id");
+
+                        $i = 0;
+                        while($row = mysql_fetch_array($res)){
+                                $tosend['cat_tags'][$i]['category_id'] = intval($row['category_id']);
+                                $tosend['cat_tags'][$i]['category'] = $row['category'];
+                                $i++;
+                        }
+
+			$this->response(json_encode($tosend), 200);
+		}
+
+		public function getUserTags() {
+			$prefix = $this->load('prefix', false);
+
+			$res = mysql_query("SELECT username, member_id from members where username LIKE '$prefix%'");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res)) {
+				$tosend[$i]['username'] = $row['username'];
+				$tosend[$i]['member_id'] = $row['member_id'];
+				$i++;
+			}
+
+			$this->response(json_encode($tosend), 200);
+		}
+
+		public function getCategoryTags() {
+			$prefix = $this->load('prefix', false);
+
+			$res = mysql_query("SELECT category, category_id from categories where category LIKE '$prefix%'");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res)) {
+				$tosend[$i]['category'] = $row['category'];
+				$tosend[$i]['category_id'] = $row['category_id'];
+				$i++;
+			}
 
 			$this->response(json_encode($tosend), 200);
 		}

@@ -53,7 +53,8 @@
 	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
-	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.8.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.transit.min.js"></script>
 	<script type="text/javascript" src="/picnit/js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" src="/picnit/js/general.js"></script>
 	<script type="text/javascript" src="/picnit/js/member.js"></script>
@@ -64,25 +65,17 @@
 	<script>
 		window.onload = function() {
 			if(isLoggedIn()) {
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 				if(document.getElementById('albcancel')) {
-					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
 					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
 				}
 			}
 			else {
-				document.getElementById('signupbut').addEventListener('click',showsignup,false);
-				document.getElementById('cancel').addEventListener('click',hidesignup,false);
-				document.getElementById('overlay').addEventListener('click',hidesignup,false);
-				document.getElementById('imgoverlay').addEventListener('click',hideViewer,false);
 				if(document.getElementById('albcancel')) {
-					document.getElementById('albcancel').addEventListener('click',hideAlbumCreator,false);
-					document.getElementById('albumoverlay').addEventListener('click',hideAlbumCreator,false);
 					document.getElementById('albumbut').addEventListener('click',showAlbumCreator,false);
 				}
 			}
 
+			//Make albums show first
 			$('#albumsbut').click();
 		}
 	</script>
@@ -99,7 +92,6 @@
 		</ul>
 		<script type="text/javascript">createFlexsliderElements(5,<?php echo $profile['member_id']; ?>);</script>
 	</div>
-	<div id="user-image-collection">
 		<div id="collection" class="panels">
 			<div id="usermenu" class="panels">
 				<?php
@@ -135,7 +127,7 @@
 					if($admin && $profile['username'] !== $_COOKIE['username']) {
 				?>
 				<input id="requestsbut" class="buttons innerbuttons" type="button" value="requests"/>
-				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="suspend"/>
+				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="<?php echo ($profile['is_suspended']==true)? 'unsuspend' : 'suspend'; ?>"/>
 				<?php
 					}
 					else {
@@ -146,43 +138,64 @@
 				?>
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
-						createAlbumElements(<?php echo $profile['member_id']; ?>)
+						changePanel(function() {
+							createAlbumElements(<?php echo $profile['member_id']; ?>);
+						});
 					});
 					$('#favoritebut').click(function() {
-						createFavoritesElements();
+						changePanel(function() {
+							createFavoritesElements(<?php echo $profile['member_id']; ?>);
+						});
 					});
 					$('#taggedbut').click(function() {
-						createTaggedElements();
+						changePanel(function() {
+							createTaggedElements(<?php echo $profile['member_id']; ?>);
+						});
 					});
 					$('#followersbut').click(function() {
-						createFollowersElements();
+						changePanel(function() {
+							createFollowersElements();
+						});
 					});
 					$('#followeesbut').click(function() {
-						createFolloweesElements();
+						changePanel(function() {
+							createFolloweesElements();
+						});
 					});
 					$('#requestsbut').click(function() {
-						createFollowReqElements();
+						changePanel(function() {
+							createFollowReqElements();
+						});
 					});
 					if($('#followuserbut').length > 0)
 						$('#followuserbut').click(function() {
 							var val = $(this).val();
-							if(val === 'follow')
+							if(val === 'follow') {
 								if(requestFollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow pending');
-							else if(val === 'unfollow')
+							}
+							else if(val === 'unfollow') {
 								if(unfollow(<?php echo $profile['member_id']; ?>))
 									$(this).val('follow');
+							}
 						});
 					if($('#suspenduserbut').length > 0)
 						$('#suspenduserbut').click(function() {
-
+							var val = $(this).val();
+							if(val === 'suspend') {
+								if(suspendUser(<?php echo $profile['member_id']; ?>))
+									$(this).val('unsuspend');
+							}
+							else if(val === 'unsuspend') {
+								if(unsuspendUser(<?php echo $profile['member_id']; ?>))
+									$(this).val('suspend');
+							}
 						});
 				</script>
 			</div>
 			<div id="thumbnail-display">
 			</div>
 		</div>
-	</div>
 	<?php info(); ?>
 	<?php imageview(); ?>
 	<?php if($profile['username'] === $_COOKIE['username']) albumcreator(); ?>

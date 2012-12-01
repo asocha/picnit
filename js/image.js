@@ -1,5 +1,5 @@
 /*
-	image .js
+	image.js
 	Author: PhotoDolo
 
 	Contains functions that communicate with the image API
@@ -11,44 +11,16 @@ var imageurl='/picnit/api/image.php';
 //Request to be sent to the middleware
 var request;
 
-function getImage() {
-	//Get user input, should be validated via html5
-	var imagename = $("input#imagename").val();
-	
-	//Gather post request data
-	var params = new Array();
-	params['action'] = 'createAlbum';
-	params['username'] = getCookie('username');
-	params['key'] = getCookie('key');
-	params['name'] = imagename;
-
-	//Send request
-	request = picnitRequest(imageurl, params);
-
-	//Good data, show image created
-	if(request.status === 200) {
-		
-	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
-	else {
-		
-	}
-
-	return false;
-}
-
 function saveImage() {
 	//Get photo data
 	var imgobj = $("input#inpimage")[0].files[0];
 	var phototype = imgobj.type;
+
+	//Make sure size is less thab 1MB
+	if(imgobj.size > 1048576) {
+		alert("Image must be less than 1MB");
+		return false;
+	}
 
 	//Make sure it's an image, save extension
 	if(phototype.indexOf("image") !== 0) {
@@ -102,21 +74,11 @@ function sendImage(photo, phototype) {
 	if(request.status === 200) {
 		window.location = "/picnit/album/"+albumid;
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//No album exists error
-	else if(request.status === 404) {
-		
-	}
-	//Unknown
+	//Error
 	else {
-
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -135,7 +97,9 @@ function deleteImage(imgid) {
 		return true;
 	}
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 	return false;
 }
@@ -143,10 +107,11 @@ function deleteImage(imgid) {
 function getLastImages(num,user_id) {
 	//Gather params
 	var params = new Array();
-	params['action'] = "getLastImages";
+	params['action'] = "getImages";
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['num'] = num;
+	params['user_id'] = user_id;
 
 	//If user_id was passed, send with request
 	if(typeof user_id == "number")
@@ -157,10 +122,7 @@ function getLastImages(num,user_id) {
 
 	//Good data, give back JSON
 	if(request.status === 200) {
-		var resp = $.parseJSON(request.responseText);
-		resp = resp['list'];
-
-		return resp;
+		return $.parseJSON(request.responseText);
 	}
 
 	return null;

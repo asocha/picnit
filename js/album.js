@@ -1,5 +1,5 @@
 /*
-	album .js
+	album.js
 	Author: PhotoDolo
 
 	Contains functions that communicate with the album API
@@ -7,6 +7,7 @@
 
 //URL for member functions
 var albumurl='/picnit/api/album.php';
+var imageurl='/picnit/api/image.php';
 
 //Request to be sent to the middleware
 var request;
@@ -14,7 +15,7 @@ var request;
 function createAlbum() {
 	//Get user input, should be validated via html5
 	var albumname = $("input#albumname").val();
-	var albumdesc = $("input#albumdesc").val();
+	var albumdesc = $("#albumdesc").val();
 
 	//Gather post request data
 	var params = new Array();
@@ -31,17 +32,11 @@ function createAlbum() {
 	if(request.status === 200) {
 		window.location = '/picnit/profile/' + getCookie('username');
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -63,9 +58,11 @@ function deleteAlbum(aid) {
 		alert("Album Deleted");
 		return true;
 	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -81,20 +78,23 @@ function getAlbums(user_id) {
 	//Send request
 	request = picnitRequest(albumurl, params);
 
+	//Parse the JSON result
+        var res = $.parseJSON(request.responseText);
+
 	//Good data, list of albums
 	if(request.status === 200) {
-		//Parse the response
-		var resp = $.parseJSON(request.responseText);
-
 		//Return the list
-		return resp['list'];
+		return res['list'];
 	}
 	//No albums
 	else if(request.status === 204) {
 		return null;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;
@@ -109,24 +109,17 @@ function getImages(album_id) {
 	params['album_id'] = album_id;
 
 	//Send request
-	request = picnitRequest(albumurl, params);
+	request = picnitRequest(imageurl, params);
 
 	//Good data, request contains data
 	if(request.status === 200) {
-		var tmp = $.parseJSON(request.responseText);
-		return tmp['list'];
+		return $.parseJSON(request.responseText);
 	}
-	//Unauthorized
-	else if(request.status === 401) {
-		
-	}
-	//Missing data
-	else if(request.status === 400) {
-		
-	}
-	//Unknown error
+	//Error
 	else {
-		
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;

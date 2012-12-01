@@ -25,36 +25,28 @@ function login() {
 	//Send request to the API
 	request = picnitRequest(memberurl, params);
 
+	//Parse the JSON result
+	var res = $.parseJSON(request.responseText);
+
 	//Good data, proceed to login
 	if(request.status === 200) {
-		//Parse the JSON result
-		var res = $.parseJSON(request.responseText);
-		
 		//Check for suspension
 		if(res["is_suspended"] == "1") {
 			logout(false);
-			window.location = "./suspended.php";
+			window.location = "/picnit/suspended.php";
 			return false;
 		}
-		
+
 		//Add cookies to the array
 		for(var index in res)
 			setCookie(index, res[index], 7);
 
 		//Redirect to profile page
-		window.location = "./profile/" + escape(res['username']);
+		window.location = "/picnit/profile/" + escape(res['username']);
 	}
-	//Invalid username/password combo
-	else if(request.status === 403) {
-		alert('403\n' + request.responseText);
-	}
-	//Our request messed up
-	else if(request.status === 400) {
-		alert('400\n' + request.responseText);
-	}
-	//Something else went wrong
+	//Error
 	else {
-		alert('Unknown error: ' + request.status);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	//Return false to allow for redirection
@@ -68,7 +60,7 @@ function createUser() {
 	params['password'] = $("input#Newpassword").val();
 	params['email'] = $("input#email").val();
 	params['action'] = 'register';
-	
+
 	//Send request
 	request = picnitRequest(memberurl, params);
 
@@ -76,12 +68,13 @@ function createUser() {
 	if(request.status === 200) {
 		return true;
 	}
-	else if(request.status === 409) {
-		alert('409\n' + request.responseText);
-	}
+	//Error
 	else {
-		alert("Unknown error: "+request.status);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
+
 
 	return false;
 }
@@ -111,15 +104,19 @@ function getFollowers() {
 	params['action'] = 'getFollowers';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
-	
+
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
+	//Error
 	else {
-
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;
@@ -131,15 +128,19 @@ function getFollowees() {
 	params['action'] = 'getFollowees';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
-	
+
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
+	//Error
 	else {
-
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;
@@ -151,15 +152,19 @@ function getFollowRequests() {
 	params['action'] = 'getFollowRequests';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
-	
+
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
 	}
+	//Error
 	else {
-
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;
@@ -176,11 +181,15 @@ function follow(uid) {
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return true;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -197,11 +206,15 @@ function unfollow(uid) {
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return true;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -218,11 +231,15 @@ function requestFollow(uid) {
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
 		return true;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -239,13 +256,91 @@ function removeFollower(uid) {
 	//Send request
 	request = picnitRequest(memberurl, params);
 
+	//Success
 	if(request.status === 200) {
-	
+		return true;
 	}
+	//Error
 	else {
-		alert(request.status + "\n" + request.responseText);
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
 }
 
+function refuseFollow(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'refuseFollow';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Success
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}
+
+function suspendUser(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'suspendUser';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Success
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}
+
+function unsuspendUser(uid) {
+	//Gather data
+	var params = new Array();
+	params['action'] = 'unsuspendUser';
+	params['key'] = getCookie('key');
+	params['username'] = getCookie('username');
+	params['user_id'] = uid;
+
+	//Send request
+	request = picnitRequest(memberurl, params);
+
+	//Success
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}
