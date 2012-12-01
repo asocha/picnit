@@ -7,7 +7,7 @@
 
 /***** album.php *****/
 
-function createAlbumImagesElements(album_id, is_owner) {
+function createAlbumImagesElements(album_id, is_owner, logged_in) {
 	//Get the photos
 	var list = getImages(album_id);
 
@@ -47,7 +47,7 @@ function createAlbumImagesElements(album_id, is_owner) {
 		line+="</div>";
 		line+="<div class='imgbuts'>";
 		if (is_owner) line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
-		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
+		if (logged_in) line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>";
 		line+="</div>";

@@ -79,7 +79,7 @@
 		<div id="image-holder">
 		</div>
 		<script type="text/javascript">
-			createAlbumImagesElements(<?php echo $albuminfo['album_id'];?>, <?php if($albuminfo['owner_id'] == $_COOKIE['member_id']) echo 1; else echo 0;?>);
+			createAlbumImagesElements(<?php echo $albuminfo['album_id'];?>, <?php if($albuminfo['owner_id'] == $_COOKIE['member_id']) echo 1; else echo 0;?>, <?php if(isset($_COOKIE['member_id'])) echo 1; else echo 0;?>);
 		</script>
 	</div>
 	<?php info(); ?>
