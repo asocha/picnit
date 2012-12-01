@@ -137,8 +137,8 @@
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)){
-				$tosend[$i]['member_id'] = intval($row['member_id']);
-				$tosend[$i]['username'] = $row['username'];
+				$tosend['member_tags'][$i]['member_id'] = intval($row['member_id']);
+				$tosend['member_tags'][$i]['username'] = $row['username'];
 				$i++;
 			}
 
@@ -146,12 +146,12 @@
 
                         $i = 0;
                         while($row = mysql_fetch_array($res)){
-                                $tosend2[$i]['category_id'] = intval($row['category_id']);
-                                $tosend2[$i]['category'] = $row['category'];
+                                $tosend['cat_tags'][$i]['category_id'] = intval($row['category_id']);
+                                $tosend['cat_tags'][$i]['category'] = $row['category'];
                                 $i++;
                         }
 
-			$this->response(json_encode($tosend) . "\n" . json_encode($tosend2), 200);
+			$this->response(json_encode($tosend), 200);
 		}
 
 		public function getUserTags() {
