@@ -15,7 +15,7 @@
 		public function addTag() {
 			$image_id = $this->load('image_id');
 			$cat_name = $this->load('category', false);
-			$username = $this->load('tag_username', false);
+			$tag_username = $this->load('tag_username', false);
 
 			$this->forceauth();
 
@@ -23,8 +23,8 @@
 			if($this->memberid != mysql_result($res, 0, owner_id))
 				$this->response(json_encode(array('msg' => 'You do not own this image')), 403);
 
-			if($username != "") {
-				$res = mysql_query("INSERT INTO mem_tags (member_id,image_id,date_tagged) VALUES ((SELECT member_id FROM members WHERE username='$username'),'$image_id',NOW())");
+			if($tag_username != "") {
+				$res = mysql_query("INSERT INTO mem_tags (member_id,image_id,date_tagged) VALUES ((SELECT member_id FROM members WHERE username='$tag_username'),'$image_id',NOW())");
 				if(!$res) {
 					$err = mysql_errno();
 					if($err == 1048)
@@ -36,7 +36,7 @@
 
 					$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 				}
-				$res = mysql_query("SELECT member_id FROM members WHERE username='$username'");
+				$res = mysql_query("SELECT member_id FROM members WHERE username='$tag_username'");
 				$msg = json_encode(mysql_fetch_assoc($res));
 			}
 			else if($cat_name != "") {
@@ -45,7 +45,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 				if(!$res) {
 					$err = mysql_errno();
 					if($err == 1048) {
-						mysql_query("INSERT INTO categories VALUES ('$cat_name')");
+						mysql_query("INSERT INTO categories (category) VALUES ('$cat_name')");
 						goto HIT_ME_BABY_ONE_MORE_TIME;
 					}
 					if($err == 1452)
