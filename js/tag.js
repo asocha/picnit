@@ -104,9 +104,9 @@ function deleteFavorite(id) {
 	return false;
 }
 
-function addTag(image_id, id, type) {
+function addTag(image_id, tag, type) {
 	//Make sure type is valid
-	if(type !== 'user_id' && type !== 'cat_id')
+	if(type != 'username' && type != 'category')
 		return null;
 
 	//Gather req data
@@ -115,7 +115,7 @@ function addTag(image_id, id, type) {
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['image_id'] = image_id;
-	params[type] = id;
+	params[type] = tag;
 
 	//Send request
 	request = picnitRequest(tagurl, params);

@@ -55,7 +55,6 @@ function deleteAlbum(aid) {
 
 	//Good data, show album created
 	if(request.status === 200) {
-		alert("Album Deleted");
 		return true;
 	}
 	//Error

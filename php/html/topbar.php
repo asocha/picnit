@@ -306,10 +306,30 @@ function tagbar() {
 	</div>
 	<div id="confirmbar" class="panels">
 		<form id="confirmform">
+		<div id="confmess"></div>
 		<input type="button" id="confyes" class="buttons" value="yes"/>
 		<input type="button" id="confno" class="buttons" value="no"/>
 		</form>
 	</div>
+	<script type="text/javascript">
+		$('#confno').click(hideConfirm);
+		$('#confirmoverlay').click(hideConfirm);
+		function showConfirm(msg, callback) {
+			//Set up display stuff and click handlers
+			$('#confmess').text(msg);
+			$('#confyes').click(function() {
+				callback();
+				hideConfirm();
+			});
+
+			document.getElementById('confirmoverlay').style.visibility="visible";
+			document.getElementById('confirmbar').style.visibility="visible";
+		}
+		function hideConfirm() {
+			document.getElementById('confirmoverlay').style.visibility="hidden";
+			document.getElementById('confirmbar').style.visibility="hidden";
+		}
+	</script>
 	<?php
 	}
 	?>
