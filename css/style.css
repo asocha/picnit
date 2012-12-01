@@ -206,10 +206,12 @@ div#gallery {
 	position:relative;
 	height: 700px;
 	top:-135px;
-	-webkit-box-shadow: 0px 0px 0px 0px;
+	-webkit-border-radius:12px;
+	width:80%;
+	margin-auto;
 	margin-top: 12px;
-	margin-bottom:-135px;
-	background-color:#EEEEEE;
+	margin-bottom:-128px;
+	background-color:#FFFFFF;
 }
 
 div#info {
