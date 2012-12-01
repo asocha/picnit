@@ -14,7 +14,7 @@
 
 		public function addTag() {
 			$image_id = $this->load('image_id');
-			$cat_name = $this->load('category_name', false);
+			$cat_name = $this->load('category', false);
 			$username = $this->load('username', false);
 
 			$this->forceauth();
@@ -51,7 +51,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 					if($err == 1452)
 						$this->response(json_encode(array('msg' => 'Image and/or member do not exist')), 404);
 					if($err == 1062)
-						$this->response(json_encode(array('msg' => 'User already tagged in image')), 409);
+						$this->response(json_encode(array('msg' => 'The image already has that category tag')), 409);
 
 					$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 				}
