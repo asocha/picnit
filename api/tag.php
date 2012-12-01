@@ -133,7 +133,7 @@
 		public function getTagsByImage() {
 			$image_id = $this->load('image_id');
 
-			$res = mysql_query("SELECT m.member_id, m.username FROM images i,mem_tags t, members m WHERE i.image_id=t.image_id and t.member_id=m.member_id");
+			$res = mysql_query("SELECT m.member_id, m.username FROM images i,mem_tags t, members m WHERE i.image_id=t.image_id and i.image_id='$image_id' and m.member_id=t.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)){
@@ -142,7 +142,7 @@
 				$i++;
 			}
 
-			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and c.category_id=t.category_id");
+			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and i.image_id='$image_id' c.category_id=t.category_id");
 
                         $i = 0;
                         while($row = mysql_fetch_array($res)){

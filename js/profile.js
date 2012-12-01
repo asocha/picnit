@@ -20,6 +20,9 @@ function createAlbumImagesElements(album_id) {
 	//Insert code
 	var line="";
 	for(x in list) {
+		//Get tag info
+		var tags = getTagsByImage(list[x]['image_id']);
+
 		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
@@ -27,6 +30,18 @@ function createAlbumImagesElements(album_id) {
 		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="</div>";
 		line+="<div id='tagarea'>";
+		line+="Member Tags<br/>";
+		if(tags && tags['member_tags'])
+			for(n in tags['member_tags'])
+				line+=tags['member_tags'][n]['username']+'<br/>';
+		else
+			line+="no member tags :(<br/>";
+		line+="Category Tags<br/>";
+		if(tags && tags['cat_tags'])
+			for(n in tags['cat_tags'])
+				line+=tags['cat_tags'][n]['category']+'<br/>';
+		else
+			line+="no category tags :(<br/>";
 		line+="</div>";
 		line+="<div class='imgbuts'>";
 		line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";

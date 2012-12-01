@@ -130,12 +130,13 @@ function addTag(image_id, id, type) {
 	return null;
 }
 
-function getTagsByImage() {
+function getTagsByImage(image_id) {
 	//Gather req data
 	var params = new Array();
 	params['action'] = 'getTagsByImage';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
+	params['image_id'] = image_id;
 	
 	//Send request
 	request = picnitRequest(tagurl, params);
