@@ -119,5 +119,6 @@
 	<?php signup(); ?>
 	<?php imageview(); ?>
 	<?php uploader(); ?>
+	<?php confirmbar(); ?>
 </body>
 </html>
