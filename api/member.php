@@ -78,6 +78,9 @@
 
 			$this->forceauth();
 
+			if($user_id == $this->memberid)
+				$this->response(json_encode(array('msg' => 'You cannot suspend yourslef')), 403);
+
 			// Only admins can suspend people
 			$res = mysql_query("SELECT is_admin FROM members where member_id='$this->memberid'");
 			$array = mysql_fetch_array($res);
@@ -86,9 +89,13 @@
 				$this->response(json_encode(array('msg' => 'You are not an admin')), 403);
 
 			// Check if member to suspend exists and isn't suspended
-			$res = mysql_query("SELECT is_suspended FROM members where member_id='$user_id'");
+			$res = mysql_query("SELECT is_suspended,is_admin FROM members where member_id='$user_id'");
 			$array = mysql_fetch_array($res);
 			$suspended = $array['is_suspended'];
+			$target_is_admin = $array['is_admin'];
+
+			if($target_is_admin)
+				$this->response(json_encode(array('msg' => 'You cannot suspend another admin')), 403);
 
 			if((mysql_num_rows($res) < 1) || ($suspended == 1)) {
 				$this->response(json_encode(array('msg' => 'User does not exist or is already suspended')), 404);
