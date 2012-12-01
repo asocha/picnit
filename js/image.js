@@ -53,7 +53,7 @@ function sendImage(photo, phototype) {
 	var imagename = $("input#imagename").val();
 	var albumid = $("input#albumid").val();
 	var publicness = $("select#publicness").val();
-	var desc = $("input#imagedesc").val();
+	var desc = $("#imagedesc").val();
 
 	//Gather post request data
 	var params = new Array();

@@ -152,7 +152,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 				$i++;
 			}
 
-			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and i.image_id='$image_id' c.category_id=t.category_id");
+			$res = mysql_query("SELECT c.category, c.category_id FROM images i,categories c,category_tags t WHERE i.image_id=t.image_id and i.image_id='$image_id' and c.category_id=t.category_id");
 
                         $i = 0;
                         while($row = mysql_fetch_array($res)){

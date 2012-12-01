@@ -106,7 +106,7 @@ function deleteFavorite(id) {
 
 function addTag(image_id, tag, type) {
 	//Make sure type is valid
-	if(type != 'username' && type != 'category')
+	if(type != 'tag_username' && type != 'category')
 		return null;
 
 	//Gather req data
@@ -175,5 +175,47 @@ function getTagsByImage(image_id) {
 		alert(request.status + "\n" + request.responseText);
 	}
 	
+	return null;
+}
+
+function getCategoryTags(prefix) {
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'getCategoryTags';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['prefix'] = prefix;
+	
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return null;
+}
+
+function getUserTags(prefix) {
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'getUserTags';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['prefix'] = prefix;
+	
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
 	return null;
 }
