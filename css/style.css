@@ -112,9 +112,11 @@ body {
 }
 
 .dispfollowees {
-	border-style:solid;
 	margin:5px;
-	padding:5px;
+	padding:10px;
+	background-color:#EEEEEE;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	-webkit-border-radius: 12px;
 }
 
 .unfollbut {
@@ -125,6 +127,7 @@ body {
 
 .dispfollowees a:link {
 	font-size:25px;
+	text-decoration:none;
 }
 
 h2 {
@@ -428,13 +431,13 @@ div#slideshow {
 	background-color: #408DD2;
 	border-style:solid;
 	border-width:5px;
-	border-color:#043A6B;
 	margin-top:5px;
 	position:relative;
 	top:-135px;
 	width:66%;
 	margin:auto;
 	margin-bottom:55px;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
 }
 
 div#usermenu {
