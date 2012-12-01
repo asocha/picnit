@@ -25,7 +25,7 @@ div#usermenu .buttons {
 }
 
 div#usermenu .buttons:hover {
-	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
 }
 
 .innerbuttons {
@@ -510,7 +510,7 @@ div#userinfo {
 	float:right;
 	font-size:25px;
 	margin-right: 10px;
-	margin-top:10px
+	margin-top:-2px
 }
 
 div#albuminfo {
