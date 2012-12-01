@@ -369,6 +369,17 @@ textarea#albumdesc {
 	border-width: 3px;
 	color: #FFFFFF;
 }
+textarea#imagedesc {
+        max-width: 200px;
+        width: 200px;
+        max-height: 100px;
+        height: 100px;
+        background-color: #0C5DA5;
+        border-style: solid;
+        border-color: #043A6B;
+        border-width: 3px;
+        color: #FFFFFF;
+}^
 
 form#signupform {
 	margin:auto;
@@ -407,20 +418,6 @@ div#slideshow {
 	margin-bottom:55px;
 }
 
-#user-image-collection {
-	margin-left: auto;
-	margin-right: auto;
-	width: 412px;
-}
-
-div#user-image-collection {
-	width:100%;
-}
-
-div#collection {
-	padding:5px;
-}
-
 div#usermenu {
 	margin:auto;
 	padding:5px;
@@ -443,6 +440,9 @@ div#collection {
 	position:relative;
 	top: -135px;
 	margin-top:5px;
+	padding:5px;
+	margin-bottom:-128px;
+	-webkit-border-radius:12px;
 }
 
 div#results {
