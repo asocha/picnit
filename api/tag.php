@@ -15,7 +15,7 @@
 		public function addTag() {
 			$image_id = $this->load('image_id');
 			$cat_name = $this->load('category', false);
-			$username = $this->load('username', false);
+			$username = $this->load('tag_username', false);
 
 			$this->forceauth();
 
