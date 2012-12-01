@@ -23,6 +23,7 @@ function createAlbumImagesElements(album_id) {
 		//Get tag info
 		var tags = getTagsByImage(list[x]['image_id']);
 
+		line+="<div class='imagesection' id='imagesection'"+list[x]['image_id']+"'>";
 		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
@@ -48,6 +49,7 @@ function createAlbumImagesElements(album_id) {
 		line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>";
+		line+="</div>";
 	}
 	disp.html(line);
 
@@ -56,7 +58,7 @@ function createAlbumImagesElements(album_id) {
 	$(".picdelbut").click(function() {
 		var id = $(this).attr('id').substring(9);
 		if(deleteImage(id)) {
-			$('#dispimage'+id).remove();
+			$('#imagesection'+id).remove();
 		}
 	});
 	$(".picfavbut").click(function() {
