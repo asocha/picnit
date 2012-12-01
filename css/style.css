@@ -18,6 +18,16 @@ body {
 	background-color:#D8EDFF;
 }
 
+div#usermenu .buttons {
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	margin-right: -1px;
+	height:30px;
+}
+
+div#usermenu .buttons:hover {
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+}
+
 .innerbuttons {
 	width:100px;
 	margin-left:-5px;
@@ -63,7 +73,7 @@ body {
 }
 
 .inputs {
-	background-color: #0C5DA5;
+	background-color: #D8EDFF;
 	border-style:none;
 	color:#000000;
 	padding:3px;
@@ -165,6 +175,8 @@ div#menubar {
 	margin-top:-10px;
 	margin-right:-10px;
 	margin-left:-10px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
 }
 
 form#signupbut {
@@ -226,6 +238,8 @@ div#info {
 	margin-right:-10px;
 	margin-bottom:-10px;
 	padding:10px;
+	border-top-style:solid;
+	border-top-color:#D8EDFF;
 }
 
 div#imgviewer {
@@ -425,6 +439,10 @@ div#searchbar {
 	margin-right:-10px;
 	margin-left:-10px;
 	height:25px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
+	border-top-style: solid;
+	border-top-color: #D8EDFF;
 }
 
 div#slideshow {
@@ -444,9 +462,11 @@ div#usermenu {
 	margin:auto;
 	padding:5px;
 	position:relative;
-	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+	-webkit-box-shadow: 1px 1px 2px 2px #ccc;
 	border-style:none;
-	width: 780px;
+	-webkit-border-radius:12px;
+	background-color: #D8EDFF;
+	width: 699px;
 }
 
 .slides li {
