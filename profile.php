@@ -92,7 +92,6 @@
 		</ul>
 		<script type="text/javascript">createFlexsliderElements(5,<?php echo $profile['member_id']; ?>);</script>
 	</div>
-	<div id="user-image-collection">
 		<div id="collection" class="panels">
 			<div id="usermenu" class="panels">
 				<?php
@@ -189,7 +188,6 @@
 			<div id="thumbnail-display">
 			</div>
 		</div>
-	</div>
 	<?php info(); ?>
 	<?php imageview(); ?>
 	<?php if($profile['username'] === $_COOKIE['username']) albumcreator(); ?>
