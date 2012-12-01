@@ -139,12 +139,12 @@
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
 						changePanel(function() {
-							createAlbumElements(<?php echo $profile['member_id']; ?>);
+							createAlbumElements(<?php echo $profile['member_id'];?>);
 						});
 					});
 					$('#favoritebut').click(function() {
 						changePanel(function() {
-							createFavoritesElements(<?php echo $profile['member_id']; ?>);
+							createFavoritesElements(<?php echo $profile['member_id']; ?>, <?php if (isset($_COOKIE['member_id'])) echo $_COOKIE['member_id']; else echo -1;?>);
 						});
 					});
 					$('#taggedbut').click(function() {
