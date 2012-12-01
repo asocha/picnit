@@ -38,7 +38,7 @@ body {
 }
 
 .imgbuts {
-	width: 375px;
+	width: 125pxpx;
 	margin: auto;
 }
 
@@ -210,13 +210,12 @@ div#gallery {
 	width:80%;
 	margin:auto;
 	margin-top: 12px;
-	margin-bottom:-128px;
 	background-color:#FFFFFF;
 }
 
 div#info {
 	position:relative;
-	margin-top: 5px;
+	margin-top: -122px;
 	margin-left:-10px;
 	margin-right:-10px;
 	margin-bottom:-10px;
@@ -451,6 +450,7 @@ div#results {
 	border-style:none;
 	-webkit-box-shadow: 0px 0px 0px 0px #CCC;
 	margin-top:10px;
+	background-color:#EEEEEE;
 }
 
 form#signoutbut {
@@ -495,8 +495,6 @@ div#albumdesc {
 
 .imgdesc {
 	margin-bottom:5px;
-	max-width:100%;
-	width:100%;
 }
 
 h1#errorheader{
@@ -508,8 +506,9 @@ div.dispimage {
 	border-style:none;
 	background-color:#FFFFFF;
 	margin:5px;
-	padding:5px;
-	width:50%;
+	padding:10px;
+	width:47%;
+	display:inline-block;
 }
 
 .dispimage img {
@@ -519,11 +518,30 @@ div.dispimage {
 	max-width:100%;
 }
 
-#image-holder {
-	width: 80%;
-	margin:auto;
-	border-style:solid;
+.disppanel {
+	width:46%;
+	display:inline-block;
+	margin:5px;
+	padding:5px;
+}
 
+#image-holder {
+	width: 90%;
+	margin:auto;
+	border-style:none;
+
+}
+
+.imagesection {
+	background-color:#FFFFFF;
+	-webkit-border-radius: 12px;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+#tagarea {
+	text-align:center;
 }
 
 div#viewercontainer {
