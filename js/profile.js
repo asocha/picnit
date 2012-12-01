@@ -23,7 +23,7 @@ function createAlbumImagesElements(album_id) {
 		//Get tag info
 		var tags = getTagsByImage(list[x]['image_id']);
 
-		line+="<div class='imagesection' id='imagesection'"+list[x]['image_id']+"'>";
+		line+="<div class='imagesection' id='imagesection"+list[x]['image_id']+"'>";
 		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
