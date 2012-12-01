@@ -292,6 +292,23 @@ div#tagbar {
 	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
 }
 
+div#confirmbar {
+	visibility:hidden;
+	position:fixed;
+	top:50%;
+	left:50%;
+	width:300px;
+	margin-left:-150px;
+	margin-top:-150px;
+	border-color:#000000;
+	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+}
+
+#confirmform {
+	width:260px;
+	margin:auto;
+}
+
 #tagcancel {
 	float:right;
 	margin:5px;
@@ -484,13 +501,12 @@ div#albumdesc {
 }
 
 .dispalbum {
-	border-style:solid;
-	border-width:3px;
-	border-color:#043A6B;
-	background-color:#FFFFFF;
+	background-color:#EEEEEE;
 	height:75px;
-	padding:5px;
+	padding:10px;
 	margin:5px;
+	-webkit-box-shadow:3px 3px 3px 3px #CCC;
+	-webkit-border-radius:12px;
 }
 
 .imgdesc {

@@ -298,4 +298,18 @@ function tagbar() {
 	
 	<?php
 	}
+
+	//Function that returns the confirm bar 
+	function confirmbar() {
+	?>
+	<div id="confirmoverlay" class="overlays">
+	</div>
+	<div id="confirmbar" class="panels">
+		<form id="confirmform">
+		<input type="button" id="confyes" class="buttons" value="yes"/>
+		<input type="button" id="confno" class="buttons" value="no"/>
+		</form>
+	</div>
+	<?php
+	}
 	?>
