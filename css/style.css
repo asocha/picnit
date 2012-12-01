@@ -65,6 +65,11 @@ div#usermenu .buttons:hover {
 	border-right-style:none;
 }
 
+.profavbut {
+	margin:auto;
+	display:block;
+}
+
 .panels {
 	background-color:#FFFFFF;
 	border-color:#043A6B;
@@ -460,7 +465,10 @@ div#slideshow {
 	width:66%;
 	margin:auto;
 	margin-bottom:55px;
+	margin-top:20px;
 	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	-webkit-border-radius: 12px;
+	
 }
 
 div#usermenu {
@@ -567,15 +575,17 @@ div.dispimage {
 	display:inline-block;
 }
 
-div.thumbnail-display div.dispimage {
+div#thumbnail-display div.dispimage {
 	border-style: none;
 	background-color: #EEEEEE;
 	margin: auto;
+	margin-top:10px;
 	margin-bottom: 10px;
 	padding: 10px;
 	max-width: 90%;
 	-webkit-border-radius: 12px;
 	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	display:block;
 }
 
 .dispimage img {
@@ -583,6 +593,14 @@ div.thumbnail-display div.dispimage {
 	margin-right:auto;
 	margin-left:auto;
 	max-width:100%;
+}
+
+div#thumbnail-display div.dispimage img {
+	display:block;
+	margin-right:auto;
+	margin-left:auto;
+	max-width:100%;
+	margin-bottom:10px;
 }
 
 .disppanel {
