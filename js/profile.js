@@ -175,9 +175,13 @@ function createTaggedElements(user_id) {
 
 	var line="<h2>pictures of you</h2>";
 	for(x in list) {
-		line += "<div class='disptagged'>";
-		line += list[x].toString();
-		line += "</div>";
+		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
+		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
+		line+="<div class='imgname'>"+list[x]['name']+"</div>";
+		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
+		line+="<img src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="<input type='button' id='protagbut"+list[x]['image_id']+"' class='buttons protagbut' value='untag me'/>";
+		line+="</div>";
 	}
 	//Clear the current contents
 	disp.empty();
@@ -187,6 +191,13 @@ function createTaggedElements(user_id) {
 
 	//Re display
 	disp.transition({opacity: 1}, 'fast');
+
+	//Add button events
+	$('.protagbut').click(function() {
+		var id = $(this).attr('id').substring(9);
+		if(deleteTag(id, user_id, 'user_id'))
+			$(this).parent().remove();
+	});
 }
 
 function createFollowersElements() {

@@ -130,6 +130,33 @@ function addTag(image_id, id, type) {
 	return null;
 }
 
+function deleteTag(image_id, id, mem_or_cat) {
+	if(mem_or_cat !== 'user_id' && mem_or_cat !== 'cat_id')
+		return false;
+
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'deleteTag';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = image_id;
+	params[mem_or_cat] = id;
+
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return true;
+	}
+	//Error
+	else {
+
+	}
+
+	return false;
+}
+
 function getTagsByImage(image_id) {
 	//Gather req data
 	var params = new Array();
