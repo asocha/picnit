@@ -39,8 +39,8 @@
 				$res = mysql_query("SELECT member_id FROM members WHERE username='$username'");
 				$msg = json_encode(mysql_fetch_assoc($res));
 			}
-HIT_ME_BABY_ONE_MORE_TIME:
 			else if($cat_name != "") {
+HIT_ME_BABY_ONE_MORE_TIME:
 				$res = mysql_query("INSERT INTO category_tags (category_id,image_id) VALUES ((SELECT category_id FROM categories WHERE category='$cat_name'),'$image_id')");
 				if(!$res) {
 					$err = mysql_errno();
@@ -58,7 +58,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 				$res = mysql_query("SELECT category_id FROM categories WHERE category='$cat_name'");
 				$msg = json_encode(mysql_fetch_assoc($res));
 			}
-			$this->response(json_encode($msg, 200);
+			$this->response($msg, 200);
 		}
 		public function deleteTag() {
 			$image_id = $this->load('image_id');
