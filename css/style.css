@@ -315,6 +315,20 @@ input#Searchterm {
 	min-width:475px;
 }
 
+.protagbut {
+	display: block;
+	margin:auto;
+}
+
+.albumtitle {
+	font-size: 25px;
+	color: #679FD2;
+}
+
+.albumdate {
+	font-style:italic;
+}
+
 div#gallery {
 	position:relative;
 	height: 700px;
