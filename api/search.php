@@ -60,7 +60,7 @@
 		public function filterMembers() {
 			$name = $this->load('name');
 
-			$res = mysql_query("SELECT member_id FROM members WHERE username='$name'");
+			$res = mysql_query("SELECT member_id FROM members WHERE username LIKE '$name%'");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)){
