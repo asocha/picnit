@@ -74,7 +74,9 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if (is_owner) line+="<input type='button' id='picmemtagbut"+list[x]['image_id']+"' class='buttons picmemtagbut' value='tag member'/>";
 		if (is_owner) line+="<input type='button' id='piccattagbut"+list[x]['image_id']+"' class='buttons piccattagbut' value='tag category'/>";
 		if (logged_in) line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
+		if (is_owner) line+="<input type='button' id='piceditbut"+list[x]['image_id']+"' class='buttons piceditbut'/>";
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
+		
 		line+="</div>";
 		line+="</div>";
 		line+="</td>";
