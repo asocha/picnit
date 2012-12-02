@@ -650,12 +650,16 @@ div#collection {
 }
 
 div#results {
-	position:relative;
-	top: -135px;
-	border-style:none;
-	-webkit-box-shadow: 0px 0px 0px 0px #CCC;
-	margin-top:10px;
-	background-color:#EEEEEE;
+	position: relative;
+	top: -125px;
+	border-style: none;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	background-color: white;
+	-webkit-border-radius: 12px;
+	width: 90%;
+	margin: auto;
+	padding: 10px;
+	margin-bottom: 15px;
 }
 
 form#signoutbut {
@@ -1110,4 +1114,25 @@ width: 180px;
 
 #savebut {
 	float: right;
+}
+
+.searchresult {
+	-webkit-border-radius: 12px;
+	background-color: #EEE;
+	padding: 10px;
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	margin-bottom: 10px;
+	margin-left: 10px;
+	margin-right: 12px;
+}
+
+.searchresult:hover {
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
+
+.searchtitle {
+	font-size: 50px;
+	color: #679FD2;
+	margin: 10px;
+	margin-top: 0px;
 }
