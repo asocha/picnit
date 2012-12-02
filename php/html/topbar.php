@@ -160,9 +160,7 @@ function imageview() {
 </div>
 <div id="viewercontainer">
 <div id="imgviewer">
-	<div id="image" class="panels">
-		<img id="theimage"/>
-	</div>
+	<img id="theimage"/>
 	<div id="commentarea" class="panels">
 		<h2>comments</h2>
 		<div id="createcommentarea">
