@@ -190,7 +190,7 @@
 							var val = $(this).val();
 							if(val === 'follow') {
 								if(requestFollow(<?php echo $profile['member_id']; ?>))
-									$(this).val('follow pending');
+									$(this).val('pending');
 							}
 							else if(val === 'unfollow') {
 								if(unfollow(<?php echo $profile['member_id']; ?>))

@@ -306,7 +306,6 @@ function createFollowersElements() {
 		var id = $(this).attr('id').substring(9);
 		showConfirm('Are you sure you want to remove this follower?', (function(id, obj) {
 			return function() {
-				alert('sup');
 				if(removeFollower(id))
 					$(obj).parent().remove();
 			};
