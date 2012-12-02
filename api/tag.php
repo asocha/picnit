@@ -130,11 +130,11 @@ HIT_ME_BABY_ONE_MORE_TIME:
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT category_id,(SELECT COUNT(*)) as count FROM category_tags ORDER BY count DESC LIMIT $num");
+			$res = mysql_query("SELECT ct.category_id, c.category, (SELECT COUNT(*)) as count FROM category_tags ct, categories c WHERE ct.category_id = c.category_id  ORDER BY count DESC LIMIT $num");
 
-			$i = 0;
+			$tosend = array();
 			while($row = mysql_fetch_array($res))
-					$tosend[$i++] = intval($row['category_id']);
+					$tosend[] = $row;
 
 			$this->response(json_encode($tosend), 200);
 
