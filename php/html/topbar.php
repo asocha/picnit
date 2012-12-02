@@ -142,12 +142,8 @@ function imageview() {
 </div>
 <div id="viewercontainer">
 <div id="imgviewer">
-	<div id="editor">
-		<div id="menu">
-		</div>
-		<div id="image" class="panels">
-			<img id="theimage" src="/picnit/images/gui/test.jpg"/>
-		</div>
+	<div id="image" class="panels">
+		<img id="theimage" src="/picnit/images/gui/test.jpg"/>
 	</div>
 	<div id="comments" class="panels">
 		<h2>comments</h2>
