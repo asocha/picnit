@@ -122,6 +122,7 @@
 
 			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
+	}
 
 	$api = new Search;
 	$api->process();
