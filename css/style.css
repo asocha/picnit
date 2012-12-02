@@ -207,6 +207,9 @@ form#homebut {
 	border-bottom-style: solid;
 	border-bottom-color: #D8EDFF;
 	border-bottom-width: 5px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #D8EDFF;
 	font-family: 'Concert One', cursive;
 	font-size: 25px;
 	margin-left: -10px;
@@ -524,6 +527,9 @@ form#signoutbut #sign {
 	border-bottom-style: solid;
 	border-bottom-color: #D8EDFF;
 	border-bottom-width: 5px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
 	font-family: 'Concert One', cursive;
 	font-size: 25px;
 	margin-right: -10px;
@@ -543,6 +549,9 @@ div#userinfo {
 	border-bottom-style: solid;
 	border-bottom-width: 5px;
 	border-bottom-color:#D8EDFF;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
 }
 
 div#userinfo a:hover {
@@ -550,7 +559,7 @@ div#userinfo a:hover {
 }
 
 div#userinfo:hover {
-	-webkit-box-shadow: inset 1px 1px 10px 2px;
+	-webkit-box-shadow: inset 1px 1px 10px 2px #ccc;
 }
 
 #dispname {
