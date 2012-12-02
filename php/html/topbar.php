@@ -194,11 +194,6 @@ function imageview() {
 </div>
 <div id="viewercontainer">
 <div id="imgviewer">
-	<div id="imginfo" class="panels">
-	<div id="theimgname"></div>
-	<div id="imgalbname"></div>
-	<div id="imgownname"></div>
-	</div>
 	<img id="theimage"/>
 	<div id="commentarea" class="panels">
 		<h2>comments</h2>
@@ -229,7 +224,8 @@ function searchbar() {
 ?>
 <div id="searchbar" class="panels">
 	<form id="search" action="/picnit/search.php" method="get">
-		<span id="searchlabel"><label for="q">search:</label></span><span><input type="text" name="q" id="Searchterm" class="inputs"/></span>		
+		<span id="searchlabel"><label for="q">search:</label></span>
+		<span id="searchspan"><input type="text" name="q" id="Searchterm" class="inputs"/></span>
 		<span id="searchdroplabel"><label for="what">type:</label>
 		<span>
 			<select name="what" id="searchtype" class="dropdown">
