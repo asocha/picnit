@@ -32,7 +32,7 @@
   <img id="example" src="images/gui/picture3.jpg">
 
   <div id="Filters">
-  
+  <div id="bars">
     <div class="Filter">
       <div class="FilterName">
         <p>brightness</p>
@@ -122,24 +122,24 @@
         <span class="FilterValue">0</span>
       </div>
     </div>
-
+</div>
   <div id="PresetFilters">
   
-    <button type="button"><a data-preset="vintage">Vintage</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="vintage">Vintage</a></button>
   
-    <button type="button"><a data-preset="clarity">Clarity</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="clarity">Clarity</a></button>
   
-    <button type="button"><a data-preset="sinCity">Sin City</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="sinCity">Sin City</a></button>
   
-    <button type="button"><a data-preset="sunrise">Sunrise</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="sunrise">Sunrise</a></button>
   
-    <button type="button"><a data-preset="crossProcess">Cross Process</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="crossProcess">Cross Process</a></button>
   
-    <button type="button"><a data-preset="jarques">Jarques</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="jarques">Jarques</a></button>
   
-    <button type="button"><a data-preset="pinhole">Pinhole</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="pinhole">Pinhole</a></button>
   
-    <button type="button"><a data-preset="oldBoot">Old Boot</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="oldBoot">Old Boot</a></button>
   
   </div>
 
