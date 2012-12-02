@@ -126,6 +126,11 @@ div#usermenu .buttons:hover {
 .dispfollowers a:link {
 	font-size:25px;
 	text-decoration:none;
+	color: #679FD2;
+}
+
+div.dispfollowers a:visited {
+	color: #679FD2;
 }
 
 .dispfollowees {
@@ -297,6 +302,10 @@ input#search {
 	border-bottom-style: solid;
 	border-bottom-width: 5px;
 	font-size: 25px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-left-style: solid;
+	border-left-width: 1px;
 }
 
 input#search:hover {
