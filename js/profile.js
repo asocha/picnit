@@ -42,8 +42,8 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if(tags && tags['member_tags'])
 			for(n in tags['member_tags']) {
 				line+="<div class='membertag' id='membertag"+tags['member_tags'][n]['member_id']+"'>";
-				line+="<a href='/picnit/profile/"+tags['member_tags'][n]['username']+"'>"
-				line+=tags['member_tags'][n]['username']+'</a>'
+				line+="<a href='/picnit/profile/"+tags['member_tags'][n]['username']+"'>";
+				line+=tags['member_tags'][n]['username']+'</a>';
 				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tags['member_tags'][n]['member_id']+","+list[x]['image_id']+");'>";
 				line+="<span class='tagdelete'>   delete</span>";
 				line+="</a>";
@@ -55,7 +55,13 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		line+="<div class='tagtitle imgname'>category tags</div>";
 		if(tags && tags['cat_tags'])
 			for(n in tags['cat_tags']) {
-				line+="<div class='categorytag'>"+tags['cat_tags'][n]['category']+'</div>';
+				line+="<div class='categorytag' id='categorytag"+tags['cat_tags'][n]['category_id']+"'>";
+				//line+="<a href='/picnit/profile/"+tags['cat_tags'][n]['category']+"'>";
+				line+=tags['cat_tags'][n]['category'];//+'</a>';
+				line+="<a href='javascript:void(0);' onclick='deleteCategoryTag("+tags['cat_tags'][n]['category_id']+","+list[x]['image_id']+");'>";
+				line+="<span class='tagdelete'>   delete</span>";
+				line+="</a>";
+				line+='</div>';
 			}
 		else
 			line+="<div class='nocattags'>no category tags :(</div>";
@@ -123,6 +129,12 @@ function deleteMemberTag(member_id, image_id) {
 	}
 }
 
+function deleteCategoryTag(cat_id, image_id) {
+	if(deleteTag(image_id, cat_id, 'cat_id')) {
+		$('#categorytag'+cat_id).remove();
+	}
+}
+
 function createFlexsliderElements(num,user_id) {
 	//Get the photos
 	var list = getLastImages(num,user_id);
@@ -156,7 +168,7 @@ function createAlbumElements(uid) {
 	var line="<h2>albums</h2>";
 	for(x in list) {
 		line+="<div class='dispalbum' id='dispalbum"+list[x]['album_id']+"'>";
-		line+=list[x]['name'];
+		line+="<div class='albumtitle'>"+list[x]['name']+"</div>";
 		line+="<div class='albumdate'>"+list[x]['date_created']+"</div>";
 		line+="<p><div>";
 		line+=list[x]['description'];
