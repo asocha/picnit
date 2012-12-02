@@ -287,7 +287,7 @@ img#logo {
 
 form#search {
 	margin: auto;
-	width: 860px;
+	width: 870px;
 	height: 50px;
 	margin-top: -2px;
 }
@@ -563,15 +563,14 @@ textarea#albumdesc {
 
 textarea#imagedesc {
         max-width: 200px;
-        width: 200px;
-        max-height: 100px;
-        height: 100px;
-        background-color: #0C5DA5;
-        border-style: solid;
-        border-color: #043A6B;
-        border-width: 3px;
-        color: #FFFFFF;
-}^
+	width: 200px;
+	max-height: 100px;
+	height: 100px;
+	background-color: #D8EDFF;
+	border-style: none;
+	color: #000000;
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
 
 form#signupform {
 	margin:auto;
@@ -660,6 +659,7 @@ div#results {
 	margin: auto;
 	padding: 10px;
 	margin-bottom: 15px;
+	min-height:500px
 }
 
 form#signoutbut {
@@ -1167,4 +1167,16 @@ width: 180px;
 
 .catresdate {
 	font-style: italic;
+}
+
+#publicness {
+	-webkit-appearance: button;
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	-webkit-border-radius: 0px;
+	font-family: 'Concert One', cursive;
+	width: 125px;
+}
+
+#publicness:hover {
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
 }
