@@ -11,6 +11,7 @@ body {
 	width:125px;
 	padding: 3px;
 	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	font-family: 'Concert One', cursive;
 }
 
 .buttons:hover {
@@ -21,11 +22,12 @@ body {
 div#usermenu .buttons {
 	-webkit-box-shadow: 0px 0px 0px 0px;
 	margin-right: -1px;
-	height:30px;
+	height:40px;
+	font-size:20px;
 }
 
 div#usermenu .buttons:hover {
-	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 .innerbuttons {
@@ -195,7 +197,27 @@ form#signinform {
 
 form#homebut {
 	float:left;
-	margin-right:5px;
+	height:50px;
+	margin-top:-10px;
+}
+
+#home {
+	background-color: #FFFFFF;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
+	border-bottom-width: 5px;
+	border-right-style: solid;
+	border-right-width: 1px;
+	border-right-color: #D8EDFF;
+	font-family: 'Concert One', cursive;
+	font-size: 25px;
+	margin-left: -10px;
+	height: 100%;
+}
+
+#home:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 h1 {
@@ -454,7 +476,10 @@ div#slideshow {
 
 div#usermenu {
 	margin:auto;
-	padding:5px;
+	padding-right:12px;
+	padding-left:12px;
+	padding-top:0px;
+	padding-bottom:0px;
 	position:relative;
 	-webkit-box-shadow: 1px 1px 2px 2px #ccc;
 	border-style:none;
@@ -492,14 +517,59 @@ div#results {
 
 form#signoutbut {
 	float:right;
-	margin-left:5px;
+	height:50px;
+	margin-top:-10px;
+}
+
+form#signoutbut #sign {
+	background-color: white;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
+	border-bottom-width: 5px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
+	font-family: 'Concert One', cursive;
+	font-size: 25px;
+	margin-right: -10px;
+	height: 100%;
+}
+
+form#signoutbut #sign:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 div#userinfo {
 	float:right;
 	font-size:25px;
-	margin-right: 10px;
-	margin-top:-2px
+	height:45px;
+	margin-top:-10px;
+	width:125px;
+	border-bottom-style: solid;
+	border-bottom-width: 5px;
+	border-bottom-color:#D8EDFF;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
+}
+
+div#userinfo a:hover {
+	font-weight:normal;
+}
+
+div#userinfo:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #ccc;
+}
+
+#dispname {
+	position:relative;
+	display:block;
+	margin:auto;
+	width:115px;
+	height:50px;
+	text-align:center;
+	top:9px;
 }
 
 div#albuminfo {
