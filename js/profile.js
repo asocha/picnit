@@ -24,12 +24,17 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		var tags = getTagsByImage(list[x]['image_id']);
 
 		line+="<div class='imagesection' id='imagesection"+list[x]['image_id']+"'>";
+		line+="<table class='imagetable'>";
+		line+="<tr>";
+		line+="<td class='tableleft'>";
 		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="</div>";
+		line+="</td>";
+		line+="<td class='tableright'>";
 		line+="<div class='disppanel'>";
 		line+="<div id='tagarea'>";
 		line+="<div id='memtagarea'>";
@@ -53,6 +58,9 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>";
 		line+="</div>";
+		line+="</td>";
+		line+="</tr>";
+		line+="</table>";
 		line+="</div>";
 	}
 	disp.html(line);
