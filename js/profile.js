@@ -24,33 +24,43 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		var tags = getTagsByImage(list[x]['image_id']);
 
 		line+="<div class='imagesection' id='imagesection"+list[x]['image_id']+"'>";
+		line+="<table class='imagetable'>";
+		line+="<tr>";
+		line+="<td class='tableleft'>";
 		line+="<div class='dispimage' id='dispimage"+list[x]['image_id']+"'>";
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
 		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
 		line+="</div>";
+		line+="</td>";
+		line+="<td class='tableright'>";
 		line+="<div class='disppanel'>";
 		line+="<div id='tagarea'>";
-		line+="Member Tags<br/>";
+		line+="<div id='memtagarea'>";
+		line+="<div class='tagtitle'>member tags</div>";
 		if(tags && tags['member_tags'])
 			for(n in tags['member_tags'])
-				line+=tags['member_tags'][n]['username']+'<br/>';
+				line+="<div class='membertag'>"+tags['member_tags'][n]['username']+'</div>';
 		else
-			line+="no member tags :(<br/>";
-		line+="Category Tags<br/>";
+			line+="<div class='nomemtags'>no member tags :(</div>";
+		line+="</div><div class='cattagarea'>";
+		line+="<div class='tagtitle'>category tags</div>";
 		if(tags && tags['cat_tags'])
 			for(n in tags['cat_tags'])
-				line+=tags['cat_tags'][n]['category']+'<br/>';
+				line+="<div class='categorytag'>"+tags['cat_tags'][n]['category']+'</div>';
 		else
-			line+="no category tags :(<br/>";
-		line+="</div>";
+			line+="<div class='nocattags'>no category tags :(</div>";
+		line+="</div></div>";
 		line+="<div class='imgbuts'>";
 		if (is_owner) line+="<input type='button' id='pictagbut"+list[x]['image_id']+"' class='buttons pictagbut' value='tag'/>";
 		if (logged_in) line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		line+="</div>";
 		line+="</div>";
+		line+="</td>";
+		line+="</tr>";
+		line+="</table>";
 		line+="</div>";
 	}
 	disp.html(line);

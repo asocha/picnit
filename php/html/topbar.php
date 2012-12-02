@@ -254,20 +254,38 @@ function tagbar() {
 	function hideTag() {
 		document.getElementById('tagoverlay').style.visibility="hidden";
 		document.getElementById('tagbar').style.visibility="hidden";
+		document.getElementById('ui-autocomplete').style.visibility="hidden";
 	}
 
 	function showTag(image_id, mem_or_cat) {
 		document.getElementById('tagoverlay').style.visibility="visible";
 		document.getElementById('tagbar').style.visibility="visible";
+		document.getElementById('ui-autocomplete').style.visibility="visible";
+
+		$('#tagname').focus();
 
 		$('label[for="tagname"]').text(mem_or_cat+" tag:");
-		$('#tagname').attr('image_id', image_id).attr('tagtype', (mem_or_cat === "Category")? "cat_id" : "user_id");
+		$('#tagname').attr('image_id', image_id).attr('tagtype', (mem_or_cat === "category")? "category" : "tag_username");
+	}
+
+	function submitTag() {
+		var tag = $("input#tagname").val().toLowerCase();
+		var mem_or_cat = $("#tagname").attr('tagtype');
+		var image_id = $('#tagname').attr('image_id');
+
+		if(addTag(image_id, tag, mem_or_cat)) {
+			//Add tag to list here
+			
+			hideTag();
+		}
+
+		return false;
 	}
 	</script>
 	<div id="tagoverlay" class="overlays">
 	</div>
 	<div id="tagbar" class="panels">
-		<form id="tagform">
+		<form id="tagform" onsubmit='return submitTag();'>
 			<div>
 			<span><input type="button" id="tagcancel" class="buttons" value="cancel"/></span>
 			<span><input type="submit" id="tagsubmit" class="buttons" value="+"/></span>
@@ -278,22 +296,31 @@ function tagbar() {
 	<script type="text/javascript">
 		$(function() {
 			$('#tagname').autocomplete({
-				source: ["dogs","doggies","donuts"],
-				minLength: 2,
-				select: function( event, ui ) {
-					alert( ui.item? "Selected: " + ui.item.value  :  "Nothing selected, input was " + this.value );
-				}
+				source: function(request, response) {
+					var toswtich;
+					var tags;
+					
+					if($('#tagname').attr('tagtype') === 'category') {
+						tags = getCategoryTags(request.term);
+						toswitch = 'category';
+					}
+					else {
+						tags = getUserTags(request.term);
+						toswitch = 'username';
+					}
+					
+					for(x in tags) {
+						tags[x]['label'] = tags[x][username];
+						tags[x]['value'] = tags[x][username];
+					}
+
+					response(tags);
+				},
+				minLength: 0,
 			});
 		});
 		$('#tagoverlay').click(hideTag);
 		$('#tagcancel').click(hideTag);
-		$('#tagsubmit').click( function() {
-			var image_id = $('#tagname').attr('image_id');
-			var mem_or_cat = $("#tagname").attr('tagtype');
-			var tag = null;
-
-			var res = addTag();
-		});
 	</script>
 	
 	<?php
@@ -306,10 +333,30 @@ function tagbar() {
 	</div>
 	<div id="confirmbar" class="panels">
 		<form id="confirmform">
+		<div id="confmess"></div>
 		<input type="button" id="confyes" class="buttons" value="yes"/>
 		<input type="button" id="confno" class="buttons" value="no"/>
 		</form>
 	</div>
+	<script type="text/javascript">
+		$('#confno').click(hideConfirm);
+		$('#confirmoverlay').click(hideConfirm);
+		function showConfirm(msg, callback) {
+			//Set up display stuff and click handlers
+			$('#confmess').text(msg);
+			$('#confyes').click(function() {
+				callback();
+				hideConfirm();
+			});
+
+			document.getElementById('confirmoverlay').style.visibility="visible";
+			document.getElementById('confirmbar').style.visibility="visible";
+		}
+		function hideConfirm() {
+			document.getElementById('confirmoverlay').style.visibility="hidden";
+			document.getElementById('confirmbar').style.visibility="hidden";
+		}
+	</script>
 	<?php
 	}
 	?>

@@ -69,10 +69,12 @@
 			<input type="button" id="albdelbut" class="buttons" value="delete"/><?php } ?>
 			<script type="text/javascript">
 				$('#albdelbut').click(function() {
-					if(deleteAlbum(<?php echo $albuminfo['album_id']; ?>))
-						window.location = '/picnit/profile/' + getCookie('username');
-					else
-						alert("Failed deletion");
+					showConfirm("Are you sure you want to delete this album?", function () {
+						if(deleteAlbum(<?php echo $albuminfo['album_id']; ?>))
+							window.location = '/picnit/profile/' + getCookie('username');
+						else
+							alert("Failed deletion");
+					});
 				});
 			</script>
 		</div>
@@ -88,5 +90,6 @@
 	<?php imageview(); ?>
 	<?php uploader($albuminfo['album_id']); ?>
 	<?php albumcreator(); ?>
+	<?php confirmbar(); ?>
 </body>
 </html>
