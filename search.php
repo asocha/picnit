@@ -42,6 +42,8 @@
 			//Load the data into the form
 			$("#Searchterm").val('<?php echo $_GET['q']; ?>');
 			$("#searchtype").val('<?php echo $_GET['what'] ?>');
+
+			executeSearch();
 		};
 	</script>
 </head>
@@ -53,8 +55,36 @@
 
 	<?php searchbar(); ?>
 	<div id="results" class="panels">
-
 	</div>
+	<script type="text/javascript">
+		function executeSearch() {
+			var term = $("#Searchterm").val();
+			if(term.length < 1)
+				return false;
+
+			//Clear prev search terms
+			$("#result").empty();
+
+			var type = $("#searchtype").val();
+			if(type === 'member')
+				executeMemberSearch(term);
+			
+			return true;
+		}
+
+		function executeMemberSearch(input) {
+			var members = filterMembers(input);
+
+			var line = "<div class='searchtitle'>members</div>";
+			for(x in members) {
+				line+="<div class='searchresult' id='memberresult"+members[x]['member_id']+"'>";
+				line+="<div class='memrestitle'><a href='/picnit/profile/"+members[x]['username']+"'>"+members[x]['username']+"</a></div>";
+				line+="</div>";
+			}
+
+			$("#results").html(line);
+		}
+	</script>
 	<?php info(); ?>
 	<?php signup(); ?>
 	<?php imageview();?>

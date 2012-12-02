@@ -18,10 +18,10 @@ function filterMembers(input) {
 	params['action'] = 'filterMembers';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['fuser_id'] = fuser_id;
+	params['name'] = input;
 
 	//Send request
-	request = picnitRequest(imageurl, params);
+	request = picnitRequest(searchurl, params);
 
 	//Good data, show image created
 	if(request.status === 200) {

@@ -77,15 +77,12 @@
 		public function filterMembers() {
 			$name = $this->load('name');
 
-			$res = mysql_query("SELECT member_id FROM members WHERE username LIKE '$name%'");
+			$res = mysql_query("SELECT member_id, username FROM members WHERE username LIKE '$name%'");
 
-			$i = 0;
-			while($row = mysql_fetch_array($res)){
-				$tosend[$i++] = intval($row['member_id']);
-				$i += 1;
-			}
+			while($row = mysql_fetch_array($res))
+				$tosend[] = $row;
 
-			$this->response(json_encode(array('list' => $tosend)), 200);
+			$this->response(json_encode($tosend), 200);
 		}
 
 		public function filterImages() {
