@@ -194,6 +194,11 @@ function imageview() {
 </div>
 <div id="viewercontainer">
 <div id="imgviewer">
+	<div id="imginfo" class="panels">
+	<div id="theimgname"></div>
+	<div id="imgalbname"></div>
+	<div id="imgownname"></div>
+	</div>
 	<img id="theimage"/>
 	<div id="commentarea" class="panels">
 		<h2>comments</h2>

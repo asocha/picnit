@@ -4,22 +4,35 @@
   <meta charset="utf8">
   <title>Editor</title>
 
-  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Raleway:400,200,700' rel='stylesheet' type='text/css'>
-
-  <script type='text/javascript' src='js/editorjs/9ec45af399351c8877c311e247b40e64.js'></script>
+  <?php require_once('php/general.php'); ?>
+	<?php require_once('php/html/topbar.php'); ?>
+	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Raleway:400,200,700' rel='stylesheet' type='text/css'>	
+	<script type='text/javascript' src='js/editorjs/9ec45af399351c8877c311e247b40e64.js'></script>
+	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
+	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.transit.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.flexslider-min.js"></script>
+	<script type="text/javascript" src="/picnit/js/general.js"></script>
+	<script type="text/javascript" src="/picnit/js/member.js"></script>
+	<script type="text/javascript" src="/picnit/js/album.js"></script>
+	<script type="text/javascript" src="/picnit/js/image.js"></script>
+	<script type="text/javascript" src="/picnit/js/tag.js"></script>
+	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 
 
   <script src="js/editorjs/editor.js"></script>
 </head>
 <body>
-
-<div id="Content">
+	<?php menubar(); ?>
+<div id="Content" class="panels">
   <h3>Image Editor</h3>
-  
+  <button type="button" class="buttons" id="savebut">save</button>
   <img id="example" src="images/gui/picture3.jpg">
 
   <div id="Filters">
-  
+  <div id="bars">
     <div class="Filter">
       <div class="FilterName">
         <p>brightness</p>
@@ -109,33 +122,33 @@
         <span class="FilterValue">0</span>
       </div>
     </div>
-
+</div>
   <div id="PresetFilters">
   
-    <button type="button"><a data-preset="vintage">Vintage</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="vintage">Vintage</a></button>
   
-    <button type="button"><a data-preset="clarity">Clarity</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="clarity">Clarity</a></button>
   
-    <button type="button"><a data-preset="sinCity">Sin City</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="sinCity">Sin City</a></button>
   
-    <button type="button"><a data-preset="sunrise">Sunrise</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="sunrise">Sunrise</a></button>
   
-    <button type="button"><a data-preset="crossProcess">Cross Process</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="crossProcess">Cross Process</a></button>
   
-    <button type="button"><a data-preset="jarques">Jarques</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="jarques">Jarques</a></button>
   
-    <button type="button"><a data-preset="pinhole">Pinhole</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="pinhole">Pinhole</a></button>
   
-    <button type="button"><a data-preset="oldBoot">Old Boot</a></button>
+    <button type="button" class="buttons editorbuts"><a data-preset="oldBoot">Old Boot</a></button>
   
   </div>
 
   <div class="Clear"></div>
   </div>
-  
-  
-
-  
+  	
 </div>
+	<?php info(); ?>
+	<?php signup(); ?>
+	<?php confirmbar(); ?>
 </body>
 </html>

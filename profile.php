@@ -133,7 +133,7 @@
 					}
 					else if($profile['requestsent']) {
 				?>
-				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow pending"/>
+				<input id="followuserbut" class="buttons louterbuttons" type="button" value="pending"/>
 				<?php
 					}
 					else if($profile['isfollowing']) {
@@ -190,11 +190,17 @@
 							var val = $(this).val();
 							if(val === 'follow') {
 								if(requestFollow(<?php echo $profile['member_id']; ?>))
-									$(this).val('follow pending');
+									$(this).val('pending');
 							}
 							else if(val === 'unfollow') {
-								if(unfollow(<?php echo $profile['member_id']; ?>))
-									$(this).val('follow');
+								var id = $(this).attr('id').substring(9);
+								var button = this;
+                                                                        showConfirm('Are you sure you want to unfollow this user?', (function(id, obj) {
+                                                                                return function() {
+                                                                                        if(unfollow(<?php echo $profile['member_id'];?>))
+                                                                                                $(button).val('follow');
+                                                                                };
+                                                                        })(id, this));
 							}
 						});
 					if($('#suspenduserbut').length > 0)
