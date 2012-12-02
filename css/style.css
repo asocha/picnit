@@ -1031,5 +1031,21 @@ span#searchdroplabel label {
 }
 
 #searchtype:hover {
-	inset 1px 1px 10px 2px #CCC;
+	-webkit-box-shadow:inset 1px 1px 10px 2px #CCC;
 }
+
+h3 {
+	font-size: 100px;
+	margin-top: 0px;
+}
+
+#Content {
+	width: 80%;
+	display: block;
+	margin: auto;
+	margin-bottom: 140px;
+	margin-top: 20px;
+	-webkit-border-radius: 12px;
+	padding: 10px;
+}
+
