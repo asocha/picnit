@@ -660,6 +660,7 @@ div.dispfollowreq a:link {
 	float: right;
 	position: relative;
 	top: 0px;
+	margin-right: 5px;
 }
 
 /* Tiny Carousel */
@@ -776,4 +777,16 @@ a:link {
 
 a:visited {
 	color:#000000;
+}
+
+.dispalbum:hover {
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
+
+.imgname {
+	font-size: 25px;
+}
+
+.imgdate {
+	font-style:italic;
 }
