@@ -200,6 +200,6 @@
 	<?php imageview(); ?>
 	<?php if($profile['username'] === $_COOKIE['username']) albumcreator(); ?>
 	<?php signup(); ?>
-	
+	<?php confirmbar(); ?>
 </body>
 </html>

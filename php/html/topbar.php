@@ -129,13 +129,13 @@ function imageview() {
 	function hideViewer() {
 		document.getElementById('imgoverlay').style.visibility="hidden";
 		document.getElementById('imgviewer').style.visibility="hidden";
-		document.getElementById('viewercontainer').style.visibility="hidden";
 	}
 
-	function showViewer() {
+	function showViewer(src, image_id) {
+		$('#theimage').attr('src', src).attr('imgid',image_id);
+
 		document.getElementById('imgoverlay').style.visibility="visible";
 		document.getElementById('imgviewer').style.visibility="visible";
-		document.getElementById('viewercontainer').style.visibility="visible";
 	}
 </script>
 <div id="imgoverlay" class="overlays">
@@ -146,7 +146,7 @@ function imageview() {
 		<div id="menu">
 		</div>
 		<div id="image" class="panels">
-			<img id="theimage" src="/picnit/images/gui/test.jpg" alt="Pulpit rock"/>
+			<img id="theimage" src="/picnit/images/gui/test.jpg"/>
 		</div>
 	</div>
 	<div id="comments" class="panels">
@@ -156,7 +156,6 @@ function imageview() {
 </div>
 	<script type="text/javascript">
 	$('#imgoverlay').click(hideViewer);
-	$('#overlay').click(hideViewer);
 	</script>
 	<?php
 	}
@@ -254,13 +253,16 @@ function tagbar() {
 	function hideTag() {
 		document.getElementById('tagoverlay').style.visibility="hidden";
 		document.getElementById('tagbar').style.visibility="hidden";
-		document.getElementById('ui-autocomplete').style.visibility="hidden";
+		if(document.getElementById('ui-autocomplete'))
+			document.getElementById('ui-autocomplete').style.visibility="hidden";
+		$('#tagname').blur();
 	}
 
 	function showTag(image_id, mem_or_cat) {
 		document.getElementById('tagoverlay').style.visibility="visible";
 		document.getElementById('tagbar').style.visibility="visible";
-		document.getElementById('ui-autocomplete').style.visibility="visible";
+		if(document.getElementById('ui-autocomplete'))
+			document.getElementById('ui-autocomplete').style.visibility="visible";
 
 		$('#tagname').focus();
 
@@ -274,8 +276,19 @@ function tagbar() {
 		var image_id = $('#tagname').attr('image_id');
 
 		if(addTag(image_id, tag, mem_or_cat)) {
-			//Add tag to list here
-			
+			if(mem_or_cat === 'category') {
+				var area = $('#imagesection'+image_id).find('.cattagarea');
+				if(area.find('.nocattags'))
+					area.find('.nocattags').remove();
+				area.append("<div class='categorytag'>"+tag+"</div>");
+			}
+			else {
+				var area = $('#imagesection'+image_id).find('.memtagarea');
+				if(area.find('.nomemtags'))
+					area.find('.nomemtags').remove();
+				area.append("<div class='membertag'>"+tag+"</div>");
+			}
+
 			hideTag();
 		}
 
@@ -310,8 +323,8 @@ function tagbar() {
 					}
 					
 					for(x in tags) {
-						tags[x]['label'] = tags[x][username];
-						tags[x]['value'] = tags[x][username];
+						tags[x]['label'] = tags[x][toswitch];
+						tags[x]['value'] = tags[x][toswitch];
 					}
 
 					response(tags);
@@ -355,6 +368,7 @@ function tagbar() {
 		function hideConfirm() {
 			document.getElementById('confirmoverlay').style.visibility="hidden";
 			document.getElementById('confirmbar').style.visibility="hidden";
+			$('#confyes').unbind('click');
 		}
 	</script>
 	<?php
