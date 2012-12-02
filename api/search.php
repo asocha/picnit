@@ -19,7 +19,7 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT * FROM images WHERE name LIKE '%$name%'");
+			$res = mysql_query("SELECT * FROM images WHERE name LIKE '$name%'");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -42,7 +42,7 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT * FROM albums WHERE name LIKE '%$name%'");
+			$res = mysql_query("SELECT * FROM albums WHERE name LIKE '$name%'");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
