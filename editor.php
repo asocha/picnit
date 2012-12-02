@@ -145,9 +145,10 @@
 
   <div class="Clear"></div>
   </div>
-  	<?php info(); ?>
+  	
+</div>
+	<?php info(); ?>
 	<?php signup(); ?>
 	<?php confirmbar(); ?>
-</div>
 </body>
 </html>
