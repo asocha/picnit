@@ -129,6 +129,10 @@ function imageview() {
 	function hideViewer() {
 		document.getElementById('imgoverlay').style.visibility="hidden";
 		document.getElementById('imgviewer').style.visibility="hidden";
+
+		$("body").css("overflow","auto");
+
+		$("#comments").empty();
 	}
 
 	function showViewer(src, image_id) {
@@ -150,6 +154,14 @@ function imageview() {
 
 			disp.append(line);
 		}
+
+		$("body").css("overflow","hidden");
+
+		$("#viewercontainer").scroll(function() {
+			document.getElementById("viewercontainer").style.display='none';
+			document.getElementById("viewercontainer").offsetHeight; 
+			document.getElementById("viewercontainer").style.display='block';
+		});
 	}
 
 	function imageViewAddComment() {
@@ -301,6 +313,8 @@ function tagbar() {
 		document.getElementById('tagbar').style.visibility="hidden";
 		if(document.getElementById('ui-autocomplete'))
 			document.getElementById('ui-autocomplete').style.visibility="hidden";
+
+		$('#tagname').val();
 		$('#tagname').blur();
 	}
 
