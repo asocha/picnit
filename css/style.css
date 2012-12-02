@@ -287,8 +287,9 @@ img#logo {
 
 form#search {
 	margin: auto;
-	width: 700px;
+	width: 860px;
 	height: 50px;
+	margin-top: -2px;
 }
 
 input#search {
@@ -306,6 +307,7 @@ input#search {
 	border-right-width: 1px;
 	border-left-style: solid;
 	border-left-width: 1px;
+	margin-left: -6px;
 }
 
 input#search:hover {
@@ -1005,4 +1007,29 @@ a:visited {
 
 .tagdelete {
 	font-size: 10px;
+}
+
+span#searchdroplabel label {
+	font-size: 25px;
+}
+
+#searchtype {
+	-webkit-appearance: button;
+	-webkit-border-radius: 0px;
+	border-style: none;
+	width: 105px;
+	height: 55px;
+	margin-top: -20px;
+	font-size: 25px;
+	font-family: 'Concert One', cursive;
+	border-bottom-style: solid;
+	border-bottom-width: 5px;
+	border-top-style: solid;
+	border-top-width: 5px;
+	border-color: #D8EDFF;
+	padding:5px;
+}
+
+#searchtype:hover {
+	inset 1px 1px 10px 2px #CCC;
 }
