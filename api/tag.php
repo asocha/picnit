@@ -130,7 +130,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 			if($num > 10)
 				$num = 10;
 
-			if($user_id != "") {
+			if($user_id != "")
 				$res = mysql_query("SELECT category,count(c.category) from images i, categories c, category_tags t WHERE i.owner_id='$user_id' and i.image_id=t.image_id and c.category_id=t.category_id GROUP BY category ORDER BY category ASC");
 			else
 				$res = mysql_query("SELECT ct.category_id, c.category, (SELECT COUNT(*)) as count FROM category_tags ct, categories c WHERE ct.category_id = c.category_id  ORDER BY count DESC LIMIT $num");
