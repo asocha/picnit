@@ -1150,3 +1150,12 @@ width: 180px;
 	font-size: 25px;
 	color: #679FD2;
 }
+
+.albumrestitle {
+	font-size: 25px;
+	color: #679FD2;
+}
+
+.albumresdate {
+	font-style: italic;
+}
