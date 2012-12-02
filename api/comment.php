@@ -30,8 +30,20 @@
 
 			$this->forceauth();
 
-			mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
-			$this->response('',200);
+			if(mysql_result(mysql_query("SELECT is_admin FROM members WHERE member_id='$this->memberid'"),0))
+				$res = mysql_query("DELETE FROM comments WHERE comment_id='$comment_id'");
+
+			$owner_id = mysql_result(mysql_query("SELECT i.owner_id FROM images i, comments c WHERE i.image_id=c.image_id and c.comment_id='$comment_id'"),0);
+
+			if($owner_id == $this->memberid)
+				$res = mysql_query("DELETE FROM comment where comment_id='$comment_id'");
+			else
+				$res = mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
+
+			if(mysql_affected_rows() == 1)
+				$this->response('', 200);
+
+			$this->response(json_encode(array('msg' => 'Comment was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
 		}
 
 		public function getComments(){
