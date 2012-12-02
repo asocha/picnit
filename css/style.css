@@ -409,11 +409,10 @@ textarea#albumdesc {
 	width: 200px;
 	max-height: 100px;
 	height: 100px;
-	background-color: #0C5DA5;
-	border-style: solid;
-	border-color: #043A6B;
-	border-width: 3px;
-	color: #FFFFFF;
+	background-color: #D8EDFF;
+	border-style: none;
+	color: #000000;
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
 }
 textarea#imagedesc {
         max-width: 200px;
@@ -783,6 +782,10 @@ div#userinfo a {
 a {
 	text-decoration: none;
 	color:#000000;
+}
+
+a:hover {
+	font-weight:bold;
 }
 
 a:link {
