@@ -263,18 +263,18 @@ div#imgviewer div#editor {
 }
 
 div#imgviewer div#image {
-	border-color:#000000;
-	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+	-webkit-border-radius:12px;
+	-webkit-box-shadow: 1px 1px 2px 2px #444;
 }
 
 div#imgviewer div#comments {
 	border-color:#000000;
 	margin-top:15px;
-	-webkit-box-shadow: 0px 0px 0px 0px #ccc;
+	-webkit-box-shadow: 1px 1px 2px 2px #444;
+	-webkit-border-radius: 12px;
 }
 
 div#image img {
-	border-style:solid;
 	max-width:70%;
 	display:block;
 	margin-left: auto;
