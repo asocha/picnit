@@ -307,6 +307,10 @@ span#searchlabel {
 	margin:5px;
 }
 
+span#searchlabel label {
+	font-size:20px;
+}
+
 input#Searchterm {
 	min-width:475px;
 }
