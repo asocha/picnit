@@ -109,6 +109,39 @@
 		}
 	}
 
+	public function getImagesByCategory() {
+			$name = $this->load('name');
+			$num = $this->load('num',false);
+			$offset = $this->load('offset',false);
+
+			if($num != "") {
+				if($offset != "")
+					$limclause = " LIMIT ".$offset.",".$num;
+				else
+					$limclause = " LIMIT $num";
+			} else {
+				$limclause = "";
+			}
+
+			if($num > 10)
+				$num = 10;
+
+			$res = mysql_query("SELECT i.* FROM images i, categories c, category_tags t WHERE i.image_id=t.image_id and t.category_id=c.category_id and c.category LIKE '$name%' ORDER BY image_id DESC$limclause");
+
+			$i = 0;
+			while($row = mysql_fetch_array($res)) {
+					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['image_type'] = $row['imgtype'];
+					$tosend[$i]['date_added'] = $row['date_added'];
+					$tosend[$i]['name'] = $row['name'];
+					$tosend[$i]['description'] = $row['description'];
+					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
+					$i++;
+			}
+
+			$this->response(json_encode(array('list' => $tosend)), 200);
+		}
+
 	$api = new Search;
 	$api->process();
 ?>
