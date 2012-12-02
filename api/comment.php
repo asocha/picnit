@@ -33,8 +33,19 @@
 
 		public function getComments(){
 			$image_id = $this->load('image_id');
+			$num = $this->load('num',false);
+			$offset = this->load('offset',false);
 
-			$res = mysql_query("SELECT comment_text FROM comments where image_id='$image_id'");
+			if($num != "") {
+				if($offset != "")
+					$limclause = " LIMIT ".$offset.",".$num;
+				else
+					$limclause = " LIMIT $num";
+			} else {
+				$limclause = "";
+			}
+
+			$res = mysql_query("SELECT comment_text FROM comments where image_id='$image_id' ORDER BY comment_id $limclause");
 			$result = mysql_fetch_array($res);
 
 			$this->response(json_encode($result));
