@@ -44,6 +44,7 @@
 	<script type="text/javascript" src="/picnit/js/image.js"></script>
 	<script type="text/javascript" src="/picnit/js/album.js"></script>
 	<script type="text/javascript" src="/picnit/js/tag.js"></script>
+	<script type="text/javascript" src="/picnit/js/comment.js"></script>
 	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 	<script>
 	window.onload = function() {

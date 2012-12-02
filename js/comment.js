@@ -11,7 +11,7 @@ var commenturl='/picnit/api/comment.php';
 //Request to be sent to the middleware
 var request;
 
-function addComment(ctext, image_id) {
+function addComment(image_id, ctext) {
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'addComment';
@@ -25,7 +25,8 @@ function addComment(ctext, image_id) {
 
 	//Good data, show comment created
 	if(request.status === 200) {
-		return $.parseJSON(request.responseText);
+		return true;
+		//return $.parseJSON(request.responseText);
 	}
 	//Error
 	else {

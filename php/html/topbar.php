@@ -148,8 +148,7 @@ function imageview() {
 
 		var data = addComment(image_id, text);
 		if(data) {
-			alert("comment sent");
-			
+			$('#commenttext').val('');
 			return false;
 		}
 
@@ -169,7 +168,7 @@ function imageview() {
 					<label for="commenttext">add comment:</label>
 					<textarea id="commenttext"></textarea>
 				</div>
-				<input type="submit" class="buttons"/>
+				<input type="submit" class="buttons" value='add comment'/>
 			</form>
 		</div>
 		<div id='comments'>

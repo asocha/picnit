@@ -18,8 +18,12 @@
 
 			$this->forceauth();
 
-			mysql_query("INSERT INTO comments values ('$this->memberid', '$image_id', '$comment')");
-			$this->response('',200);
+			mysql_query("INSERT INTO comments(commenter_id, image_id, comment_text) values ('$this->memberid', '$image_id', '$comment')");
+			
+			if(mysql_affected_rows())
+				$this->response('',200);
+
+			$this->response("Error: " . mysql_error());
 		}
 
 		public function deleteComment() {
@@ -34,7 +38,7 @@
 		public function getComments(){
 			$image_id = $this->load('image_id');
 			$num = $this->load('num',false);
-			$offset = this->load('offset',false);
+			$offset = $this->load('offset',false);
 
 			if($num != "") {
 				if($offset != "")
