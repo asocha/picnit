@@ -16,8 +16,6 @@
 	//If does, get user info
 	if($res['status'] == 200) 
 		$profile = json_decode($res['result'], true);
-	else
-		header('Location: /picnit/404.php');
 ?>
 <html>
 <head>
@@ -68,6 +66,12 @@
 			var type = $("#searchtype").val();
 			if(type === 'member')
 				executeMemberSearch(term);
+			else if(type === 'photo')
+				executePhotoSearch(term);
+			else if(type === 'album')
+				executeAlbumSearch(term);
+			else if(type === 'category')
+				executeCategorySearch(term);
 			
 			return true;
 		}
@@ -77,12 +81,72 @@
 
 			var line = "<div class='searchtitle'>members</div>";
 			for(x in members) {
-				line+="<div class='searchresult' id='memberresult"+members[x]['member_id']+"'>";
-				line+="<div class='memrestitle'><a href='/picnit/profile/"+members[x]['username']+"'>"+members[x]['username']+"</a></div>";
+				line+="<div class='searchresult' id='memberresult"+members[x]['member_id']+"' username='"+members[x]['username']+"'>";
+				line+="<div class='memrestitle'>"+members[x]['username']+"</div>";
 				line+="</div>";
 			}
-
 			$("#results").html(line);
+			
+			$(".searchresult").click(function() {
+				window.location = '/picnit/profile/' + $(this).attr('username');
+			});
+		}
+
+		function executePhotoSearch(input) {
+			var images = getImagesByName(input);
+
+			var line = "<div class='searchtitle'>photos by name</div>";
+			for(x in images) {
+				line+="<div class='searchresult' id='photoresult"+images[x]['image_id']+"' goto='"+images[x]['album_id']+"#imagesection"+images[x]['image_id']+"'>";
+				line+="<div class='photorestitle'>"+images[x]['name']+"</div>";
+				line+="<div class='photoresuser'>"+images[x]['username']+"</div>";
+				line+="<div class='photoresdate'>"+images[x]['date_added']+"</div>";
+				line+="<div class='photoresdesc'>"+images[x]['description']+"</div>";
+				line+="</div>";
+			}
+			$("#results").html(line);
+			
+			$(".searchresult").click(function() {
+				window.location = '/picnit/album/' + $(this).attr('goto');
+			});
+		}
+		
+		function executeAlbumSearch(input) {
+			var albums = getAlbumsByName(input);
+
+			var line = "<div class='searchtitle'>albums</div>";
+			for(x in albums) {
+				line+="<div class='searchresult' id='albumresult"+albums[x]['album_id']+"' goto='"+albums[x]['album_id']+"'>";
+				line+="<div class='albumrestitle'>"+albums[x]['name']+"</div>";
+				line+="<div class='albumresuser'>"+albums[x]['username']+"</div>";
+				line+="<div class='albumresdate'>"+albums[x]['date_created']+"</div>";
+				line+="<div class='albumresdesc'>"+albums[x]['description']+"</div>";
+				line+="</div>";
+			}
+			$("#results").html(line);
+
+			$(".searchresult").click(function() {
+				window.location = '/picnit/album/' + $(this).attr("goto");	
+			});
+		}
+
+		function executeCategorySearch(input) {
+			var images = getImagesByCategory(input);
+
+			var line = "<div class='searchtitle'>photos by category</div>";
+			for(x in images) {
+				line+="<div class='searchresult' id='catresult"+images[x]['image_id']+"' goto='"+images[x]['album_id']+"#imagesection"+images[x]['image_id']+"'>";
+				line+="<div class='catrestitle'>"+images[x]['name']+"</div>";
+				line+="<div class='catresuser'>"+images[x]['username']+"</div>";
+				line+="<div class='catresdate'>"+images[x]['date_added']+"</div>";
+				line+="<div class='catresdesc'>"+images[x]['description']+"</div>";
+				line+="</div>";
+			}
+			$("#results").html(line);
+			
+			$(".searchresult").click(function() {
+				window.location = '/picnit/album/' + $(this).attr('goto');
+			});
 		}
 	</script>
 	<?php info(); ?>
