@@ -89,9 +89,8 @@
 
 			$this->response(json_encode(array('list' => $tosend)), 200);
 		}
-	}
 
-	public function getImagesByCategory() {
+		public function getImagesByCategory() {
 			$name = $this->load('name');
 			$num = $this->load('num',false);
 			$offset = $this->load('offset',false);
