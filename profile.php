@@ -193,8 +193,14 @@
 									$(this).val('pending');
 							}
 							else if(val === 'unfollow') {
-								if(unfollow(<?php echo $profile['member_id']; ?>))
-									$(this).val('follow');
+								var id = $(this).attr('id').substring(9);
+								var button = this;
+                                                                        showConfirm('Are you sure you want to unfollow this user?', (function(id, obj) {
+                                                                                return function() {
+                                                                                        if(unfollow(<?php echo $profile['member_id'];?>))
+                                                                                                $(button).val('follow');
+                                                                                };
+                                                                        })(id, this));
 							}
 						});
 					if($('#suspenduserbut').length > 0)
