@@ -1136,3 +1136,17 @@ width: 180px;
 	margin: 10px;
 	margin-top: 0px;
 }
+
+.photorestitle {
+	font-size: 25px;
+	color: #679FD2;
+}
+
+.photoresdate {
+	font-style: italic;
+}
+
+.memrestitle {
+	font-size: 25px;
+	color: #679FD2;
+}
