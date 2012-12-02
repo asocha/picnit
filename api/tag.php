@@ -73,8 +73,8 @@ HIT_ME_BABY_ONE_MORE_TIME:
 
 			if($user_id != "") // Delete member tag
 				$res = mysql_query("DELETE FROM mem_tags where image_id=$image_id and member_id=$user_id");
-			else if($tag != "") // Delete category tag
-				$res = mysql_query("DELETE FROM category_tags WHERE image_id='$image_id' and category_tag='$cat_id'");
+			else if($cat_id != "") // Delete category tag
+				$res = mysql_query("DELETE FROM category_tags WHERE image_id='$image_id' and category_id='$cat_id'");
 
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);

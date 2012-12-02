@@ -327,7 +327,15 @@ function tagbar() {
 				var area = $('#imagesection'+image_id).find('.cattagarea');
 				if(area.find('.nocattags'))
 					area.find('.nocattags').remove();
-				area.append("<div class='categorytag'>"+tag+"</div>");
+				var line="<div class='categorytag' id='categorytag"+tags['category_id']+"'>";
+				//line+="<a href='/picnit/profile/"+tags['cat_tags'][n]['category']+"'>";
+				line+=tags['category'];//+'</a>';
+				line+="<a href='javascript:void(0);' onclick='deleteCategoryTag("+tags['category_id']+","+image_id+");'>";
+				line+="<span class='tagdelete'>   delete</span>";
+				line+="</a>";
+				line+='</div>';
+
+				area.append(line);
 			}
 			else {
 				var area = $('#imagesection'+image_id).find('.memtagarea');
@@ -337,7 +345,7 @@ function tagbar() {
 				var line="<div class='membertag' id='membertag"+tags['member_id']+"'>";
 				line+="<a href='/picnit/profile/"+tags['username']+"'>"
 				line+=tags['username']+'</a>'
-				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tag+","+image_id+");'>";
+				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tags['member_id']+","+image_id+");'>";
 				line+="<span class='tagdelete'>   delete</span>";
 				line+="</a>";
 				line+='</div>';
