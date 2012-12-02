@@ -107,7 +107,7 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT i.album_id, i.image_id, username, name, description, date_added FROM images i, follows f, categories c, category_tags t WHERE i.image_id=t.image_id and t.category_id=c.category_id and c.category LIKE '$name%' and ((i.publicness=0) OR (i.publicness=1 and f.follower_id='$this->memberid' and f.is_accepted=true) OR (i.owner_id='$this->memberid')) GROUP BY i.image_id ORDER BY image_id DESC$limclause");
+			$res = mysql_query("SELECT i.album_id, i.image_id, username, name, description, date_added FROM images i, follows f, categories c, category_tags t, members m WHERE m.member_id = i.owner_id and i.image_id=t.image_id and t.category_id=c.category_id and c.category LIKE '$name%' and ((i.publicness=0) OR (i.publicness=1 and f.follower_id='$this->memberid' and f.is_accepted=true) OR (i.owner_id='$this->memberid')) GROUP BY i.image_id ORDER BY image_id DESC$limclause");
 
 			while($row = mysql_fetch_array($res))
 				$tosend[] = $row;
