@@ -28,7 +28,7 @@
 	<?php menubar(); ?>
 <div id="Content" class="panels">
   <h3>Image Editor</h3>
-  
+  <button type="button" class="buttons" id="savebut">save</button>
   <img id="example" src="images/gui/picture3.jpg">
 
   <div id="Filters">
