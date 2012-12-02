@@ -1035,6 +1035,7 @@ h3 {
 	margin-top: 0px;
 	margin-bottom: 10px;
 	color:#679FD2;
+	display:inline;
 }
 
 #example {
@@ -1101,4 +1102,12 @@ width: 180px;
 	margin-top: 10px;
 	display: inline-block;
 	width: 175px;
+}
+
+.buttons.editorbuts:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
+}
+
+#savebut {
+	float: right;
 }
