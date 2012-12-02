@@ -44,9 +44,11 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 				line+="<div class='membertag' id='membertag"+tags['member_tags'][n]['member_id']+"'>";
 				line+="<a href='/picnit/profile/"+tags['member_tags'][n]['username']+"'>";
 				line+=tags['member_tags'][n]['username']+'</a>';
-				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tags['member_tags'][n]['member_id']+","+list[x]['image_id']+");'>";
-				line+="<span class='tagdelete'>   delete</span>";
-				line+="</a>";
+				if (is_owner){
+					line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tags['member_tags'][n]['member_id']+","+list[x]['image_id']+");'>";
+					line+="<span class='tagdelete'>   delete</span>";
+					line+="</a>";
+				}
 				line+='</div>';
 			}
 		else
@@ -58,9 +60,11 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 				line+="<div class='categorytag' id='categorytag"+tags['cat_tags'][n]['category_id']+"'>";
 				//line+="<a href='/picnit/profile/"+tags['cat_tags'][n]['category']+"'>";
 				line+=tags['cat_tags'][n]['category'];//+'</a>';
-				line+="<a href='javascript:void(0);' onclick='deleteCategoryTag("+tags['cat_tags'][n]['category_id']+","+list[x]['image_id']+");'>";
-				line+="<span class='tagdelete'>   delete</span>";
-				line+="</a>";
+				if (is_owner){
+					line+="<a href='javascript:void(0);' onclick='deleteCategoryTag("+tags['cat_tags'][n]['category_id']+","+list[x]['image_id']+");'>";
+					line+="<span class='tagdelete'>   delete</span>";
+					line+="</a>";
+				}
 				line+='</div>';
 			}
 		else

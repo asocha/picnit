@@ -219,3 +219,26 @@ function getUserTags(prefix) {
 
 	return null;
 }
+
+function getTopCategories(user_id, num) {
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'getTopCategories';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['user_id'] = user_id;
+	params['num'] = num;
+	
+	//Send request
+	request = picnitRequest(tagurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+
+	return null;
+}
+
