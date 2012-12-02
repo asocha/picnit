@@ -11,6 +11,7 @@ body {
 	width:125px;
 	padding: 3px;
 	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	font-family: 'Concert One', cursive;
 }
 
 .buttons:hover {
@@ -26,7 +27,7 @@ div#usermenu .buttons {
 }
 
 div#usermenu .buttons:hover {
-	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 .innerbuttons {
@@ -197,7 +198,7 @@ form#signinform {
 form#homebut {
 	float:left;
 	height:50px;
-	margin-top:10px;
+	margin-top:-10px;
 }
 
 #home {
