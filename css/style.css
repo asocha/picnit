@@ -1037,6 +1037,15 @@ span#searchdroplabel label {
 h3 {
 	font-size: 100px;
 	margin-top: 0px;
+	margin-bottom: 10px;
+	color:#679FD2;
+}
+
+#example {
+	display:block;
+	margin:auto;
+	max-width: 95%;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
 }
 
 #Content {
