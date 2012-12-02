@@ -75,8 +75,38 @@
 				}
 			}
 
-			//Make albums show first
-			$('#albumsbut').click();
+			//Hashing system
+			window.onhashchange = function() {
+				var hash = window.location.hash;
+				if(hash === '#favorites')
+					changePanel(function() {
+						createFavoritesElements(<?php echo $profile['member_id']; ?>, <?php if (isset($_COOKIE['member_id'])) echo $_COOKIE['member_id']; else echo -1;?>);
+					});
+				else if(hash === '#followers')
+					changePanel(function() {
+						createFollowersElements();
+					});
+				else if(hash === '#following')
+					changePanel(function() {
+						createFolloweesElements();
+					});
+				else if(hash === '#requests')
+					changePanel(function() {
+						createFollowReqElements();
+					});
+				else if(hash === '#tagged')
+					changePanel(function() {
+						createTaggedElements(<?php echo $profile['member_id']; ?>);
+					});
+				else if(hash === '#albums') 
+					changePanel(function() {
+						createAlbumElements(<?php echo $profile['member_id'];?>);
+					});
+				else
+					window.location.hash = '#albums';
+			};
+
+			window.onhashchange();
 		}
 	</script>
 </head>
@@ -138,34 +168,22 @@
 				?>
 				<script type="text/javascript">
 					$('#albumsbut').click(function() {
-						changePanel(function() {
-							createAlbumElements(<?php echo $profile['member_id'];?>);
-						});
+						window.location.hash = 'albums';
 					});
 					$('#favoritebut').click(function() {
-						changePanel(function() {
-							createFavoritesElements(<?php echo $profile['member_id']; ?>, <?php if (isset($_COOKIE['member_id'])) echo $_COOKIE['member_id']; else echo -1;?>);
-						});
+						window.location.hash = 'favorites';
 					});
 					$('#taggedbut').click(function() {
-						changePanel(function() {
-							createTaggedElements(<?php echo $profile['member_id']; ?>);
-						});
+						window.location.hash = 'tagged';
 					});
 					$('#followersbut').click(function() {
-						changePanel(function() {
-							createFollowersElements();
-						});
+						window.location.hash = 'followers';
 					});
 					$('#followeesbut').click(function() {
-						changePanel(function() {
-							createFolloweesElements();
-						});
+						window.location.hash = 'following';
 					});
 					$('#requestsbut').click(function() {
-						changePanel(function() {
-							createFollowReqElements();
-						});
+						window.location.hash = 'requests';
 					});
 					if($('#followuserbut').length > 0)
 						$('#followuserbut').click(function() {
