@@ -4,16 +4,26 @@
   <meta charset="utf8">
   <title>Editor</title>
 
-  <link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Raleway:400,200,700' rel='stylesheet' type='text/css'>
+  <?php require_once('php/general.php'); ?>
+	<?php require_once('php/html/topbar.php'); ?>
+	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
+	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/libraries/jquery.transit.min.js"></script>
+	<script type="text/javascript" src="/picnit/js/general.js"></script>
+	<script type="text/javascript" src="/picnit/js/member.js"></script>
+	<script type="text/javascript" src="/picnit/js/album.js"></script>
+	<script type="text/javascript" src="/picnit/js/image.js"></script>
+	<script type="text/javascript" src="/picnit/js/tag.js"></script>
+	<script type="text/javascript" src="/picnit/js/profile.js"></script>
 
-  <script type='text/javascript' src='js/editorjs/9ec45af399351c8877c311e247b40e64.js'></script>
 
-
-  <script src="js/editorjs/editor.js"></script>
+  <script src="/picnit/js/editorjs/editor.js"></script>
 </head>
 <body>
-
-<div id="Content">
+	<?php menubar(); ?>
+<div id="Content" class="panels">
   <h3>Image Editor</h3>
   
   <img id="example" src="images/gui/picture3.jpg">
@@ -132,10 +142,10 @@
 
   <div class="Clear"></div>
   </div>
-  
-  
-
-  
+  	
 </div>
+	<?php info(); ?>
+	<?php signup(); ?>
+	<?php confirmbar(); ?>
 </body>
 </html>
