@@ -285,22 +285,30 @@ div#imgviewer div#editor {
 }
 
 div#imgviewer div#image {
-	-webkit-border-radius:12px;
+	background:none;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+}
+
+#theimage {
+	max-width: 100%;
+	display: block;
+	margin: auto;
+	-webkit-border-radius: 12px;
 	-webkit-box-shadow: 1px 1px 2px 2px #444;
 }
 
-div#imgviewer div#comments {
-	border-color:#000000;
-	margin-top:15px;
-	-webkit-box-shadow: 1px 1px 2px 2px #444;
-	-webkit-border-radius: 12px;
+div#commentarea {
+	-webkit-box-shadow:1px 1px 2px 2px #444;
+	-webkit-border-radius:12px;
 }
 
 div#image img {
-	max-width:70%;
+	max-width:100%;
 	display:block;
 	margin-left: auto;
 	margin-right: auto;
+	-webkit-box-shadow: 1px 1px 2px 2px #444;
+	-webkit-border-radius: 12px;
 }
 
 div#signupbar {
@@ -625,11 +633,11 @@ div.dispalbum a:link {
 }
 
 .tableleft {
-	width:60%
+	width:75%
 }
 
 .tableright {
-	width:40%
+	width:25%
 }
 
 h1#errorheader{
@@ -855,6 +863,7 @@ a:visited {
 
 .imgname {
 	font-size: 25px;
+	color:#679FD2;
 }
 
 .imgdate {
