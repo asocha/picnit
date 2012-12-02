@@ -319,7 +319,7 @@ span#searchlabel {
 }
 
 span#searchlabel label {
-	font-size:20px;
+	font-size:25px;
 }
 
 input#Searchterm {
@@ -1157,5 +1157,14 @@ width: 180px;
 }
 
 .albumresdate {
+	font-style: italic;
+}
+
+.catrestitle {
+	font-size: 25px;
+	color: #679FD2;
+}
+
+.catresdate {
 	font-style: italic;
 }
