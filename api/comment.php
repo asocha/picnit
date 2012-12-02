@@ -19,7 +19,12 @@
 			$this->forceauth();
 
 			mysql_query("INSERT INTO comments values ('$this->memberid', '$image_id', '$comment')");
-			$this->response('',200);
+
+			$retarr['username'] = mysql_result(mysql_query("SELECT username FROM members WHERE member_id='$this->memberid'"), 0);
+			$retarr['comment'] = $comment;
+			$retarr['image_id'] = $image_id;
+
+			$this->response(json_encode(array('msg' => $retarr)), 200);
 		}
 
 		public function deleteComment() {
