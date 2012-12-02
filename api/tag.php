@@ -36,7 +36,7 @@
 
 					$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 				}
-				$res = mysql_query("SELECT member_id FROM members WHERE username='$tag_username'");
+				$res = mysql_query("SELECT username, member_id FROM members WHERE username='$tag_username'");
 				$msg = json_encode(mysql_fetch_assoc($res));
 			}
 			else if($cat_name != "") {
@@ -55,7 +55,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 
 					$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 				}
-				$res = mysql_query("SELECT category_id FROM categories WHERE category='$cat_name'");
+				$res = mysql_query("SELECT category, category_id FROM categories WHERE category='$cat_name'");
 				$msg = json_encode(mysql_fetch_assoc($res));
 			}
 			$this->response($msg, 200);

@@ -933,3 +933,7 @@ a:visited {
 .imgdate {
 	font-style:italic;
 }
+
+.tagdelete {
+	font-size: 10px;
+}

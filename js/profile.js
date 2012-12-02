@@ -38,17 +38,25 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		line+="<div class='disppanel'>";
 		line+="<div id='tagarea'>";
 		line+="<div class='memtagarea'>";
-		line+="<div class='tagtitle'>member tags</div>";
+		line+="<div class='tagtitle imgname'>member tags</div>";
 		if(tags && tags['member_tags'])
-			for(n in tags['member_tags'])
-				line+="<div class='membertag'>"+tags['member_tags'][n]['username']+'</div>';
+			for(n in tags['member_tags']) {
+				line+="<div class='membertag' id='membertag"+tags['member_tags'][n]['member_id']+"'>";
+				line+="<a href='/picnit/profile/"+tags['member_tags'][n]['username']+"'>"
+				line+=tags['member_tags'][n]['username']+'</a>'
+				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tags['member_tags'][n]['member_id']+","+list[x]['image_id']+");'>";
+				line+="<span class='tagdelete'>   delete</span>";
+				line+="</a>";
+				line+='</div>';
+			}
 		else
 			line+="<div class='nomemtags'>no member tags :(</div>";
 		line+="</div><div class='cattagarea'>";
-		line+="<div class='tagtitle'>category tags</div>";
+		line+="<div class='tagtitle imgname'>category tags</div>";
 		if(tags && tags['cat_tags'])
-			for(n in tags['cat_tags'])
+			for(n in tags['cat_tags']) {
 				line+="<div class='categorytag'>"+tags['cat_tags'][n]['category']+'</div>';
+			}
 		else
 			line+="<div class='nocattags'>no category tags :(</div>";
 		line+="</div></div>";
@@ -107,6 +115,12 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 
 		showTag(id, 'username');
 	});
+}
+
+function deleteMemberTag(member_id, image_id) {
+	if(deleteTag(image_id, member_id, 'user_id')) {
+		$('#membertag'+member_id).remove();
+	}
 }
 
 function createFlexsliderElements(num,user_id) {

@@ -321,7 +321,8 @@ function tagbar() {
 		var mem_or_cat = $("#tagname").attr('tagtype');
 		var image_id = $('#tagname').attr('image_id');
 
-		if(addTag(image_id, tag, mem_or_cat)) {
+		var tags = addTag(image_id, tag, mem_or_cat);
+		if(tags) {
 			if(mem_or_cat === 'category') {
 				var area = $('#imagesection'+image_id).find('.cattagarea');
 				if(area.find('.nocattags'))
@@ -332,7 +333,16 @@ function tagbar() {
 				var area = $('#imagesection'+image_id).find('.memtagarea');
 				if(area.find('.nomemtags'))
 					area.find('.nomemtags').remove();
-				area.append("<div class='membertag'>"+tag+"</div>");
+				
+				var line="<div class='membertag' id='membertag"+tags['member_id']+"'>";
+				line+="<a href='/picnit/profile/"+tags['username']+"'>"
+				line+=tags['username']+'</a>'
+				line+="<a href='javascript:void(0);' onclick='deleteMemberTag("+tag+","+image_id+");'>";
+				line+="<span class='tagdelete'>   delete</span>";
+				line+="</a>";
+				line+='</div>';
+
+				area.append(line);
 			}
 
 			hideTag();

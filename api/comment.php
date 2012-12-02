@@ -48,7 +48,7 @@
 				$limclause = "";
 			}
 
-			$res = mysql_query("SELECT comment_id,comment_text,(SELECT username FROM members WHERE member_id=commenter_id) AS commenter FROM comments where image_id='$image_id' ORDER BY comment_id$limclause");
+			$res = mysql_query("SELECT comment_id,comment_text,(SELECT username FROM members WHERE member_id=commenter_id) AS commenter FROM comments where image_id='$image_id' ORDER BY comment_id desc$limclause");
 			$result = array();
 			while($row = mysql_fetch_assoc($res))
 				$result[] = $row;
