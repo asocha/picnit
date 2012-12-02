@@ -188,11 +188,53 @@ div#menubar {
 
 form#signupbut {
 	float:right;
-	margin-left:5px;
+	margin-top:-10px;
+	height:50px;
+}
+
+form#signupbut input#sign {
+	background-color: white;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
+	border-bottom-width: 5px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
+	font-family: 'Concert One', cursive;
+	font-size: 25px;
+	margin-right: -10px;
+	height: 100%;
+}
+
+form#signupbut input#sign:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 form#signinform {
 	float:right;
+	height:50px;
+	margin-top:-10px;
+	margin-right:10px;
+}
+
+#signin {
+	background-color: #FFFFFF;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	border-bottom-style: solid;
+	border-bottom-color: #D8EDFF;
+	border-bottom-width: 5px;
+	border-left-style: solid;
+	border-left-width: 1px;
+	border-left-color: #D8EDFF;
+	font-family: 'Concert One', cursive;
+	font-size: 25px;
+	margin-right: -10px;
+	height: 100%;
+}
+
+#signin:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 form#homebut {
@@ -235,8 +277,27 @@ img#logo {
 }
 
 form#search {
-	margin:auto;
-	width:700px;
+	margin: auto;
+	width: 700px;
+	height: 50px;
+	margin-top: 15px;
+}
+
+input#search {
+	height: 60px;
+	margin-top: -20px;
+	-webkit-box-shadow: 0px 0px 0px 0px;
+	border-color: #D8EDFF;
+	background-color: white;
+	border-top-style: solid;
+	border-top-width: 5px;
+	border-bottom-style: solid;
+	border-bottom-width: 5px;
+	font-size: 25px;
+}
+
+input#search:hover {
+	-webkit-box-shadow: inset 1px 1px 10px 2px #CCC;
 }
 
 span#searchlabel {

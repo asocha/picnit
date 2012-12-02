@@ -19,11 +19,10 @@
 			$this->forceauth();
 
 			mysql_query("INSERT INTO comments(commenter_id, image_id, comment_text) values ('$this->memberid', '$image_id', '$comment')");
-			
-			if(mysql_affected_rows())
-				$this->response('',200);
 
-			$this->response("Error: " . mysql_error());
+			$res = mysql_query("SELECT username as commenter, comment_id, comment_text FROM members, comments WHERE members.member_id=comments.commenter_id ORDER BY comment_id desc LIMIT 1");
+
+			$this->response(json_encode(mysql_fetch_array($res)), 200);
 		}
 
 		public function deleteComment() {
