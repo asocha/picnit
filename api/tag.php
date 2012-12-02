@@ -167,7 +167,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 		public function getUserTags() {
 			$prefix = $this->load('prefix', false);
 
-			$res = mysql_query("SELECT username, member_id from members where username LIKE '$prefix%'");
+			$res = mysql_query("SELECT username, member_id from members where username LIKE '$prefix%' ORDER BY username ASC");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -182,7 +182,7 @@ HIT_ME_BABY_ONE_MORE_TIME:
 		public function getCategoryTags() {
 			$prefix = $this->load('prefix', false);
 
-			$res = mysql_query("SELECT category, category_id from categories where category LIKE '$prefix%'");
+			$res = mysql_query("SELECT category, category_id from categories where category LIKE '$prefix%' ORDER BY category ASC");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
