@@ -133,7 +133,7 @@
 					}
 					else if($profile['requestsent']) {
 				?>
-				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow pending"/>
+				<input id="followuserbut" class="buttons louterbuttons" type="button" value="pending"/>
 				<?php
 					}
 					else if($profile['isfollowing']) {
