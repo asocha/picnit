@@ -11,11 +11,7 @@ var commenturl='/picnit/api/comment.php';
 //Request to be sent to the middleware
 var request;
 
-function addComment() {
-	//Get user input, should be validated via html5
-	var ctext = $("input#ctext").val();
-	var image_id = $("input#image_id").val();
-
+function addComment(ctext, image_id) {
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'addComment';
@@ -27,27 +23,21 @@ function addComment() {
 	//Send request
 	request = picnitRequest(commenturl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, show comment created
 	if(request.status === 200) {
-
+		return $.parseJSON(request.responseText);
 	}
 	//Error
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
-	return false;
+	return null;
 }
 
-function deleteComment() {
-	//Get user input, should be sent via GUI/other js call
-	var comment_id = $("input#comment_id");
-
+function deleteComment(comment_id) {
 	//Gather post request data
 	var params = new Array();
 	params['action'] = 'deleteComment';
@@ -69,7 +59,7 @@ function deleteComment() {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return false;
@@ -97,7 +87,7 @@ function getComments(image_id) {
 	else {
 		//Parse the JSON result
 		var res = $.parseJSON(request.responseText);
-		alert(request.status + "\n" + res["msg"];
+		alert(request.status + "\n" + res["msg"]);
 	}
 
 	return null;

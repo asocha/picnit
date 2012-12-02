@@ -132,10 +132,28 @@ function imageview() {
 	}
 
 	function showViewer(src, image_id) {
-		$('#theimage').attr('src', src).attr('imgid',image_id);
+		$('#theimage').attr('alt', image_id);
+		$('#theimage').attr('src', src);
 
 		document.getElementById('imgoverlay').style.visibility="visible";
 		document.getElementById('imgviewer').style.visibility="visible";
+	}
+
+	function imageViewAddComment() {
+		var image_id = $('#theimage').attr('alt');
+		var text = $('#commenttext').val();
+
+		if(text.length === 0)
+			return false;
+
+		var data = addComment(image_id, text);
+		if(data) {
+			alert("comment sent");
+			
+			return false;
+		}
+
+		return false;
 	}
 </script>
 <div id="imgoverlay" class="overlays">
@@ -146,15 +164,27 @@ function imageview() {
 		<div id="menu">
 		</div>
 		<div id="image" class="panels">
-			<img id="theimage" src="/picnit/images/gui/test.jpg"/>
+			<img id="theimage"/>
 		</div>
 	</div>
-	<div id="comments" class="panels">
+	<div id="commentarea" class="panels">
 		<h2>comments</h2>
+		<div id="createcommentarea">
+			<form id='createcomment' onsubmit='return imageViewAddComment();'>
+				<div>
+					<label for="commenttext">add comment:</label>
+					<textarea id="commenttext"></textarea>
+				</div>
+				<input type="submit" class="buttons"/>
+			</form>
+		</div>
+		<div id='comments'>
+		</div>
 	</div>
 </div>
 </div>
 	<script type="text/javascript">
+	//Hide on click out
 	$('#imgoverlay').click(hideViewer);
 	</script>
 	<?php

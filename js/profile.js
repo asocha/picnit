@@ -31,7 +31,7 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		line+="<div class='imgname'>"+list[x]['name']+"</div>";
 		line+="<div class='imgdate'>"+list[x]['date_added']+"</div>";
 		line+="<div class='imgdesc'>"+list[x]['description']+"</div>";
-		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['name'] + "'/>";
+		line+="<img class='albumimage' src='data:" + list[x]['image_type'] + ";base64," + list[x]['image'] + "' alt='" + list[x]['image_id'] + "'/>";
 		line+="</div>";
 		line+="</td>";
 		line+="<td class='tableright'>";
@@ -69,8 +69,9 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 	//Add event handlers
 	$('.albumimage').click(function() {
 		var src = $(this).attr('src');
+		var id = $(this).attr('alt');
 
-		showViewer(src);
+		showViewer(src, id);
 	});
 	
 	//Buttons
@@ -140,10 +141,8 @@ function createAlbumElements(uid) {
 	//Build new html in meantime
 	var line="<h2>albums</h2>";
 	for(x in list) {
-		line+="<div class='dispalbum'>";
-		line+="<a href='/picnit/album/"+list[x]['album_id']+"'>";
+		line+="<div class='dispalbum' id='dispalbum"+list[x]['album_id']+"'>";
 		line+=list[x]['name'];
-		line+="</a>"
 		line+="<div class='albumdate'>"+list[x]['date_created']+"</div>";
 		line+="<p><div>";
 		line+=list[x]['description'];
@@ -159,6 +158,11 @@ function createAlbumElements(uid) {
 	
 	//Make visible
 	disp.transition({opacity: 1}, 'fast');
+	
+	$(".dispalbum").click(function() {
+		var id = $(this).attr('id').substring(9);
+		window.location = "/picnit/album/"+id;
+	});
 }
 
 function createFavoritesElements(fuser_id, member_id) {
