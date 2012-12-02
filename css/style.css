@@ -48,7 +48,7 @@ div#usermenu .buttons:hover {
 }
 
 .imgbuts {
-	width: 125pxpx;
+	width: 125px;
 	margin: auto;
 }
 
@@ -569,6 +569,18 @@ div.dispalbum a:link {
 	margin-bottom:5px;
 }
 
+.imagetable {
+	width: 100%;
+}
+
+.tableleft {
+	width:60%
+}
+
+.tableright {
+	width:40%
+}
+
 h1#errorheader{
 	text-align:center;
 	color:#FF0000;
@@ -579,8 +591,6 @@ div.dispimage {
 	background-color:#FFFFFF;
 	margin:5px;
 	padding:10px;
-	width:47%;
-	display:inline-block;
 }
 
 div#thumbnail-display div.dispimage {
@@ -612,8 +622,6 @@ div#thumbnail-display div.dispimage img {
 }
 
 .disppanel {
-	width:46%;
-	display:inline-block;
 	margin:5px;
 	padding:5px;
 }
@@ -635,6 +643,7 @@ div#thumbnail-display div.dispimage img {
 
 #tagarea {
 	text-align:center;
+	margin-bottom:10px;
 }
 
 div#viewercontainer {
