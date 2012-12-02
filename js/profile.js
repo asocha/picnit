@@ -60,10 +60,12 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 	//Add event handlers
 	//Buttons
 	$(".picdelbut").click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(deleteImage(id)) {
-			$('#imagesection'+id).remove();
-		}
+		showConfirm('Are you sure you want to delete this image?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(deleteImage(id)) {
+				$('#imagesection'+id).remove();
+			}
+		});
 	});
 	$(".picfavbut").click(function() {
 		var id = $(this).attr('id').substring(9);
@@ -168,9 +170,11 @@ function createFavoritesElements(fuser_id, member_id) {
 
 	//Add button events
 	$('.profavbut').click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(deleteFavorite(id))
-			$(this).parent().remove();
+		showConfirm('Are you sure you want to unfavorite this image?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(deleteFavorite(id))
+				$(this).parent().remove();
+		});
 	});
 }
 
@@ -202,9 +206,11 @@ function createTaggedElements(user_id) {
 
 	//Add button events
 	$('.protagbut').click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(deleteTag(id, user_id, 'user_id'))
-			$(this).parent().remove();
+		showConfirm('Are you sure you want to remove your tag?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(deleteTag(id, user_id, 'user_id'))
+				$(this).parent().remove();
+		});
 	});
 }
 
@@ -236,9 +242,11 @@ function createFollowersElements() {
 
 	//Set clicks
 	$('.folrembut').click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(removeFollower(id))
-			$(this).parent().remove();
+		showConfirm('Are you sure you want to remove this follower?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(removeFollower(id))
+				$(this).parent().remove();
+		});
 	});
 }
 
@@ -270,9 +278,11 @@ function createFolloweesElements() {
 
 	//Set clicks
 	$('.unfollbut').click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(unfollow(id))
-			$(this).parent().remove();
+		showConfirm('Are you sure you want to unfollow this user?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(unfollow(id))
+				$(this).parent().remove();
+		});
 	});
 }
 
@@ -309,8 +319,10 @@ function createFollowReqElements() {
 			$(this).parent().remove();
 	});
 	$('.decfolreq').click(function() {
-		var id = $(this).attr('id').substring(9);
-		if(refuseFollow(id))
-			$(this).parent().remove();
+		showConfirm('Are you sure you want to decline this follow request?', function() {
+			var id = $(this).attr('id').substring(9);
+			if(refuseFollow(id))
+				$(this).parent().remove();
+		});
 	});
 }
