@@ -14,12 +14,22 @@
 
 		public function getImagesByName() {
 			$name = $this->load('name');
-			$num = $this->load('num');
+			$num = $this->load('num',false);
+			$offset = $this->load('offset',false);
+
+			if($num != "") {
+				if($offset != "")
+					$limclause = " LIMIT ".$offset.",".$num;
+				else
+					$limclause = " LIMIT $num";
+			} else {
+				$limclause = "";
+			}
 
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT * FROM images WHERE name LIKE '$name%'");
+			$res = mysql_query("SELECT * FROM images WHERE name LIKE '$name%' ORDER BY image_id DESC$limclause");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -37,12 +47,19 @@
 
 		public function getAlbumsByName() {
 			$text = $this->load('name');
-			$num = $this->load('num');
+			$num = $this->load('num',false);
+			$offset = $this->load('offset',false);
 
-			if($num > 10)
-				$num = 10;
+			if($num != "") {
+				if($offset != "")
+					$limclause = " LIMIT ".$offset.",".$num;
+				else
+					$limclause = " LIMIT $num";
+			} else {
+				$limclause = "";
+			}
 
-			$res = mysql_query("SELECT * FROM albums WHERE name LIKE '$name%'");
+			$res = mysql_query("SELECT * FROM albums WHERE name LIKE '$name%' ORDER BY album_id DESC$limclause");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
