@@ -96,7 +96,7 @@
 					});
 				else if(hash === '#tagged')
 					changePanel(function() {
-						createTaggedElements(<?php echo $profile['member_id']; ?>);
+						createTaggedElements(<?php echo $profile['member_id']; ?>, "<?php echo $profile['username']; ?>", <?php if (isset($_COOKIE['member_id'])) echo $_COOKIE['member_id']; else echo -1;?>);
 					});
 				else if(hash === '#albums') 
 					changePanel(function() {
