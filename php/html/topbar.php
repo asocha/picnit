@@ -137,6 +137,19 @@ function imageview() {
 
 		document.getElementById('imgoverlay').style.visibility="visible";
 		document.getElementById('imgviewer').style.visibility="visible";
+
+		//Load comments
+		var comments = getComments(image_id);
+
+		var disp = $('#comments');
+		for(x in comments) {
+			var line = "<div class='comment' id='comment"+comments[x]['comment_id']+"'>";
+			line += "<div class='commentown'>"+comments[x]['commenter']+"</div>";
+			line += "<div class='commenttext'>"+comments[x]['comment_text']+"</div>";
+			line += "</div>";
+
+			disp.append(line);
+		}
 	}
 
 	function imageViewAddComment() {
@@ -148,7 +161,17 @@ function imageview() {
 
 		var data = addComment(image_id, text);
 		if(data) {
+			//Clear text box
 			$('#commenttext').val('');
+			
+			//Add new comment
+			var line = "<div class='comment' id='comment"+data['comment_id']+"'>";
+			line += "<div class='commentown'>"+data['commenter']+"</div>";
+			line += "<div class='commenttext'>"+data['comment_text']+"</div>";
+			line += "</div>";
+			
+			$('#comments').prepend(line);
+
 			return false;
 		}
 

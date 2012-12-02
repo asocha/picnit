@@ -25,8 +25,7 @@ function addComment(image_id, ctext) {
 
 	//Good data, show comment created
 	if(request.status === 200) {
-		return true;
-		//return $.parseJSON(request.responseText);
+		return $.parseJSON(request.responseText);
 	}
 	//Error
 	else {
@@ -49,12 +48,9 @@ function deleteComment(comment_id) {
 	//Send request
 	request = picnitRequest(commenturl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, comment deleted
 	if(request.status === 200) {
-
+		return true;
 	}
 	//Error
 	else {
@@ -77,12 +73,9 @@ function getComments(image_id) {
 	//Send request
 	request = picnitRequest(commenturl, params);
 
-	//Debug purposes
-	alert(request.status + "\n" + request.responseText);
-
 	//Good data, request contains data
 	if(request.status === 200) {
-		return $parseJSON(request.responseText);
+		return $.parseJSON(request.responseText);
 	}
 	//Error
 	else {
