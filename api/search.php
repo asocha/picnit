@@ -29,20 +29,12 @@
 			if($num > 10)
 				$num = 10;
 
-			$res = mysql_query("SELECT * FROM images WHERE name LIKE '$name%' ORDER BY image_id DESC$limclause");
+			$res = mysql_query("SELECT album_id, image_id, username, name, description, date_added FROM images, members WHERE name LIKE '$name%' and members.member_id = images.owner_id ORDER BY image_id DESC$limclause");
 
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['image_id'] = intval($row['image_id']);
-					$tosend[$i]['image_type'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
-					$i++;
-			}
+			while($row = mysql_fetch_array($res)) 
+				$tosend[] = $row;
 
-			$this->response(json_encode(array('list' => $tosend)), 200);
+			$this->response(json_encode($tosend), 200);
 		}
 
 		public function getAlbumsByName() {
@@ -59,19 +51,12 @@
 				$limclause = "";
 			}
 
-			$res = mysql_query("SELECT * FROM albums WHERE name LIKE '$name%' ORDER BY album_id DESC$limclause");
+			$res = mysql_query("SELECT album_id, username, date_created, name, description FROM albums, members WHERE name LIKE '$text%' and albums.owner_id = members.member_id ORDER BY album_id DESC$limclause");
 
-			$i = 0;
-			while($row = mysql_fetch_array($res)) {
-					$tosend[$i]['album_id'] = intval($row['image_id']);
-					$tosend[$i]['owner_id'] = $row['imgtype'];
-					$tosend[$i]['date_added'] = $row['date_added'];
-					$tosend[$i]['name'] = $row['name'];
-					$tosend[$i]['description'] = $row['description'];
-					$i++;
-			}
+			while($row = mysql_fetch_array($res)) 
+				$tosend[] = $row;
 
-			$this->response(json_encode(array('list' => $tosend)), 200);
+			$this->response(json_encode($tosend), 200);
 		}
 
 		public function filterMembers() {
