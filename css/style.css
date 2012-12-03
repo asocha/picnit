@@ -342,13 +342,14 @@ input#Searchterm {
 
 div#gallery {
 	position:relative;
-	height: 700px;
+	height: 500px;
 	top:-135px;
 	-webkit-border-radius:12px;
 	width:80%;
 	margin:auto;
 	margin-top: 12px;
 	background-color:#FFFFFF;
+	padding:10px;
 }
 
 div#info {
@@ -880,82 +881,6 @@ div.dispfollowreq a:link {
 	margin-right: 5px;
 }
 
-/* Tiny Carousel */
-#slider1 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider2 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider3 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider4 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider5 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-.catlabel {
-	text-align: center;
-	margin:5px;
-}
-
-.viewport { 
-	float: left; 
-	width: 450px; 
-	height: 75px;
-	overflow: hidden; 
-	position: relative; 
-}
-
-.buttonsalt { 
-	background:url("/picnit/images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
-	display: block; margin: 30px 10px 0 0; 
-	background-position: 0 -38px; 
-	text-indent: -999em;
-	float: left; 
-	width: 39px; 
-	height: 37px; 
-	overflow: hidden; 
-	position: relative; 
-	border-style:none;
-}
-
-.next { 
-	background-position: 0 0;
-	margin: 30px 0 0 10px;  
-}
-
-.disable { 
-	visibility: hidden; 
-}
-
 .overview { 
 	list-style: none; 
 	position: absolute; 
@@ -1179,4 +1104,9 @@ width: 180px;
 
 #publicness:hover {
 	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
+
+div#cat .flexslider {
+	-webkit-border-radius: 12px;
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
 }
