@@ -26,6 +26,7 @@
 				for(x in images) {
 					line += "<li>";
 					line += "<a href='/picnit/search.php?q="+category+"&what=category'>";
+					line += "<center><font size=7 color=#679FD2>" + category + "</font></center>";
 					line += "<img src='data:" + images[x]['image_type'] + ";base64," + images[x]['image'] + "' alt='" + images[x]['name'] + "' cat='"+category+"'/>";
 					line += "</a>";
 					line += "</li>";
@@ -36,7 +37,6 @@
 			//Get the categories
 			var cats = getTopCategories(getCookie('member_id')? getCookie('member_id') : "", 3);
 
-			$('#catlabel').html(cats[0]['category']);
 			for(x in cats) {
 				addImages(cats[x]["category_id"], cats[x]["category"]);
 			}
