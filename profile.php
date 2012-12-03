@@ -141,10 +141,13 @@
 				<input id="followuserbut" class="buttons louterbuttons" type="button" value="unfollow"/>
 				<?php
 					}
-					else {
+					else if (isset($_COOKIE['member_id'])){
 				?>
 				<input id="followuserbut" class="buttons louterbuttons" type="button" value="follow"/>
 				<?php
+					}
+					else {
+						echo "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp";
 					}
 				?>
 				<input id="albumsbut" class="buttons innerbuttons" type="button" value="albums"/>
