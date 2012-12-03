@@ -66,8 +66,8 @@
 	<div id="results" class="panels">
 		<div id="albuminfo" class="panels">
 			<p><div id="albumdesc">Description: <?php echo $albuminfo['description'];?></div></p>
-			<?php if($albuminfo['owner_id'] == $_COOKIE['member_id']){?><input type="button" id="uploadbut" class="buttons" value="upload"/>
-			<input type="button" id="albdelbut" class="buttons" value="delete"/><?php } ?>
+			<?php if($albuminfo['owner_id'] == $_COOKIE['member_id']){?><input type="button" id="uploadbut" class="buttons" value="upload"/><?php } ?>
+			<?php if(($albuminfo['owner_id'] == $_COOKIE['member_id']) || $_COOKIE['is_admin']){?><input type="button" id="albdelbut" class="buttons" value="delete"/><?php } ?>
 			<script type="text/javascript">
 				$('#albdelbut').click(function() {
 					showConfirm("Are you sure you want to delete this album?", function () {
