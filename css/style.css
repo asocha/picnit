@@ -970,6 +970,7 @@ h3 {
 #example {
 	display: block;
 	-webkit-border-radius: 12px;
+	margin:auto;
 }
 
 
