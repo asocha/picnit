@@ -76,7 +76,7 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if (logged_in) line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
 		if (is_owner) line+="<input type='button' id='piceditbut"+list[x]['image_id']+"' class='buttons piceditbut' value='edit'/>";
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
-		
+
 		line+="</div>";
 		line+="</div>";
 		line+="</td>";
@@ -91,9 +91,9 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		var src = $(this).attr('src');
 		var id = $(this).attr('alt');
 
-		showViewer(src, id);
+		showViewer(src, id, is_owner);
 	});
-	
+
 	//Buttons
 	$(".picdelbut").click(function() {
 		var id = $(this).attr('id').substring(9);
@@ -152,7 +152,7 @@ function createFlexsliderElements(num,user_id) {
 
 	//Get display area
 	var disp = $('.slides');
-	
+
 	var line="";
 	for(x in list) {
 		line+="<li>";
@@ -171,7 +171,7 @@ function changePanel(elementFunction) {
 function createAlbumElements(uid) {
 	//Get display area
 	var disp = $("#thumbnail-display");
-	
+
 	//Get the album information of this user
 	var list = getAlbums(uid);
 
@@ -186,16 +186,16 @@ function createAlbumElements(uid) {
 		line+="</div></p>";
 		line+="</div>";
 	}
-	
+
 	//Clear the elements, should be invisible
 	disp.empty();
 
 	//Write new html
 	disp.html(line);
-	
+
 	//Make visible
 	disp.transition({opacity: 1}, 'fast');
-	
+
 	$(".dispalbum").click(function() {
 		var id = $(this).attr('id').substring(9);
 		window.location = "/picnit/album/"+id;
@@ -205,7 +205,7 @@ function createAlbumElements(uid) {
 function createFavoritesElements(fuser_id, member_id) {
 	//Get display area
 	var disp = $("#thumbnail-display");
-	
+
 	//Get the album information of this user
 	var list = getFavorites(fuser_id);
 
@@ -358,7 +358,7 @@ function createFolloweesElements(user_id, own_profile) {
 	});
 }
 
-function createFollowReqElements(user_id, own_profile) {
+function createFollowReqElements(user_id, own_profile, requests_button, request_count) {
 	//Get the tagged elements
 	var list = getFollowRequests(user_id);
 
@@ -389,15 +389,25 @@ function createFollowReqElements(user_id, own_profile) {
 	//Set clicks
 	$('.accfolreq').click(function() {
 		var id = $(this).attr('id').substring(9);
-		if(follow(id))
+		if(follow(id)){
 			$(this).parent().remove();
+			request_count -= 1;
+			var requestVal = request_count + " request";
+			if (request_count != 1) requestVal += "s";
+			requests_button.val(requestVal);
+		}
 	});
 	$('.decfolreq').click(function() {
 		var id = $(this).attr('id').substring(9);
 		showConfirm('Are you sure you want to decline this follow request?', (function(id, obj) {
 			return function() {
-				if(refuseFollow(id))
+				if(refuseFollow(id)){
 					$(obj).parent().remove();
+					request_count -= 1;
+					var requestVal = request_count + " request";
+					if (request_count != 1) requestVal += "s";
+					requests_button.val(requestVal);
+				}
 			};
 		})(id, this));
 	});

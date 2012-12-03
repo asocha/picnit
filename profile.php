@@ -93,7 +93,7 @@
 					});
 				else if(hash === '#requests')
 					changePanel(function() {
-						createFollowReqElements(<?php echo $profile['member_id'];?>, <?php if($profile['member_id']==$_COOKIE['member_id']) echo 1; else echo 0;?>);
+						createFollowReqElements(<?php echo $profile['member_id'];?>, <?php if($profile['member_id']==$_COOKIE['member_id']) echo 1; else echo 0;?>, $('#requestsbut'), <?php echo $profile['request_count'];?>);
 					});
 				else if(hash === '#tagged')
 					changePanel(function() {
