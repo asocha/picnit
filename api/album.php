@@ -50,9 +50,11 @@
 
 		public function deleteAlbum() {
 			$album_id = $this->load('album_id');
-			$is_admin = $this->load('is_admin');
 
 			$this->forceauth();
+
+			$res = mysql_query("SELECT is_admin from members WHERE member_id='$this->memberid'");
+			$is_admin = mysql_result($res, 0);
 
 			if (!$is_admin)
 				$res = mysql_query("SELECT filepath FROM images WHERE album_id='$album_id' and owner_id='$this->memberid'");

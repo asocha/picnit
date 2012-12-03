@@ -48,9 +48,7 @@ function deleteAlbum(aid) {
 	params['action'] = 'deleteAlbum';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
-	params['is_admin'] = getCookie('is_admin');
-	params['album_id'] = aid; alert("blah");
-alert(params['is_admin']);
+	params['album_id'] = aid;
 	//Send request
 	request = picnitRequest(albumurl, params);
 
