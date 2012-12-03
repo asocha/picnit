@@ -37,6 +37,15 @@
 			$email = $this->load('email');
 			$salt = mt_rand();
 
+			$ulen = strlen($username);
+			$plen = strlen($password);
+
+			if($ulen < 3 || $ulen > 15)
+				$this->response(json_encode(array('msg' => 'Username must be between 3 and 15 characters')), 469);
+
+			if($plen < 5)
+				$this->response(json_encode(array('msg' => 'Password must be more than 5 characters')), 469);
+
 			// Hash the password
 			$hashedpass = sha1($password.$salt);
 			$result = mysql_query("INSERT INTO members (is_admin,is_suspended,username,password,salt,email) VALUES ('false','false','$username','$hashedpass','$salt','$email')");
