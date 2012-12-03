@@ -52,6 +52,7 @@
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
 					$tosend[$i]['image_id'] = intval($row['image_id']);
+					$tosend[$i]['owner_id'] = $row['owner_id'];
 					$tosend[$i]['image_type'] = $row['imgtype'];
 					$tosend[$i]['date_added'] = $row['date_added'];
 					$tosend[$i]['favorited'] = $row['isfavorite'] ? true : false;
