@@ -1118,3 +1118,11 @@ div#cat .flexslider {
 	font-size: 50px;
 	color:#679FD2;
 }
+
+.dispfollowees a:visited {
+	color: #679FD2;
+}
+
+div.dispfollowreq a:visited {
+	color: #679FD2;
+}
