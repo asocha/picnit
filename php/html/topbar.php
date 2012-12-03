@@ -151,7 +151,7 @@ function imageview() {
 			line += "<div class='commentown'>"+comments[x]['commenter']+"</div>";
 			line += "<div class='commenttext'>"+comments[x]['comment_text']+"</div>";
 			line += "<div class='commentdel'>";
-			line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+data['comment_id']+"' value='delete'/>";
+			line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+comments[x]['comment_id']+"' value='delete'/>";
 			line += "</div>";
 			line += "</div>";
 
