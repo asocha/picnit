@@ -32,7 +32,7 @@
 		$image = json_decode($res['result'], true);
 		$image = $image[0];
 
-		if($profile['member_id'] != $image['owner_id'])
+		if(($profile['member_id'] != $image['owner_id'])) || ($_COOKIE['member_id'] != $image['owner_id']))
 			header('Location: 403.php');
 		else if(!$image)
 			header('Location: 404.php');
@@ -68,7 +68,7 @@
 	<?php menubar(); ?>
 <div id="Content" class="panels">
   <h3>Image Editor</h3>
-  <button type="button" class="buttons" id="savebut">save</button>
+  <?php if($_COOKIE['member_id'] == $profile['owner_id']){?><button type="button" class="buttons" id="savebut">save</button> <?php } ?>
   <script type="text/javascript">
 	$('#savebut').click(function() {
 		var img = document.getElementById('example');
