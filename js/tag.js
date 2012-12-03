@@ -242,3 +242,24 @@ function getTopCategories(user_id, num) {
 	return null;
 }
 
+function getImageDataByCategory(cat_id, num) {
+	//Gather req data
+	var params = new Array();
+	params['action'] = 'getImages';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['cat_id'] = cat_id;
+	params['num'] = num;
+	
+	//Send request
+	request = picnitRequest(imageurl, params);
+
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	else {
+		alert(request.status + "\n" + request.responseText);
+	}
+	
+	return null;
+}

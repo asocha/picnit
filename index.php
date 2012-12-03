@@ -3,6 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
 	<title>welcome to picnit!</title>
 	<?php require_once('php/general.php'); ?>
@@ -12,10 +13,38 @@
 	<script type="text/javascript" src="/picnit/js/libraries/jquery.flexslider-min.js"></script>
 	<script type="text/javascript" src="js/member.js"></script>
 	<script type="text/javascript" src="js/image.js"></script>
+	<script type="text/javascript" src="js/tag.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
+		window.onload = function() {
+			//Load flexslider stuff
 			
-		});
+			//Create function to add images
+			var addImages = function(cat_id, category) {
+				var images = getImageDataByCategory(cat_id, 3);
+
+				var line = "";
+				for(x in images) {
+					line += "<li>";
+					line += "<img src='data:" + images[x]['image_type'] + ";base64," + images[x]['image'] + "' alt='" + images[x]['name'] + "' cat='"+category+"'/>";
+					line += "</li>";
+				}
+				$(slideshow).append(line);
+			};
+
+			//Get the categories
+			var cats = getTopCategories(getCookie('member_id'), 5);
+
+			$('#catlabel').html(cats[0]['category']);
+			for(x in cats) {
+				addImages(cats[x]["category_id"], cats[x]["category"]);
+			}
+
+			$('.flexslider').flexslider({
+				after: function(slider) {
+					$('#catlabel').html(slider.slides[slider.currentSlide].children[0].attributes[2].value);
+				}
+			});
+		};
 	</script>
 </head>
 <body>
@@ -25,40 +54,12 @@
 	</div>
 	<?php searchbar(); ?>
 	<div id="gallery" name="gallery" class="panels">
-		<div id="cat1" class="indexcat">
-			<div id="cat1label" class="catlabel"></div>
+		<div id="cat" class="indexcat">
+			<div id="catlabel" class="catlabel"></div>
 			<div class="flexslider">
-				<div id="slideshow1" class='slides'>
-				<div>
-			<div>
-		</div>
-		<div id="cat2" class="indexcat">
-			<div id="cat2label" class="catlabel"></div>
-			<div class="flexslider">
-				<div id="slideshow2" class='slides'>
-				<div>
-			<div>
-		</div>
-		<div id="cat3" class="indexcat">
-			<div id="cat3label" class="catlabel"></div>
-			<div class="flexslider">
-				<div id="slideshow3" class='slides'>
-				<div>
-			<div>
-		</div>
-		<div id="cat4" class="indexcat">
-			<div id="cat4label" class="catlabel"></div>
-			<div class="flexslider">
-				<div id="slideshow4" class='slides'>
-				<div>
-			<div>
-		</div>
-		<div id="cat5" class="indexcat">
-			<div id="cat5label" class="catlabel"></div>
-			<div class="flexslider">
-				<div id="slideshow5" class='slides'>
-				<div>
-			<div>
+				<ul id="slideshow" class='slides'>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<?php info(); ?>
