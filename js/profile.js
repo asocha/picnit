@@ -74,7 +74,7 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if (is_owner) line+="<input type='button' id='picmemtagbut"+list[x]['image_id']+"' class='buttons picmemtagbut' value='tag member'/>";
 		if (is_owner) line+="<input type='button' id='piccattagbut"+list[x]['image_id']+"' class='buttons piccattagbut' value='tag category'/>";
 		if (logged_in) line+="<input type='button' id='picfavbut"+list[x]['image_id']+"' class='buttons picfavbut' value='"+((list[x]['favorited'])? "unfavorite" : "favorite")+"'/>";
-		if (is_owner) line+="<input type='button' id='piceditbut"+list[x]['image_id']+"' class='buttons piceditbut'/>";
+		if (is_owner) line+="<input type='button' id='piceditbut"+list[x]['image_id']+"' class='buttons piceditbut' value='edit'/>";
 		if (is_owner) line+="<input type='button' id='picdelbut"+list[x]['image_id']+"' class='buttons picdelbut' value='delete'/>";
 		
 		line+="</div>";
@@ -121,6 +121,11 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		var id = $(this).attr('id').substring(12);
 
 		showTag(id, 'category');
+	});
+	$(".piceditbut").click(function() {
+		var id = $(this).attr('id').substring(10);
+
+		window.location = '/picnit/editor.php?image_id='+id;
 	});
 	$(".picmemtagbut").click(function() {
 		var id = $(this).attr('id').substring(12);

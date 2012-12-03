@@ -40,7 +40,7 @@
 			else
 				$res = mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
 
-			if(mysql_affected_rows() > 0)
+			if(mysql_affected_rows() >= 0)
 				$this->response('', 200);
 
 			$this->response(json_encode(array('msg' => 'Comment was not deleted. Does it exist? Do you own it? Do you exist?')), 469);
