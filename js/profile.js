@@ -91,7 +91,7 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		var src = $(this).attr('src');
 		var id = $(this).attr('alt');
 
-		showViewer(src, id, is_owner);
+		showViewer(src, id);
 	});
 
 	//Buttons
