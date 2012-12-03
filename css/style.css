@@ -1135,5 +1135,6 @@ div.dispfollowreq a:visited {
 	-webkit-border-radius: 12px;
 	overflow: scroll;
 	padding: 5px;
+	margin-top: 15px;
 }
 
