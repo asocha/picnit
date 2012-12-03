@@ -29,7 +29,7 @@
 	else
 		header('Location: /picnit/404.php');
 	
-	//See if we are an admin
+	//See if we are an admin or suspended
 	$fields = array(
 		'action' => 'memberData',
 		'username' => urlencode($_COOKIE['username']),
@@ -43,6 +43,7 @@
 	if($res['status'] == 200) {
 		$temp = json_decode($res['result'], true);
 		$admin = ($temp['is_admin'] == '1')? true : false;
+		if ($temp['is_suspended']) header('Location: /picnit/suspended.php');
 	}
 ?>
 <html>
@@ -187,8 +188,10 @@
 						$('#followuserbut').click(function() {
 							var val = $(this).val();
 							if(val === 'follow') {
-								if(requestFollow(<?php echo $profile['member_id']; ?>))
+								if(requestFollow(<?php echo $profile['member_id']; ?>)) {
 									$(this).val('pending');
+									$('#requestsbut').val("<?php echo ($profile['request_count']+=1);?> request<?php if($profile['request_count']!=1) echo 's';?>");
+								}
 							}
 							else if(val === 'unfollow') {
 								var id = $(this).attr('id').substring(9);

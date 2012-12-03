@@ -159,6 +159,9 @@
 				$this->response(json_encode(array('msg' => 'User does not exist')), 404);
 
 			$array = mysql_fetch_assoc($res);
+
+			$res = mysql_query("SELECT count(*) from follows, members where followee_id=member_id and username='$username' and is_accepted=false");
+			$array['request_count'] = mysql_result($res, 0);
 			$array['isfollowing'] ? $array['isfollowing'] = true : $array['isfollowing'] = false;
 			$array['requestsent'] ? $array['requestsent'] = true : $array['requestsent'] = false;
 			$this->response(json_encode($array), 200);
