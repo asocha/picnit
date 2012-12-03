@@ -239,9 +239,12 @@
 		}
 
 		public function getFollowers() {
-			$this->forceauth();
+			$user_id = $this->load('user_id', false);
 
-			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$this->memberid' and f.is_accepted=true and m.member_id=f.follower_id");
+			if($user_id == "")
+				$user_id = $this->memberid;
+
+			$res = mysql_query("SELECT f.follower_id,m.username FROM follows f,members m WHERE f.followee_id='$user_id' and f.is_accepted=true and m.member_id=f.follower_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
@@ -254,9 +257,12 @@
 		}
 
 		public function getFollowees() {
-			$this->forceauth();
+			$user_id = $this->load('user_id', false);
 
-			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$this->memberid' and f.is_accepted=true and f.followee_id=m.member_id");
+			if($user_id == "")
+				$user_id = $this->memberid;
+
+			$res = mysql_query("SELECT f.followee_id,m.username FROM follows f,members m WHERE f.follower_id='$user_id' and f.is_accepted=true and f.followee_id=m.member_id");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
