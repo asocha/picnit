@@ -151,7 +151,8 @@ function imageview() {
 			line += "<div class='commentown'>"+comments[x]['commenter']+"</div>";
 			line += "<div class='commenttext'>"+comments[x]['comment_text']+"</div>";
 			line += "<div class='commentdel'>";
-			line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+comments[x]['comment_id']+"' value='delete'/>";
+			<?php if(isset($_COOKIE['member_id'])){?> line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+comments[x]['comment_id']+"' value='delete'/>";
+			<?php } ?>
 			line += "</div>";
 			line += "</div>";
 
@@ -191,7 +192,8 @@ function imageview() {
 			line += "<div class='commentown'>"+data['commenter']+"</div>";
 			line += "<div class='commenttext'>"+data['comment_text']+"</div>";
 			line += "<div class='commentdel'>";
-			line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+data['comment_id']+"' value='delete'/>";
+			<?php if(isset($_COOKIE['member_id'])){?> line += "<input type='button' class='buttons commentdelbut' id='commentdelbut"+data['comment_id']+"' value='delete'/>";
+			<?php } ?>
 			line += "</div>";
 			line += "</div>";
 			
@@ -223,7 +225,7 @@ function imageview() {
 					<label for="commenttext">add comment:</label>
 					<textarea id="commenttext"></textarea>
 				</div>
-				<input type="submit" class="buttons" value='add comment'/>
+				 <?php if(isset($_COOKIE['member_id'])){?><input type="submit" class="buttons" value='add comment'/><?php } ?>
 			</form>
 		</div>
 		<div id='comments'>
