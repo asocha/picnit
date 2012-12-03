@@ -25,7 +25,9 @@
 				var line = "";
 				for(x in images) {
 					line += "<li>";
+					line += "<a href='/picnit/search.php?q="+category+"&what=category'>";
 					line += "<img src='data:" + images[x]['image_type'] + ";base64," + images[x]['image'] + "' alt='" + images[x]['name'] + "' cat='"+category+"'/>";
+					line += "</a>";
 					line += "</li>";
 				}
 				$(slideshow).append(line);

@@ -58,8 +58,8 @@ function createAlbumImagesElements(album_id, is_owner, logged_in) {
 		if(tags && tags['cat_tags'])
 			for(n in tags['cat_tags']) {
 				line+="<div class='categorytag' id='categorytag"+tags['cat_tags'][n]['category_id']+"'>";
-				//line+="<a href='/picnit/profile/"+tags['cat_tags'][n]['category']+"'>";
-				line+=tags['cat_tags'][n]['category'];//+'</a>';
+				line+="<a href='/picnit/search.php?q="+tags['cat_tags'][n]['category']+"&what=category'>";
+				line+=tags['cat_tags'][n]['category']+'</a>';
 				if (is_owner){
 					line+="<a href='javascript:void(0);' onclick='deleteCategoryTag("+tags['cat_tags'][n]['category_id']+","+list[x]['image_id']+");'>";
 					line+="<span class='tagdelete'>   delete</span>";
