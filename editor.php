@@ -78,7 +78,9 @@
 			window.location = "/picnit/album/<?php echo $image['album_id']; ?>#imagesection<?php echo $image['image_id']; ?>";
 	});
   </script>
+  <div id="canvascontainer">
   <img id="example" src="<?php echo "data:$image[image_type];base64,$image[image]"; ?>">
+  </div>
   <div id="Filters">
   <div id="bars">
     <div class="Filter">
