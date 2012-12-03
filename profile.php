@@ -155,7 +155,7 @@
 				<input id="taggedbut" class="buttons innerbuttons" type="button" value="tagged"/>
 				<input id="followersbut" class="buttons innerbuttons" type="button" value="followers"/>
 				<input id="followeesbut" class="buttons innerbuttons" type="button" value="following"/>
-				<input id="requestsbut" class="buttons innerbuttons" type="button" value="<?php echo $profile['request_count'];?> requests"/>
+				<input id="requestsbut" class="buttons innerbuttons" type="button" value="<?php echo $profile['request_count'];?> request<?php if($profile['request_count']!=1) echo 's';?>"/>
 				<?php
 					//Add suspend button
 					if($admin && $profile['username'] !== $_COOKIE['username']) {
