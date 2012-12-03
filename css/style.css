@@ -968,12 +968,10 @@ h3 {
 }
 
 #example {
-	display:block;
-	margin:auto;
-	max-width: 95%;
-	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
-	margin-top:15px;
+	display: block;
+	-webkit-border-radius: 12px;
 }
+
 
 #Content {
 	width: 80%;
@@ -1126,3 +1124,15 @@ div#cat .flexslider {
 div.dispfollowreq a:visited {
 	color: #679FD2;
 }
+
+#canvascontainer {
+	display: block;
+	margin: auto;
+	max-width: 95%;
+	width: 95%;
+	-webkit-box-shadow: 3px 3px 5px 6px #CCC;
+	-webkit-border-radius: 12px;
+	overflow: scroll;
+	padding: 5px;
+}
+
