@@ -98,12 +98,13 @@ function logout(redirect) {
 		window.location = "/picnit/";
 }
 
-function getFollowers() {
+function getFollowers(user_id) {
 	//Gather data
 	var params = new Array();
 	params['action'] = 'getFollowers';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
+	params['user_id'] = user_id;
 
 	//Send request
 	request = picnitRequest(memberurl, params);
@@ -122,12 +123,13 @@ function getFollowers() {
 	return null;
 }
 
-function getFollowees() {
+function getFollowees(user_id) {
 	//Gather data
 	var params = new Array();
 	params['action'] = 'getFollowees';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
+	params['user_id'] = user_id; 
 
 	//Send request
 	request = picnitRequest(memberurl, params);
@@ -146,12 +148,13 @@ function getFollowees() {
 	return null;
 }
 
-function getFollowRequests() {
+function getFollowRequests(user_id) {
 	//Gather data
 	var params = new Array();
 	params['action'] = 'getFollowRequests';
 	params['key'] = getCookie('key');
 	params['username'] = getCookie('username');
+	params['user_id'] = user_id;
 
 	//Send request
 	request = picnitRequest(memberurl, params);

@@ -84,15 +84,15 @@
 					});
 				else if(hash === '#followers')
 					changePanel(function() {
-						createFollowersElements();
+						createFollowersElements(<?php echo $profile['member_id'];?>, <?php if($profile['member_id']==$_COOKIE['member_id']) echo 1; else echo 0;?>);
 					});
 				else if(hash === '#following')
 					changePanel(function() {
-						createFolloweesElements();
+						createFolloweesElements(<?php echo $profile['member_id'];?>, <?php if($profile['member_id']==$_COOKIE['member_id']) echo 1; else echo 0;?>);
 					});
 				else if(hash === '#requests')
 					changePanel(function() {
-						createFollowReqElements();
+						createFollowReqElements(<?php echo $profile['member_id'];?>, <?php if($profile['member_id']==$_COOKIE['member_id']) echo 1; else echo 0;?>);
 					});
 				else if(hash === '#tagged')
 					changePanel(function() {
