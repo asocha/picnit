@@ -43,7 +43,7 @@
 
 			$('.flexslider').flexslider({
 				after: function(slider) {
-					$('#catlabel').html(slider.slides[slider.currentSlide].children[0].attributes[2].value);
+					//$('#catlabel').html(slider.slides[slider.currentSlide].children[0].children[1].attributes[2].value);
 				}
 			});
 		};
