@@ -91,6 +91,7 @@ function logout(redirect) {
 	deleteCookie('username');
 	deleteCookie('member_id');
 	deleteCookie('is_suspended');
+	deleteCookie('is_admin');
 	deleteCookie('key');
 
 	//Go back to the index
