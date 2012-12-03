@@ -32,7 +32,7 @@
 			};
 
 			//Get the categories
-			var cats = getTopCategories(getCookie('member_id'), 5);
+			var cats = getTopCategories(getCookie('member_id')? getCookie('member_id') : "", 5);
 
 			$('#catlabel').html(cats[0]['category']);
 			for(x in cats) {

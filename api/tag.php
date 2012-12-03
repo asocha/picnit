@@ -138,10 +138,9 @@ HIT_ME_BABY_ONE_MORE_TIME:
 
 			$tosend = array();
 			while($row = mysql_fetch_array($res))
-					$tosend[] = $row;
+				$tosend[] = $row;
 
 			$this->response(json_encode($tosend), 200);
-
 		}
 
 		public function getTagsByImage() {
