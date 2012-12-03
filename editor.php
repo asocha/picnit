@@ -32,7 +32,7 @@
 		$image = json_decode($res['result'], true);
 		$image = $image[0];
 
-		if(($profile['member_id'] != $image['owner_id'])) || ($_COOKIE['member_id'] != $image['owner_id']))
+		if($_COOKIE['member_id'] != $image['owner_id'])
 			header('Location: 403.php');
 		else if(!$image)
 			header('Location: 404.php');
