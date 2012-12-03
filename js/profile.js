@@ -277,9 +277,9 @@ function createTaggedElements(user_id, username, member_id) {
 	});
 }
 
-function createFollowersElements() {
+function createFollowersElements(user_id, own_profile) {
 	//Get the tagged elements
-	var list = getFollowers();
+	var list = getFollowers(user_id);
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -291,7 +291,7 @@ function createFollowersElements() {
 		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
 		line += "<span class='follower'>"+list[x]['username']+"</span>";
 		line += "</a>";
-		line += "<input type='button' id='folrembut"+list[x]['user_id']+"' class='buttons folrembut' value='remove'/>";
+		if (own_profile) line += "<input type='button' id='folrembut"+list[x]['user_id']+"' class='buttons folrembut' value='remove'/>";
 		line += "</div>";
 	}
 	//Clear the current contents
@@ -315,9 +315,9 @@ function createFollowersElements() {
 	});
 }
 
-function createFolloweesElements() {
+function createFolloweesElements(user_id, own_profile) {
 	//Get the tagged elements
-	var list = getFollowees();
+	var list = getFollowees(user_id);
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -329,7 +329,7 @@ function createFolloweesElements() {
 		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
 		line += "<span class='follower'>"+list[x]['username']+"</span>";
 		line += "</a>";
-		line+="<input type='button' id='unfollbut"+list[x]['user_id']+"' class='buttons unfollbut' value='unfollow'/>";
+		if (own_profile) line+="<input type='button' id='unfollbut"+list[x]['user_id']+"' class='buttons unfollbut' value='unfollow'/>";
 		line += "</div>";
 	}
 	//Clear the current contents
@@ -353,9 +353,9 @@ function createFolloweesElements() {
 	});
 }
 
-function createFollowReqElements() {
+function createFollowReqElements(user_id, own_profile) {
 	//Get the tagged elements
-	var list = getFollowRequests();
+	var list = getFollowRequests(user_id);
 
 	//Get display area
 	var disp = $("#thumbnail-display");
@@ -366,8 +366,10 @@ function createFollowReqElements() {
 		line += "<a href='/picnit/profile/"+list[x]['username']+"'>";
 		line += "<span class='follower'>"+list[x]['username']+"</span>";
 		line += "</a>";
-		line += "<input type='button' id='accfolreq"+list[x]['user_id']+"' class='buttons accfolreq' value='accept'/>";
-		line += "<input type='button' id='decfolreq"+list[x]['user_id']+"' class='buttons decfolreq' value='decline'/>";
+		if (own_profile){
+			line += "<input type='button' id='accfolreq"+list[x]['user_id']+"' class='buttons accfolreq' value='accept'/>";
+			line += "<input type='button' id='decfolreq"+list[x]['user_id']+"' class='buttons decfolreq' value='decline'/>";
+		}
 		line += "</div>";
 	}
 	//Clear the current contents
