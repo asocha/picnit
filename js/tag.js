@@ -140,6 +140,7 @@ function deleteTag(image_id, id, mem_or_cat) {
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
 	params['image_id'] = image_id;
+	params['is_admin'] = getCookie('is_admin');
 	params[mem_or_cat] = id;
 
 	//Send request

@@ -64,11 +64,12 @@ HIT_ME_BABY_ONE_MORE_TIME:
 			$image_id = $this->load('image_id');
 			$cat_id = $this->load('cat_id', false); // If category
 			$user_id = $this->load('user_id', false); // If member
+			$is_admin = $this->load('is_admin');
 
 			$this->forceauth();
 
 			$res = mysql_query("SELECT owner_id FROM images WHERE image_id='$image_id'");
-			if($this->memberid != mysql_result($res, 0, owner_id) && $this->memberid != $user_id)
+			if($this->memberid != mysql_result($res, 0, owner_id) && $this->memberid != $user_id && !$is_admin)
 				$this->response(json_encode(array('msg' => 'You do not own this image')), 403);
 
 			if($user_id != "") // Delete member tag
