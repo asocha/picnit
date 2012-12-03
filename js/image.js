@@ -84,6 +84,32 @@ function sendImage(photo, phototype) {
 	return false;
 }
 
+function resaveImage(image_id, image) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'resaveImage';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = image_id;
+	params['image'] = image;
+
+	//Send request
+	request = picnitRequest(imageurl, params);
+
+	//Good data, show image saved
+	if(request.status === 200) {
+		window.location = "/picnit/album/"+albumid;
+	}
+	//Error
+	else {
+		//Parse the JSON result
+		var res = $.parseJSON(request.responseText);
+		alert(request.status + "\n" + res["msg"]);
+	}
+
+	return false;
+}
+
 function deleteImage(imgid) {
 	var params = new Array();
 	params['action'] = 'deleteImage';
@@ -123,6 +149,26 @@ function getLastImages(num,user_id) {
 	//Good data, give back JSON
 	if(request.status === 200) {
 		return $.parseJSON(request.responseText);
+	}
+
+	return null;
+}
+
+function getImage(image_id) {
+	//Gather params
+	var params = new Array();
+	params['action'] = "getImages";
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['image_id'] = image_id;
+
+	//Send request
+	request = picnitRequest(imageurl, params);
+
+	//Good data, give back JSON
+	if(request.status === 200) {
+		var ret = $.parseJSON(request.responseText);
+		return ret[0];
 	}
 
 	return null;

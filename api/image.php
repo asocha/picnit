@@ -57,6 +57,7 @@
 					$tosend[$i]['favorited'] = $row['isfavorite'] ? true : false;
 					$tosend[$i]['name'] = $row['name'];
 					$tosend[$i]['description'] = $row['description'];
+					$tosend[$i]['album_id'] = $row['album_id'];
 					$tosend[$i]['image'] = base64_encode(file_get_contents("/var/www/picnit/images/user".$row['filepath']));
 					$i++;
 			}

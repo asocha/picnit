@@ -158,6 +158,13 @@ function imageview() {
 			disp.append(line);
 		}
 
+		$(".commentdelbut").click(function() {
+			var id = $(this).attr('id').substring(13);
+
+			if(deleteComment(id))
+				$("#comment"+id).remove();
+		});
+
 		$("body").css("overflow","hidden");
 
 		$("#viewercontainer").scroll(function() {
@@ -189,6 +196,13 @@ function imageview() {
 			line += "</div>";
 			
 			$('#comments').prepend(line);
+
+			$(".commentdelbut").click(function() {
+			var id = $(this).attr('id').substring(13);
+
+			if(deleteComment(id))
+				$("#comment"+id).remove();
+			});
 
 			return false;
 		}

@@ -1,4 +1,43 @@
 <!DOCTYPE html>
+<?php
+	require_once('php/general.php');
+
+	//Make sure id has been passed
+	if($_GET['image_id'] === "")
+		header('Location: /picnit/404.php');
+
+	//Get data of this album
+	$fields = array(
+		'action' => 'memberData',
+		'username' => urlencode($_COOKIE['username']),
+		'key' => urlencode($_COOKIE['key']),
+		'tusername' => urlencode($_COOKIE['username'])
+	);
+
+	//Send request
+	$res = picnitRequest('api/member.php', $fields);
+
+	if($res['status'] === 200) {
+		$profile = json_decode($res['result'], true);
+		$profile = $albuminfo['list'][0];
+	}
+
+	$fields['image_id'] = urlencode($_GET['image_id']);
+	$fields['action'] = 'getImages';
+	unset($fields['tusername']);
+
+	$res = picnitRequest('api/image.php', $fields);
+
+	if($res['status'] === 200) {
+		$image = json_decode($res['result'], true);
+		$image = $image[0];
+
+		if($profile['member_id'] != $image['owner_id'])
+			header('Location: 403.php');
+		else if(!$image)
+			header('Location: 404.php');
+	}
+?>
 <html lang="en">
 <head>
   <meta charset="utf8">
@@ -7,7 +46,7 @@
   <?php require_once('php/general.php'); ?>
 	<?php require_once('php/html/topbar.php'); ?>
 	<link href='http://fonts.googleapis.com/css?family=Source+Code+Pro|Raleway:400,200,700' rel='stylesheet' type='text/css'>	
-	<script type='text/javascript' src='js/editorjs/9ec45af399351c8877c311e247b40e64.js'></script>
+	<script type='text/javascript' src='/picnit/js/editorjs/9ec45af399351c8877c311e247b40e64.js'></script>
 	<link rel="stylesheet" href="/picnit/css/style.css" type="text/css">
 	<link rel="stylesheet" href="/picnit/css/flexslider.css" type="text/css">
 	<link href='http://fonts.googleapis.com/css?family=Concert+One' rel='stylesheet' type='text/css'>
@@ -20,17 +59,26 @@
 	<script type="text/javascript" src="/picnit/js/image.js"></script>
 	<script type="text/javascript" src="/picnit/js/tag.js"></script>
 	<script type="text/javascript" src="/picnit/js/profile.js"></script>
-
-
   <script src="js/editorjs/editor.js"></script>
+
+  	<script type="text/javascript">
+	</script>
 </head>
 <body>
 	<?php menubar(); ?>
 <div id="Content" class="panels">
   <h3>Image Editor</h3>
   <button type="button" class="buttons" id="savebut">save</button>
-  <img id="example" src="images/gui/picture3.jpg">
+  <script type="text/javascript">
+	$('#savebut').click(function() {
+		var img = document.getElementById('example');
+		var imgData = img.toDataURL();
 
+		if(resaveImage(<?php echo $image['image_id']; ?>, imgData.substring(imgData.indexOf("base64,")+7)))
+			window.location = "/picnit/album/<?php echo $image['album_id']; ?>#imagesection<?php echo $image['image_id']; ?>";
+	});
+  </script>
+  <img id="example" src="<?php echo "data:$image[image_type];base64,$image[image]"; ?>">
   <div id="Filters">
   <div id="bars">
     <div class="Filter">

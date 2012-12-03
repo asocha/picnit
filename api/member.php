@@ -15,7 +15,7 @@
 			$username = $this->load('username');
 			$password = $this->getHashedPassword($username);
 
-			$res = mysql_query("SELECT member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1");
+			$res = mysql_query("SELECT is_admin, member_id, username, is_suspended, password FROM members where username='$username' and password='$password' LIMIT 1");
 
 			if(mysql_num_rows($res) > 0) {
 				$result = mysql_fetch_array($res, MYSQL_ASSOC);

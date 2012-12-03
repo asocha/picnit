@@ -36,7 +36,7 @@
 			$owner_id = mysql_result(mysql_query("SELECT i.owner_id FROM images i, comments c WHERE i.image_id=c.image_id and c.comment_id='$comment_id'"),0);
 
 			if($owner_id == $this->memberid)
-				$res = mysql_query("DELETE FROM comment where comment_id='$comment_id'");
+				$res = mysql_query("DELETE FROM comments where comment_id='$comment_id'");
 			else
 				$res = mysql_query("DELETE FROM comments where comment_id='$comment_id' and commenter_id='$this->memberid'");
 
