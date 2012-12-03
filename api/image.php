@@ -126,10 +126,14 @@ get_new_file_path:
 
 		public function deleteImage() {
 			$image_id = $this->load('image_id');
+			$is_admin = $this->load('is_admin');
 
 			$this->forceauth();
 
-			$res = mysql_query("DELETE FROM images WHERE image_id='$image_id' and owner_id='$this->memberid'");
+			if (!$is_admin)
+				$res = mysql_query("DELETE FROM images WHERE image_id='$image_id' and owner_id='$this->memberid'");
+			else
+				$res = mysql_query("DELETE FROM images WHERE image_id='$image_id'");
 			if(!$res)
 				$this->response(json_encode(array('msg' => 'Unknown error - try again')), 503);
 
