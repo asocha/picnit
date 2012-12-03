@@ -11,6 +11,11 @@
 			$this->link = $this->db_connect();
 		}
 
+		/**
+		 * Check login info of a user, returns user info<br/>
+		 * Responses:<br/>
+		 * 200 - JSON array containing is_admin, member_id, username, is_suspended, and password<br/>
+		 */
 		public function login() {
 			$username = $this->load('username');
 			$password = $this->getHashedPassword($username);
