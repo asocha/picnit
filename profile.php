@@ -155,17 +155,12 @@
 				<input id="taggedbut" class="buttons innerbuttons" type="button" value="tagged"/>
 				<input id="followersbut" class="buttons innerbuttons" type="button" value="followers"/>
 				<input id="followeesbut" class="buttons innerbuttons" type="button" value="following"/>
+				<input id="requestsbut" class="buttons innerbuttons" type="button" value="<?php echo $profile['request_count'];?> requests"/>
 				<?php
 					//Add suspend button
 					if($admin && $profile['username'] !== $_COOKIE['username']) {
 				?>
-				<input id="requestsbut" class="buttons innerbuttons" type="button" value="requests"/>
 				<input id="suspenduserbut" class="buttons routerbuttons" type="button" value="<?php echo ($profile['is_suspended']==true)? 'unsuspend' : 'suspend'; ?>"/>
-				<?php
-					}
-					else {
-				?>
-				<input id="requestsbut" class="buttons routerbuttons" type="button" value="requests"/>
 				<?php
 					}
 				?>
@@ -198,12 +193,12 @@
 							else if(val === 'unfollow') {
 								var id = $(this).attr('id').substring(9);
 								var button = this;
-                                                                        showConfirm('Are you sure you want to unfollow this user?', (function(id, obj) {
-                                                                                return function() {
-                                                                                        if(unfollow(<?php echo $profile['member_id'];?>))
-                                                                                                $(button).val('follow');
-                                                                                };
-                                                                        })(id, this));
+                                                                showConfirm('Are you sure you want to unfollow this user?', (function(id, obj) {
+                                                                        return function() {
+                                                                                if(unfollow(<?php echo $profile['member_id'];?>))
+                                                                                        $(button).val('follow');
+                                                                        };
+                                                                })(id, this));
 							}
 						});
 					if($('#suspenduserbut').length > 0)
