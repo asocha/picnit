@@ -275,9 +275,12 @@
 		}
 
 		public function getFollowRequests() {
-			$this->forceauth();
+			$user_id = $this->load('user_id', false);
 
-			$res = mysql_query("SELECT follower_id,(SELECT username from members where member_id=follower_id) AS username FROM follows WHERE followee_id='$this->memberid' and is_accepted=false");
+                        if($user_id == "")
+                                $user_id = $this->memberid;
+
+			$res = mysql_query("SELECT follower_id,(SELECT username from members where member_id=follower_id) AS username FROM follows WHERE followee_id='$user_id' and is_accepted=false");
 
 			$i = 0;
 			while($row = mysql_fetch_array($res)) {
