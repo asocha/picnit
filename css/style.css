@@ -287,7 +287,7 @@ img#logo {
 
 form#search {
 	margin: auto;
-	width: 860px;
+	width: 875px;
 	height: 50px;
 	margin-top: -2px;
 }
@@ -319,7 +319,7 @@ span#searchlabel {
 }
 
 span#searchlabel label {
-	font-size:20px;
+	font-size:25px;
 }
 
 input#Searchterm {
@@ -342,13 +342,14 @@ input#Searchterm {
 
 div#gallery {
 	position:relative;
-	height: 700px;
+	height: 540px;
 	top:-135px;
 	-webkit-border-radius:12px;
 	width:80%;
 	margin:auto;
 	margin-top: 12px;
 	background-color:#FFFFFF;
+	padding:10px;
 }
 
 div#info {
@@ -563,15 +564,14 @@ textarea#albumdesc {
 
 textarea#imagedesc {
         max-width: 200px;
-        width: 200px;
-        max-height: 100px;
-        height: 100px;
-        background-color: #0C5DA5;
-        border-style: solid;
-        border-color: #043A6B;
-        border-width: 3px;
-        color: #FFFFFF;
-}^
+	width: 200px;
+	max-height: 100px;
+	height: 100px;
+	background-color: #D8EDFF;
+	border-style: none;
+	color: #000000;
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
 
 form#signupform {
 	margin:auto;
@@ -660,6 +660,7 @@ div#results {
 	margin: auto;
 	padding: 10px;
 	margin-bottom: 15px;
+	min-height:500px
 }
 
 form#signoutbut {
@@ -880,82 +881,6 @@ div.dispfollowreq a:link {
 	margin-right: 5px;
 }
 
-/* Tiny Carousel */
-#slider1 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider2 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider3 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider4 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-#slider5 { 
-	height: 100px;
-	width:550px; 
-	overflow:hidden; 
-	padding: 0 0 10px; 
-	margin:auto;  
-}
-
-.catlabel {
-	text-align: center;
-	margin:5px;
-}
-
-.viewport { 
-	float: left; 
-	width: 450px; 
-	height: 75px;
-	overflow: hidden; 
-	position: relative; 
-}
-
-.buttonsalt { 
-	background:url("/picnit/images/gui/buttons.png") no-repeat scroll 0 0 transparent; 
-	display: block; margin: 30px 10px 0 0; 
-	background-position: 0 -38px; 
-	text-indent: -999em;
-	float: left; 
-	width: 39px; 
-	height: 37px; 
-	overflow: hidden; 
-	position: relative; 
-	border-style:none;
-}
-
-.next { 
-	background-position: 0 0;
-	margin: 30px 0 0 10px;  
-}
-
-.disable { 
-	visibility: hidden; 
-}
-
 .overview { 
 	list-style: none; 
 	position: absolute; 
@@ -1158,4 +1083,37 @@ width: 180px;
 
 .albumresdate {
 	font-style: italic;
+}
+
+.catrestitle {
+	font-size: 25px;
+	color: #679FD2;
+}
+
+.catresdate {
+	font-style: italic;
+}
+
+#publicness {
+	-webkit-appearance: button;
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+	-webkit-border-radius: 0px;
+	font-family: 'Concert One', cursive;
+	width: 125px;
+}
+
+#publicness:hover {
+	-webkit-box-shadow: inset 1px 1px 2px 2px #CCC;
+}
+
+div#cat .flexslider {
+	-webkit-border-radius: 12px;
+	-webkit-box-shadow: 1px 1px 2px 2px #CCC;
+}
+
+.catlabel {
+	text-align: center;
+	margin: 5px;
+	font-size: 50px;
+	color:#679FD2;
 }

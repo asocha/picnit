@@ -35,3 +35,71 @@ function filterMembers(input) {
 	return null;
 }
 
+function getImagesByName(input) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'getImagesByName';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['name'] = input;
+
+	//Send request
+	request = picnitRequest(searchurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	//Error
+	else {
+
+	}
+
+	return null;
+}
+
+function getAlbumsByName(input) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'getAlbumsByName';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['name'] = input;
+
+	//Send request
+	request = picnitRequest(searchurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	//Error
+	else {
+
+	}
+
+	return null;
+}
+
+function getImagesByCategory(input) {
+	//Gather post request data
+	var params = new Array();
+	params['action'] = 'getImagesByCategory';
+	params['username'] = getCookie('username');
+	params['key'] = getCookie('key');
+	params['name'] = input;
+
+	//Send request
+	request = picnitRequest(searchurl, params);
+
+	//Good data, show image created
+	if(request.status === 200) {
+		return $.parseJSON(request.responseText);
+	}
+	//Error
+	else {
+
+	}
+
+	return null;
+}
