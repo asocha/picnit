@@ -89,6 +89,7 @@ function deleteImage(imgid) {
 	params['action'] = 'deleteImage';
 	params['username'] = getCookie('username');
 	params['key'] = getCookie('key');
+	params['is_admin'] = getCookie('is_admin');
 	params['image_id'] = imgid;
 
 	request = picnitRequest(imageurl, params);

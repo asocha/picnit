@@ -50,14 +50,22 @@
 
 		public function deleteAlbum() {
 			$album_id = $this->load('album_id');
+			$is_admin = $this->load('is_admin');
 
 			$this->forceauth();
-			$res = mysql_query("SELECT filepath FROM images WHERE album_id='$album_id' and owner_id='$this->memberid'");
+
+			if (!$is_admin)
+				$res = mysql_query("SELECT filepath FROM images WHERE album_id='$album_id' and owner_id='$this->memberid'");
+			else
+				$res = mysql_query("SELECT filepath FROM images WHERE album_id='$album_id'");
 
 			while($row = mysql_fetch_array($res))
 				unlink("/var/www/picnit/images/user".$row['filepath']);
 
-			$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
+			if (!$is_admin)
+				$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id' and owner_id='$this->memberid'");
+			else
+				$res = mysql_query("DELETE FROM albums WHERE album_id='$album_id'");
 			if(mysql_affected_rows())
 				$this->response(json_encode(array('msg' => 'Deletion was succesfully performed')), 200);
 
